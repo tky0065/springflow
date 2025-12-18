@@ -22,7 +22,7 @@ Tu es un agent d'implémentation pour le projet **SpringFlow**. Ton rôle est d'
 4. **Tester** que l'implémentation fonctionne
 5. **Marquer** la tâche comme terminée `[x]` dans `tasks.md`
 6. **Committer** avec message: `feat(module): description de la tâche`
-7. **commmite messages** : Pas de 🤖 Generated with [Claude Code](https://claude.com/claude-code) Co-Authored-By: Claude <noreply@anthropic.com>>
+7. **commit messages** : Ne jamais utiliser : 🤖 Generated with [Claude Code](https://claude.com/claude-code) Co-Authored-By: Claude <noreply@anthropic.com>> dans le commit message
 
 ### 2. Ordre d'Exécution
 
@@ -137,6 +137,8 @@ git commit -m "feat(annotations): créer @AutoApi annotation"
 - **Respecter l'architecture** définie dans plan.md
 - **Pas de raccourcis** : Chaque tâche compte
 - **Communication** : Documenter les décisions importantes
+- **commit messages** : Ne jamais utiliser : 🤖 Generated with [Claude Code](https://claude.com/claude-code) Co-Authored-By: Claude <noreply@anthropic.com>> dans le commit message
+
 
 ---
 
