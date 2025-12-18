@@ -17,6 +17,18 @@
     <name>SpringFlow Core</name>
     <description>Core implementation of SpringFlow framework</description>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <proc>none</proc>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- SpringFlow Annotations -->
         <dependency>

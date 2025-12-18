@@ -86,34 +86,34 @@
 ### 🔍 Module 3: Entity Scanner (Semaine 3)
 
 #### 3.1 EntityScanner Core
-- [ ] Créer classe `EntityScanner`
-- [ ] Implémenter scan du classpath
-- [ ] Utiliser `ClassPathScanningCandidateComponentProvider`
-- [ ] Filter pour `@Entity` + `@AutoApi`
-- [ ] Support scan multi-packages
-- [ ] Gestion des erreurs de scan
+- [x] Créer classe `EntityScanner`
+- [x] Implémenter scan du classpath
+- [x] Utiliser `ClassPathScanningCandidateComponentProvider`
+- [x] Filter pour `@Entity` + `@AutoApi`
+- [x] Support scan multi-packages
+- [x] Gestion des erreurs de scan
 
 #### 3.2 Cache Management
-- [ ] Implémenter cache des entités scannées
-- [ ] Utiliser `ConcurrentHashMap`
-- [ ] Stratégie de cache invalidation
-- [ ] Configuration cache size limit
-- [ ] Métriques de cache (hits/misses)
+- [x] Implémenter cache des entités scannées
+- [x] Utiliser `ConcurrentHashMap`
+- [x] Stratégie de cache invalidation
+- [x] Configuration cache size limit
+- [x] Métriques de cache (hits/misses)
 
 #### 3.3 Metadata Extraction Initial
-- [ ] Extraire nom de classe
-- [ ] Extraire nom de table (@Table)
-- [ ] Extraire annotation @AutoApi
-- [ ] Valider configuration annotations
-- [ ] Logger entités trouvées
+- [x] Extraire nom de classe
+- [x] Extraire nom de table (@Table)
+- [x] Extraire annotation @AutoApi
+- [x] Valider configuration annotations
+- [x] Logger entités trouvées
 
 #### 3.4 Tests
-- [ ] Test scan package simple
-- [ ] Test scan packages multiples
-- [ ] Test scan avec sous-packages
-- [ ] Test entités sans @AutoApi
-- [ ] Test cache fonctionnel
-- [ ] Test performance (>100 entités)
+- [x] Test scan package simple
+- [x] Test scan packages multiples
+- [x] Test scan avec sous-packages
+- [x] Test entités sans @AutoApi
+- [x] Test cache fonctionnel
+- [x] Test performance (>100 entités)
 
 ---
 

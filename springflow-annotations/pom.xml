@@ -17,6 +17,18 @@
     <name>SpringFlow Annotations</name>
     <description>Core annotations for SpringFlow framework</description>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <proc>none</proc>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- Test Dependencies -->
         <dependency>

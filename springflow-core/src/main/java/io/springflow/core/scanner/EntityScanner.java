@@ -136,6 +136,7 @@ public class EntityScanner {
                 .map(this::loadClass)
                 .filter(Objects::nonNull)
                 .filter(this::isValidEntity)
+                .peek(this::logEntityDetails)
                 .collect(Collectors.toSet());
     }
 
@@ -200,6 +201,28 @@ public class EntityScanner {
      */
     public boolean hasAutoApiAnnotation(Class<?> entityClass) {
         return entityClass != null && entityClass.isAnnotationPresent(AutoApi.class);
+    }
+
+    /**
+     * Logs details about the discovered entity.
+     *
+     * @param clazz entity class
+     */
+    private void logEntityDetails(Class<?> clazz) {
+        String entityName = clazz.getSimpleName();
+        String tableName = "default";
+        if (clazz.isAnnotationPresent(jakarta.persistence.Table.class)) {
+            jakarta.persistence.Table table = clazz.getAnnotation(jakarta.persistence.Table.class);
+            if (!table.name().isEmpty()) {
+                tableName = table.name();
+            }
+        }
+
+        AutoApi autoApi = clazz.getAnnotation(AutoApi.class);
+        String path = autoApi.path().isEmpty() ? "/" + entityName.toLowerCase() : autoApi.path();
+        
+        log.debug("Discovered Entity: {} | Table: {} | Path: {} | Security: {}", 
+                 entityName, tableName, path, autoApi.security());
     }
 
     /**
