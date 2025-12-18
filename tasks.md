@@ -7,40 +7,40 @@
 ### 📦 Module 1: Project Setup & Architecture (Semaine 1)
 
 #### 1.1 Structure Multi-Module
-- [ ] Créer parent POM Maven
-- [ ] Configurer module `springflow-annotations`
-- [ ] Configurer module `springflow-core`
-- [ ] Configurer module `springflow-starter`
-- [ ] Configurer module `springflow-demo`
-- [ ] Configurer dependency management
-- [ ] Setup Java 17+ compilation
-- [ ] Setup Kotlin support
+- [x] Créer parent POM Maven
+- [x] Configurer module `springflow-annotations`
+- [x] Configurer module `springflow-core`
+- [x] Configurer module `springflow-starter`
+- [x] Configurer module `springflow-demo`
+- [x] Configurer dependency management
+- [x] Setup Java 17+ compilation
+- [x] Setup Kotlin support
 
 #### 1.2 Configuration Maven/Gradle
-- [ ] Configurer Spring Boot BOM (3.2+)
-- [ ] Ajouter Spring Data JPA dependencies
-- [ ] Ajouter SpringDoc OpenAPI dependencies
-- [ ] Ajouter validation dependencies (JSR-380)
-- [ ] Ajouter Lombok (optionnel)
-- [ ] Configurer Maven plugins (compiler, surefire)
-- [ ] Configurer profiles (dev, prod)
+- [x] Configurer Spring Boot BOM (3.2+)
+- [x] Ajouter Spring Data JPA dependencies
+- [x] Ajouter SpringDoc OpenAPI dependencies
+- [x] Ajouter validation dependencies (JSR-380)
+- [x] Ajouter Lombok (optionnel)
+- [x] Configurer Maven plugins (compiler, surefire)
+- [x] Configurer profiles (dev, prod)
 
 #### 1.3 CI/CD Setup
-- [ ] Créer GitHub Actions workflow
-- [ ] Configurer build automatique
-- [ ] Configurer tests automatiques
-- [ ] Setup SonarQube analysis
-- [ ] Configurer code coverage (JaCoCo)
+- [x] Créer GitHub Actions workflow
+- [x] Configurer build automatique
+- [x] Configurer tests automatiques
+- [x] Setup SonarQube analysis
+- [x] Configurer code coverage (JaCoCo)
 - [ ] Setup quality gates
 - [ ] Configurer artifact publication
 
 #### 1.4 Documentation Infrastructure
-- [ ] Créer structure docs/
+- [x] Créer structure docs/
 - [ ] Setup MkDocs ou similaire
 - [ ] Configurer GitHub Pages
-- [ ] Template README.md
-- [ ] Template CONTRIBUTING.md
-- [ ] Template LICENSE
+- [x] Template README.md
+- [x] Template CONTRIBUTING.md
+- [x] Template LICENSE
 
 ---
 
