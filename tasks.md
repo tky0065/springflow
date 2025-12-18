@@ -120,66 +120,66 @@
 ### 📊 Module 4: Metadata Resolver (Semaine 3-4)
 
 #### 4.1 EntityMetadata Model
-- [ ] Créer classe `EntityMetadata`
-- [ ] Propriété `entityClass`
-- [ ] Propriété `idType`
-- [ ] Propriété `entityName`
-- [ ] Propriété `tableName`
-- [ ] Propriété `fields` (List<FieldMetadata>)
-- [ ] Propriété `autoApiConfig`
-- [ ] Méthodes helper (getIdField, getFieldByName, etc.)
+- [x] Créer classe `EntityMetadata`
+- [x] Propriété `entityClass`
+- [x] Propriété `idType`
+- [x] Propriété `entityName`
+- [x] Propriété `tableName`
+- [x] Propriété `fields` (List<FieldMetadata>)
+- [x] Propriété `autoApiConfig`
+- [x] Méthodes helper (getIdField, getFieldByName, etc.)
 
 #### 4.2 FieldMetadata Model
-- [ ] Créer classe `FieldMetadata`
-- [ ] Propriété `field` (Field)
-- [ ] Propriété `name`
-- [ ] Propriété `type`
-- [ ] Propriété `nullable`
-- [ ] Propriété `hidden`
-- [ ] Propriété `readOnly`
-- [ ] Propriété `validations` (List<Annotation>)
-- [ ] Propriété `filterConfig`
+- [x] Créer classe `FieldMetadata`
+- [x] Propriété `field` (Field)
+- [x] Propriété `name`
+- [x] Propriété `type`
+- [x] Propriété `nullable`
+- [x] Propriété `hidden`
+- [x] Propriété `readOnly`
+- [x] Propriété `validations` (List<Annotation>)
+- [x] Propriété `filterConfig`
 
 #### 4.3 ID Resolution
-- [ ] Détecter champ @Id
-- [ ] Extraire type de l'ID
-- [ ] Support @EmbeddedId
-- [ ] Support @IdClass
-- [ ] Valider présence de l'ID
-- [ ] Détection generation strategy
+- [x] Détecter champ @Id
+- [x] Extraire type de l'ID
+- [x] Support @EmbeddedId
+- [x] Support @IdClass
+- [x] Valider présence de l'ID
+- [x] Détection generation strategy
 
 #### 4.4 Validation Extraction
-- [ ] Scanner annotations JSR-380
-- [ ] Extraire @NotNull, @NotBlank
-- [ ] Extraire @Size, @Min, @Max
-- [ ] Extraire @Email, @Pattern
-- [ ] Extraire validations custom
-- [ ] Stocker dans FieldMetadata
+- [x] Scanner annotations JSR-380
+- [x] Extraire @NotNull, @NotBlank
+- [x] Extraire @Size, @Min, @Max
+- [x] Extraire @Email, @Pattern
+- [x] Extraire validations custom
+- [x] Stocker dans FieldMetadata
 
 #### 4.5 Relations JPA
-- [ ] Créer classe `RelationMetadata`
-- [ ] Détecter @OneToMany
-- [ ] Détecter @ManyToOne
-- [ ] Détecter @ManyToMany
-- [ ] Détecter @OneToOne
-- [ ] Extraire fetch type (LAZY/EAGER)
-- [ ] Extraire cascade options
+- [x] Créer classe `RelationMetadata`
+- [x] Détecter @OneToMany
+- [x] Détecter @ManyToOne
+- [x] Détecter @ManyToMany
+- [x] Détecter @OneToOne
+- [x] Extraire fetch type (LAZY/EAGER)
+- [x] Extraire cascade options
 
 #### 4.6 Field Analysis
-- [ ] Analyser tous les champs de l'entité
-- [ ] Exclure champs static
-- [ ] Exclure champs transient
-- [ ] Détection @Hidden annotation
-- [ ] Détection @Filterable annotation
-- [ ] Support héritage (@MappedSuperclass)
+- [x] Analyser tous les champs de l'entité
+- [x] Exclure champs static
+- [x] Exclure champs transient
+- [x] Détection @Hidden annotation
+- [x] Détection @Filterable annotation
+- [x] Support héritage (@MappedSuperclass)
 
 #### 4.7 Tests
-- [ ] Test extraction ID simple
-- [ ] Test extraction ID composite
-- [ ] Test extraction validations
-- [ ] Test extraction relations
-- [ ] Test champs hidden
-- [ ] Test héritage entités
+- [x] Test extraction ID simple
+- [x] Test extraction ID composite
+- [x] Test extraction validations
+- [x] Test extraction relations
+- [x] Test champs hidden
+- [x] Test héritage entités
 
 ---
 
