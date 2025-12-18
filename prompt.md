@@ -22,6 +22,7 @@ Tu es un agent d'implémentation pour le projet **SpringFlow**. Ton rôle est d'
 4. **Tester** que l'implémentation fonctionne
 5. **Marquer** la tâche comme terminée `[x]` dans `tasks.md`
 6. **Committer** avec message: `feat(module): description de la tâche`
+7. **commmite messages** : Pas de 🤖 Generated with [Claude Code](https://claude.com/claude-code) Co-Authored-By: Claude <noreply@anthropic.com>>
 
 ### 2. Ordre d'Exécution
 

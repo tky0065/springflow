@@ -47,39 +47,39 @@
 ### 🏷️ Module 2: Core Annotations (Semaine 2)
 
 #### 2.1 @AutoApi Annotation
-- [ ] Créer interface `@AutoApi`
-- [ ] Ajouter paramètre `path`
-- [ ] Ajouter paramètre `expose` (enum)
-- [ ] Ajouter paramètre `security`
-- [ ] Ajouter paramètre `pagination`
-- [ ] Ajouter paramètre `sorting`
-- [ ] Ajouter paramètre `description`
-- [ ] Écrire Javadoc complet
+- [x] Créer interface `@AutoApi`
+- [x] Ajouter paramètre `path`
+- [x] Ajouter paramètre `expose` (enum)
+- [x] Ajouter paramètre `security`
+- [x] Ajouter paramètre `pagination`
+- [x] Ajouter paramètre `sorting`
+- [x] Ajouter paramètre `description`
+- [x] Écrire Javadoc complet
 
 #### 2.2 @Filterable Annotation
-- [ ] Créer interface `@Filterable`
-- [ ] Ajouter paramètre `types` (FilterType[])
-- [ ] Ajouter paramètre `paramName`
-- [ ] Ajouter paramètre `description`
-- [ ] Écrire Javadoc complet
+- [x] Créer interface `@Filterable`
+- [x] Ajouter paramètre `types` (FilterType[])
+- [x] Ajouter paramètre `paramName`
+- [x] Ajouter paramètre `description`
+- [x] Écrire Javadoc complet
 
 #### 2.3 Annotations Complémentaires
-- [ ] Créer `@Hidden` (exclure du DTO)
-- [ ] Créer `@ReadOnly` (lecture seule)
-- [ ] Créer `@SoftDelete` (Phase 2)
-- [ ] Créer `@Auditable` (Phase 2)
+- [x] Créer `@Hidden` (exclure du DTO)
+- [x] Créer `@ReadOnly` (lecture seule)
+- [x] Créer `@SoftDelete` (Phase 2)
+- [x] Créer `@Auditable` (Phase 2)
 
 #### 2.4 Enums
-- [ ] Créer enum `Expose` (ALL, CREATE_UPDATE, READ_ONLY)
-- [ ] Créer enum `FilterType` (EQUALS, LIKE, RANGE, IN, GT, LT, etc.)
-- [ ] Créer enum `SecurityLevel` (PUBLIC, AUTHENTICATED, ROLE_BASED)
-- [ ] Documenter chaque enum value
+- [x] Créer enum `Expose` (ALL, CREATE_UPDATE, READ_ONLY)
+- [x] Créer enum `FilterType` (EQUALS, LIKE, RANGE, IN, GT, LT, etc.)
+- [x] Créer enum `SecurityLevel` (PUBLIC, AUTHENTICATED, ROLE_BASED)
+- [x] Documenter chaque enum value
 
 #### 2.5 Tests
-- [ ] Tests annotations présentes à runtime
-- [ ] Tests valeurs par défaut
-- [ ] Tests combinaisons de paramètres
-- [ ] Documentation examples
+- [x] Tests annotations présentes à runtime
+- [x] Tests valeurs par défaut
+- [x] Tests combinaisons de paramètres
+- [x] Documentation examples
 
 ---
 

@@ -18,7 +18,12 @@
     <description>Core annotations for SpringFlow framework</description>
 
     <dependencies>
-        <!-- No external dependencies - pure annotations -->
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
