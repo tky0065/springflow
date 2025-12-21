@@ -408,50 +408,50 @@
 ### ⚙️ Module 10: Spring Boot Auto Configuration (Semaine 8)
 
 #### 10.1 SpringFlowAutoConfiguration
-- [ ] Créer classe `SpringFlowAutoConfiguration`
-- [ ] Annotation `@Configuration`
-- [ ] Annotation `@ConditionalOnClass`
-- [ ] Import `SpringFlowBeanDefinitionRegistrar`
-- [ ] Beans conditionnels
+- [x] Créer classe `SpringFlowAutoConfiguration`
+- [x] Annotation `@Configuration`
+- [x] Annotation `@ConditionalOnClass`
+- [x] Import `SpringFlowBeanDefinitionRegistrar`
+- [x] Beans conditionnels
 
 #### 10.2 Configuration Properties
-- [ ] Créer `SpringFlowProperties`
-- [ ] Annotation `@ConfigurationProperties("springflow")`
-- [ ] Propriété `enabled` (default true)
-- [ ] Propriété `basePath` (default "/api")
-- [ ] Propriété `basePackages` (String[])
-- [ ] Propriété `pagination.*`
-- [ ] Propriété `swagger.*`
+- [x] Créer `SpringFlowProperties`
+- [x] Annotation `@ConfigurationProperties("springflow")`
+- [x] Propriété `enabled` (default true)
+- [x] Propriété `basePath` (default "/api")
+- [x] Propriété `basePackages` (String[])
+- [x] Propriété `pagination.*`
+- [x] Propriété `swagger.*`
 
 #### 10.3 Enable Annotation
-- [ ] Créer `@EnableSpringFlow`
-- [ ] Paramètre `basePackages`
-- [ ] Paramètre `value` (alias)
-- [ ] Import configuration
+- [x] Créer `@EnableSpringFlow`
+- [x] Paramètre `basePackages`
+- [x] Paramètre `value` (alias)
+- [x] Import configuration
 
 #### 10.4 spring.factories
-- [ ] Créer `META-INF/spring.factories`
-- [ ] Enregistrer `SpringFlowAutoConfiguration`
-- [ ] Configuration Spring Boot 3 (spring/spring.factories)
+- [x] Créer `META-INF/spring.factories`
+- [x] Enregistrer `SpringFlowAutoConfiguration`
+- [x] Configuration Spring Boot 3 (spring/spring.factories)
 
 #### 10.5 Conditional Beans
-- [ ] Bean `EntityScanner` si enabled
-- [ ] Bean `RepositoryGenerator` si enabled
-- [ ] Bean `ServiceGenerator` si enabled
-- [ ] Bean `ControllerGenerator` si enabled
+- [x] Bean `EntityScanner` si enabled
+- [x] Bean `RepositoryGenerator` si enabled
+- [x] Bean `ServiceGenerator` si enabled
+- [x] Bean `ControllerGenerator` si enabled
 
 #### 10.6 application.yml Example
-- [ ] Créer exemple configuration
-- [ ] Documentation chaque propriété
-- [ ] Valeurs par défaut
-- [ ] Exemples avancés
+- [x] Créer exemple configuration
+- [x] Documentation chaque propriété
+- [x] Valeurs par défaut
+- [x] Exemples avancés
 
 #### 10.7 Tests
-- [ ] Test auto-configuration chargée
-- [ ] Test avec properties custom
-- [ ] Test disabled (enabled: false)
-- [ ] Test beans créés
-- [ ] Test sans configuration (defaults)
+- [x] Test auto-configuration chargée
+- [x] Test avec properties custom
+- [x] Test disabled (enabled: false)
+- [x] Test beans créés
+- [x] Test sans configuration (defaults)
 
 ---
 
