@@ -186,84 +186,84 @@
 ### 🗄️ Module 5: Repository Generation (Semaine 4)
 
 #### 5.1 RepositoryGenerator Core
-- [ ] Créer classe `RepositoryGenerator`
-- [ ] Méthode `generateRepository(EntityMetadata)`
-- [ ] Créer `GenericBeanDefinition`
-- [ ] Configurer target type `JpaRepository<T, ID>`
-- [ ] Enregistrer dans `BeanDefinitionRegistry`
+- [x] Créer classe `RepositoryGenerator`
+- [x] Méthode `generateRepository(EntityMetadata)`
+- [x] Créer `GenericBeanDefinition`
+- [x] Configurer target type `JpaRepository<T, ID>`
+- [x] Enregistrer dans `BeanDefinitionRegistry`
 
 #### 5.2 JpaSpecificationExecutor Support
-- [ ] Ajouter interface `JpaSpecificationExecutor<T>`
-- [ ] Configuration pour filtres dynamiques
-- [ ] Tests avec Specifications
+- [ ] Ajouter interface `JpaSpecificationExecutor<T>` ⚠️ DEFERRED: Phase 2, Module 16
+- [ ] Configuration pour filtres dynamiques ⚠️ DEFERRED: Phase 2, Module 16
+- [ ] Tests avec Specifications ⚠️ DEFERRED: Phase 2, Module 16
 
 #### 5.3 Custom Query Methods (Optionnel Phase 1)
-- [ ] Support query methods personnalisées
-- [ ] Parser nom de méthode (findByXxx)
-- [ ] Génération automatique (futurs)
+- [ ] Support query methods personnalisées ⚠️ DEFERRED: Future phase
+- [ ] Parser nom de méthode (findByXxx) ⚠️ DEFERRED: Future phase
+- [ ] Génération automatique (futurs) ⚠️ DEFERRED: Future phase
 
 #### 5.4 Bean Registration
-- [ ] Implémenter `BeanDefinitionRegistryPostProcessor`
-- [ ] Enregistrement dynamique au démarrage
-- [ ] Gestion des collisions de noms
-- [ ] Logging des repositories créés
+- [x] Implémenter `BeanDefinitionRegistryPostProcessor`
+- [x] Enregistrement dynamique au démarrage
+- [x] Gestion des collisions de noms
+- [x] Logging des repositories créés
 
 #### 5.5 Tests
-- [ ] Test génération repository simple
-- [ ] Test injection dans service
-- [ ] Test méthodes JpaRepository
-- [ ] Test avec JpaSpecificationExecutor
-- [ ] Test intégration avec H2
-- [ ] Test avec plusieurs entités
+- [x] Test génération repository simple
+- [ ] Test injection dans service (requires Module 6)
+- [ ] Test méthodes JpaRepository (requires integration tests)
+- [ ] Test avec JpaSpecificationExecutor (deferred to Phase 2)
+- [ ] Test intégration avec H2 (requires integration tests)
+- [ ] Test avec plusieurs entités (requires integration tests)
 
 ---
 
 ### 🔧 Module 6: Service Generation (Semaine 5)
 
 #### 6.1 GenericCrudService Abstract Class
-- [ ] Créer classe `GenericCrudService<T, ID>`
-- [ ] Injection `JpaRepository<T, ID>`
-- [ ] Méthode `findAll(Pageable, Specification)`
-- [ ] Méthode `findById(ID)`
-- [ ] Méthode `save(T)`
-- [ ] Méthode `update(ID, T)`
-- [ ] Méthode `deleteById(ID)`
-- [ ] Méthode `existsById(ID)`
+- [x] Créer classe `GenericCrudService<T, ID>`
+- [x] Injection `JpaRepository<T, ID>`
+- [x] Méthode `findAll(Pageable, Specification)`
+- [x] Méthode `findById(ID)`
+- [x] Méthode `save(T)`
+- [x] Méthode `update(ID, T)`
+- [x] Méthode `deleteById(ID)`
+- [x] Méthode `existsById(ID)`
 
 #### 6.2 Service Concrete Implementation
-- [ ] Générer classe concrète par entité
-- [ ] Nommage: `<Entity>Service`
-- [ ] Injection automatique du repository
-- [ ] Enregistrement comme bean Spring
+- [x] Générer classe concrète par entité
+- [x] Nommage: `<Entity>Service`
+- [x] Injection automatique du repository
+- [x] Enregistrement comme bean Spring
 
 #### 6.3 Transaction Management
-- [ ] Annoter méthodes avec `@Transactional`
-- [ ] ReadOnly pour queries
-- [ ] Isolation level configuration
-- [ ] Propagation configuration
+- [x] Annoter méthodes avec `@Transactional`
+- [x] ReadOnly pour queries
+- [x] Isolation level configuration
+- [x] Propagation configuration
 
 #### 6.4 Exception Handling
-- [ ] Créer `EntityNotFoundException`
-- [ ] Créer `DuplicateEntityException`
-- [ ] Créer `ValidationException`
-- [ ] Exception handler global
-- [ ] Logging des erreurs
+- [x] Créer `EntityNotFoundException`
+- [x] Créer `DuplicateEntityException`
+- [x] Créer `ValidationException`
+- [ ] Exception handler global (deferred to Module 7 - Controller)
+- [x] Logging des erreurs
 
 #### 6.5 Business Logic Hooks (Optionnel)
-- [ ] Hook `beforeCreate(T)`
-- [ ] Hook `afterCreate(T)`
-- [ ] Hook `beforeUpdate(T)`
-- [ ] Hook `afterUpdate(T)`
-- [ ] Hook `beforeDelete(ID)`
-- [ ] Hook `afterDelete(ID)`
+- [x] Hook `beforeCreate(T)`
+- [x] Hook `afterCreate(T)`
+- [x] Hook `beforeUpdate(T)`
+- [x] Hook `afterUpdate(T)`
+- [x] Hook `beforeDelete(ID)`
+- [x] Hook `afterDelete(ID)`
 
 #### 6.6 Tests
-- [ ] Test CRUD operations
-- [ ] Test transactions
-- [ ] Test exceptions
-- [ ] Test hooks (si implémentés)
-- [ ] Test intégration repository
-- [ ] Test avec données complexes
+- [x] Test CRUD operations
+- [x] Test transactions
+- [x] Test exceptions
+- [x] Test hooks (si implémentés)
+- [ ] Test intégration repository (requires integration tests)
+- [ ] Test avec données complexes (requires integration tests)
 
 ---
 

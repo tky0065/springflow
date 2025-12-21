@@ -3,9 +3,10 @@ package io.springflow.core.repository;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.MetadataResolver;
 import io.springflow.core.scanner.EntityScanner;
+import io.springflow.core.service.ServiceGenerator;
 import org.slf4j.Logger;
-import org.slf4j.BeanFactory;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -31,8 +32,8 @@ public class AutoApiRepositoryRegistrar implements BeanDefinitionRegistryPostPro
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        log.info("Starting AutoApi Repository Registration...");
-        
+        log.info("Starting AutoApi Repository and Service Registration...");
+
         List<String> packages = getPackagesToScan(registry);
         if (packages.isEmpty()) {
             log.warn("No packages found to scan for @AutoApi entities.");
@@ -40,22 +41,30 @@ public class AutoApiRepositoryRegistrar implements BeanDefinitionRegistryPostPro
         }
 
         EntityScanner scanner = new EntityScanner();
-        // Uses default constructor which creates scanner internally
-        
         List<Class<?>> entities = scanner.scanEntities(packages.toArray(new String[0]));
-        
+
         MetadataResolver resolver = new MetadataResolver();
-        RepositoryGenerator generator = new RepositoryGenerator(registry);
+        RepositoryGenerator repositoryGenerator = new RepositoryGenerator(registry);
+        ServiceGenerator serviceGenerator = new ServiceGenerator(registry);
 
         for (Class<?> entityClass : entities) {
             try {
                 EntityMetadata metadata = resolver.resolve(entityClass);
-                generator.generate(metadata);
+
+                // Generate repository
+                repositoryGenerator.generate(metadata);
                 log.debug("Registered repository for {}", entityClass.getSimpleName());
+
+                // Generate service
+                serviceGenerator.generate(metadata);
+                log.debug("Registered service for {}", entityClass.getSimpleName());
+
             } catch (Exception e) {
-                log.error("Failed to generate repository for {}", entityClass.getName(), e);
+                log.error("Failed to generate repository/service for {}", entityClass.getName(), e);
             }
         }
+
+        log.info("AutoApi registration completed. Registered {} entities.", entities.size());
     }
 
     @Override
