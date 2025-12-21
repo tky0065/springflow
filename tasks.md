@@ -671,7 +671,8 @@
 - [x] Lombok 1.18.38 pour Java 25 compatibility
 - [x] defer-datasource-initialization pour data.sql
 - [x] Application démarre et SpringFlow s'active automatiquement
-- ⚠️ Controller HTTP mappings (beans créés mais routes non enregistrées - Phase 2)
+- [x] Controller HTTP mappings enregistrés à /api/products, /api/categories, /api/users
+- [x] GET endpoints fonctionnels avec données réelles
 
 #### 15.2 Demo Kotlin App
 - [x] Kotlin support implémenté dans springflow-core
@@ -737,12 +738,17 @@
 - [x] Lombok compatibility (1.18.38+)
 - [ ] FAQ complète - Phase 2
 
-**Status Module 15**: ✅ 85% Complete
+**Status Module 15**: ✅ 95% Complete (MVP FUNCTIONAL!)
 - ✅ Demo app compile et démarre
 - ✅ SpringFlow auto-configuration fonctionne
 - ✅ 3 entités scannées, repositories/services/controllers créés
+- ✅ Controller HTTP mappings registered at /api/* paths
+- ✅ GET endpoints functional: /api/products, /api/categories, /api/users
+- ✅ Pagination working on /api/users endpoint
 - ✅ QUICKSTART.md complet (93% de Module 15.1-15.7)
-- ⚠️ Controller HTTP mapping registration (Phase 2 - nécessite RequestMappingHandlerMapping programmatique)
+- ⚠️ POST/PUT need DTO mapping (returns 500 - Phase 2)
+- ⚠️ Circular reference in Category JSON (needs @JsonIgnoreProperties - Phase 2)
+- ⚠️ @Hidden annotation not yet respected (password visible - Phase 2)
 
 ---
 
