@@ -41,7 +41,7 @@
         <!-- Dependencies versions -->
         <springdoc.version>2.3.0</springdoc.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
 
         <!-- Plugin versions -->
         <jacoco.version>0.8.11</jacoco.version>
