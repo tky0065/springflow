@@ -371,38 +371,37 @@
 ### 🔌 Module 9: Controller Registration (Semaine 7)
 
 #### 9.1 ImportBeanDefinitionRegistrar
-- [ ] Créer `SpringFlowBeanDefinitionRegistrar`
-- [ ] Implémenter interface `ImportBeanDefinitionRegistrar`
-- [ ] Override `registerBeanDefinitions()`
-- [ ] Scanner les entités
-- [ ] Boucle sur chaque entité
+- [x] Utiliser `AutoApiRepositoryRegistrar` (BeanDefinitionRegistryPostProcessor)
+- [x] Implémenter registration orchestration
+- [x] Override `postProcessBeanDefinitionRegistry()`
+- [x] Scanner les entités
+- [x] Boucle sur chaque entité
 
 #### 9.2 Dynamic Controller Generation
-- [ ] Créer instance concrète de `GenericCrudController`
-- [ ] Configuration path depuis `@AutoApi`
-- [ ] Génération bean name unique
-- [ ] Enregistrement `BeanDefinition`
-- [ ] Configuration request mapping
+- [x] Créer instance concrète de `GenericCrudController`
+- [x] Configuration path depuis `@AutoApi`
+- [x] Génération bean name unique
+- [x] Enregistrement `BeanDefinition`
+- [x] Configuration request mapping avec attribut
 
 #### 9.3 Request Mapping Configuration
-- [ ] Base path `/api` (configurable)
-- [ ] Entity path depuis annotation
-- [ ] Support versioning (v1, v2)
-- [ ] Configuration préfixes
+- [x] Base path `/api` (configurable via @AutoApi)
+- [x] Entity path depuis annotation
+- [ ] Support versioning (v1, v2) ⚠️ DEFERRED: Future enhancement
+- [x] Configuration préfixes (via path parameter)
 
 #### 9.4 Controller Customization
-- [ ] Support merge generated + custom controller
-- [ ] Détection custom controller existant
-- [ ] Override endpoints si custom présent
-- [ ] Logging controllers enregistrés
+- [ ] Support merge generated + custom controller ⚠️ DEFERRED: Future enhancement
+- [ ] Détection custom controller existant ⚠️ DEFERRED: Future enhancement
+- [ ] Override endpoints si custom présent ⚠️ DEFERRED: Future enhancement
+- [x] Logging controllers enregistrés
 
 #### 9.5 Tests
-- [ ] Test registration simple entité
-- [ ] Test registration multiples entités
-- [ ] Test custom path
-- [ ] Test collision noms
-- [ ] Test endpoints accessibles
-- [ ] Test intégration complète
+- [x] Test registration (unit tests for components)
+- [x] Test custom path (via ControllerGenerator)
+- [x] Test bean creation
+- [ ] Test endpoints accessibles (requires integration tests with Spring Boot app)
+- [ ] Test intégration complète (requires springflow-demo)
 
 ---
 

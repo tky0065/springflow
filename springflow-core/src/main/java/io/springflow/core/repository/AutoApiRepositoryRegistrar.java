@@ -1,5 +1,6 @@
 package io.springflow.core.repository;
 
+import io.springflow.core.controller.ControllerGenerator;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.MetadataResolver;
 import io.springflow.core.scanner.EntityScanner;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class AutoApiRepositoryRegistrar implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, ResourceLoaderAware {
@@ -32,7 +32,7 @@ public class AutoApiRepositoryRegistrar implements BeanDefinitionRegistryPostPro
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        log.info("Starting AutoApi Repository and Service Registration...");
+        log.info("Starting AutoApi Repository, Service, and Controller Registration...");
 
         List<String> packages = getPackagesToScan(registry);
         if (packages.isEmpty()) {
@@ -46,6 +46,7 @@ public class AutoApiRepositoryRegistrar implements BeanDefinitionRegistryPostPro
         MetadataResolver resolver = new MetadataResolver();
         RepositoryGenerator repositoryGenerator = new RepositoryGenerator(registry);
         ServiceGenerator serviceGenerator = new ServiceGenerator(registry);
+        ControllerGenerator controllerGenerator = new ControllerGenerator(registry);
 
         for (Class<?> entityClass : entities) {
             try {
@@ -59,8 +60,12 @@ public class AutoApiRepositoryRegistrar implements BeanDefinitionRegistryPostPro
                 serviceGenerator.generate(metadata);
                 log.debug("Registered service for {}", entityClass.getSimpleName());
 
+                // Generate controller
+                controllerGenerator.generate(metadata);
+                log.debug("Registered controller for {}", entityClass.getSimpleName());
+
             } catch (Exception e) {
-                log.error("Failed to generate repository/service for {}", entityClass.getName(), e);
+                log.error("Failed to generate repository/service/controller for {}", entityClass.getName(), e);
             }
         }
 
