@@ -1,0 +1,98 @@
+# SpringFlow Configuration Example
+#
+# This file demonstrates all available configuration options for SpringFlow.
+# Copy the properties you need to your application.yml or application.properties file.
+
+springflow:
+  # Enable or disable SpringFlow auto-configuration
+  # Default: true
+  enabled: true
+
+  # Base path for all generated REST endpoints
+  # Default: /api
+  base-path: /api
+
+  # Base packages to scan for @AutoApi annotated entities
+  # If not specified, auto-configuration packages will be used
+  # Default: [] (empty, will use Spring Boot's auto-configuration packages)
+  base-packages:
+    - com.example.domain
+    - com.example.model
+
+  # Pagination configuration
+  pagination:
+    # Default number of items per page
+    # Default: 20
+    default-page-size: 20
+
+    # Maximum allowed page size to prevent abuse
+    # Default: 100
+    max-page-size: 100
+
+    # Name of the page parameter in query strings
+    # Default: page
+    page-parameter: page
+
+    # Name of the size parameter in query strings
+    # Default: size
+    size-parameter: size
+
+    # Name of the sort parameter in query strings
+    # Default: sort
+    sort-parameter: sort
+
+    # Whether to use 1-indexed page numbers (true) or 0-indexed (false)
+    # Default: false
+    one-indexed-parameters: false
+
+  # Swagger/OpenAPI documentation configuration
+  swagger:
+    # Enable or disable Swagger/OpenAPI documentation
+    # Default: true
+    enabled: true
+
+    # API title shown in Swagger UI
+    # Default: SpringFlow API
+    title: My Application API
+
+    # API description shown in Swagger UI
+    # Default: Auto-generated REST API documentation
+    description: REST API for managing application resources
+
+    # API version shown in Swagger UI
+    # Default: 1.0.0
+    version: 1.0.0
+
+    # Contact information (optional)
+    contact-name: API Support Team
+    contact-email: support@example.com
+    contact-url: https://example.com/support
+
+    # License information (optional)
+    license-name: Apache 2.0
+    license-url: https://www.apache.org/licenses/LICENSE-2.0
+
+# Example: Minimal configuration
+#
+# springflow:
+#   base-path: /api/v1
+
+# Example: Disable SpringFlow
+#
+# springflow:
+#   enabled: false
+
+# Example: Custom pagination settings
+#
+# springflow:
+#   pagination:
+#     default-page-size: 50
+#     max-page-size: 200
+
+# Example: Custom Swagger settings
+#
+# springflow:
+#   swagger:
+#     title: E-Commerce API
+#     version: 2.0.0
+#     description: Comprehensive e-commerce platform API

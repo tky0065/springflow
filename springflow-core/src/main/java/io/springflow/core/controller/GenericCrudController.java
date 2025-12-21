@@ -1,6 +1,12 @@
 package io.springflow.core.controller;
 
 import io.springflow.core.service.GenericCrudService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +52,20 @@ public abstract class GenericCrudController<T, ID> {
      * @param pageable pagination parameters (page, size, sort)
      * @return page of entities with HTTP 200 OK
      */
+    @Operation(
+            summary = "List all entities",
+            description = "Retrieve a paginated list of all entities. Supports pagination and sorting."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved list",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
     @GetMapping
     public ResponseEntity<Page<T>> findAll(
+            @Parameter(description = "Pagination parameters (page, size, sort)")
             @PageableDefault(size = 20) Pageable pageable) {
         log.debug("GET request to find all {} with pagination: {}", entityClass.getSimpleName(), pageable);
         Page<T> page = service.findAll(pageable);
@@ -60,8 +78,26 @@ public abstract class GenericCrudController<T, ID> {
      * @param id the entity ID
      * @return entity with HTTP 200 OK, or HTTP 404 NOT FOUND if not exists
      */
+    @Operation(
+            summary = "Get entity by ID",
+            description = "Retrieve a single entity by its unique identifier."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved entity",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Entity not found",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<T> findById(@PathVariable ID id) {
+    public ResponseEntity<T> findById(
+            @Parameter(description = "Entity ID", required = true)
+            @PathVariable ID id) {
         log.debug("GET request to find {} with id: {}", entityClass.getSimpleName(), id);
         T entity = service.findById(id);
         return ResponseEntity.ok(entity);
@@ -73,8 +109,26 @@ public abstract class GenericCrudController<T, ID> {
      * @param entity the entity to create (validated)
      * @return created entity with HTTP 201 CREATED and Location header
      */
+    @Operation(
+            summary = "Create a new entity",
+            description = "Create a new entity with the provided data. The request body is validated."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Entity successfully created",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid input data / Validation error",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
     @PostMapping
-    public ResponseEntity<T> create(@Valid @RequestBody T entity) {
+    public ResponseEntity<T> create(
+            @Parameter(description = "Entity to create", required = true)
+            @Valid @RequestBody T entity) {
         log.debug("POST request to create new {}: {}", entityClass.getSimpleName(), entity);
         T created = service.save(entity);
 
@@ -94,9 +148,32 @@ public abstract class GenericCrudController<T, ID> {
      * @param entity the entity with updated data (validated)
      * @return updated entity with HTTP 200 OK, or HTTP 404 NOT FOUND if not exists
      */
+    @Operation(
+            summary = "Update an existing entity",
+            description = "Update an existing entity with the provided data. The entire entity is replaced."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Entity successfully updated",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Entity not found",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid input data / Validation error",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
     @PutMapping("/{id}")
     public ResponseEntity<T> update(
+            @Parameter(description = "Entity ID", required = true)
             @PathVariable ID id,
+            @Parameter(description = "Updated entity data", required = true)
             @Valid @RequestBody T entity) {
         log.debug("PUT request to update {} with id: {}", entityClass.getSimpleName(), id);
         T updated = service.update(id, entity);
@@ -109,8 +186,25 @@ public abstract class GenericCrudController<T, ID> {
      * @param id the entity ID
      * @return HTTP 204 NO CONTENT on success, or HTTP 404 NOT FOUND if not exists
      */
+    @Operation(
+            summary = "Delete an entity",
+            description = "Delete an entity by its unique identifier."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Entity successfully deleted"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Entity not found",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable ID id) {
+    public ResponseEntity<Void> delete(
+            @Parameter(description = "Entity ID", required = true)
+            @PathVariable ID id) {
         log.debug("DELETE request to delete {} with id: {}", entityClass.getSimpleName(), id);
         service.deleteById(id);
         return ResponseEntity.noContent().build();

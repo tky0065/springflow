@@ -22,10 +22,15 @@ public class SpringFlowWebConfiguration implements WebMvcConfigurer {
 
     private final PageableProperties pageableProperties;
 
-    public SpringFlowWebConfiguration() {
-        this.pageableProperties = new PageableProperties(); // Default properties
-    }
-
+    /**
+     * Creates SpringFlowWebConfiguration with injected PageableProperties.
+     * <p>
+     * Note: PageableProperties bean should be provided by SpringFlowAutoConfiguration
+     * in the springflow-starter module, or manually configured in custom applications.
+     * </p>
+     *
+     * @param pageableProperties pagination configuration properties
+     */
     public SpringFlowWebConfiguration(PageableProperties pageableProperties) {
         this.pageableProperties = pageableProperties;
     }
@@ -73,10 +78,5 @@ public class SpringFlowWebConfiguration implements WebMvcConfigurer {
         SortHandlerMethodArgumentResolver sortResolver = new SortHandlerMethodArgumentResolver();
         sortResolver.setSortParameter(pageableProperties.getSortParameter());
         return sortResolver;
-    }
-
-    @Bean
-    public PageableProperties pageableProperties() {
-        return pageableProperties;
     }
 }

@@ -458,46 +458,46 @@
 ### 📚 Module 11: OpenAPI/Swagger Integration (Semaine 8)
 
 #### 11.1 SpringDoc Configuration
-- [ ] Ajouter dependency `springdoc-openapi-starter-webmvc-ui`
-- [ ] Créer `OpenApiConfiguration`
-- [ ] Configurer info API (title, version, description)
-- [ ] Configurer servers
+- [x] Ajouter dependency `springdoc-openapi-starter-webmvc-ui`
+- [x] Créer `OpenApiConfiguration`
+- [x] Configurer info API (title, version, description)
+- [x] Configurer servers
 - [ ] Configurer security schemes (Phase 2)
 
 #### 11.2 Schema Generation
-- [ ] Auto-generate schemas pour DTOs
-- [ ] Support validation constraints
-- [ ] Examples values
-- [ ] Description depuis Javadoc
-- [ ] Support enums
+- [x] Auto-generate schemas pour DTOs
+- [x] Support validation constraints
+- [ ] Examples values (springdoc auto-generates from validation annotations)
+- [ ] Description depuis Javadoc (requires additional tooling)
+- [x] Support enums
 
 #### 11.3 Endpoint Documentation
-- [ ] Auto-document tous les endpoints
-- [ ] Tags par entité
-- [ ] Operation summary & description
-- [ ] Request body schema
-- [ ] Response schemas (200, 400, 404, etc.)
-- [ ] Query parameters (page, size, sort)
+- [x] Auto-document tous les endpoints
+- [x] Tags par entité
+- [x] Operation summary & description
+- [x] Request body schema
+- [x] Response schemas (200, 400, 404, etc.)
+- [x] Query parameters (page, size, sort)
 
 #### 11.4 Customization
-- [ ] Support `@Operation` custom
-- [ ] Support `@ApiResponse` custom
-- [ ] Support `@Parameter` custom
-- [ ] Description depuis `@AutoApi`
+- [x] Support `@Operation` custom
+- [x] Support `@ApiResponse` custom
+- [x] Support `@Parameter` custom
+- [ ] Description depuis `@AutoApi` (future enhancement)
 
 #### 11.5 Swagger UI
-- [ ] Activer Swagger UI
-- [ ] URL: `/swagger-ui.html`
-- [ ] Configuration layout
-- [ ] Try it out enabled
-- [ ] Configuration personnalisable
+- [x] Activer Swagger UI
+- [x] URL: `/swagger-ui.html`
+- [x] Configuration layout
+- [x] Try it out enabled
+- [x] Configuration personnalisable
 
 #### 11.6 Tests
-- [ ] Test génération OpenAPI spec
-- [ ] Test schemas présents
-- [ ] Test endpoints documentés
-- [ ] Test Swagger UI accessible
-- [ ] Validation spec OpenAPI 3.0
+- [x] Test génération OpenAPI spec
+- [x] Test schemas présents
+- [x] Test endpoints documentés
+- [ ] Test Swagger UI accessible (requires integration test in springflow-demo)
+- [x] Validation spec OpenAPI 3.0
 
 ---
 

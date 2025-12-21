@@ -1,0 +1,3 @@
+# SpringFlow Auto Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.springflow.starter.config.SpringFlowAutoConfiguration
