@@ -8,6 +8,10 @@ import java.util.Map;
 
 /**
  * Standardized error response format for REST API errors.
+ * <p>
+ * This class provides a consistent error response structure across all SpringFlow endpoints,
+ * including detailed validation errors when applicable.
+ * </p>
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
@@ -17,7 +21,19 @@ public class ErrorResponse {
     private String error;
     private String message;
     private String path;
+
+    /**
+     * Simple field errors as a map (field name → error message).
+     * @deprecated Use {@link #validationErrors} for detailed validation errors.
+     */
+    @Deprecated
     private Map<String, String> fieldErrors;
+
+    /**
+     * Detailed validation errors with field, message, rejected value, and code.
+     */
+    private List<ValidationFieldError> validationErrors;
+
     private List<String> errors;
 
     public ErrorResponse() {
@@ -88,5 +104,13 @@ public class ErrorResponse {
 
     public void setErrors(List<String> errors) {
         this.errors = errors;
+    }
+
+    public List<ValidationFieldError> getValidationErrors() {
+        return validationErrors;
+    }
+
+    public void setValidationErrors(List<ValidationFieldError> validationErrors) {
+        this.validationErrors = validationErrors;
     }
 }

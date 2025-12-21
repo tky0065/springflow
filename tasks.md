@@ -566,32 +566,32 @@
 ### ✅ Module 13: Validation (Semaine 9)
 
 #### 13.1 JSR-380 Support
-- [ ] Support `@NotNull`
-- [ ] Support `@NotBlank`
-- [ ] Support `@NotEmpty`
-- [ ] Support `@Size`
-- [ ] Support `@Min` / `@Max`
-- [ ] Support `@Email`
-- [ ] Support `@Pattern`
-- [ ] Support `@Valid` (nested)
+- [x] Support `@NotNull`
+- [x] Support `@NotBlank`
+- [x] Support `@NotEmpty`
+- [x] Support `@Size`
+- [x] Support `@Min` / `@Max`
+- [x] Support `@Email`
+- [x] Support `@Pattern`
+- [x] Support `@Valid` (nested)
 
 #### 13.2 Validation Error Handling
-- [ ] Créer `ValidationErrorResponse`
-- [ ] Champs: timestamp, status, errors
-- [ ] Créer `FieldError` (field, message, rejectedValue)
-- [ ] `@ExceptionHandler(MethodArgumentNotValidException)`
-- [ ] Format JSON standardisé
+- [x] Créer `ValidationFieldError` (field, message, rejectedValue, code)
+- [x] Champs ErrorResponse: timestamp, status, errors
+- [x] Liste détaillée validationErrors
+- [x] `@ExceptionHandler(MethodArgumentNotValidException)`
+- [x] Format JSON standardisé
 
 #### 13.3 Custom Validators
-- [ ] Support création validator custom
-- [ ] Annotation `@Constraint`
-- [ ] Implémentation `ConstraintValidator`
-- [ ] Exemple: `@UniqueEmail`
+- [ ] Support création validator custom (deferred to Phase 2)
+- [ ] Annotation `@Constraint` (deferred to Phase 2)
+- [ ] Implémentation `ConstraintValidator` (deferred to Phase 2)
+- [ ] Exemple: `@UniqueEmail` (deferred to Phase 2)
 
 #### 13.4 Validation Groups
-- [ ] Support validation groups
-- [ ] Groupes: Create, Update
-- [ ] Configuration par endpoint
+- [ ] Support validation groups (deferred to Phase 2)
+- [ ] Groupes: Create, Update (deferred to Phase 2)
+- [ ] Configuration par endpoint (deferred to Phase 2)
 
 #### 13.5 i18n Messages (Phase 3)
 - [ ] Messages d'erreur internationalisés
@@ -599,13 +599,16 @@
 - [ ] Support locales
 
 #### 13.6 Tests
-- [ ] Test validation @NotBlank
-- [ ] Test validation @Email
-- [ ] Test validation @Size
-- [ ] Test validation @Min/@Max
-- [ ] Test nested validation
-- [ ] Test error response format
-- [ ] Test custom validators
+- [x] Test validation @NotBlank
+- [x] Test validation @Email
+- [x] Test validation @Size
+- [x] Test validation @Min/@Max
+- [ ] Test nested validation (deferred)
+- [x] Test error response format
+- [ ] Test custom validators (deferred)
+- [x] Test validation multiple errors
+- [x] Test validation @Pattern
+- [x] 9 tests au total, tous passent
 
 ---
 

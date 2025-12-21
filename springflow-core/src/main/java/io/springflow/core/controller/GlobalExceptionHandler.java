@@ -13,7 +13,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -87,27 +89,37 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handle MethodArgumentNotValidException - return HTTP 400 BAD REQUEST with field errors.
-     * This is thrown by Spring's @Valid annotation.
+     * Handle MethodArgumentNotValidException - return HTTP 400 BAD REQUEST with detailed field errors.
+     * This is thrown by Spring's @Valid annotation when request body validation fails.
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
             HttpServletRequest request) {
-        log.warn("Validation failed: {} field errors", ex.getBindingResult().getFieldErrorCount());
+        int errorCount = ex.getBindingResult().getFieldErrorCount();
+        log.warn("Validation failed: {} field error(s)", errorCount);
 
-        Map<String, String> fieldErrors = new HashMap<>();
+        // Build detailed validation errors
+        List<ValidationFieldError> validationErrors = new ArrayList<>();
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            fieldErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
+            ValidationFieldError validationError = new ValidationFieldError(
+                    fieldError.getField(),
+                    fieldError.getDefaultMessage(),
+                    fieldError.getRejectedValue(),
+                    fieldError.getCode()
+            );
+            validationErrors.add(validationError);
+            log.debug("Validation error: field='{}', message='{}', rejectedValue='{}'",
+                    fieldError.getField(), fieldError.getDefaultMessage(), fieldError.getRejectedValue());
         }
 
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 "Validation Failed",
-                "Invalid input data",
+                String.format("Validation failed with %d error(s)", errorCount),
                 request.getRequestURI()
         );
-        error.setFieldErrors(fieldErrors);
+        error.setValidationErrors(validationErrors);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
