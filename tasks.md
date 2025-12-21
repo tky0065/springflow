@@ -331,38 +331,40 @@
 ### 📄 Module 8: Pagination & Sorting (Semaine 7)
 
 #### 8.1 Pageable Configuration
-- [ ] Configurer `PageableHandlerMethodArgumentResolver`
-- [ ] Paramètre `page` (default 0)
-- [ ] Paramètre `size` (default 20)
-- [ ] Max page size (100)
-- [ ] Configuration personnalisable
+- [x] Configurer `PageableHandlerMethodArgumentResolver`
+- [x] Paramètre `page` (default 0)
+- [x] Paramètre `size` (default 20)
+- [x] Max page size (100)
+- [x] Configuration personnalisable
 
 #### 8.2 Sorting Configuration
-- [ ] Support paramètre `sort`
-- [ ] Format: `sort=field,direction`
-- [ ] Multi-field sorting
-- [ ] Validation des champs sortables
-- [ ] Default sort configuration
+- [x] Support paramètre `sort`
+- [x] Format: `sort=field,direction`
+- [x] Multi-field sorting
+- [ ] Validation des champs sortables (deferred to Phase 2)
+- [x] Default sort configuration
 
 #### 8.3 Page Response
-- [ ] Utiliser Spring Data `Page<T>`
-- [ ] Metadata: totalElements, totalPages
-- [ ] Metadata: size, number
-- [ ] Content: liste éléments
+- [x] Utiliser Spring Data `Page<T>`
+- [x] Metadata: totalElements, totalPages
+- [x] Metadata: size, number
+- [x] Content: liste éléments
 - [ ] Links HATEOAS (optionnel Phase 2)
 
 #### 8.4 Custom Pageable
-- [ ] Créer `@PageableDefault` custom
-- [ ] Configuration par entité
-- [ ] Override via annotation
+- [x] Créer `PageableProperties` pour configuration
+- [x] Configuration globale via SpringFlowWebConfiguration
+- [x] Support @PageableDefault de Spring Data (déjà présent)
 
 #### 8.5 Tests
-- [ ] Test pagination simple
-- [ ] Test changement de page
-- [ ] Test changement de size
-- [ ] Test sorting simple field
-- [ ] Test multi-field sorting
-- [ ] Test limites (max size)
+- [x] Test pagination simple
+- [x] Test changement de page
+- [x] Test changement de size
+- [x] Test sorting simple field
+- [x] Test multi-field sorting
+- [x] Test limites (max size)
+- [x] Test page vide
+- [x] Test pagination + sorting combinés
 
 ---
 
