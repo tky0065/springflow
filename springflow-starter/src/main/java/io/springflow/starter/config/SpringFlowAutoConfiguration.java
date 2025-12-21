@@ -4,6 +4,7 @@ import io.springflow.core.config.PageableProperties;
 import io.springflow.core.config.SpringFlowWebConfiguration;
 import io.springflow.core.controller.GlobalExceptionHandler;
 import io.springflow.core.controller.support.RequestMappingRegistrar;
+import io.springflow.core.mapper.DtoMapperFactory;
 import io.springflow.core.repository.AutoApiRepositoryRegistrar;
 import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
@@ -87,5 +88,16 @@ public class SpringFlowAutoConfiguration {
                 pageableProps.getDefaultPageSize(), pageableProps.getMaxPageSize());
 
         return pageableProps;
+    }
+
+    /**
+     * Creates DtoMapperFactory bean for entity-DTO conversions.
+     * Used by controllers to handle @Hidden and @ReadOnly fields.
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = "springflow", name = "enabled", havingValue = "true", matchIfMissing = true)
+    public DtoMapperFactory dtoMapperFactory() {
+        log.debug("Creating DtoMapperFactory bean");
+        return new DtoMapperFactory();
     }
 }

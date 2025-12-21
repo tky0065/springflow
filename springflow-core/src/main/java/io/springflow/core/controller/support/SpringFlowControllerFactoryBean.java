@@ -1,6 +1,8 @@
 package io.springflow.core.controller.support;
 
 import io.springflow.core.controller.GenericCrudController;
+import io.springflow.core.mapper.DtoMapper;
+import io.springflow.core.mapper.DtoMapperFactory;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.FieldMetadata;
 import io.springflow.core.service.GenericCrudService;
@@ -12,7 +14,7 @@ import java.lang.reflect.Field;
  * Factory bean for creating concrete controller instances.
  * <p>
  * This factory creates a concrete implementation of {@link GenericCrudController}
- * by extending it and providing the required service dependency and ID extraction logic.
+ * by extending it and providing the required service dependency, DtoMapper, and ID extraction logic.
  * </p>
  *
  * @param <T>  the entity type
@@ -22,6 +24,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
 
     private Class<T> entityClass;
     private GenericCrudService<T, ID> service;
+    private DtoMapperFactory dtoMapperFactory;
     private EntityMetadata metadata;
 
     public void setEntityClass(Class<T> entityClass) {
@@ -32,13 +35,19 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
         this.service = service;
     }
 
+    public void setDtoMapperFactory(DtoMapperFactory dtoMapperFactory) {
+        this.dtoMapperFactory = dtoMapperFactory;
+    }
+
     public void setMetadata(EntityMetadata metadata) {
         this.metadata = metadata;
     }
 
     @Override
     public GenericCrudController<T, ID> getObject() {
-        return new GenericCrudController<T, ID>(service, entityClass) {
+        DtoMapper<T, ID> dtoMapper = dtoMapperFactory.getMapper(entityClass, metadata);
+
+        return new GenericCrudController<T, ID>(service, dtoMapper, entityClass) {
             @Override
             protected ID getEntityId(T entity) {
                 return extractIdFromEntity(entity);

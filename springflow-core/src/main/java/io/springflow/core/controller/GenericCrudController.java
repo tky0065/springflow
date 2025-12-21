@@ -1,5 +1,6 @@
 package io.springflow.core.controller;
 
+import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.service.GenericCrudService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Map;
 
 /**
  * Generic CRUD controller providing RESTful endpoints for entities.
@@ -27,8 +29,8 @@ import java.net.URI;
  * with proper HTTP status codes, validation, and error handling.
  * </p>
  * <p>
- * Note: For Phase 1 MVP, this controller works directly with entities.
- * DTO mapping will be added in Module 12.
+ * Uses Map-based DTOs for input/output to respect @Hidden and @ReadOnly annotations.
+ * DtoMapper handles conversion between entities and DTOs.
  * </p>
  *
  * @param <T>  the entity type
@@ -39,10 +41,12 @@ public abstract class GenericCrudController<T, ID> {
     private static final Logger log = LoggerFactory.getLogger(GenericCrudController.class);
 
     protected final GenericCrudService<T, ID> service;
+    protected final DtoMapper<T, ID> dtoMapper;
     protected final Class<T> entityClass;
 
-    protected GenericCrudController(GenericCrudService<T, ID> service, Class<T> entityClass) {
+    protected GenericCrudController(GenericCrudService<T, ID> service, DtoMapper<T, ID> dtoMapper, Class<T> entityClass) {
         this.service = service;
+        this.dtoMapper = dtoMapper;
         this.entityClass = entityClass;
     }
 
@@ -50,7 +54,7 @@ public abstract class GenericCrudController<T, ID> {
      * GET / - Find all entities with pagination.
      *
      * @param pageable pagination parameters (page, size, sort)
-     * @return page of entities with HTTP 200 OK
+     * @return page of DTOs with HTTP 200 OK (excludes @Hidden fields)
      */
     @Operation(
             summary = "List all entities",
@@ -64,19 +68,20 @@ public abstract class GenericCrudController<T, ID> {
             )
     })
     @GetMapping
-    public ResponseEntity<Page<T>> findAll(
+    public ResponseEntity<Page<Map<String, Object>>> findAll(
             @Parameter(description = "Pagination parameters (page, size, sort)")
             @PageableDefault(size = 20) Pageable pageable) {
         log.debug("GET request to find all {} with pagination: {}", entityClass.getSimpleName(), pageable);
         Page<T> page = service.findAll(pageable);
-        return ResponseEntity.ok(page);
+        Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page);
+        return ResponseEntity.ok(dtoPage);
     }
 
     /**
      * GET /{id} - Find entity by ID.
      *
      * @param id the entity ID
-     * @return entity with HTTP 200 OK, or HTTP 404 NOT FOUND if not exists
+     * @return DTO with HTTP 200 OK (excludes @Hidden fields), or HTTP 404 NOT FOUND if not exists
      */
     @Operation(
             summary = "Get entity by ID",
@@ -95,19 +100,20 @@ public abstract class GenericCrudController<T, ID> {
             )
     })
     @GetMapping("/{id}")
-    public ResponseEntity<T> findById(
+    public ResponseEntity<Map<String, Object>> findById(
             @Parameter(description = "Entity ID", required = true)
             @PathVariable ID id) {
         log.debug("GET request to find {} with id: {}", entityClass.getSimpleName(), id);
         T entity = service.findById(id);
-        return ResponseEntity.ok(entity);
+        Map<String, Object> dto = dtoMapper.toOutputDto(entity);
+        return ResponseEntity.ok(dto);
     }
 
     /**
      * POST / - Create a new entity.
      *
-     * @param entity the entity to create (validated)
-     * @return created entity with HTTP 201 CREATED and Location header
+     * @param inputDto the input data as Map (excludes ID, @Hidden, @ReadOnly fields)
+     * @return created entity DTO with HTTP 201 CREATED and Location header
      */
     @Operation(
             summary = "Create a new entity",
@@ -126,11 +132,14 @@ public abstract class GenericCrudController<T, ID> {
             )
     })
     @PostMapping
-    public ResponseEntity<T> create(
-            @Parameter(description = "Entity to create", required = true)
-            @Valid @RequestBody T entity) {
-        log.debug("POST request to create new {}: {}", entityClass.getSimpleName(), entity);
+    public ResponseEntity<Map<String, Object>> create(
+            @Parameter(description = "Entity data to create", required = true)
+            @RequestBody Map<String, Object> inputDto) {
+        log.debug("POST request to create new {}: {}", entityClass.getSimpleName(), inputDto);
+
+        T entity = dtoMapper.toEntity(inputDto);
         T created = service.save(entity);
+        Map<String, Object> outputDto = dtoMapper.toOutputDto(created);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -138,15 +147,15 @@ public abstract class GenericCrudController<T, ID> {
                 .buildAndExpand(getEntityId(created))
                 .toUri();
 
-        return ResponseEntity.created(location).body(created);
+        return ResponseEntity.created(location).body(outputDto);
     }
 
     /**
      * PUT /{id} - Update an existing entity (full update).
      *
-     * @param id     the entity ID
-     * @param entity the entity with updated data (validated)
-     * @return updated entity with HTTP 200 OK, or HTTP 404 NOT FOUND if not exists
+     * @param id       the entity ID
+     * @param inputDto the updated data as Map (excludes ID, @Hidden, @ReadOnly fields)
+     * @return updated entity DTO with HTTP 200 OK, or HTTP 404 NOT FOUND if not exists
      */
     @Operation(
             summary = "Update an existing entity",
@@ -170,14 +179,19 @@ public abstract class GenericCrudController<T, ID> {
             )
     })
     @PutMapping("/{id}")
-    public ResponseEntity<T> update(
+    public ResponseEntity<Map<String, Object>> update(
             @Parameter(description = "Entity ID", required = true)
             @PathVariable ID id,
             @Parameter(description = "Updated entity data", required = true)
-            @Valid @RequestBody T entity) {
+            @RequestBody Map<String, Object> inputDto) {
         log.debug("PUT request to update {} with id: {}", entityClass.getSimpleName(), id);
-        T updated = service.update(id, entity);
-        return ResponseEntity.ok(updated);
+
+        T existing = service.findById(id);
+        dtoMapper.updateEntity(existing, inputDto);
+        T updated = service.save(existing);
+        Map<String, Object> outputDto = dtoMapper.toOutputDto(updated);
+
+        return ResponseEntity.ok(outputDto);
     }
 
     /**

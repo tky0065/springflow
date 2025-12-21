@@ -31,3 +31,9 @@ INSERT INTO users (id, username, email, password, first_name, last_name, birth_d
     (3, 'jane_smith', 'jane@example.com', '$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6', 'Jane', 'Smith', '1992-08-20', '+1234567892', 'MODERATOR', true, CURRENT_TIMESTAMP),
     (4, 'bob_wilson', 'bob@example.com', '$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6', 'Bob', 'Wilson', '1988-03-10', '+1234567893', 'USER', true, CURRENT_TIMESTAMP),
     (5, 'alice_brown', 'alice@example.com', '$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6', 'Alice', 'Brown', '1995-11-25', '+1234567894', 'USER', true, CURRENT_TIMESTAMP);
+
+-- Reset auto-increment sequences to avoid primary key conflicts
+-- H2 syntax: ALTER TABLE tablename ALTER COLUMN id RESTART WITH next_value
+ALTER TABLE categories ALTER COLUMN id RESTART WITH 8;
+ALTER TABLE products ALTER COLUMN id RESTART WITH 11;
+ALTER TABLE users ALTER COLUMN id RESTART WITH 6;

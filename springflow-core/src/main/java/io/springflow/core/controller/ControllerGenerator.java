@@ -39,6 +39,7 @@ public class ControllerGenerator {
                 .genericBeanDefinition(SpringFlowControllerFactoryBean.class)
                 .addPropertyValue("entityClass", metadata.entityClass())
                 .addPropertyReference("service", serviceBeanName)
+                .addPropertyReference("dtoMapperFactory", "dtoMapperFactory")
                 .addPropertyValue("metadata", metadata)
                 .getBeanDefinition();
 

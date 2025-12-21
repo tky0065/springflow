@@ -752,6 +752,27 @@
 
 ---
 
+ ## Point de rupture avant la phase 2 
+   [] - config pour publier la lib sur maven center: https://medium.com/@othmane.outama/step-by-step-publishing-java-libraries-to-maven-central-abf2ffeb04c0
+   <server>
+   <id>${server}</id>
+   <username>N00KLH</username>
+   <password>LkgWqEISAvMKXbIHvn8Q1XP7ke1tneu4j</password>
+   </server>
+   Username
+   N00KLH
+   Password
+   LkgWqEISAvMKXbIHvn8Q1XP7ke1tneu4j
+   Username : Password (base64)
+   TjAwS0xIOkxrZ1dxRUlTQXZNS1hiSUh2bjhRMVhQN2tlMXRuZXU0ag==
+
+Central Portal Namespaces
+io.github.tky0065
+
+
+https://central.sonatype.com/api-doc
+   [] - publier 
+
 ## 🚀 PHASE 2 - ADVANCED FEATURES (Semaines 11-18)
 
 ---

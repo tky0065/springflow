@@ -1,5 +1,6 @@
 package io.springflow.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.springflow.annotations.AutoApi;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -48,9 +49,11 @@ public class Category {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnoreProperties("parent")
     private List<Category> children = new ArrayList<>();
 
     @OneToMany(mappedBy = "category")
     @ToString.Exclude
+    @JsonIgnoreProperties("category")
     private List<Product> products = new ArrayList<>();
 }
