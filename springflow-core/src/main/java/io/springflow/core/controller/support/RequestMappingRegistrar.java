@@ -3,12 +3,12 @@ package io.springflow.core.controller.support;
 import io.springflow.core.controller.GenericCrudController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -16,59 +16,116 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
- * Bean post-processor that registers dynamically generated controllers with Spring MVC.
+ * Registers dynamically generated controllers with Spring MVC after application context is fully initialized.
  * <p>
  * This component detects GenericCrudController instances and registers their request mappings
- * with the Spring MVC RequestMappingHandlerMapping.
+ * with the Spring MVC RequestMappingHandlerMapping once the context is refreshed.
  * </p>
  */
 @Component
-public class RequestMappingRegistrar implements BeanPostProcessor, ApplicationContextAware {
+public class RequestMappingRegistrar implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger log = LoggerFactory.getLogger(RequestMappingRegistrar.class);
 
-    private ApplicationContext applicationContext;
-    private RequestMappingHandlerMapping requestMappingHandlerMapping;
+    private boolean registered = false;
 
     @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof GenericCrudController) {
-            registerControllerMappings(bean, beanName);
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        // Only register once (in case of parent-child contexts)
+        if (registered) {
+            return;
         }
-        return bean;
-    }
+        registered = true;
 
-    private void registerControllerMappings(Object controller, String beanName) {
+        ApplicationContext applicationContext = event.getApplicationContext();
+
         try {
-            // Lazy initialization of RequestMappingHandlerMapping
-            if (requestMappingHandlerMapping == null) {
-                requestMappingHandlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+            RequestMappingHandlerMapping handlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+
+            // Get global base path from environment
+            String globalBasePath = getGlobalBasePath(applicationContext);
+
+            // Find all GenericCrudController beans
+            Map<String, GenericCrudController> controllers = applicationContext.getBeansOfType(GenericCrudController.class);
+
+            log.info("Registering {} SpringFlow controllers with Spring MVC at base path: {}", controllers.size(), globalBasePath);
+
+            for (Map.Entry<String, GenericCrudController> entry : controllers.entrySet()) {
+                registerControllerMappings(entry.getValue(), entry.getKey(), handlerMapping, applicationContext, globalBasePath);
             }
 
-            // Get the base path from bean definition attributes
-            String basePath = getBasePath(beanName);
+        } catch (Exception e) {
+            log.error("Failed to register controller mappings", e);
+        }
+    }
 
-            log.debug("Registering controller mappings for {} with base path: {}", beanName, basePath);
+    private String getGlobalBasePath(ApplicationContext applicationContext) {
+        try {
+            Environment env = applicationContext.getEnvironment();
+            String basePath = env.getProperty("springflow.base-path", "/api");
+            // Ensure it starts with /
+            if (!basePath.startsWith("/")) {
+                basePath = "/" + basePath;
+            }
+            return basePath;
+        } catch (Exception e) {
+            log.debug("Could not retrieve global base path, using default: /api");
+            return "/api";
+        }
+    }
+
+    private void registerControllerMappings(Object controller, String beanName,
+                                           RequestMappingHandlerMapping handlerMapping,
+                                           ApplicationContext applicationContext,
+                                           String globalBasePath) {
+        try {
+            // Get the entity path from bean definition attributes
+            String entityPath = getEntityPath(beanName, applicationContext);
+
+            // Combine global base path with entity path
+            String fullBasePath = combineBasePaths(globalBasePath, entityPath);
+
+            log.debug("Registering controller mappings for {} with full path: {}", beanName, fullBasePath);
 
             // Register each handler method
             Method[] methods = controller.getClass().getMethods();
+            int registeredCount = 0;
+
             for (Method method : methods) {
-                registerMethodMapping(controller, method, basePath);
+                if (registerMethodMapping(controller, method, fullBasePath, handlerMapping)) {
+                    registeredCount++;
+                }
             }
 
             log.info("Registered controller: {} with {} endpoints at {}",
                     beanName,
-                    countMappedMethods(methods),
-                    basePath);
+                    registeredCount,
+                    fullBasePath);
 
         } catch (Exception e) {
-            log.warn("Failed to register controller mappings for {}: {}", beanName, e.getMessage());
+            log.error("Failed to register controller mappings for {}: {}", beanName, e.getMessage(), e);
         }
     }
 
-    private void registerMethodMapping(Object controller, Method method, String basePath) {
+    private String combineBasePaths(String globalBasePath, String entityPath) {
+        // Remove trailing slash from global base path
+        if (globalBasePath.endsWith("/")) {
+            globalBasePath = globalBasePath.substring(0, globalBasePath.length() - 1);
+        }
+
+        // Ensure entity path starts with /
+        if (!entityPath.startsWith("/")) {
+            entityPath = "/" + entityPath;
+        }
+
+        return globalBasePath + entityPath;
+    }
+
+    private boolean registerMethodMapping(Object controller, Method method, String basePath,
+                                         RequestMappingHandlerMapping handlerMapping) {
         try {
             // Check if method has request mapping annotation
             GetMapping getMapping = AnnotatedElementUtils.findMergedAnnotation(method, GetMapping.class);
@@ -106,17 +163,21 @@ public class RequestMappingRegistrar implements BeanPostProcessor, ApplicationCo
                         .methods(requestMethod)
                         .build();
 
-                requestMappingHandlerMapping.registerMapping(mappingInfo, controller, method);
+                handlerMapping.registerMapping(mappingInfo, controller, method);
 
                 log.debug("Registered mapping: {} {} -> {}.{}",
                         requestMethod,
                         fullPaths[0],
                         controller.getClass().getSimpleName(),
                         method.getName());
+
+                return true;
             }
         } catch (Exception e) {
             log.debug("Could not register method {}: {}", method.getName(), e.getMessage());
         }
+
+        return false;
     }
 
     private String[] combinePaths(String basePath, String[] methodPaths) {
@@ -129,7 +190,7 @@ public class RequestMappingRegistrar implements BeanPostProcessor, ApplicationCo
                 .toArray(String[]::new);
     }
 
-    private String getBasePath(String beanName) {
+    private String getEntityPath(String beanName, ApplicationContext applicationContext) {
         try {
             ConfigurableListableBeanFactory beanFactory =
                     (ConfigurableListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
@@ -139,25 +200,11 @@ public class RequestMappingRegistrar implements BeanPostProcessor, ApplicationCo
                 return attribute.toString();
             }
         } catch (Exception e) {
-            log.debug("Could not retrieve base path for {}: {}", beanName, e.getMessage());
+            log.debug("Could not retrieve entity path for {}: {}", beanName, e.getMessage());
         }
 
-        // Default fallback
-        return "/api";
-    }
-
-    private int countMappedMethods(Method[] methods) {
-        return (int) Arrays.stream(methods)
-                .filter(m -> AnnotatedElementUtils.hasAnnotation(m, GetMapping.class) ||
-                            AnnotatedElementUtils.hasAnnotation(m, PostMapping.class) ||
-                            AnnotatedElementUtils.hasAnnotation(m, PutMapping.class) ||
-                            AnnotatedElementUtils.hasAnnotation(m, DeleteMapping.class) ||
-                            AnnotatedElementUtils.hasAnnotation(m, PatchMapping.class))
-                .count();
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+        // Default fallback: derive from bean name
+        String entityName = beanName.replace("Controller", "");
+        return "/" + entityName.toLowerCase() + "s";
     }
 }

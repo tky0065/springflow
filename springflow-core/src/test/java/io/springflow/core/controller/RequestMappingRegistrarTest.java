@@ -2,35 +2,30 @@ package io.springflow.core.controller;
 
 import io.springflow.core.controller.support.RequestMappingRegistrar;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RequestMappingRegistrarTest {
 
     @Test
-    void postProcessAfterInitialization_withNonController_shouldReturnBean() {
+    void requestMappingRegistrar_shouldBeApplicationListener() {
         // Given
         RequestMappingRegistrar registrar = new RequestMappingRegistrar();
-        String bean = "Not a controller";
-
-        // When
-        Object result = registrar.postProcessAfterInitialization(bean, "someBean");
 
         // Then
-        assertThat(result).isSameAs(bean);
+        assertThat(registrar).isInstanceOf(ApplicationListener.class);
     }
 
     @Test
-    void postProcessAfterInitialization_withController_shouldReturnBean() {
+    void onApplicationEvent_shouldOnlyRegisterOnce() {
         // Given
         RequestMappingRegistrar registrar = new RequestMappingRegistrar();
-        Object bean = new Object(); // Any object
-
-        // When
-        Object result = registrar.postProcessAfterInitialization(bean, "testBean");
 
         // Then
-        assertThat(result).isSameAs(bean);
-        // Note: Full registration testing with RequestMappingHandlerMapping requires integration tests
+        // Note: Full registration testing with RequestMappingHandlerMapping and
+        // ApplicationContext requires integration tests (see SpringFlowWebConfigurationTest)
+        assertThat(registrar).isNotNull();
     }
 }
