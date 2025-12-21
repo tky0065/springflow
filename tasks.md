@@ -503,57 +503,63 @@
 
 ### 🗂️ Module 12: DTO Generation (Semaine 9)
 
-#### 12.1 DtoGenerator Core
-- [ ] Créer classe `DtoGenerator`
-- [ ] Méthode `generateInputDto(EntityMetadata)`
-- [ ] Méthode `generateOutputDto(EntityMetadata)`
-- [ ] Nommage: `<Entity>InputDTO`, `<Entity>OutputDTO`
+#### 12.1 DtoMapper Core (Phase 1 MVP: Map-based approach)
+- [x] Créer interface `DtoMapper<T, ID>`
+- [x] Support Map-based InputDTO et OutputDTO
+- [x] Méthodes de conversion complètes
+- [ ] Génération de classes DTO réelles (deferred to Phase 2)
 
-#### 12.2 InputDTO Generation
-- [ ] Inclure tous les champs sauf ID
-- [ ] Exclure champs `@Hidden`
-- [ ] Inclure champs `@Filterable`
-- [ ] Copier validation annotations
-- [ ] Support relations (IDs uniquement)
-- [ ] Générer constructeurs
-- [ ] Générer getters/setters
+#### 12.2 InputDTO Mapping
+- [x] Inclure tous les champs sauf ID
+- [x] Exclure champs `@Hidden`
+- [x] Exclure champs `@ReadOnly`
+- [x] Validation annotations respectées
+- [x] Support relations via Map
+- [x] Type conversions (String, Number, etc.)
 
-#### 12.3 OutputDTO Generation
-- [ ] Inclure tous les champs avec ID
-- [ ] Exclure champs sensibles
-- [ ] Support relations (nested ou IDs)
-- [ ] Configuration lazy/eager relations
-- [ ] Timestamps (createdAt, updatedAt)
-- [ ] Générer constructeurs
-- [ ] Générer getters/setters
+#### 12.3 OutputDTO Mapping
+- [x] Inclure tous les champs avec ID
+- [x] Exclure champs `@Hidden`
+- [x] Inclure champs `@ReadOnly`
+- [x] Support relations via Map
+- [x] Timestamps inclus
+- [x] LinkedHashMap pour ordre prévisible
 
 #### 12.4 DTO Mapping
-- [ ] Créer interface `DtoMapper<T>`
-- [ ] Méthode `T toEntity(InputDTO)`
-- [ ] Méthode `OutputDTO toDto(T)`
-- [ ] Méthode `void updateEntity(T, InputDTO)`
-- [ ] Méthode `List<OutputDTO> toDto(List<T>)`
+- [x] Créer interface `DtoMapper<T>`
+- [x] Méthode `T toEntity(Map<String, Object>)`
+- [x] Méthode `Map<String, Object> toOutputDto(T)`
+- [x] Méthode `void updateEntity(T, Map<String, Object>)`
+- [x] Méthode `List<Map<String, Object>> toOutputDtoList(List<T>)`
+- [x] Méthode `Page<Map<String, Object>> toOutputDtoPage(Page<T>)`
 
 #### 12.5 Mapper Implementation
-- [ ] Implémentation manuelle (reflection)
+- [x] Implémentation EntityDtoMapper (reflection-based)
+- [x] DtoMapperFactory avec cache
 - [ ] Support MapStruct (Phase 2)
-- [ ] Gestion null values
-- [ ] Gestion collections
-- [ ] Gestion relations
+- [x] Gestion null values
+- [x] Gestion collections (List, Page)
+- [ ] Gestion relations complexes (Phase 2)
 
 #### 12.6 Advanced Features
 - [ ] Support JsonView (Phase 2)
-- [ ] Support JsonIgnore
-- [ ] Custom serialization
-- [ ] Date formatting
+- [x] Support @Hidden via EntityMetadata
+- [ ] Custom serialization (Phase 2)
+- [x] Type conversion automatique
 
 #### 12.7 Tests
-- [ ] Test génération InputDTO
-- [ ] Test génération OutputDTO
-- [ ] Test mapping entity → DTO
-- [ ] Test mapping DTO → entity
-- [ ] Test validation sur InputDTO
-- [ ] Test champs hidden exclus
+- [x] Test mapping Map → entity
+- [x] Test mapping entity → Map
+- [x] Test mapping entity → DTO
+- [x] Test mapping DTO → entity
+- [x] Test validation respectée
+- [x] Test champs hidden exclus
+- [x] Test champs readonly exclus en input
+- [x] Test champs readonly inclus en output
+- [x] Test update entity
+- [x] Test collections (List, Page)
+- [x] Test DtoMapperFactory cache
+- [x] 22 tests au total, tous passent
 
 ---
 
