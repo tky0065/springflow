@@ -46,6 +46,8 @@ public class ControllerGenerator {
         // Add @RestController and @RequestMapping annotations metadata
         beanDefinition.setAttribute("restController", true);
         beanDefinition.setAttribute("requestMapping", basePath);
+        // Add entityMetadata attribute for OpenAPI customizer
+        beanDefinition.setAttribute("entityMetadata", metadata);
 
         registry.registerBeanDefinition(controllerBeanName, beanDefinition);
     }
@@ -62,9 +64,13 @@ public class ControllerGenerator {
 
     /**
      * Get the base path for the controller from @AutoApi annotation.
+     * <p>
+     * Returns the entity-specific path WITHOUT the global base path,
+     * as the global base path will be prepended by RequestMappingRegistrar.
+     * </p>
      *
      * @param metadata the entity metadata
-     * @return the base path (e.g., "/api/products")
+     * @return the entity path (e.g., "/products")
      */
     private String getBasePath(EntityMetadata metadata) {
         if (metadata.autoApiConfig() != null && metadata.autoApiConfig().path() != null
@@ -72,10 +78,10 @@ public class ControllerGenerator {
             return metadata.autoApiConfig().path();
         }
 
-        // Default: /api/{entityNamePlural}
+        // Default: /{entityNamePlural} (without global /api prefix)
         String entityNameLower = StringUtils.uncapitalize(metadata.entityName());
         // Simple pluralization (add 's')
         String plural = entityNameLower.endsWith("s") ? entityNameLower : entityNameLower + "s";
-        return "/api/" + plural;
+        return "/" + plural;
     }
 }

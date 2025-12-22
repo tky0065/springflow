@@ -753,7 +753,8 @@
 ---
 
  ## Point de rupture avant la phase 2 
-   [] - config pour publier la lib sur maven center: https://medium.com/@othmane.outama/step-by-step-publishing-java-libraries-to-maven-central-abf2ffeb04c0
+   [] - config pour publier la lib sur maven center:https://central.sonatype.org/publish/publish-portal-maven/
+   https://medium.com/@othmane.outama/step-by-step-publishing-java-libraries-to-maven-central-abf2ffeb04c0
    <server>
    <id>${server}</id>
    <username>N00KLH</username>
