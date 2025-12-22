@@ -1,9 +1,9 @@
 # SpringFlow 🚀
 
-[![Build Status](https://img.shields.io/github/workflow/status/springflow/springflow/CI)](https://github.com/springflow/springflow/actions)
-[![Maven Central](https://img.shields.io/maven-central/v/io.springflow/springflow-starter)](https://search.maven.org/artifact/io.springflow/springflow-starter)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coverage](https://img.shields.io/codecov/c/github/springflow/springflow)](https://codecov.io/gh/springflow/springflow)
+[![Java Version](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2%2B-brightgreen)](https://spring.io/projects/spring-boot)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.1.0--SNAPSHOT-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
 > **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
 
@@ -11,18 +11,23 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 
 ---
 
-## ✨ Fonctionnalités principales
+## ✨ Fonctionnalités Phase 1 MVP (v0.1.0)
 
 - 🎯 **Une annotation, API complète** : `@AutoApi` génère tout automatiquement
-- 🔄 **CRUD complet** : GET, POST, PUT, PATCH, DELETE
+- 🔄 **CRUD complet** : GET (list + by ID), POST, PUT, DELETE
 - 📄 **Pagination & Tri** : Intégrés nativement avec Spring Data
-- 🔍 **Filtres dynamiques** : Filtrage automatique sur les champs annotés
+- 🔒 **DTO automatiques** : Support @Hidden et @ReadOnly
 - 📚 **Documentation automatique** : Swagger/OpenAPI généré automatiquement
-- ✅ **Validation** : Support complet JSR-380
-- 🔐 **Sécurité** : Intégration Spring Security avec contrôle par rôles
-- 🗑️ **Soft Delete** : Suppression logique avec possibilité de restauration
+- ✅ **Validation** : Support complet JSR-380 (NotNull, NotBlank, Size, Min, Max, Email, Pattern)
 - 🎨 **Support Java & Kotlin** : Compatible avec les deux langages
-- 🚀 **Zéro configuration** : Fonctionne out-of-the-box avec Spring Boot
+- 🚀 **Zéro configuration** : Auto-configuration Spring Boot, aucune annotation requise
+
+### 🚧 Fonctionnalités Phase 2 (à venir)
+- 🔍 Filtres dynamiques avec JPA Specifications
+- 🔐 Sécurité avancée (JWT, roles, permissions)
+- 🗑️ Soft Delete avec restauration
+- 📊 Audit Trail (createdBy, updatedBy)
+- 🎨 GraphQL support
 
 ---
 
@@ -33,53 +38,47 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 **Maven** :
 ```xml
 <dependency>
-    <groupId>io.springflow</groupId>
+    <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>1.0.0</version>
+    <version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle** :
 ```gradle
-implementation 'io.springflow:springflow-starter:1.0.0'
+implementation 'io.github.tky0065:springflow-starter:0.1.0-SNAPSHOT'
 ```
 
-### 2. Activez SpringFlow
-
-```java
-@SpringBootApplication
-@EnableSpringFlow(basePackages = "com.example.entities")
-public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-}
-```
-
-### 3. Annotez vos entités
+### 2. Annotez vos entités
 
 ```java
 @Entity
-@AutoApi(path = "products")
+@Table(name = "products")
+@AutoApi(
+    path = "/products",
+    description = "Product management API"
+)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
+    @Size(min = 3, max = 100)
     private String name;
 
+    @NotNull
     @Min(0)
-    private BigDecimal price;
+    private Double price;
 
-    @Filterable(types = {FilterType.LIKE, FilterType.EQUALS})
-    private String category;
+    @ReadOnly
+    private LocalDateTime createdAt;
 
-    // Getters & Setters
+    // Getters & Setters (ou utilisez Lombok @Data)
 }
 ```
 
-### 4. C'est tout ! 🎉
+### 3. C'est tout ! 🎉
 
 Démarrez votre application et votre API REST est prête :
 
@@ -87,29 +86,26 @@ Démarrez votre application et votre API REST est prête :
 # Lister tous les produits (avec pagination)
 GET /api/products?page=0&size=20
 
-# Filtrer et trier
-GET /api/products?category_like=Electro&sort=price,desc
-
 # Récupérer un produit
-GET /api/products/{id}
+GET /api/products/1
 
 # Créer un produit
 POST /api/products
 Content-Type: application/json
 {
   "name": "Laptop",
-  "price": 999.99,
-  "category": "Electronics"
+  "price": 999.99
 }
 
 # Mettre à jour
-PUT /api/products/{id}
-
-# Mettre à jour partiellement
-PATCH /api/products/{id}
+PUT /api/products/1
+{
+  "name": "Laptop Pro",
+  "price": 1299.99
+}
 
 # Supprimer
-DELETE /api/products/{id}
+DELETE /api/products/1
 ```
 
 **Documentation Swagger** disponible sur : `http://localhost:8080/swagger-ui.html`
@@ -123,11 +119,8 @@ DELETE /api/products/{id}
 - [Installation](#-installation)
 - [Configuration](#️-configuration)
 - [Annotations](#-annotations)
-- [Filtres dynamiques](#-filtres-dynamiques)
 - [Pagination & Tri](#-pagination--tri)
 - [Validation](#-validation)
-- [Sécurité](#-sécurité)
-- [Soft Delete](#️-soft-delete)
 - [Personnalisation](#-personnalisation)
 - [Support Kotlin](#-support-kotlin)
 - [Exemples](#-exemples)
@@ -149,9 +142,9 @@ DELETE /api/products/{id}
 <dependencies>
     <!-- SpringFlow -->
     <dependency>
-        <groupId>io.springflow</groupId>
+        <groupId>io.github.tky0065</groupId>
         <artifactId>springflow-starter</artifactId>
-        <version>1.0.0</version>
+        <version>0.1.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Spring Boot Starter Web -->
@@ -178,6 +171,13 @@ DELETE /api/products/{id}
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
+
+    <!-- Lombok (optionnel mais recommandé) -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+    </dependency>
 </dependencies>
 ```
 
@@ -186,6 +186,8 @@ DELETE /api/products/{id}
 ## ⚙️ Configuration
 
 ### Configuration minimale
+
+SpringFlow s'active automatiquement via Spring Boot auto-configuration. **Aucune annotation requise!**
 
 **application.yml** :
 ```yaml
@@ -196,10 +198,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true
 
+# Configuration SpringFlow (toutes optionnelles)
 springflow:
-  enabled: true
-  base-packages: com.example.entities
+  enabled: true                          # Défaut: true
+  base-path: /api                        # Défaut: /api
 ```
 
 ### Configuration avancée
@@ -208,31 +212,23 @@ springflow:
 springflow:
   enabled: true
   base-path: /api/v1                    # Préfixe global des endpoints
-  base-packages:                         # Packages à scanner
-    - com.example.entities
-    - com.example.models
 
   pagination:
-    default-size: 20                     # Taille par défaut des pages
-    max-size: 100                        # Taille maximale
-
-  filtering:
-    case-sensitive: false                # Filtres case-insensitive
-    default-operator: AND                # Opérateur par défaut
+    default-page-size: 20                # Taille par défaut des pages
+    max-page-size: 100                   # Taille maximale
+    page-parameter: page                 # Nom du paramètre page
+    size-parameter: size                 # Nom du paramètre size
+    sort-parameter: sort                 # Nom du paramètre sort
+    one-indexed-parameters: false        # Pagination 0-indexed (défaut)
 
   swagger:
     enabled: true                        # Activer Swagger UI
-    title: "My API"
-    description: "API Documentation"
+    title: "SpringFlow API"
+    description: "Auto-generated REST API"
     version: "1.0.0"
-
-  soft-delete:
-    enabled: true                        # Activer soft delete global
-    field-name: deleted
-    timestamp-field: deletedAt
-
-  security:
-    enabled: false                       # Sécurité globale (désactivée par défaut)
+    contact:
+      name: "API Support"
+      email: "support@example.com"
 ```
 
 ---
@@ -246,58 +242,25 @@ Active la génération automatique de l'API REST pour une entité.
 ```java
 @Entity
 @AutoApi(
-    path = "users",                      // Chemin de l'endpoint
-    expose = Expose.ALL,                 // Quelles opérations exposer
-    pagination = true,                   // Activer pagination
-    sorting = true,                      // Activer tri
-    description = "User management API"  // Description pour Swagger
+    path = "/users",                     // Chemin de l'endpoint (défaut: /nomEntité)
+    description = "User management API", // Description pour Swagger
+    tags = {"Users", "Authentication"}   // Tags Swagger
 )
 public class User {
-    // ...
-}
-```
-
-**Paramètres** :
-- `path` : Chemin de l'API (défaut : nom de la classe en minuscules + 's')
-- `expose` : `ALL`, `CREATE_UPDATE`, `READ_ONLY` (défaut : `ALL`)
-- `pagination` : Activer/désactiver la pagination (défaut : `true`)
-- `sorting` : Activer/désactiver le tri (défaut : `true`)
-- `description` : Description pour la documentation
-
-### `@Filterable`
-
-Active le filtrage dynamique sur un champ.
-
-```java
-@Entity
-@AutoApi(path = "products")
-public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Filterable(types = {FilterType.LIKE, FilterType.EQUALS})
-    private String name;
-
-    @Filterable(types = {FilterType.GREATER_THAN, FilterType.LESS_THAN, FilterType.RANGE})
-    private BigDecimal price;
-
-    @Filterable(types = FilterType.IN)
-    private String category;
+    private String username;
 }
 ```
 
-**Types de filtres disponibles** :
-- `EQUALS` : Égalité exacte
-- `LIKE` : Recherche partielle (avec wildcards)
-- `GREATER_THAN` : Supérieur à
-- `LESS_THAN` : Inférieur à
-- `GREATER_THAN_OR_EQUAL` : Supérieur ou égal
-- `LESS_THAN_OR_EQUAL` : Inférieur ou égal
-- `RANGE` : Entre deux valeurs
-- `IN` : Dans une liste de valeurs
-- `IS_NULL` : Est null
-- `IS_NOT_NULL` : N'est pas null
+**Endpoints générés automatiquement** :
+- `GET /api/users` - Liste avec pagination
+- `GET /api/users/{id}` - Récupérer par ID
+- `POST /api/users` - Créer
+- `PUT /api/users/{id}` - Mettre à jour
+- `DELETE /api/users/{id}` - Supprimer
 
 ### `@Hidden`
 
@@ -305,90 +268,72 @@ Exclut un champ des DTOs générés (Input et Output).
 
 ```java
 @Entity
-@AutoApi(path = "users")
+@AutoApi(path = "/users")
 public class User {
     @Id
     private Long id;
 
     private String username;
 
-    @Hidden  // Ne sera pas exposé dans l'API
+    @Hidden  // ❌ Ne sera JAMAIS exposé dans l'API
     private String password;
 
-    @Hidden  // Champ interne uniquement
+    @Hidden  // ❌ Champ interne uniquement
     private String internalToken;
 }
 ```
 
-### `@SoftDelete`
+**Résultat** : Les champs `password` et `internalToken` n'apparaissent ni en input (POST/PUT) ni en output (GET).
 
-Active la suppression logique (soft delete).
+### `@ReadOnly`
+
+Champ visible en output (GET) mais pas accepté en input (POST/PUT).
 
 ```java
 @Entity
-@AutoApi(path = "articles")
-@SoftDelete
-public class Article {
+@AutoApi(path = "/products")
+public class Product {
     @Id
+    @GeneratedValue
     private Long id;
 
-    private String title;
-    private String content;
+    private String name;
 
-    // Champs ajoutés automatiquement par SpringFlow
-    // private Boolean deleted;
-    // private LocalDateTime deletedAt;
+    @ReadOnly  // ✅ Visible en GET, ❌ ignoré en POST/PUT
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @ReadOnly
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
 ```
 
-**Endpoints générés** :
-- `DELETE /api/articles/{id}` → Soft delete (deleted = true)
-- `POST /api/articles/{id}/restore` → Restauration (deleted = false)
-- `GET /api/articles?includeDeleted=true` → Inclure les supprimés
+### `@Filterable` (Phase 2 - à venir)
 
----
+Active le filtrage dynamique sur un champ.
 
-## 🔍 Filtres dynamiques
+```java
+@Entity
+@AutoApi(path = "/products")
+public class Product {
+    @Filterable(types = {FilterType.LIKE, FilterType.EQUALS})
+    private String name;
 
-### Syntaxe des filtres
-
-```bash
-# Filtre simple (EQUALS)
-GET /api/products?category=Electronics
-
-# Filtre LIKE (recherche partielle)
-GET /api/products?name_like=Lap
-
-# Filtre numérique
-GET /api/products?price_gt=100&price_lt=500
-
-# Filtre RANGE
-GET /api/products?price_between=100,500
-
-# Filtre IN (liste de valeurs)
-GET /api/products?category_in=Electronics,Books,Toys
-
-# Filtre NULL
-GET /api/products?discount_null=true
-
-# Combinaison de filtres (AND par défaut)
-GET /api/products?category=Electronics&price_lt=1000&name_like=Samsung
+    @Filterable(types = {FilterType.GREATER_THAN, FilterType.LESS_THAN})
+    private Double price;
+}
 ```
-
-### Opérateurs disponibles
-
-| Opérateur | Syntaxe | Exemple |
-|-----------|---------|---------|
-| Égalité | `?field=value` | `?status=ACTIVE` |
-| Like | `?field_like=value` | `?name_like=John` |
-| Supérieur | `?field_gt=value` | `?age_gt=18` |
-| Supérieur ou égal | `?field_gte=value` | `?price_gte=100` |
-| Inférieur | `?field_lt=value` | `?age_lt=65` |
-| Inférieur ou égal | `?field_lte=value` | `?price_lte=500` |
-| Range | `?field_between=min,max` | `?age_between=18,65` |
-| In | `?field_in=v1,v2,v3` | `?status_in=ACTIVE,PENDING` |
-| Is Null | `?field_null=true` | `?email_null=true` |
-| Is Not Null | `?field_null=false` | `?email_null=false` |
 
 ---
 
@@ -411,14 +356,15 @@ GET /api/products?size=1000  # Limité à max-size (100)
 ```json
 {
   "content": [
-    { "id": 1, "name": "Product 1" },
-    { "id": 2, "name": "Product 2" }
+    { "id": 1, "name": "Product 1", "price": 99.99 },
+    { "id": 2, "name": "Product 2", "price": 149.99 }
   ],
   "pageable": {
     "pageNumber": 0,
     "pageSize": 20,
-    "sort": { "sorted": true },
-    "offset": 0
+    "sort": { "sorted": false, "unsorted": true },
+    "offset": 0,
+    "paged": true
   },
   "totalElements": 150,
   "totalPages": 8,
@@ -460,7 +406,8 @@ SpringFlow supporte automatiquement toutes les annotations JSR-380.
 
 ```java
 @Entity
-@AutoApi(path = "users")
+@AutoApi(path = "/users")
+@Data // Lombok
 public class User {
     @Id
     @GeneratedValue
@@ -491,7 +438,7 @@ public class User {
 
 ```json
 {
-  "timestamp": "2025-12-18T10:30:00Z",
+  "timestamp": "2025-12-21T19:30:00Z",
   "status": 400,
   "error": "Bad Request",
   "message": "Validation failed",
@@ -506,121 +453,9 @@ public class User {
       "message": "Must be at least 18 years old",
       "rejectedValue": 15
     }
-  ]
+  ],
+  "path": "/api/users"
 }
-```
-
----
-
-## 🔐 Sécurité
-
-### Configuration de la sécurité
-
-```java
-@Entity
-@AutoApi(
-    path = "admin/users",
-    security = @Security(
-        enabled = true,
-        roles = {"ADMIN", "MANAGER"}
-    )
-)
-public class User {
-    // ...
-}
-```
-
-### Sécurité granulaire par opération
-
-```java
-@Entity
-@AutoApi(path = "products")
-public class Product {
-    // Endpoint publics pour lecture
-    // Endpoints sécurisés pour création/modification/suppression
-}
-
-// Dans votre configuration Spring Security
-@Configuration
-@EnableMethodSecurity
-public class SecurityConfig {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                .requestMatchers("/api/**").authenticated()
-            )
-            .httpBasic();
-        return http.build();
-    }
-}
-```
-
-### Intégration JWT
-
-```java
-@AutoApi(
-    path = "secure/data",
-    security = @Security(
-        enabled = true,
-        roles = {"USER"}
-    )
-)
-```
-
-Requête avec JWT :
-```bash
-curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-     http://localhost:8080/api/secure/data
-```
-
----
-
-## 🗑️ Soft Delete
-
-### Activation
-
-```java
-@Entity
-@AutoApi(path = "posts")
-@SoftDelete
-public class Post {
-    @Id
-    private Long id;
-    private String title;
-    private String content;
-}
-```
-
-### Utilisation
-
-```bash
-# Suppression logique
-DELETE /api/posts/1
-# Réponse: 204 No Content
-# L'entité existe toujours en base avec deleted=true
-
-# Restauration
-POST /api/posts/1/restore
-# Réponse: 200 OK
-# L'entité est restaurée avec deleted=false
-
-# Liste sans les supprimés (défaut)
-GET /api/posts
-# Retourne uniquement les posts non supprimés
-
-# Liste avec les supprimés
-GET /api/posts?includeDeleted=true
-# Retourne tous les posts
-
-# Liste uniquement les supprimés
-GET /api/posts?deletedOnly=true
-# Retourne uniquement les posts supprimés
-
-# Suppression définitive (si autorisée)
-DELETE /api/posts/1?hard=true
-# Suppression physique de la base de données
 ```
 
 ---
@@ -629,36 +464,40 @@ DELETE /api/posts/1?hard=true
 
 ### Ajouter des endpoints personnalisés
 
+Vous pouvez créer votre propre controller qui étend `GenericCrudController`:
+
 ```java
 @RestController
 @RequestMapping("/api/users")
 public class UserController extends GenericCrudController<User, Long> {
 
+    @Autowired
+    private UserService userService;
+
+    public UserController(UserService service, DtoMapper<User, Long> dtoMapper) {
+        super(service, dtoMapper, User.class);
+    }
+
     // Les endpoints CRUD standards sont hérités automatiquement
 
     // Ajoutez vos endpoints personnalisés
     @GetMapping("/active")
-    public ResponseEntity<List<User>> findActiveUsers() {
-        // Votre logique
-        return ResponseEntity.ok(activeUsers);
+    public ResponseEntity<List<Map<String, Object>>> findActiveUsers() {
+        List<User> activeUsers = userService.findByActive(true);
+        return ResponseEntity.ok(
+            dtoMapper.toOutputDtoList(activeUsers)
+        );
     }
 
     @PostMapping("/{id}/activate")
-    public ResponseEntity<User> activateUser(@PathVariable Long id) {
-        // Votre logique
-        return ResponseEntity.ok(activatedUser);
-    }
-
-    // Override un endpoint standard si nécessaire
-    @Override
-    public ResponseEntity<UserOutputDTO> findById(Long id) {
-        // Votre logique personnalisée
-        return super.findById(id);
+    public ResponseEntity<Map<String, Object>> activateUser(@PathVariable Long id) {
+        User user = userService.activate(id);
+        return ResponseEntity.ok(dtoMapper.toOutputDto(user));
     }
 }
 ```
 
-### Service personnalisé
+### Service personnalisé avec hooks
 
 ```java
 @Service
@@ -666,29 +505,29 @@ public class UserService extends GenericCrudService<User, Long> {
 
     // Méthodes CRUD héritées automatiquement
 
-    // Ajoutez votre logique métier
-    public List<User> findActiveUsers() {
-        return repository.findByActiveTrue();
-    }
-
-    @Transactional
-    public User activateUser(Long id) {
-        User user = findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        user.setActive(true);
-        return repository.save(user);
-    }
-
     // Hooks de lifecycle
     @Override
     protected void beforeCreate(User user) {
         user.setCreatedAt(LocalDateTime.now());
         user.setActive(true);
+        // Encoder le password, envoyer email de bienvenue, etc.
     }
 
     @Override
     protected void afterUpdate(User user) {
-        // Envoyer un email, logger, etc.
+        // Logger l'action, invalider cache, etc.
+    }
+
+    @Override
+    protected void beforeDelete(Long id) {
+        // Vérifications avant suppression
+    }
+
+    // Logique métier personnalisée
+    public User activate(Long id) {
+        User user = findById(id);
+        user.setActive(true);
+        return save(user);
     }
 }
 ```
@@ -703,23 +542,29 @@ SpringFlow fonctionne parfaitement avec Kotlin et les data classes.
 
 ```kotlin
 @Entity
-@AutoApi(path = "products")
+@Table(name = "products")
+@AutoApi(
+    path = "/products",
+    description = "Product management API",
+    tags = ["Products"]
+)
 data class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @field:NotBlank
-    @field:Filterable(types = [FilterType.LIKE, FilterType.EQUALS])
+    @field:Size(min = 3, max = 100)
     val name: String,
 
+    @field:NotNull
     @field:Min(0)
-    val price: BigDecimal,
+    val price: Double,
 
-    @field:Filterable(types = [FilterType.IN])
-    val category: String? = null,
+    val description: String? = null,
 
-    val description: String? = null
+    @field:ReadOnly
+    val createdAt: LocalDateTime? = null
 )
 ```
 
@@ -727,7 +572,6 @@ data class Product(
 
 ```kotlin
 @SpringBootApplication
-@EnableSpringFlow(basePackages = ["com.example.entities"])
 class Application
 
 fun main(args: Array<String>) {
@@ -735,13 +579,15 @@ fun main(args: Array<String>) {
 }
 ```
 
+**Note**: Aucune annotation `@EnableSpringFlow` requise! L'auto-configuration fonctionne automatiquement.
+
 ### Nullable types
 
 ```kotlin
 data class User(
     val id: Long? = null,
-    val name: String,           // Non-null
-    val email: String?,         // Nullable
+    val name: String,           // Non-null (requis)
+    val email: String?,         // Nullable (optionnel)
     val age: Int? = null        // Nullable avec default
 )
 ```
@@ -750,95 +596,170 @@ data class User(
 
 ## 📚 Exemples
 
-### E-Commerce complet
+### Exemple complet: E-Commerce
 
 ```java
 // Product.java
 @Entity
-@AutoApi(path = "products")
-@SoftDelete
+@Table(name = "products")
+@Data  // Lombok
+@AutoApi(path = "/products", description = "Product management")
 public class Product {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Filterable(types = {FilterType.LIKE, FilterType.EQUALS})
+    @Size(min = 3, max = 100)
     private String name;
 
-    @Min(0)
-    @Filterable(types = FilterType.RANGE)
-    private BigDecimal price;
-
-    @Filterable(types = FilterType.IN)
-    private String category;
-
-    @ManyToOne
-    private Brand brand;
-
-    private Integer stock;
-}
-
-// Order.java
-@Entity
-@AutoApi(
-    path = "orders",
-    security = @Security(enabled = true, roles = {"USER"})
-)
-public class Order {
-    @Id @GeneratedValue
-    private Long id;
-
-    @ManyToOne
-    private User user;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> items;
+    @Size(max = 500)
+    private String description;
 
     @NotNull
-    private OrderStatus status;
+    @Min(0)
+    private Double price;
 
-    private LocalDateTime orderedAt;
+    @Min(0)
+    private Integer stock = 0;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ReadOnly
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @ReadOnly
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
 
 // Category.java
 @Entity
-@AutoApi(path = "categories")
+@Table(name = "categories")
+@Data
+@AutoApi(path = "/categories", description = "Category management")
 public class Category {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
+    @Size(min = 2, max = 50)
     private String name;
 
+    @Size(max = 200)
+    private String description;
+
     @ManyToOne
+    @JoinColumn(name = "parent_id")
+    @JsonIgnoreProperties("children")
     private Category parent;
 
-    @OneToMany(mappedBy = "parent")
-    private List<Category> children;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("parent")
+    private List<Category> children = new ArrayList<>();
+}
+
+// User.java
+@Entity
+@Table(name = "users")
+@Data
+@AutoApi(path = "/users", description = "User management")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    @Size(min = 3, max = 50)
+    private String username;
+
+    @NotBlank
+    @Email
+    private String email;
+
+    @Hidden  // ❌ Jamais exposé dans l'API
+    @NotBlank
+    @Size(min = 8)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role = UserRole.USER;
+
+    @ReadOnly
+    private LocalDateTime createdAt;
+
+    public enum UserRole {
+        USER, ADMIN, MODERATOR
+    }
 }
 ```
 
 ### Utilisation de l'API
 
 ```bash
-# Recherche de produits
-GET /api/products?category_in=Electronics,Books&price_between=10,100&sort=price,asc
+# Lister les produits avec pagination
+GET /api/products?page=0&size=20&sort=price,desc
 
-# Création de commande (authentifié)
-POST /api/orders
-Authorization: Bearer YOUR_TOKEN
+# Créer un produit
+POST /api/products
 Content-Type: application/json
 {
-  "userId": 1,
-  "items": [
-    { "productId": 10, "quantity": 2 },
-    { "productId": 15, "quantity": 1 }
-  ],
-  "status": "PENDING"
+  "name": "iPhone 15 Pro",
+  "description": "Latest Apple smartphone",
+  "price": 999.99,
+  "stock": 50
 }
 
-# Liste des commandes de l'utilisateur
-GET /api/orders?userId=1&sort=orderedAt,desc
+# Mettre à jour un produit
+PUT /api/products/1
+{
+  "name": "iPhone 15 Pro Max",
+  "price": 1199.99,
+  "stock": 30
+}
+
+# Supprimer un produit
+DELETE /api/products/1
+
+# Créer une catégorie
+POST /api/categories
+{
+  "name": "Electronics",
+  "description": "Electronic devices and gadgets"
+}
+
+# Créer un utilisateur (le password ne sera jamais retourné)
+POST /api/users
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "securePassword123",
+  "role": "USER"
+}
+
+# Le password n'apparaît PAS dans la réponse
+{
+  "id": 1,
+  "username": "john_doe",
+  "email": "john@example.com",
+  "role": "USER",
+  "createdAt": "2025-12-21T10:30:00Z"
+  # ❌ password absent (grâce à @Hidden)
+}
 ```
 
 ---
@@ -848,41 +769,55 @@ GET /api/orders?userId=1&sort=orderedAt,desc
 ### Problème : Les endpoints ne sont pas générés
 
 **Solution** :
-1. Vérifiez que `@EnableSpringFlow` est présent sur votre classe principale
-2. Vérifiez que le package des entités est dans `basePackages`
-3. Vérifiez que vos entités ont `@Entity` ET `@AutoApi`
-4. Activez les logs debug :
+1. Vérifiez que vos entités ont `@Entity` ET `@AutoApi`
+2. Vérifiez que `springflow.enabled=true` (défaut)
+3. Activez les logs debug :
 ```yaml
 logging:
   level:
     io.springflow: DEBUG
 ```
 
+Vous devriez voir dans les logs:
+```
+SpringFlow auto-configuration activated
+Scanned 3 entities with @AutoApi
+Registered controller for Product
+Registering 3 SpringFlow controllers with Spring MVC at base path: /api
+```
+
 ### Problème : Erreur 404 sur les endpoints
 
 **Solution** :
-- Vérifiez le base-path configuré
+- Vérifiez le base-path configuré (défaut: `/api`)
 - Vérifiez le path dans `@AutoApi`
 - URL complète : `http://localhost:8080/{base-path}/{entity-path}`
+- Exemple: `http://localhost:8080/api/products`
 
 ### Problème : Validation ne fonctionne pas
 
 **Solution** :
 - Ajoutez `spring-boot-starter-validation` dans vos dépendances
-- Utilisez `@Valid` dans vos controllers custom
-- Vérifiez que les annotations sont sur les champs ou getters
+- Vérifiez que les annotations JSR-380 sont sur les **champs** (pas les getters)
+- Utilisez `@field:` prefix en Kotlin
 
-### Problème : Performance avec beaucoup d'entités
+### Problème : Erreur avec Lombok
+
+**Solution** :
+- Utilisez Lombok 1.18.38+ pour Java 25
+- Utilisez Lombok 1.18.30+ pour Java 17
+- Ajoutez Lombok avant MapStruct dans annotation processor path
+
+### Problème : data.sql ne s'exécute pas
 
 **Solution** :
 ```yaml
-springflow:
-  cache:
-    enabled: true
-    max-size: 1000
-  lazy-loading:
-    enabled: true
+spring:
+  jpa:
+    defer-datasource-initialization: true
 ```
+
+Cela garantit que Hibernate crée les tables AVANT que data.sql s'exécute.
 
 ---
 
@@ -894,7 +829,7 @@ Nous accueillons les contributions ! Consultez [CONTRIBUTING.md](CONTRIBUTING.md
 
 ```bash
 # Cloner le repository
-git clone https://github.com/springflow/springflow.git
+git clone https://github.com/tky0065/springflow.git
 cd springflow
 
 # Build
@@ -905,14 +840,37 @@ cd springflow
 
 # Run demo
 cd springflow-demo
-./mvnw spring-boot:run
+../mvnw spring-boot:run
 ```
+
+### Lancer la demo
+
+```bash
+cd springflow-demo
+../mvnw spring-boot:run
+```
+
+L'application démarre sur `http://localhost:8080`
+
+**Endpoints disponibles:**
+- API: `http://localhost:8080/api/products`
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- H2 Console: `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:springflowdb`)
 
 ---
 
 ## 📝 Changelog
 
 Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique des versions.
+
+**Version 0.1.0-SNAPSHOT (Phase 1 MVP)**:
+- ✅ CRUD complet (GET, POST, PUT, DELETE)
+- ✅ Pagination & Sorting
+- ✅ Validation JSR-380
+- ✅ DTO auto avec @Hidden/@ReadOnly
+- ✅ Swagger/OpenAPI
+- ✅ Support Java & Kotlin
+- ✅ Auto-configuration Spring Boot
 
 ---
 
@@ -922,30 +880,22 @@ SpringFlow est sous licence [Apache License 2.0](LICENSE).
 
 ---
 
-## 🌟 Support
-
-- 📖 **Documentation** : [docs.springflow.io](https://docs.springflow.io)
-- 💬 **Discord** : [Rejoindre la communauté](https://discord.gg/springflow)
-- 🐛 **Issues** : [GitHub Issues](https://github.com/springflow/springflow/issues)
-- 📧 **Email** : support@springflow.io
-
----
-
 ## 🎯 Roadmap
 
-- ✅ Phase 1 (v1.0) : MVP avec CRUD, pagination, filtres, validation
-- 🔄 Phase 2 (v2.0) : GraphQL, Security avancée, Soft Delete, Audit
-- 📅 Phase 3 (v3.0) : Admin UI, CLI, Multi-DB, Monitoring
+- ✅ **Phase 1 (v0.1.0 - MVP)** : CRUD, pagination, validation, DTOs, Swagger
+- 🔄 **Phase 2 (v0.2.0)** : Filtres dynamiques, Security, Soft Delete, Audit
+- 📅 **Phase 3 (v1.0.0)** : GraphQL, Admin UI, CLI, Multi-DB, Monitoring
 
 Voir [roadmap.md](roadmap.md) pour plus de détails.
 
 ---
 
-## ⭐ Star History
+## ⭐ Support
 
-Si vous aimez SpringFlow, n'oubliez pas de mettre une ⭐ sur GitHub !
+Si SpringFlow vous aide, n'oubliez pas de mettre une ⭐ sur GitHub !
 
-[![Star History Chart](https://api.star-history.com/svg?repos=springflow/springflow&type=Date)](https://star-history.com/#springflow/springflow&Date)
+- 🐛 **Issues** : [GitHub Issues](https://github.com/tky0065/springflow/issues)
+- 💬 **Discussions** : [GitHub Discussions](https://github.com/tky0065/springflow/discussions)
 
 ---
 
