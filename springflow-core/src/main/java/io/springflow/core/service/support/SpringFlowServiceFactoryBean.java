@@ -1,5 +1,6 @@
 package io.springflow.core.service.support;
 
+import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.service.GenericCrudService;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,7 @@ public class SpringFlowServiceFactoryBean<T, ID> implements FactoryBean<GenericC
 
     private Class<T> entityClass;
     private JpaRepository<T, ID> repository;
+    private EntityMetadata metadata;
 
     public void setEntityClass(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -27,9 +29,13 @@ public class SpringFlowServiceFactoryBean<T, ID> implements FactoryBean<GenericC
         this.repository = repository;
     }
 
+    public void setMetadata(EntityMetadata metadata) {
+        this.metadata = metadata;
+    }
+
     @Override
     public GenericCrudService<T, ID> getObject() {
-        return new GenericCrudService<T, ID>(repository, entityClass) {
+        return new GenericCrudService<T, ID>(repository, entityClass, metadata) {
             // Anonymous concrete implementation
             // Inherits all methods from GenericCrudService
         };

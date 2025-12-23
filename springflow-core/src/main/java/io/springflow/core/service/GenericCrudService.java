@@ -1,6 +1,8 @@
 package io.springflow.core.service;
 
 import io.springflow.core.exception.EntityNotFoundException;
+import io.springflow.core.metadata.EntityMetadata;
+import io.springflow.core.metadata.FieldMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,57 +40,100 @@ public abstract class GenericCrudService<T, ID> {
 
     protected final JpaRepository<T, ID> repository;
     protected final Class<T> entityClass;
+    protected final EntityMetadata metadata;
 
-    protected GenericCrudService(JpaRepository<T, ID> repository, Class<T> entityClass) {
+    protected GenericCrudService(JpaRepository<T, ID> repository, Class<T> entityClass, EntityMetadata metadata) {
         this.repository = repository;
         this.entityClass = entityClass;
+        this.metadata = metadata;
+    }
+
+    protected GenericCrudService(JpaRepository<T, ID> repository, Class<T> entityClass) {
+        this(repository, entityClass, null);
     }
 
     /**
      * Find all entities with pagination support.
+     * <p>Filters out soft-deleted records if enabled and includeDeleted is false.</p>
      *
      * @param pageable pagination information
+     * @param includeDeleted whether to include soft-deleted records
      * @return a page of entities
      */
     @Transactional(readOnly = true)
-    public Page<T> findAll(Pageable pageable) {
-        log.debug("Finding all {} with pagination: {}", entityClass.getSimpleName(), pageable);
+    public Page<T> findAll(Pageable pageable, boolean includeDeleted) {
+        log.debug("Finding all {} with pagination: {}, includeDeleted: {}", entityClass.getSimpleName(), pageable, includeDeleted);
+        if (metadata != null && metadata.isSoftDeleteEnabled()) {
+            return findAll(null, pageable, includeDeleted);
+        }
         return repository.findAll(pageable);
     }
 
     /**
      * Find all entities.
+     * <p>Filters out soft-deleted records if enabled and includeDeleted is false.</p>
      *
+     * @param includeDeleted whether to include soft-deleted records
      * @return list of all entities
      */
     @Transactional(readOnly = true)
-    public List<T> findAll() {
-        log.debug("Finding all {}", entityClass.getSimpleName());
+    public List<T> findAll(boolean includeDeleted) {
+        log.debug("Finding all {}, includeDeleted: {}", entityClass.getSimpleName(), includeDeleted);
+        if (metadata != null && metadata.isSoftDeleteEnabled() && repository instanceof JpaSpecificationExecutor) {
+            return ((JpaSpecificationExecutor<T>) repository).findAll(buildSoftDeleteSpecification(includeDeleted));
+        }
         return repository.findAll();
     }
 
     /**
      * Find all entities with specification and pagination support.
-     * <p>
-     * This method requires the repository to implement {@link JpaSpecificationExecutor}.
-     * </p>
+     * <p>Automatically adds soft-delete filter if enabled and includeDeleted is false.</p>
      *
      * @param spec     the specification to apply
      * @param pageable pagination information
+     * @param includeDeleted whether to include soft-deleted records
      * @return a page of entities matching the specification
      * @throws UnsupportedOperationException if repository doesn't support specifications
      */
     @Transactional(readOnly = true)
-    public Page<T> findAll(Specification<T> spec, Pageable pageable) {
-        log.debug("Finding all {} with specification and pagination", entityClass.getSimpleName());
+    public Page<T> findAll(Specification<T> spec, Pageable pageable, boolean includeDeleted) {
+        log.debug("Finding all {} with specification and pagination, includeDeleted: {}", 
+                entityClass.getSimpleName(), includeDeleted);
+        
+        Specification<T> effectiveSpec = spec;
+        if (metadata != null && metadata.isSoftDeleteEnabled()) {
+            Specification<T> softDeleteSpec = buildSoftDeleteSpecification(includeDeleted);
+            effectiveSpec = spec == null ? softDeleteSpec : spec.and(softDeleteSpec);
+        }
+
         if (repository instanceof JpaSpecificationExecutor) {
             @SuppressWarnings("unchecked")
             JpaSpecificationExecutor<T> specExecutor = (JpaSpecificationExecutor<T>) repository;
-            return specExecutor.findAll(spec, pageable);
+            return specExecutor.findAll(effectiveSpec, pageable);
         }
+        
+        if (spec == null && (metadata == null || !metadata.isSoftDeleteEnabled())) {
+            return repository.findAll(pageable);
+        }
+
         throw new UnsupportedOperationException(
                 "Repository does not support JpaSpecificationExecutor for dynamic filtering"
         );
+    }
+
+    @Transactional(readOnly = true)
+    public Page<T> findAll(Pageable pageable) {
+        return findAll(pageable, false);
+    }
+
+    @Transactional(readOnly = true)
+    public List<T> findAll() {
+        return findAll(false);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<T> findAll(Specification<T> spec, Pageable pageable) {
+        return findAll(spec, pageable, false);
     }
 
     /**
@@ -129,10 +176,6 @@ public abstract class GenericCrudService<T, ID> {
 
     /**
      * Save a new entity.
-     * <p>
-     * Calls {@link #beforeCreate(Object)} hook before saving.
-     * Calls {@link #afterCreate(Object)} hook after saving.
-     * </p>
      *
      * @param entity the entity to save
      * @return the saved entity
@@ -148,15 +191,10 @@ public abstract class GenericCrudService<T, ID> {
 
     /**
      * Update an existing entity.
-     * <p>
-     * Calls {@link #beforeUpdate(Object, Object)} hook before updating.
-     * Calls {@link #afterUpdate(Object)} hook after updating.
-     * </p>
      *
      * @param id     the entity ID
      * @param entity the entity with updated data
      * @return the updated entity
-     * @throws EntityNotFoundException if entity not found
      */
     public T update(ID id, T entity) {
         log.debug("Updating {} with id: {}", entityClass.getSimpleName(), id);
@@ -170,10 +208,7 @@ public abstract class GenericCrudService<T, ID> {
 
     /**
      * Delete an entity by its ID.
-     * <p>
-     * Calls {@link #beforeDelete(Object)} hook before deletion.
-     * Calls {@link #afterDelete(Object)} hook after deletion.
-     * </p>
+     * <p>Performs a soft delete if {@code @SoftDelete} is present on the entity.</p>
      *
      * @param id the entity ID
      * @throws EntityNotFoundException if entity not found
@@ -182,9 +217,100 @@ public abstract class GenericCrudService<T, ID> {
         log.debug("Deleting {} with id: {}", entityClass.getSimpleName(), id);
         T entity = findById(id);
         beforeDelete(id);
-        repository.deleteById(id);
+
+        if (metadata != null && metadata.isSoftDeleteEnabled()) {
+            performSoftDelete(entity);
+        } else {
+            repository.deleteById(id);
+        }
+
         afterDelete(id);
         log.info("Deleted {} with id: {}", entityClass.getSimpleName(), id);
+    }
+
+    /**
+     * Performs a physical delete even if soft delete is enabled.
+     *
+     * @param id the entity ID
+     */
+    public void hardDeleteById(ID id) {
+        log.debug("Hard deleting {} with id: {}", entityClass.getSimpleName(), id);
+        if (!existsById(id)) {
+            throw new EntityNotFoundException(entityClass, id);
+        }
+        repository.deleteById(id);
+    }
+
+    /**
+     * Restores a soft-deleted entity.
+     *
+     * @param id the entity ID
+     * @return the restored entity
+     */
+    public T restoreById(ID id) {
+        log.debug("Restoring {} with id: {}", entityClass.getSimpleName(), id);
+        if (metadata == null || !metadata.isSoftDeleteEnabled()) {
+            throw new UnsupportedOperationException("Soft delete is not enabled for " + entityClass.getSimpleName());
+        }
+
+        T entity = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(entityClass, id));
+        
+        performRestore(entity);
+        return repository.save(entity);
+    }
+
+    private void performSoftDelete(T entity) {
+        String deletedField = metadata.softDeleteConfig().deletedField();
+        String deletedAtField = metadata.softDeleteConfig().deletedAtField();
+
+        try {
+            setFieldValue(entity, deletedField, true);
+            setFieldValue(entity, deletedAtField, LocalDateTime.now());
+            repository.save(entity);
+        } catch (Exception e) {
+            log.error("Failed to perform soft delete on {}", entityClass.getSimpleName(), e);
+            throw new RuntimeException("Soft delete failed", e);
+        }
+    }
+
+    private void performRestore(T entity) {
+        String deletedField = metadata.softDeleteConfig().deletedField();
+        String deletedAtField = metadata.softDeleteConfig().deletedAtField();
+
+        try {
+            setFieldValue(entity, deletedField, false);
+            setFieldValue(entity, deletedAtField, null);
+        } catch (Exception e) {
+            log.error("Failed to perform restore on {}", entityClass.getSimpleName(), e);
+            throw new RuntimeException("Restore failed", e);
+        }
+    }
+
+    private Specification<T> buildSoftDeleteSpecification(boolean includeDeleted) {
+        return (root, query, cb) -> {
+            if (includeDeleted) {
+                return cb.conjunction();
+            }
+            String deletedField = metadata.softDeleteConfig().deletedField();
+            return cb.or(
+                cb.equal(root.get(deletedField), false),
+                cb.isNull(root.get(deletedField))
+            );
+        };
+    }
+
+    private void setFieldValue(T entity, String fieldName, Object value) throws Exception {
+        FieldMetadata fieldMeta = metadata.getFieldByName(fieldName).orElse(null);
+        Field field;
+        if (fieldMeta != null) {
+            field = fieldMeta.field();
+        } else {
+            // Fallback to reflection if not in metadata
+            field = entityClass.getDeclaredField(fieldName);
+        }
+        field.setAccessible(true);
+        field.set(entity, value);
     }
 
     /**

@@ -7,48 +7,33 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Enables soft delete functionality for an entity.
+ * Enables soft delete for a JPA entity.
  *
- * <p>When applied to an entity, DELETE operations will not physically remove
- * the record from the database. Instead, a flag is set to mark it as deleted.
+ * <p>When an entity is annotated with {@code @SoftDelete}, the generated
+ * {@code deleteById} operation will not physically remove the record from the database.
+ * Instead, it will mark it as deleted by setting a boolean flag or a timestamp.
+ * </p>
  *
- * <p><b>Phase 2 Feature</b> - Implementation pending.
- *
- * <h3>Behavior:</h3>
- * <ul>
- *   <li>Adds {@code deleted} boolean field (default false)</li>
- *   <li>Adds {@code deletedAt} timestamp field (nullable)</li>
- *   <li>DELETE endpoint marks record as deleted instead of removing it</li>
- *   <li>GET endpoints automatically filter out deleted records</li>
- *   <li>Adds restore endpoint: {@code POST /resource/{id}/restore}</li>
- * </ul>
+ * <p>Query operations will automatically filter out records marked as deleted,
+ * unless configured otherwise.
+ * </p>
  *
  * <h3>Example Usage:</h3>
  * <pre>{@code
  * @Entity
- * @AutoApi(path = "users")
+ * @AutoApi(path = "products")
  * @SoftDelete
- * public class User {
+ * public class Product {
  *     @Id
  *     private Long id;
  *
- *     private String username;
- *
- *     // These fields are added automatically:
- *     // private Boolean deleted = false;
- *     // private LocalDateTime deletedAt;
+ *     private boolean deleted;
+ *     private LocalDateTime deletedAt;
  * }
  * }</pre>
  *
- * <h3>Query Parameters:</h3>
- * <ul>
- *   <li>{@code ?includeDeleted=true} - Include deleted records in results</li>
- *   <li>{@code ?deletedOnly=true} - Show only deleted records</li>
- * </ul>
- *
  * @author SpringFlow
- * @since 0.2.0 (Phase 2)
- * @see AutoApi
+ * @since 0.1.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -56,20 +41,21 @@ import java.lang.annotation.Target;
 public @interface SoftDelete {
 
     /**
-     * Name of the boolean field to track deletion status.
+     * The name of the boolean field used to mark the record as deleted.
      *
-     * <p>Defaults to "deleted".
+     * <p>Defaults to "deleted".</p>
      *
-     * @return the field name for deletion flag
+     * @return the name of the deleted field
      */
     String deletedField() default "deleted";
 
     /**
-     * Name of the timestamp field to track deletion time.
+     * The name of the timestamp field used to store the deletion date/time.
      *
-     * <p>Defaults to "deletedAt".
+     * <p>Defaults to "deletedAt". If the field is not present in the entity,
+     * only the boolean flag will be used.</p>
      *
-     * @return the field name for deletion timestamp
+     * @return the name of the deletedAt field
      */
     String deletedAtField() default "deletedAt";
 }

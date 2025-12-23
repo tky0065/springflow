@@ -4,6 +4,7 @@ import io.springflow.annotations.AutoApi;
 import io.springflow.annotations.Filterable;
 import io.springflow.annotations.Hidden;
 import io.springflow.annotations.ReadOnly;
+import io.springflow.annotations.SoftDelete;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.lang.annotation.Annotation;
@@ -45,6 +46,7 @@ public class MetadataResolver {
         String entityName = entityClass.getSimpleName();
         String tableName = determineTableName(entityClass);
         AutoApi autoApi = entityClass.getAnnotation(AutoApi.class);
+        SoftDelete softDelete = entityClass.getAnnotation(SoftDelete.class);
         
         List<FieldMetadata> fields = resolveFields(entityClass);
         Class<?> idType = resolveIdType(fields);
@@ -55,6 +57,7 @@ public class MetadataResolver {
                 entityName,
                 tableName,
                 autoApi,
+                softDelete,
                 fields
         );
     }

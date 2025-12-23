@@ -88,8 +88,9 @@ public abstract class GenericCrudController<T, ID> {
         log.debug("GET request to find all {} with pagination: {} and filters: {}",
                 entityClass.getSimpleName(), pageable, params);
 
+        boolean includeDeleted = Boolean.parseBoolean(params.getOrDefault("includeDeleted", "false"));
         Specification<T> spec = filterResolver.buildSpecification(params, metadata);
-        Page<T> page = service.findAll(spec, pageable);
+        Page<T> page = service.findAll(spec, pageable, includeDeleted);
 
         Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page);
         return ResponseEntity.ok(dtoPage);
@@ -239,6 +240,68 @@ public abstract class GenericCrudController<T, ID> {
             @PathVariable ID id) {
         log.debug("DELETE request to delete {} with id: {}", entityClass.getSimpleName(), id);
         service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * POST /{id}/restore - Restore a soft-deleted entity.
+     *
+     * @param id the entity ID
+     * @return restored entity DTO with HTTP 200 OK
+     */
+    @Operation(
+            summary = "Restore a soft-deleted entity",
+            description = "Restore an entity that was previously soft-deleted."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Entity successfully restored"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Entity not found"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Soft delete not enabled for this entity"
+            )
+    })
+    @PostMapping("/{id}/restore")
+    public ResponseEntity<Map<String, Object>> restore(
+            @Parameter(description = "Entity ID", required = true)
+            @PathVariable ID id) {
+        log.debug("POST request to restore {} with id: {}", entityClass.getSimpleName(), id);
+        T restored = service.restoreById(id);
+        return ResponseEntity.ok(dtoMapper.toOutputDto(restored));
+    }
+
+    /**
+     * DELETE /{id}/hard - Physical delete of an entity.
+     *
+     * @param id the entity ID
+     * @return HTTP 204 NO CONTENT
+     */
+    @Operation(
+            summary = "Hard delete an entity",
+            description = "Permanently remove an entity from the database, even if soft delete is enabled."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Entity successfully deleted"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Entity not found"
+            )
+    })
+    @DeleteMapping("/{id}/hard")
+    public ResponseEntity<Void> hardDelete(
+            @Parameter(description = "Entity ID", required = true)
+            @PathVariable ID id) {
+        log.debug("DELETE request to hard delete {} with id: {}", entityClass.getSimpleName(), id);
+        service.hardDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 

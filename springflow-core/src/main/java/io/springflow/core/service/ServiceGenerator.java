@@ -37,6 +37,7 @@ public class ServiceGenerator {
                 .genericBeanDefinition(SpringFlowServiceFactoryBean.class)
                 .addPropertyValue("entityClass", metadata.entityClass())
                 .addPropertyReference("repository", repositoryBeanName)
+                .addPropertyValue("metadata", metadata)
                 .getBeanDefinition();
 
         registry.registerBeanDefinition(serviceBeanName, beanDefinition);

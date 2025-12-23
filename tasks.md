@@ -937,51 +937,80 @@ https://central.sonatype.com/api-doc
 ---
 
 ### 🗑️ Module 19: Soft Delete (Semaine 15)
-
-#### 19.1 @SoftDelete Annotation
-- [ ] Créer annotation `@SoftDelete`
-- [ ] Paramètre `deletedField` (default "deleted")
-- [ ] Paramètre `deletedAtField` (default "deletedAt")
-- [ ] Documentation
-
-#### 19.2 Entity Enhancement
-- [ ] Ajout automatique champ `deleted`
-- [ ] Ajout automatique champ `deletedAt`
-- [ ] Type Boolean pour deleted
-- [ ] Type LocalDateTime pour deletedAt
-
-#### 19.3 Repository Filters
-- [ ] Filter automatique des deleted
-- [ ] Override `findAll()` avec filter
-- [ ] Override `findById()` avec filter
-- [ ] Méthode `findAllIncludingDeleted()`
-- [ ] Méthode `findDeletedOnly()`
-
-#### 19.4 Delete Operation
-- [ ] Override `deleteById()` → soft delete
-- [ ] Set `deleted = true`
-- [ ] Set `deletedAt = now()`
-- [ ] Méthode `hardDelete()` pour vraie suppression
-
-#### 19.5 Restore Operation
-- [ ] Endpoint `POST /{id}/restore`
-- [ ] Set `deleted = false`
-- [ ] Set `deletedAt = null`
-- [ ] Validation entité existe
-
-#### 19.6 Query Parameter
-- [ ] `?includeDeleted=true` pour inclure deleted
-- [ ] `?deletedOnly=true` pour seulement deleted
-- [ ] Configuration par défaut
-
-#### 19.7 Tests
-- [ ] Test soft delete
-- [ ] Test restore
-- [ ] Test queries avec filtre
-- [ ] Test includeDeleted
-- [ ] Test hard delete
-- [ ] Test intégration complète
-
+ 
+ #### 19.1 @SoftDelete Annotation
+-- [ ] Créer annotation `@SoftDelete`
+-- [ ] Paramètre `deletedField` (default "deleted")
+-- [ ] Paramètre `deletedAtField` (default "deletedAt")
+-- [ ] Documentation
++- [x] Créer annotation `@SoftDelete`
++- [x] Paramètre `deletedField` (default "deleted")
++- [x] Paramètre `deletedAtField` (default "deletedAt")
++- [x] Documentation
+ 
+ #### 19.2 Entity Enhancement
+-- [ ] Ajout automatique champ `deleted`
+-- [ ] Ajout automatique champ `deletedAt`
+-- [ ] Type Boolean pour deleted
+-- [ ] Type LocalDateTime pour deletedAt
++- [x] Ajout automatique champ `deleted` (via reflection)
++- [x] Ajout automatique champ `deletedAt` (via reflection)
++- [x] Type Boolean pour deleted
++- [x] Type LocalDateTime pour deletedAt
+ 
+ #### 19.3 Repository Filters
+-- [ ] Filter automatique des deleted
+-- [ ] Override `findAll()` avec filter
+-- [ ] Override `findById()` avec filter
+-- [ ] Méthode `findAllIncludingDeleted()`
+-- [ ] Méthode `findDeletedOnly()`
++- [x] Filter automatique des deleted
++- [x] Override `findAll()` avec filter
++- [x] Override `findById()` avec filter
++- [x] Méthode `findAllIncludingDeleted()` (via query param)
++- [ ] Méthode `findDeletedOnly()`
+ 
+ #### 19.4 Delete Operation
+-- [ ] Override `deleteById()` → soft delete
+-- [ ] Set `deleted = true`
+-- [ ] Set `deletedAt = now()`
+-- [ ] Méthode `hardDelete()` pour vraie suppression
++- [x] Override `deleteById()` → soft delete
++- [x] Set `deleted = true`
++- [x] Set `deletedAt = now()`
++- [x] Méthode `hardDelete()` pour vraie suppression
+ 
+ #### 19.5 Restore Operation
+-- [ ] Endpoint `POST /{id}/restore`
+-- [ ] Set `deleted = false`
+-- [ ] Set `deletedAt = null`
+-- [ ] Validation entité existe
++- [x] Endpoint `POST /{id}/restore`
++- [x] Set `deleted = false`
++- [x] Set `deletedAt = null`
++- [x] Validation entité existe
+ 
+ #### 19.6 Query Parameter
+-- [ ] `?includeDeleted=true` pour inclure deleted
+-- [ ] `?deletedOnly=true` pour seulement deleted
+-- [ ] Configuration par défaut
++- [x] `?includeDeleted=true` pour inclure deleted
++- [ ] `?deletedOnly=true` pour seulement deleted
++- [x] Configuration par défaut
+ 
+ #### 19.7 Tests
+-- [ ] Test soft delete
+-- [ ] Test restore
+-- [ ] Test queries avec filtre
+-- [ ] Test includeDeleted
+-- [ ] Test hard delete
+-- [ ] Test intégration complète
++- [x] Test soft delete
++- [x] Test restore
++- [x] Test queries avec filtre
++- [x] Test includeDeleted
++- [x] Test hard delete
++- [x] Test intégration complète (via SoftDeleteTest)
 ---
 
 ### 📊 Module 20: Audit Trail (Semaine 16)
