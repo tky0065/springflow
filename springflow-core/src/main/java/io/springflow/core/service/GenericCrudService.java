@@ -3,6 +3,7 @@ package io.springflow.core.service;
 import io.springflow.core.exception.EntityNotFoundException;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.FieldMetadata;
+import io.springflow.core.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -182,6 +183,11 @@ public abstract class GenericCrudService<T, ID> {
      */
     public T save(T entity) {
         log.debug("Saving new {}: {}", entityClass.getSimpleName(), entity);
+        
+        if (metadata != null && metadata.isAuditable()) {
+            handleAuditing(entity, true);
+        }
+        
         beforeCreate(entity);
         T saved = repository.save(entity);
         afterCreate(saved);
@@ -199,6 +205,11 @@ public abstract class GenericCrudService<T, ID> {
     public T update(ID id, T entity) {
         log.debug("Updating {} with id: {}", entityClass.getSimpleName(), id);
         T existing = findById(id);
+        
+        if (metadata != null && metadata.isAuditable()) {
+            handleAuditing(entity, false);
+        }
+        
         beforeUpdate(existing, entity);
         T updated = repository.save(entity);
         afterUpdate(updated);
@@ -258,6 +269,30 @@ public abstract class GenericCrudService<T, ID> {
         
         performRestore(entity);
         return repository.save(entity);
+    }
+
+    private void handleAuditing(T entity, boolean isCreate) {
+        String currentUser = SecurityUtils.getCurrentUserLogin().orElse("system");
+        LocalDateTime now = LocalDateTime.now();
+
+        try {
+            if (isCreate) {
+                setFieldValueSafely(entity, metadata.auditableConfig().createdAtField(), now);
+                setFieldValueSafely(entity, metadata.auditableConfig().createdByField(), currentUser);
+            }
+            setFieldValueSafely(entity, metadata.auditableConfig().updatedAtField(), now);
+            setFieldValueSafely(entity, metadata.auditableConfig().updatedByField(), currentUser);
+        } catch (Exception e) {
+            log.warn("Failed to apply auditing to {}", entityClass.getSimpleName());
+        }
+    }
+
+    private void setFieldValueSafely(T entity, String fieldName, Object value) {
+        try {
+            setFieldValue(entity, fieldName, value);
+        } catch (Exception e) {
+            // Ignore if field doesn't exist
+        }
     }
 
     private void performSoftDelete(T entity) {

@@ -1,5 +1,6 @@
 package io.springflow.core.metadata;
 
+import io.springflow.annotations.Auditable;
 import io.springflow.annotations.AutoApi;
 import io.springflow.annotations.SoftDelete;
 import java.util.List;
@@ -15,10 +16,17 @@ public record EntityMetadata(
     String tableName,
     AutoApi autoApiConfig,
     SoftDelete softDeleteConfig,
+    Auditable auditableConfig,
     List<FieldMetadata> fields
 ) {
-    public EntityMetadata(Class<?> entityClass, Class<?> idType, String entityName, String tableName, AutoApi autoApiConfig, List<FieldMetadata> fields) {
-        this(entityClass, idType, entityName, tableName, autoApiConfig, null, fields);
+    public EntityMetadata(Class<?> entityClass, Class<?> idType, String entityName, String tableName, 
+                          AutoApi autoApiConfig, SoftDelete softDeleteConfig, List<FieldMetadata> fields) {
+        this(entityClass, idType, entityName, tableName, autoApiConfig, softDeleteConfig, null, fields);
+    }
+
+    public EntityMetadata(Class<?> entityClass, Class<?> idType, String entityName, String tableName, 
+                          AutoApi autoApiConfig, List<FieldMetadata> fields) {
+        this(entityClass, idType, entityName, tableName, autoApiConfig, null, null, fields);
     }
 
     public Optional<FieldMetadata> getFieldByName(String name) {
@@ -35,5 +43,9 @@ public record EntityMetadata(
 
     public boolean isSoftDeleteEnabled() {
         return softDeleteConfig != null;
+    }
+
+    public boolean isAuditable() {
+        return auditableConfig != null;
     }
 }

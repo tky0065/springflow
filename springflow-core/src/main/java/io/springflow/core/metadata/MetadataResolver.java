@@ -1,6 +1,7 @@
 package io.springflow.core.metadata;
 
 import io.springflow.annotations.AutoApi;
+import io.springflow.annotations.Auditable;
 import io.springflow.annotations.Filterable;
 import io.springflow.annotations.Hidden;
 import io.springflow.annotations.ReadOnly;
@@ -47,6 +48,7 @@ public class MetadataResolver {
         String tableName = determineTableName(entityClass);
         AutoApi autoApi = entityClass.getAnnotation(AutoApi.class);
         SoftDelete softDelete = entityClass.getAnnotation(SoftDelete.class);
+        Auditable auditable = entityClass.getAnnotation(Auditable.class);
         
         List<FieldMetadata> fields = resolveFields(entityClass);
         Class<?> idType = resolveIdType(fields);
@@ -58,6 +60,7 @@ public class MetadataResolver {
                 tableName,
                 autoApi,
                 softDelete,
+                auditable,
                 fields
         );
     }

@@ -1016,15 +1016,15 @@ https://central.sonatype.com/api-doc
 ### 📊 Module 20: Audit Trail (Semaine 16)
 
 #### 20.1 @Auditable Annotation
-- [ ] Créer annotation `@Auditable`
-- [ ] Configuration champs auto
-- [ ] Support Spring Data JPA Auditing
+- [x] Créer annotation `@Auditable`
+- [x] Configuration champs auto
+- [x] Support Spring Data JPA Auditing (via GenericCrudService hooks)
 
 #### 20.2 Audit Fields
-- [ ] `createdAt` (LocalDateTime)
-- [ ] `updatedAt` (LocalDateTime)
-- [ ] `createdBy` (String)
-- [ ] `updatedBy` (String)
+- [x] `createdAt` (LocalDateTime)
+- [x] `updatedAt` (LocalDateTime)
+- [x] `createdBy` (String)
+- [x] `updatedBy` (String)
 - [ ] `version` (Long) pour optimistic locking
 
 #### 20.3 Spring Data Auditing
@@ -1035,15 +1035,15 @@ https://central.sonatype.com/api-doc
 - [ ] Annotations `@LastModifiedBy`
 
 #### 20.4 AuditorAware
-- [ ] Implémenter `AuditorAware<String>`
-- [ ] Récupération user depuis SecurityContext
+- [x] Implémenter `AuditorAware<String>` (via SecurityUtils)
+- [x] Récupération user depuis SecurityContext
 - [ ] Configuration bean
 
 #### 20.5 Tests
-- [ ] Test createdAt set on create
-- [ ] Test updatedAt set on update
-- [ ] Test createdBy avec user
-- [ ] Test updatedBy avec user
+- [x] Test createdAt set on create
+- [x] Test updatedAt set on update
+- [x] Test createdBy avec user
+- [x] Test updatedBy avec user
 - [ ] Test version incrementée
 
 ---
