@@ -3,24 +3,32 @@ package io.springflow.core.mapper;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.MetadataResolver;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link DtoMapperFactory}.
  */
+@ExtendWith(MockitoExtension.class)
 class DtoMapperFactoryTest {
 
     private DtoMapperFactory factory;
     private MetadataResolver metadataResolver;
 
+    @Mock
+    private EntityManager entityManager;
+
     @BeforeEach
     void setUp() {
-        factory = new DtoMapperFactory();
+        factory = new DtoMapperFactory(entityManager);
         metadataResolver = new MetadataResolver();
     }
 

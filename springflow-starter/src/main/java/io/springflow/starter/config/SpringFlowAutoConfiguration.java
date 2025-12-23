@@ -98,9 +98,9 @@ public class SpringFlowAutoConfiguration {
      */
     @Bean
     @ConditionalOnProperty(prefix = "springflow", name = "enabled", havingValue = "true", matchIfMissing = true)
-    public DtoMapperFactory dtoMapperFactory() {
-        log.debug("Creating DtoMapperFactory bean");
-        return new DtoMapperFactory();
+    public DtoMapperFactory dtoMapperFactory(EntityManager entityManager) {
+        log.debug("Creating DtoMapperFactory bean with EntityManager");
+        return new DtoMapperFactory(entityManager);
     }
 
     /**

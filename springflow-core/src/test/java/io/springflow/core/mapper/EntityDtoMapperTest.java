@@ -21,20 +21,109 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import io.springflow.annotations.Hidden;
+import io.springflow.annotations.ReadOnly;
+import io.springflow.core.metadata.EntityMetadata;
+import io.springflow.core.metadata.MetadataResolver;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 /**
  * Tests for {@link EntityDtoMapper}.
  */
+@ExtendWith(MockitoExtension.class)
 class EntityDtoMapperTest {
 
     private MetadataResolver metadataResolver;
     private EntityDtoMapper<TestEntity, Long> mapper;
     private EntityMetadata metadata;
 
+    @Mock
+    private EntityManager entityManager;
+
+    @Mock
+    private DtoMapperFactory mapperFactory;
+
     @BeforeEach
     void setUp() {
         metadataResolver = new MetadataResolver();
         metadata = metadataResolver.resolve(TestEntity.class);
-        mapper = new EntityDtoMapper<>(TestEntity.class, metadata);
+        mapper = new EntityDtoMapper<>(TestEntity.class, metadata, entityManager, mapperFactory);
+    }
+
+    @Test
+    void toEntity_withRelation_shouldResolveReference() {
+        // Given
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Name");
+        inputDto.put("relatedEntity", 42L);
+
+        RelatedEntity mockRelated = new RelatedEntity();
+        mockRelated.setId(42L);
+        when(entityManager.getReference(eq(RelatedEntity.class), eq(42L))).thenReturn(mockRelated);
+
+        // When
+        TestEntity entity = mapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getRelatedEntity()).isNotNull();
+        assertThat(entity.getRelatedEntity().getId()).isEqualTo(42L);
+    }
+
+    @Test
+    void toOutputDto_withRelation_shouldMapToId() {
+        // Given
+        RelatedEntity related = new RelatedEntity();
+        related.setId(42L);
+        
+        TestEntity entity = new TestEntity();
+        entity.setId(1L);
+        entity.setName("Test Name");
+        entity.setRelatedEntity(related);
+
+        // When
+        Map<String, Object> outputDto = mapper.toOutputDto(entity);
+
+        // Then
+        assertThat(outputDto.get("relatedEntity")).isEqualTo(42L);
+    }
+
+    @Test
+    void toOutputDto_withCollectionRelation_shouldMapToIds() {
+        // Given
+        RelatedEntity related1 = new RelatedEntity();
+        related1.setId(101L);
+        RelatedEntity related2 = new RelatedEntity();
+        related2.setId(102L);
+        
+        TestEntity entity = new TestEntity();
+        entity.setId(1L);
+        entity.setRelatedList(Arrays.asList(related1, related2));
+
+        // When
+        Map<String, Object> outputDto = mapper.toOutputDto(entity);
+
+        // Then
+        assertThat(outputDto.get("relatedList")).isInstanceOf(List.class);
+        List<Long> ids = (List<Long>) outputDto.get("relatedList");
+        assertThat(ids).containsExactly(101L, 102L);
     }
 
     @Test
@@ -324,6 +413,12 @@ class EntityDtoMapperTest {
         @ReadOnly
         private String createdAt;
 
+        @ManyToOne
+        private RelatedEntity relatedEntity;
+
+        @OneToMany
+        private List<RelatedEntity> relatedList;
+
         // Getters and setters
         public Long getId() {
             return id;
@@ -371,6 +466,36 @@ class EntityDtoMapperTest {
 
         public void setCreatedAt(String createdAt) {
             this.createdAt = createdAt;
+        }
+
+        public RelatedEntity getRelatedEntity() {
+            return relatedEntity;
+        }
+
+        public void setRelatedEntity(RelatedEntity relatedEntity) {
+            this.relatedEntity = relatedEntity;
+        }
+
+        public List<RelatedEntity> getRelatedList() {
+            return relatedList;
+        }
+
+        public void setRelatedList(List<RelatedEntity> relatedList) {
+            this.relatedList = relatedList;
+        }
+    }
+
+    @Entity
+    static class RelatedEntity {
+        @Id
+        private Long id;
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
         }
     }
 }

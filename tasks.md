@@ -868,16 +868,41 @@ https://central.sonatype.com/api-doc
 
 ### 🗺️ Module 18: Advanced DTO Mapping (Semaine 14)
 
-#### 18.1 Relations Mapping
-- [ ] OneToMany mapping
-- [ ] ManyToOne mapping
-- [ ] ManyToMany mapping
-- [ ] OneToOne mapping
-- [ ] Nested DTOs
-- [ ] IDs only mode
+ 
 
-#### 18.2 Lazy Loading DTOs
-- [ ] Configuration lazy/eager per relation
+ #### 18.1 Relations Mapping
+
+-- [ ] OneToMany mapping
+
+-- [ ] ManyToOne mapping
+
+-- [ ] ManyToMany mapping
+
+-- [ ] OneToOne mapping
+
+-- [ ] Nested DTOs
+
+-- [ ] IDs only mode
+
++- [x] OneToMany mapping
+
++- [x] ManyToOne mapping
+
++- [x] ManyToMany mapping
+
++- [x] OneToOne mapping
+
++- [x] Nested DTOs (1 level depth)
+
++- [x] IDs only mode (beyond depth limit)
+
+ 
+
+ #### 18.2 Lazy Loading DTOs
+
+ - [ ] Configuration lazy/eager per relation
+
+
 - [ ] Éviter N+1 queries
 - [ ] EntityGraph usage
 - [ ] Fetch joins
