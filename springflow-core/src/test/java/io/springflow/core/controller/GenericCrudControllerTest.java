@@ -1,5 +1,7 @@
 package io.springflow.core.controller;
 
+import io.springflow.core.filter.FilterResolver;
+import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.exception.EntityNotFoundException;
 import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.service.GenericCrudService;
@@ -9,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,18 +33,28 @@ class GenericCrudControllerTest {
     private JpaRepository<TestEntity, Long> repository;
     private TestEntityService service;
     private DtoMapper<TestEntity, Long> dtoMapper;
+    private FilterResolver filterResolver;
+    private EntityMetadata metadata;
     private GenericCrudController<TestEntity, Long> controller;
 
     @BeforeEach
+    @SuppressWarnings("unchecked")
     void setUp() {
-        // Create a mock repository
-        repository = mock(JpaRepository.class);
+        // Create a mock repository that also implements JpaSpecificationExecutor
+        repository = mock(JpaRepository.class, withSettings().extraInterfaces(JpaSpecificationExecutor.class));
 
         // Create a concrete service implementation
         service = new TestEntityService(repository);
 
         // Mock DtoMapper
         dtoMapper = mock(DtoMapper.class);
+
+        // Mock FilterResolver
+        filterResolver = mock(FilterResolver.class);
+        when(filterResolver.buildSpecification(any(), any())).thenReturn(mock(Specification.class));
+
+        // Mock EntityMetadata
+        metadata = mock(EntityMetadata.class);
 
         // Setup DtoMapper mocks
         when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
@@ -68,7 +82,7 @@ class GenericCrudControllerTest {
         });
 
         // Create the controller
-        controller = new GenericCrudController<>(service, dtoMapper, TestEntity.class) {
+        controller = new GenericCrudController<>(service, dtoMapper, filterResolver, metadata, TestEntity.class) {
             @Override
             protected Long getEntityId(TestEntity entity) {
                 return entity.getId();
@@ -77,6 +91,7 @@ class GenericCrudControllerTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void findAll_shouldReturnPageOfEntities() {
         // Given
         Pageable pageable = PageRequest.of(0, 20);
@@ -85,10 +100,10 @@ class GenericCrudControllerTest {
                 new TestEntity(2L, "Entity 2")
         );
         Page<TestEntity> page = new PageImpl<>(entities, pageable, entities.size());
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -96,7 +111,7 @@ class GenericCrudControllerTest {
         assertThat(response.getBody().getContent()).hasSize(2);
         assertThat(response.getBody().getTotalElements()).isEqualTo(2);
         assertThat(response.getBody().getContent().get(0).get("name")).isEqualTo("Entity 1");
-        verify(repository).findAll(pageable);
+        verify((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable));
     }
 
     @Test

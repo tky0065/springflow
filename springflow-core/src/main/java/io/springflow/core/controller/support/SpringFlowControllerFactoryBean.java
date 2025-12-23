@@ -1,6 +1,7 @@
 package io.springflow.core.controller.support;
 
 import io.springflow.core.controller.GenericCrudController;
+import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.mapper.DtoMapperFactory;
 import io.springflow.core.metadata.EntityMetadata;
@@ -25,6 +26,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
     private Class<T> entityClass;
     private GenericCrudService<T, ID> service;
     private DtoMapperFactory dtoMapperFactory;
+    private FilterResolver filterResolver;
     private EntityMetadata metadata;
 
     public void setEntityClass(Class<T> entityClass) {
@@ -39,6 +41,10 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
         this.dtoMapperFactory = dtoMapperFactory;
     }
 
+    public void setFilterResolver(FilterResolver filterResolver) {
+        this.filterResolver = filterResolver;
+    }
+
     public void setMetadata(EntityMetadata metadata) {
         this.metadata = metadata;
     }
@@ -47,7 +53,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
     public GenericCrudController<T, ID> getObject() {
         DtoMapper<T, ID> dtoMapper = dtoMapperFactory.getMapper(entityClass, metadata);
 
-        return new GenericCrudController<T, ID>(service, dtoMapper, entityClass) {
+        return new GenericCrudController<T, ID>(service, dtoMapper, filterResolver, metadata, entityClass) {
             @Override
             protected ID getEntityId(T entity) {
                 return extractIdFromEntity(entity);

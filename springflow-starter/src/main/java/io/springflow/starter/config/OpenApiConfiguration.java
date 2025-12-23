@@ -92,10 +92,14 @@ public class OpenApiConfiguration {
 
         OpenAPI openAPI = new OpenAPI().info(info);
 
-        // Add server with empty URL since paths already include the base path
+        // Add server with base path
         List<Server> servers = new ArrayList<>();
         Server server = new Server();
-        server.setUrl("/");
+        String basePath = properties.getBasePath();
+        if (basePath == null || basePath.isEmpty()) {
+            basePath = "/";
+        }
+        server.setUrl(basePath);
         server.setDescription("SpringFlow API Server");
         servers.add(server);
         openAPI.setServers(servers);

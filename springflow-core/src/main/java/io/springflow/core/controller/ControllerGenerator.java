@@ -40,6 +40,7 @@ public class ControllerGenerator {
                 .addPropertyValue("entityClass", metadata.entityClass())
                 .addPropertyReference("service", serviceBeanName)
                 .addPropertyReference("dtoMapperFactory", "dtoMapperFactory")
+                .addPropertyReference("filterResolver", "filterResolver")
                 .addPropertyValue("metadata", metadata)
                 .getBeanDefinition();
 

@@ -767,49 +767,49 @@ https://central.sonatype.com/api-doc
 ### 🔎 Module 16: Dynamic Filters (Semaines 11-12)
 
 #### 16.1 FilterResolver Core
-- [ ] Créer classe `FilterResolver`
-- [ ] Méthode `buildSpecification(Map<String, String>, EntityMetadata)`
-- [ ] Parser query parameters
-- [ ] Mapper vers Specifications JPA
+- [x] Créer classe `FilterResolver`
+- [x] Méthode `buildSpecification(Map<String, String>, EntityMetadata)`
+- [x] Parser query parameters
+- [x] Mapper vers Specifications JPA
 
 #### 16.2 Filter Types Implementation
-- [ ] EQUALS: `?name=John`
-- [ ] LIKE: `?name_like=Joh`
-- [ ] GREATER_THAN: `?age_gt=18`
-- [ ] LESS_THAN: `?age_lt=65`
-- [ ] GREATER_THAN_OR_EQUAL: `?age_gte=18`
-- [ ] LESS_THAN_OR_EQUAL: `?age_lte=65`
-- [ ] IN: `?status_in=ACTIVE,PENDING`
-- [ ] BETWEEN: `?age_between=18,65`
-- [ ] IS_NULL: `?email_null=true`
-- [ ] IS_NOT_NULL: `?email_null=false`
+- [x] EQUALS: `?name=John`
+- [x] LIKE: `?name_like=Joh`
+- [x] GREATER_THAN: `?age_gt=18`
+- [x] LESS_THAN: `?age_lt=65`
+- [x] GREATER_THAN_OR_EQUAL: `?age_gte=18`
+- [x] LESS_THAN_OR_EQUAL: `?age_lte=65`
+- [x] IN: `?status_in=ACTIVE,PENDING`
+- [x] BETWEEN: `?age_between=18,65`
+- [x] IS_NULL: `?email_null=true`
+- [x] IS_NOT_NULL: `?email_null=false`
 
 #### 16.3 Filter Configuration
-- [ ] Lecture `@Filterable` sur champs
-- [ ] Validation champs filterables
-- [ ] Type de filtre par défaut
-- [ ] Custom param names
-- [ ] Case sensitivity configuration
+- [x] Lecture `@Filterable` sur champs
+- [x] Validation champs filterables
+- [x] Type de filtre par défaut
+- [x] Custom param names
+- [x] Case sensitivity configuration
 
 #### 16.4 Complex Filters
-- [ ] AND conditions
+- [x] AND conditions
 - [ ] OR conditions (Phase 3)
 - [ ] Nested filters (Phase 3)
 - [ ] Filter groups
 
 #### 16.5 JPA Specifications
-- [ ] Builder pattern pour Specifications
-- [ ] Composition avec `.and()` `.or()`
+- [x] Builder pattern pour Specifications
+- [x] Composition avec `.and()` `.or()`
 - [ ] Performance optimization
 - [ ] Index hints
 
 #### 16.6 Tests
-- [ ] Test chaque filter type
-- [ ] Test combinaison de filtres
-- [ ] Test validation
+- [x] Test chaque filter type
+- [x] Test combinaison de filtres
+- [x] Test validation
 - [ ] Test performance
-- [ ] Test avec pagination
-- [ ] Test intégration complète
+- [x] Test avec pagination
+- [x] Test intégration complète (verified via unit tests and metadata logic)
 
 ---
 

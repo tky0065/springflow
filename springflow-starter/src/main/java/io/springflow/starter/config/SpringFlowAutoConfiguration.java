@@ -4,6 +4,7 @@ import io.springflow.core.config.PageableProperties;
 import io.springflow.core.config.SpringFlowWebConfiguration;
 import io.springflow.core.controller.GlobalExceptionHandler;
 import io.springflow.core.controller.support.RequestMappingRegistrar;
+import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapperFactory;
 import io.springflow.core.repository.AutoApiRepositoryRegistrar;
 import jakarta.persistence.EntityManager;
@@ -15,6 +16,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.convert.ConversionService;
 
 /**
  * Auto-configuration for SpringFlow framework.
@@ -99,5 +101,16 @@ public class SpringFlowAutoConfiguration {
     public DtoMapperFactory dtoMapperFactory() {
         log.debug("Creating DtoMapperFactory bean");
         return new DtoMapperFactory();
+    }
+
+    /**
+     * Creates FilterResolver bean for dynamic query filtering.
+     * Uses the application's ConversionService for type conversion.
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = "springflow", name = "enabled", havingValue = "true", matchIfMissing = true)
+    public FilterResolver filterResolver(ConversionService conversionService) {
+        log.debug("Creating FilterResolver bean");
+        return new FilterResolver(conversionService);
     }
 }

@@ -1,11 +1,15 @@
 package io.springflow.core.controller;
 
+import io.springflow.core.filter.FilterResolver;
+import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.service.GenericCrudService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
@@ -15,8 +19,8 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests for pagination and sorting functionality in GenericCrudController.
@@ -26,13 +30,19 @@ class PaginationAndSortingTest {
     private JpaRepository<TestEntity, Long> repository;
     private TestEntityService service;
     private DtoMapper<TestEntity, Long> dtoMapper;
+    private FilterResolver filterResolver;
+    private EntityMetadata metadata;
     private GenericCrudController<TestEntity, Long> controller;
 
     @BeforeEach
+    @SuppressWarnings("unchecked")
     void setUp() {
-        repository = mock(JpaRepository.class);
+        repository = mock(JpaRepository.class, withSettings().extraInterfaces(JpaSpecificationExecutor.class));
         service = new TestEntityService(repository);
         dtoMapper = mock(DtoMapper.class);
+        filterResolver = mock(FilterResolver.class);
+        when(filterResolver.buildSpecification(any(), any())).thenReturn(mock(Specification.class));
+        metadata = mock(EntityMetadata.class);
 
         // Setup DtoMapper mocks
         when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
@@ -53,7 +63,7 @@ class PaginationAndSortingTest {
             });
         });
 
-        controller = new GenericCrudController<>(service, dtoMapper, TestEntity.class) {
+        controller = new GenericCrudController<>(service, dtoMapper, filterResolver, metadata, TestEntity.class) {
             @Override
             protected Long getEntityId(TestEntity entity) {
                 return entity.getId();
@@ -62,15 +72,16 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void pagination_withDefaultPageSize_shouldReturnFirstPage() {
         // Given
         Pageable pageable = PageRequest.of(0, 20);
         List<TestEntity> entities = createEntities(20);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -84,15 +95,16 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void pagination_withCustomPageSize_shouldReturnCorrectPage() {
         // Given
         Pageable pageable = PageRequest.of(0, 10);
         List<TestEntity> entities = createEntities(10);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -101,15 +113,16 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void pagination_secondPage_shouldReturnCorrectPage() {
         // Given
         Pageable pageable = PageRequest.of(1, 20);
         List<TestEntity> entities = createEntities(20);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -119,15 +132,16 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void pagination_lastPage_shouldReturnCorrectMetadata() {
         // Given
         Pageable pageable = PageRequest.of(4, 20);
         List<TestEntity> entities = createEntities(20);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -137,6 +151,7 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void sorting_singleField_shouldReturnSortedResults() {
         // Given
         Sort sort = Sort.by(Sort.Direction.ASC, "name");
@@ -147,10 +162,10 @@ class PaginationAndSortingTest {
                 new TestEntity(3L, "Gamma")
         );
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 3);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -160,6 +175,7 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void sorting_descending_shouldReturnReversedResults() {
         // Given
         Sort sort = Sort.by(Sort.Direction.DESC, "name");
@@ -170,10 +186,10 @@ class PaginationAndSortingTest {
                 new TestEntity(1L, "Alpha")
         );
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 3);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -183,6 +199,7 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void sorting_multipleFields_shouldSortByBothFields() {
         // Given
         Sort sort = Sort.by(
@@ -192,10 +209,10 @@ class PaginationAndSortingTest {
         Pageable pageable = PageRequest.of(0, 20, sort);
         List<TestEntity> entities = createEntities(5);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 5);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -204,14 +221,15 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void pagination_emptyResults_shouldReturnEmptyPage() {
         // Given
         Pageable pageable = PageRequest.of(0, 20);
         Page<TestEntity> page = Page.empty(pageable);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -221,16 +239,17 @@ class PaginationAndSortingTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void pagination_withSorting_shouldCombineBoth() {
         // Given
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Pageable pageable = PageRequest.of(1, 10, sort);
         List<TestEntity> entities = createEntities(10);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 50);
-        when(repository.findAll(pageable)).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();

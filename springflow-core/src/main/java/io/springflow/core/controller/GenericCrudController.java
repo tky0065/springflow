@@ -1,6 +1,8 @@
 package io.springflow.core.controller;
 
+import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapper;
+import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.service.GenericCrudService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,23 +45,32 @@ public abstract class GenericCrudController<T, ID> {
 
     protected final GenericCrudService<T, ID> service;
     protected final DtoMapper<T, ID> dtoMapper;
+    protected final FilterResolver filterResolver;
+    protected final EntityMetadata metadata;
     protected final Class<T> entityClass;
 
-    protected GenericCrudController(GenericCrudService<T, ID> service, DtoMapper<T, ID> dtoMapper, Class<T> entityClass) {
+    protected GenericCrudController(GenericCrudService<T, ID> service,
+                                    DtoMapper<T, ID> dtoMapper,
+                                    FilterResolver filterResolver,
+                                    EntityMetadata metadata,
+                                    Class<T> entityClass) {
         this.service = service;
         this.dtoMapper = dtoMapper;
+        this.filterResolver = filterResolver;
+        this.metadata = metadata;
         this.entityClass = entityClass;
     }
 
     /**
-     * GET / - Find all entities with pagination.
+     * GET / - Find all entities with pagination and filtering.
      *
      * @param pageable pagination parameters (page, size, sort)
+     * @param params   query parameters for dynamic filtering
      * @return page of DTOs with HTTP 200 OK (excludes @Hidden fields)
      */
     @Operation(
             summary = "List all entities",
-            description = "Retrieve a paginated list of all entities. Supports pagination and sorting."
+            description = "Retrieve a paginated list of all entities. Supports pagination, sorting, and dynamic filtering."
     )
     @ApiResponses({
             @ApiResponse(
@@ -70,9 +82,15 @@ public abstract class GenericCrudController<T, ID> {
     @GetMapping
     public ResponseEntity<Page<Map<String, Object>>> findAll(
             @Parameter(description = "Pagination parameters (page, size, sort)")
-            @PageableDefault(size = 20) Pageable pageable) {
-        log.debug("GET request to find all {} with pagination: {}", entityClass.getSimpleName(), pageable);
-        Page<T> page = service.findAll(pageable);
+            @PageableDefault(size = 20) Pageable pageable,
+            @Parameter(description = "Filter parameters", hidden = true)
+            @RequestParam Map<String, String> params) {
+        log.debug("GET request to find all {} with pagination: {} and filters: {}",
+                entityClass.getSimpleName(), pageable, params);
+
+        Specification<T> spec = filterResolver.buildSpecification(params, metadata);
+        Page<T> page = service.findAll(spec, pageable);
+
         Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page);
         return ResponseEntity.ok(dtoPage);
     }
