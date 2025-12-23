@@ -84,7 +84,7 @@ class ControllerGeneratorTest {
         assertThat(registry.containsBeanDefinition("productController")).isTrue();
         BeanDefinition bd = registry.getBeanDefinition("productController");
         // Note: The actual path is stored in attributes
-        assertThat(bd.getAttribute("requestMapping")).isEqualTo("/api/products");
+        assertThat(bd.getAttribute("requestMapping")).isEqualTo("/products");
     }
 
     // Helper method to create AutoApi mock

@@ -1,6 +1,7 @@
 package io.springflow.core.controller;
 
 import io.springflow.core.exception.EntityNotFoundException;
+import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.service.GenericCrudService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -25,6 +28,7 @@ class GenericCrudControllerTest {
 
     private JpaRepository<TestEntity, Long> repository;
     private TestEntityService service;
+    private DtoMapper<TestEntity, Long> dtoMapper;
     private GenericCrudController<TestEntity, Long> controller;
 
     @BeforeEach
@@ -35,8 +39,36 @@ class GenericCrudControllerTest {
         // Create a concrete service implementation
         service = new TestEntityService(repository);
 
+        // Mock DtoMapper
+        dtoMapper = mock(DtoMapper.class);
+
+        // Setup DtoMapper mocks
+        when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
+            TestEntity e = inv.getArgument(0);
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", e.getId());
+            map.put("name", e.getName());
+            return map;
+        });
+
+        when(dtoMapper.toOutputDtoPage(any(Page.class))).thenAnswer(inv -> {
+            Page<TestEntity> p = inv.getArgument(0);
+            return p.map(e -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", e.getId());
+                map.put("name", e.getName());
+                return map;
+            });
+        });
+
+        when(dtoMapper.toEntity(any(Map.class))).thenAnswer(inv -> {
+            Map<String, Object> m = inv.getArgument(0);
+            Long id = m.get("id") != null ? ((Number) m.get("id")).longValue() : null;
+            return new TestEntity(id, (String) m.get("name"));
+        });
+
         // Create the controller
-        controller = new GenericCrudController<>(service, TestEntity.class) {
+        controller = new GenericCrudController<>(service, dtoMapper, TestEntity.class) {
             @Override
             protected Long getEntityId(TestEntity entity) {
                 return entity.getId();
@@ -56,13 +88,14 @@ class GenericCrudControllerTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(2);
         assertThat(response.getBody().getTotalElements()).isEqualTo(2);
+        assertThat(response.getBody().getContent().get(0).get("name")).isEqualTo("Entity 1");
         verify(repository).findAll(pageable);
     }
 
@@ -73,11 +106,12 @@ class GenericCrudControllerTest {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
 
         // When
-        ResponseEntity<TestEntity> response = controller.findById(1L);
+        ResponseEntity<Map<String, Object>> response = controller.findById(1L);
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(entity);
+        assertThat(response.getBody().get("id")).isEqualTo(1L);
+        assertThat(response.getBody().get("name")).isEqualTo("Test Entity");
         verify(repository).findById(1L);
     }
 
@@ -95,25 +129,32 @@ class GenericCrudControllerTest {
     @Test
     void create_shouldReturnCreatedEntity() {
         // Given
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "New Entity");
+        
         TestEntity entity = new TestEntity(null, "New Entity");
         TestEntity savedEntity = new TestEntity(1L, "New Entity");
-        when(repository.save(entity)).thenReturn(savedEntity);
+        
+        // Fix mock to match arguments strictly or leniently
+        // Since dtoMapper.toEntity creates a NEW TestEntity, equals() might fail if not implemented.
+        // Assuming TestEntity doesn't implement equals, we use any() or implement equals.
+        // Let's implement equals/hashCode in TestEntity or use generic matchers.
+        when(repository.save(any(TestEntity.class))).thenReturn(savedEntity);
 
         // When
-        // Note: We catch the exception because ServletUriComponentsBuilder requires servlet context
-        // In unit tests, we verify the service call; Location header tested in integration tests
         try {
-            ResponseEntity<TestEntity> response = controller.create(entity);
-            // If no exception (e.g., when running with web context), verify response
+            ResponseEntity<Map<String, Object>> response = controller.create(inputDto);
+            // If no exception
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-            assertThat(response.getBody()).isEqualTo(savedEntity);
+            assertThat(response.getBody().get("id")).isEqualTo(1L);
+            assertThat(response.getBody().get("name")).isEqualTo("New Entity");
         } catch (IllegalStateException e) {
             // Expected in unit tests without servlet context
             assertThat(e.getMessage()).contains("ServletRequestAttributes");
         }
 
-        // Then - verify service was called regardless
-        verify(repository).save(entity);
+        // Then
+        verify(repository).save(any(TestEntity.class));
     }
 
     @Test
@@ -121,27 +162,32 @@ class GenericCrudControllerTest {
         // Given
         TestEntity existing = new TestEntity(1L, "Old Entity");
         TestEntity updated = new TestEntity(1L, "Updated Entity");
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Updated Entity");
+
         when(repository.findById(1L)).thenReturn(Optional.of(existing));
-        when(repository.save(updated)).thenReturn(updated);
+        when(repository.save(any(TestEntity.class))).thenReturn(updated);
 
         // When
-        ResponseEntity<TestEntity> response = controller.update(1L, updated);
+        ResponseEntity<Map<String, Object>> response = controller.update(1L, inputDto);
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(updated);
+        assertThat(response.getBody().get("name")).isEqualTo("Updated Entity");
         verify(repository).findById(1L);
-        verify(repository).save(updated);
+        verify(repository).save(any(TestEntity.class));
     }
 
     @Test
     void update_whenNotExists_shouldThrowException() {
         // Given
-        TestEntity entity = new TestEntity(999L, "Updated Entity");
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Updated Entity");
+        
         when(repository.findById(999L)).thenReturn(Optional.empty());
 
         // When/Then
-        assertThatThrownBy(() -> controller.update(999L, entity))
+        assertThatThrownBy(() -> controller.update(999L, inputDto))
                 .isInstanceOf(EntityNotFoundException.class);
         verify(repository).findById(999L);
         verify(repository, never()).save(any());

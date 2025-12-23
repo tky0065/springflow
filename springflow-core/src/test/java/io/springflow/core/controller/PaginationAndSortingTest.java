@@ -1,5 +1,6 @@
 package io.springflow.core.controller;
 
+import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.service.GenericCrudService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,13 +25,35 @@ class PaginationAndSortingTest {
 
     private JpaRepository<TestEntity, Long> repository;
     private TestEntityService service;
+    private DtoMapper<TestEntity, Long> dtoMapper;
     private GenericCrudController<TestEntity, Long> controller;
 
     @BeforeEach
     void setUp() {
         repository = mock(JpaRepository.class);
         service = new TestEntityService(repository);
-        controller = new GenericCrudController<>(service, TestEntity.class) {
+        dtoMapper = mock(DtoMapper.class);
+
+        // Setup DtoMapper mocks
+        when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
+            TestEntity e = inv.getArgument(0);
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", e.getId());
+            map.put("name", e.getName());
+            return map;
+        });
+
+        when(dtoMapper.toOutputDtoPage(any(Page.class))).thenAnswer(inv -> {
+            Page<TestEntity> p = inv.getArgument(0);
+            return p.map(e -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", e.getId());
+                map.put("name", e.getName());
+                return map;
+            });
+        });
+
+        controller = new GenericCrudController<>(service, dtoMapper, TestEntity.class) {
             @Override
             protected Long getEntityId(TestEntity entity) {
                 return entity.getId();
@@ -44,7 +70,7 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -66,7 +92,7 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -83,7 +109,7 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -101,7 +127,7 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -124,13 +150,13 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getContent().get(0).getName()).isEqualTo("Alpha");
-        assertThat(response.getBody().getContent().get(1).getName()).isEqualTo("Beta");
-        assertThat(response.getBody().getContent().get(2).getName()).isEqualTo("Gamma");
+        assertThat(response.getBody().getContent().get(0).get("name")).isEqualTo("Alpha");
+        assertThat(response.getBody().getContent().get(1).get("name")).isEqualTo("Beta");
+        assertThat(response.getBody().getContent().get(2).get("name")).isEqualTo("Gamma");
     }
 
     @Test
@@ -147,13 +173,13 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getContent().get(0).getName()).isEqualTo("Gamma");
-        assertThat(response.getBody().getContent().get(1).getName()).isEqualTo("Beta");
-        assertThat(response.getBody().getContent().get(2).getName()).isEqualTo("Alpha");
+        assertThat(response.getBody().getContent().get(0).get("name")).isEqualTo("Gamma");
+        assertThat(response.getBody().getContent().get(1).get("name")).isEqualTo("Beta");
+        assertThat(response.getBody().getContent().get(2).get("name")).isEqualTo("Alpha");
     }
 
     @Test
@@ -169,7 +195,7 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -185,7 +211,7 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -204,7 +230,7 @@ class PaginationAndSortingTest {
         when(repository.findAll(pageable)).thenReturn(page);
 
         // When
-        ResponseEntity<Page<TestEntity>> response = controller.findAll(pageable);
+        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable);
 
         // Then
         assertThat(response.getBody()).isNotNull();

@@ -201,8 +201,7 @@ class GenericCrudServiceTest {
 
         // Use array to capture hook calls (workaround for final variable requirement)
         final boolean[] hooksCalled = {false, false}; // [beforeCreate, afterCreate]
-
-        GenericCrudService<TestEntity, Long> serviceWithHooks = new GenericCrudService<>(repository, TestEntity.class) {
+        final GenericCrudService<TestEntity, Long> serviceWithHooks = new GenericCrudService<>(repository, TestEntity.class) {
             @Override
             protected void beforeCreate(TestEntity e) {
                 hooksCalled[0] = true;
