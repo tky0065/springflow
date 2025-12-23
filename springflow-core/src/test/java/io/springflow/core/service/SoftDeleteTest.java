@@ -44,12 +44,12 @@ class SoftDeleteTest {
         FieldMetadata deletedField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("deleted"),
                 "deleted", boolean.class, false, false, false, false, null,
-                Collections.emptyList(), null, null
+                Collections.emptyList(), null, null, false
         );
         FieldMetadata deletedAtField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("deletedAt"),
                 "deletedAt", java.time.LocalDateTime.class, true, false, false, false, null,
-                Collections.emptyList(), null, null
+                Collections.emptyList(), null, null, false
         );
 
         metadata = new EntityMetadata(
@@ -67,7 +67,7 @@ class SoftDeleteTest {
         TestEntity entity = new TestEntity();
         entity.setId(1L);
         entity.setDeleted(false);
-        when(repository.findById(1L)).thenReturn(Optional.of(entity));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(entity));
 
         // When
         service.deleteById(1L);
@@ -86,7 +86,17 @@ class SoftDeleteTest {
         service.findAll();
 
         // Then
-        verify((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class));
+        verify((JpaSpecificationExecutor<TestEntity>) repository).findAll(any());
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void findDeletedOnly_shouldApplyDeletedOnlyFilter() {
+        // When
+        service.findDeletedOnly(org.springframework.data.domain.Pageable.unpaged());
+
+        // Then
+        verify((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), any(org.springframework.data.domain.Pageable.class));
     }
 
     @Test

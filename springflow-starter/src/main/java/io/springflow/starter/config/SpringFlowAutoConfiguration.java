@@ -49,7 +49,8 @@ import org.springframework.core.convert.ConversionService;
     RequestMappingRegistrar.class,
     GlobalExceptionHandler.class,
     SpringFlowWebConfiguration.class,
-    OpenApiConfiguration.class
+    OpenApiConfiguration.class,
+    JpaAuditingConfiguration.class
 })
 public class SpringFlowAutoConfiguration {
 

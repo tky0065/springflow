@@ -138,6 +138,47 @@ public abstract class GenericCrudService<T, ID> {
     }
 
     /**
+     * Find only soft-deleted entities with pagination support.
+     *
+     * @param pageable pagination information
+     * @return a page of soft-deleted entities
+     */
+    @Transactional(readOnly = true)
+    public Page<T> findDeletedOnly(Pageable pageable) {
+        return findDeletedOnly(null, pageable);
+    }
+
+    /**
+     * Find only soft-deleted entities with specification and pagination support.
+     *
+     * @param spec     the specification to apply
+     * @param pageable pagination information
+     * @return a page of soft-deleted entities
+     */
+    @Transactional(readOnly = true)
+    public Page<T> findDeletedOnly(Specification<T> spec, Pageable pageable) {
+        log.debug("Finding all deleted {} with specification and pagination", entityClass.getSimpleName());
+        
+        if (metadata == null || !metadata.isSoftDeleteEnabled()) {
+             log.warn("Soft delete not enabled for {}, returning empty page for findDeletedOnly", entityClass.getSimpleName());
+             return Page.empty(pageable);
+        }
+
+        Specification<T> softDeleteSpec = buildSoftDeleteSpecification(false, true);
+        Specification<T> effectiveSpec = spec == null ? softDeleteSpec : spec.and(softDeleteSpec);
+
+        if (repository instanceof JpaSpecificationExecutor) {
+            @SuppressWarnings("unchecked")
+            JpaSpecificationExecutor<T> specExecutor = (JpaSpecificationExecutor<T>) repository;
+            return specExecutor.findAll(effectiveSpec, pageable);
+        }
+        
+        throw new UnsupportedOperationException(
+                "Repository does not support JpaSpecificationExecutor for dynamic filtering"
+        );
+    }
+
+    /**
      * Find an entity by its ID.
      *
      * @param id the entity ID
@@ -146,7 +187,32 @@ public abstract class GenericCrudService<T, ID> {
      */
     @Transactional(readOnly = true)
     public T findById(ID id) {
-        log.debug("Finding {} with id: {}", entityClass.getSimpleName(), id);
+        return findById(id, null);
+    }
+
+    /**
+     * Find an entity by its ID and a specification (for fetch joins).
+     *
+     * @param id   the entity ID
+     * @param spec the specification to apply
+     * @return the entity
+     * @throws EntityNotFoundException if entity not found
+     */
+    @Transactional(readOnly = true)
+    public T findById(ID id, Specification<T> spec) {
+        log.debug("Finding {} with id: {} and specification", entityClass.getSimpleName(), id);
+        
+        if (repository instanceof JpaSpecificationExecutor && metadata != null) {
+            String idFieldName = metadata.getIdField().map(FieldMetadata::name).orElse("id");
+            Specification<T> idSpec = (root, query, cb) -> cb.equal(root.get(idFieldName), id);
+            Specification<T> effectiveSpec = spec == null ? idSpec : spec.and(idSpec);
+            
+            @SuppressWarnings("unchecked")
+            JpaSpecificationExecutor<T> specExecutor = (JpaSpecificationExecutor<T>) repository;
+            return specExecutor.findOne(effectiveSpec)
+                    .orElseThrow(() -> new EntityNotFoundException(entityClass, id));
+        }
+
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(entityClass, id));
     }
@@ -323,7 +389,15 @@ public abstract class GenericCrudService<T, ID> {
     }
 
     private Specification<T> buildSoftDeleteSpecification(boolean includeDeleted) {
+        return buildSoftDeleteSpecification(includeDeleted, false);
+    }
+
+    private Specification<T> buildSoftDeleteSpecification(boolean includeDeleted, boolean deletedOnly) {
         return (root, query, cb) -> {
+            if (deletedOnly) {
+                String deletedField = metadata.softDeleteConfig().deletedField();
+                return cb.equal(root.get(deletedField), true);
+            }
             if (includeDeleted) {
                 return cb.conjunction();
             }

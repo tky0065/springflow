@@ -66,7 +66,7 @@
         <springdoc.version>2.3.0</springdoc.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.38</lombok.version>
-        <byte-buddy.version>1.14.10</byte-buddy.version>
+        <byte-buddy.version>1.15.11</byte-buddy.version>
 
         <!-- Plugin versions -->
         <jacoco.version>0.8.11</jacoco.version>
@@ -179,6 +179,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
+                        </systemPropertyVariables>
+                    </configuration>
                 </plugin>
 
                 <plugin>

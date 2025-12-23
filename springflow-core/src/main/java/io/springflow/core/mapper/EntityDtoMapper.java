@@ -51,14 +51,19 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
 
     @Override
     public Map<String, Object> toOutputDto(T entity) {
-        return toOutputDto(entity, 0);
+        return toOutputDto(entity, null, 0);
+    }
+
+    @Override
+    public Map<String, Object> toOutputDto(T entity, List<String> fields) {
+        return toOutputDto(entity, fields, 0);
     }
 
     /**
-     * Internal method to convert entity to DTO with depth tracking.
+     * Internal method to convert entity to DTO with depth tracking and field filtering.
      */
     @SuppressWarnings("unchecked")
-    public Map<String, Object> toOutputDto(Object entity, int currentDepth) {
+    public Map<String, Object> toOutputDto(Object entity, List<String> fields, int currentDepth) {
         if (entity == null) {
             return null;
         }
@@ -71,6 +76,12 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
             for (FieldMetadata fieldMeta : metadata.fields()) {
                 if (fieldMeta.hidden()) continue;
                 String fieldName = fieldMeta.name();
+
+                // If fields list is provided, only include requested fields
+                if (fields != null && !fields.isEmpty() && !fields.contains(fieldName)) {
+                    continue;
+                }
+
                 Object value = getFieldValue((T) entity, fieldMeta.field());
                 if (fieldMeta.isRelation() && value != null) {
                     value = mapRelationValue(value, fieldMeta, currentDepth);
@@ -146,7 +157,7 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
             if (targetClass.isAnnotationPresent(io.springflow.annotations.AutoApi.class)) {
                 DtoMapper mapper = mapperFactory.getMapper(targetClass);
                 if (mapper instanceof EntityDtoMapper entityMapper) {
-                    return entityMapper.toOutputDto(item, currentDepth + 1);
+                    return entityMapper.toOutputDto(item, null, currentDepth + 1);
                 }
             }
         } catch (Exception e) {
@@ -196,14 +207,24 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
 
     @Override
     public List<Map<String, Object>> toOutputDtoList(List<T> entities) {
+        return toOutputDtoList(entities, null);
+    }
+
+    @Override
+    public List<Map<String, Object>> toOutputDtoList(List<T> entities, List<String> fields) {
         if (entities == null) return Collections.emptyList();
-        return entities.stream().map(this::toOutputDto).collect(Collectors.toList());
+        return entities.stream().map(e -> toOutputDto(e, fields)).collect(Collectors.toList());
     }
 
     @Override
     public Page<Map<String, Object>> toOutputDtoPage(Page<T> entityPage) {
+        return toOutputDtoPage(entityPage, null);
+    }
+
+    @Override
+    public Page<Map<String, Object>> toOutputDtoPage(Page<T> entityPage, List<String> fields) {
         if (entityPage == null) return Page.empty();
-        List<Map<String, Object>> dtoList = toOutputDtoList(entityPage.getContent());
+        List<Map<String, Object>> dtoList = toOutputDtoList(entityPage.getContent(), fields);
         return new PageImpl<>(dtoList, entityPage.getPageable(), entityPage.getTotalElements());
     }
 

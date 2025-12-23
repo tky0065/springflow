@@ -49,8 +49,41 @@ public class FilterResolver {
      * @return a Specification that can be used with JpaSpecificationExecutor
      */
     public <T> Specification<T> buildSpecification(Map<String, String> params, EntityMetadata metadata) {
+        return buildSpecification(params, metadata, null);
+    }
+
+    /**
+     * Builds a JPA Specification from query parameters and entity metadata, with support for fetch joins.
+     *
+     * @param params      the query parameters
+     * @param metadata    the entity metadata
+     * @param fetchFields list of relation fields to fetch eagerly
+     * @param <T>         the entity type
+     * @return a Specification that can be used with JpaSpecificationExecutor
+     */
+    public <T> Specification<T> buildSpecification(Map<String, String> params, EntityMetadata metadata, List<String> fetchFields) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+
+            // Add fetch joins if not a count query
+            if (query.getResultType() != Long.class && query.getResultType() != long.class) {
+                if (fetchFields != null && !fetchFields.isEmpty()) {
+                    for (String fetchField : fetchFields) {
+                        metadata.getFieldByName(fetchField)
+                                .filter(FieldMetadata::isRelation)
+                                .ifPresent(fm -> root.fetch(fm.name(), jakarta.persistence.criteria.JoinType.LEFT));
+                    }
+                    query.distinct(true);
+                } else {
+                    // Default: fetch all non-hidden relations to avoid N+1 for first level depth
+                    for (FieldMetadata fieldMetadata : metadata.fields()) {
+                        if (fieldMetadata.isRelation() && !fieldMetadata.hidden()) {
+                            root.fetch(fieldMetadata.name(), jakarta.persistence.criteria.JoinType.LEFT);
+                        }
+                    }
+                    query.distinct(true);
+                }
+            }
 
             for (FieldMetadata fieldMetadata : metadata.fields()) {
                 if (fieldMetadata.filterConfig() != null) {

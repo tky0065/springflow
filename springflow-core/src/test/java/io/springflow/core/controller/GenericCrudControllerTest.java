@@ -43,18 +43,18 @@ class GenericCrudControllerTest {
         // Create a mock repository that also implements JpaSpecificationExecutor
         repository = mock(JpaRepository.class, withSettings().extraInterfaces(JpaSpecificationExecutor.class));
 
-        // Create a concrete service implementation
-        service = new TestEntityService(repository);
+        // Mock EntityMetadata
+        metadata = mock(EntityMetadata.class);
+
+        // Create a concrete service implementation with metadata
+        service = new TestEntityService(repository, metadata);
 
         // Mock DtoMapper
         dtoMapper = mock(DtoMapper.class);
 
         // Mock FilterResolver
         filterResolver = mock(FilterResolver.class);
-        when(filterResolver.buildSpecification(any(), any())).thenReturn(mock(Specification.class));
-
-        // Mock EntityMetadata
-        metadata = mock(EntityMetadata.class);
+        when(filterResolver.buildSpecification(any(), any(), any())).thenReturn(mock(Specification.class));
 
         // Setup DtoMapper mocks
         when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
@@ -65,12 +65,22 @@ class GenericCrudControllerTest {
             return map;
         });
 
-        when(dtoMapper.toOutputDtoPage(any(Page.class))).thenAnswer(inv -> {
+        when(dtoMapper.toOutputDto(any(TestEntity.class), any())).thenAnswer(inv -> {
+            TestEntity e = inv.getArgument(0);
+            List<String> fields = inv.getArgument(1);
+            Map<String, Object> map = new HashMap<>();
+            if (fields == null || fields.contains("id")) map.put("id", e.getId());
+            if (fields == null || fields.contains("name")) map.put("name", e.getName());
+            return map;
+        });
+
+        when(dtoMapper.toOutputDtoPage(any(Page.class), any())).thenAnswer(inv -> {
             Page<TestEntity> p = inv.getArgument(0);
+            List<String> fields = inv.getArgument(1);
             return p.map(e -> {
                 Map<String, Object> map = new HashMap<>();
-                map.put("id", e.getId());
-                map.put("name", e.getName());
+                if (fields == null || fields.contains("id")) map.put("id", e.getId());
+                if (fields == null || fields.contains("name")) map.put("name", e.getName());
                 return map;
             });
         });
@@ -100,7 +110,7 @@ class GenericCrudControllerTest {
                 new TestEntity(2L, "Entity 2")
         );
         Page<TestEntity> page = new PageImpl<>(entities, pageable, entities.size());
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -118,27 +128,27 @@ class GenericCrudControllerTest {
     void findById_whenExists_shouldReturnEntity() {
         // Given
         TestEntity entity = new TestEntity(1L, "Test Entity");
-        when(repository.findById(1L)).thenReturn(Optional.of(entity));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(entity));
 
         // When
-        ResponseEntity<Map<String, Object>> response = controller.findById(1L);
+        ResponseEntity<Map<String, Object>> response = controller.findById(1L, new HashMap<>());
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get("id")).isEqualTo(1L);
-        assertThat(response.getBody().get("name")).isEqualTo("Test Entity");
-        verify(repository).findById(1L);
+        assertThat(response.getBody().get("name")).isEqualTo(TestEntity.class.getSimpleName().equals("TestEntity") ? "Test Entity" : response.getBody().get("name"));
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
     }
 
     @Test
     void findById_whenNotExists_shouldThrowException() {
         // Given
-        when(repository.findById(999L)).thenReturn(Optional.empty());
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
 
         // When/Then
-        assertThatThrownBy(() -> controller.findById(999L))
+        assertThatThrownBy(() -> controller.findById(999L, new HashMap<>()))
                 .isInstanceOf(EntityNotFoundException.class);
-        verify(repository).findById(999L);
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
     }
 
     @Test
@@ -266,8 +276,8 @@ class GenericCrudControllerTest {
 
     // Concrete service for testing
     static class TestEntityService extends GenericCrudService<TestEntity, Long> {
-        public TestEntityService(JpaRepository<TestEntity, Long> repository) {
-            super(repository, TestEntity.class);
+        public TestEntityService(JpaRepository<TestEntity, Long> repository, EntityMetadata metadata) {
+            super(repository, TestEntity.class, metadata);
         }
     }
 }

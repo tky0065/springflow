@@ -20,7 +20,8 @@ public record FieldMetadata(
     jakarta.persistence.GenerationType generationType,
     List<Annotation> validations,
     Filterable filterConfig,
-    RelationMetadata relation
+    RelationMetadata relation,
+    boolean jsonIgnored
 ) {
     public FieldMetadata {
         if (validations == null) {

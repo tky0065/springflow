@@ -60,7 +60,8 @@ class FilterResolverTest {
                 true, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
-                null
+                null,
+                false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -94,7 +95,8 @@ class FilterResolverTest {
                 true, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
-                null
+                null,
+                false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -127,7 +129,8 @@ class FilterResolverTest {
                 true, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
-                null
+                null,
+                false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -159,7 +162,8 @@ class FilterResolverTest {
                 true, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
-                null
+                null,
+                false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -188,7 +192,7 @@ class FilterResolverTest {
         FieldMetadata fieldMetadata = new FieldMetadata(
                 TestEntity.class.getDeclaredField("name"),
                 "name", String.class, true, false, false, false, null,
-                Collections.emptyList(), filterable, null
+                Collections.emptyList(), filterable, null, false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -222,7 +226,7 @@ class FilterResolverTest {
         FieldMetadata fieldMetadata = new FieldMetadata(
                 TestEntity.class.getDeclaredField("age"),
                 "age", Integer.class, true, false, false, false, null,
-                Collections.emptyList(), filterable, null
+                Collections.emptyList(), filterable, null, false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -251,7 +255,7 @@ class FilterResolverTest {
         FieldMetadata fieldMetadata = new FieldMetadata(
                 TestEntity.class.getDeclaredField("age"),
                 "age", Integer.class, true, false, false, false, null,
-                Collections.emptyList(), filterable, null
+                Collections.emptyList(), filterable, null, false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -285,12 +289,12 @@ class FilterResolverTest {
         FieldMetadata nameField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("name"),
                 "name", String.class, true, false, false, false, null,
-                Collections.emptyList(), nameFilterable, null
+                Collections.emptyList(), nameFilterable, null, false
         );
         FieldMetadata ageField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("age"),
                 "age", Integer.class, true, false, false, false, null,
-                Collections.emptyList(), ageFilterable, null
+                Collections.emptyList(), ageFilterable, null, false
         );
 
         EntityMetadata metadata = new EntityMetadata(
@@ -312,8 +316,36 @@ class FilterResolverTest {
         verify(cb).and(any(Predicate[].class));
     }
 
+    @Test
+    void buildSpecification_withFetchFields_shouldAddFetchJoins() throws Exception {
+        // Given
+        FieldMetadata relationField = new FieldMetadata(
+                TestEntity.class.getDeclaredField("category"),
+                "category", Object.class, true, false, false, false, null,
+                Collections.emptyList(), null, mock(io.springflow.core.metadata.RelationMetadata.class), false
+        );
+
+        EntityMetadata metadata = new EntityMetadata(
+                TestEntity.class, Long.class, "TestEntity", "test_entity", null,
+                Collections.singletonList(relationField)
+        );
+
+        Map<String, String> params = new HashMap<>();
+        java.util.List<String> fetchFields = java.util.Collections.singletonList("category");
+
+        // When
+        Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata, fetchFields);
+        doReturn(TestEntity.class).when(query).getResultType();
+        spec.toPredicate(root, query, cb);
+
+        // Then
+        verify(root).fetch(eq("category"), any(jakarta.persistence.criteria.JoinType.class));
+        verify(query).distinct(true);
+    }
+
     static class TestEntity {
         private String name;
         private Integer age;
+        private Object category;
     }
 }

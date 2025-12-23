@@ -386,6 +386,52 @@ class EntityDtoMapperTest {
     }
 
     @Test
+    void toOutputDto_withFields_shouldOnlyIncludeRequestedFields() {
+        // Given
+        TestEntity entity = new TestEntity();
+        entity.setId(1L);
+        entity.setName("Test Name");
+        entity.setEmail("test@example.com");
+        entity.setAge(25);
+
+        List<String> requestedFields = Arrays.asList("name", "age");
+
+        // When
+        Map<String, Object> outputDto = mapper.toOutputDto(entity, requestedFields);
+
+        // Then
+        assertThat(outputDto).hasSize(2);
+        assertThat(outputDto.get("name")).isEqualTo("Test Name");
+        assertThat(outputDto.get("age")).isEqualTo(25);
+        assertThat(outputDto).doesNotContainKey("id");
+        assertThat(outputDto).doesNotContainKey("email");
+    }
+
+    @Test
+    void toOutputDtoPage_withFields_shouldOnlyIncludeRequestedFields() {
+        // Given
+        TestEntity entity = new TestEntity();
+        entity.setId(1L);
+        entity.setName("Test Name");
+        entity.setEmail("test@example.com");
+
+        List<TestEntity> entities = Collections.singletonList(entity);
+        Page<TestEntity> entityPage = new PageImpl<>(entities, PageRequest.of(0, 10), 1);
+        List<String> requestedFields = Collections.singletonList("name");
+
+        // When
+        Page<Map<String, Object>> dtoPage = mapper.toOutputDtoPage(entityPage, requestedFields);
+
+        // Then
+        assertThat(dtoPage.getContent()).hasSize(1);
+        Map<String, Object> dto = dtoPage.getContent().get(0);
+        assertThat(dto).hasSize(1);
+        assertThat(dto.get("name")).isEqualTo("Test Name");
+        assertThat(dto).doesNotContainKey("id");
+        assertThat(dto).doesNotContainKey("email");
+    }
+
+    @Test
     void getEntityClass_shouldReturnCorrectClass() {
         // When/Then
         assertThat(mapper.getEntityClass()).isEqualTo(TestEntity.class);

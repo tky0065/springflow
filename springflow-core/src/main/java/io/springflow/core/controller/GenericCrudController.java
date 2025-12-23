@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,10 +91,19 @@ public abstract class GenericCrudController<T, ID> {
                 entityClass.getSimpleName(), pageable, params);
 
         boolean includeDeleted = Boolean.parseBoolean(params.getOrDefault("includeDeleted", "false"));
-        Specification<T> spec = filterResolver.buildSpecification(params, metadata);
-        Page<T> page = service.findAll(spec, pageable, includeDeleted);
+        boolean deletedOnly = Boolean.parseBoolean(params.getOrDefault("deletedOnly", "false"));
+        List<String> fields = extractFields(params.get("fields"));
+        
+        Specification<T> spec = filterResolver.buildSpecification(params, metadata, fields);
+        Page<T> page;
+        
+        if (deletedOnly) {
+             page = service.findDeletedOnly(spec, pageable);
+        } else {
+             page = service.findAll(spec, pageable, includeDeleted);
+        }
 
-        Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page);
+        Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page, fields);
         return ResponseEntity.ok(dtoPage);
     }
 
@@ -100,6 +111,7 @@ public abstract class GenericCrudController<T, ID> {
      * GET /{id} - Find entity by ID.
      *
      * @param id the entity ID
+     * @param params query parameters (e.g., fields)
      * @return DTO with HTTP 200 OK (excludes @Hidden fields), or HTTP 404 NOT FOUND if not exists
      */
     @Operation(
@@ -121,11 +133,23 @@ public abstract class GenericCrudController<T, ID> {
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> findById(
             @Parameter(description = "Entity ID", required = true)
-            @PathVariable ID id) {
+            @PathVariable ID id,
+            @Parameter(description = "Query parameters", hidden = true)
+            @RequestParam Map<String, String> params) {
         log.debug("GET request to find {} with id: {}", entityClass.getSimpleName(), id);
-        T entity = service.findById(id);
-        Map<String, Object> dto = dtoMapper.toOutputDto(entity);
+        List<String> fields = extractFields(params.get("fields"));
+        
+        Specification<T> spec = filterResolver.buildSpecification(params, metadata, fields);
+        T entity = service.findById(id, spec);
+        Map<String, Object> dto = dtoMapper.toOutputDto(entity, fields);
         return ResponseEntity.ok(dto);
+    }
+
+    private List<String> extractFields(String fieldsParam) {
+        if (fieldsParam == null || fieldsParam.isBlank()) {
+            return null;
+        }
+        return Arrays.asList(fieldsParam.split(","));
     }
 
     /**

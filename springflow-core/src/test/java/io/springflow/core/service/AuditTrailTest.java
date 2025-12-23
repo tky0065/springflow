@@ -41,12 +41,12 @@ class AuditTrailTest {
         FieldMetadata createdAt = new FieldMetadata(
                 TestEntity.class.getDeclaredField("createdAt"),
                 "createdAt", java.time.LocalDateTime.class, true, false, false, false, null,
-                Collections.emptyList(), null, null
+                Collections.emptyList(), null, null, false
         );
         FieldMetadata createdBy = new FieldMetadata(
                 TestEntity.class.getDeclaredField("createdBy"),
                 "createdBy", String.class, true, false, false, false, null,
-                Collections.emptyList(), null, null
+                Collections.emptyList(), null, null, false
         );
 
         metadata = new EntityMetadata(

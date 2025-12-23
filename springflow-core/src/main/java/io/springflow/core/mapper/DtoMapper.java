@@ -47,6 +47,15 @@ public interface DtoMapper<T, ID> {
     Map<String, Object> toOutputDto(T entity);
 
     /**
+     * Converts an entity to a Map-based OutputDTO with optional field filtering.
+     *
+     * @param entity the entity
+     * @param fields list of fields to include (if null or empty, all non-hidden fields are included)
+     * @return the output data as a Map
+     */
+    Map<String, Object> toOutputDto(T entity, List<String> fields);
+
+    /**
      * Updates an existing entity with data from InputDTO.
      * <p>
      * Preserves ID and other immutable fields.
@@ -67,12 +76,30 @@ public interface DtoMapper<T, ID> {
     List<Map<String, Object>> toOutputDtoList(List<T> entities);
 
     /**
+     * Converts a list of entities to OutputDTOs with optional field filtering.
+     *
+     * @param entities the list of entities
+     * @param fields   list of fields to include
+     * @return the list of output DTOs
+     */
+    List<Map<String, Object>> toOutputDtoList(List<T> entities, List<String> fields);
+
+    /**
      * Converts a page of entities to a page of OutputDTOs.
      *
      * @param entityPage the page of entities
      * @return the page of output DTOs
      */
     Page<Map<String, Object>> toOutputDtoPage(Page<T> entityPage);
+
+    /**
+     * Converts a page of entities to a page of OutputDTOs with optional field filtering.
+     *
+     * @param entityPage the page of entities
+     * @param fields     list of fields to include
+     * @return the page of output DTOs
+     */
+    Page<Map<String, Object>> toOutputDtoPage(Page<T> entityPage, List<String> fields);
 
     /**
      * Gets the entity class this mapper handles.

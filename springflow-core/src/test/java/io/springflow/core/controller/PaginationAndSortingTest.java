@@ -38,11 +38,11 @@ class PaginationAndSortingTest {
     @SuppressWarnings("unchecked")
     void setUp() {
         repository = mock(JpaRepository.class, withSettings().extraInterfaces(JpaSpecificationExecutor.class));
-        service = new TestEntityService(repository);
+        metadata = mock(EntityMetadata.class);
+        service = new TestEntityService(repository, metadata);
         dtoMapper = mock(DtoMapper.class);
         filterResolver = mock(FilterResolver.class);
-        when(filterResolver.buildSpecification(any(), any())).thenReturn(mock(Specification.class));
-        metadata = mock(EntityMetadata.class);
+        when(filterResolver.buildSpecification(any(), any(), any())).thenReturn(mock(Specification.class));
 
         // Setup DtoMapper mocks
         when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
@@ -53,7 +53,7 @@ class PaginationAndSortingTest {
             return map;
         });
 
-        when(dtoMapper.toOutputDtoPage(any(Page.class))).thenAnswer(inv -> {
+        when(dtoMapper.toOutputDtoPage(any(Page.class), any())).thenAnswer(inv -> {
             Page<TestEntity> p = inv.getArgument(0);
             return p.map(e -> {
                 Map<String, Object> map = new HashMap<>();
@@ -78,7 +78,7 @@ class PaginationAndSortingTest {
         Pageable pageable = PageRequest.of(0, 20);
         List<TestEntity> entities = createEntities(20);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -101,7 +101,7 @@ class PaginationAndSortingTest {
         Pageable pageable = PageRequest.of(0, 10);
         List<TestEntity> entities = createEntities(10);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -119,7 +119,7 @@ class PaginationAndSortingTest {
         Pageable pageable = PageRequest.of(1, 20);
         List<TestEntity> entities = createEntities(20);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -138,7 +138,7 @@ class PaginationAndSortingTest {
         Pageable pageable = PageRequest.of(4, 20);
         List<TestEntity> entities = createEntities(20);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 100);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -162,7 +162,7 @@ class PaginationAndSortingTest {
                 new TestEntity(3L, "Gamma")
         );
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 3);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -186,7 +186,7 @@ class PaginationAndSortingTest {
                 new TestEntity(1L, "Alpha")
         );
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 3);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -209,7 +209,7 @@ class PaginationAndSortingTest {
         Pageable pageable = PageRequest.of(0, 20, sort);
         List<TestEntity> entities = createEntities(5);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 5);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -226,7 +226,7 @@ class PaginationAndSortingTest {
         // Given
         Pageable pageable = PageRequest.of(0, 20);
         Page<TestEntity> page = Page.empty(pageable);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -246,7 +246,7 @@ class PaginationAndSortingTest {
         Pageable pageable = PageRequest.of(1, 10, sort);
         List<TestEntity> entities = createEntities(10);
         Page<TestEntity> page = new PageImpl<>(entities, pageable, 50);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
         ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
@@ -290,8 +290,8 @@ class PaginationAndSortingTest {
     }
 
     static class TestEntityService extends GenericCrudService<TestEntity, Long> {
-        public TestEntityService(JpaRepository<TestEntity, Long> repository) {
-            super(repository, TestEntity.class);
+        public TestEntityService(JpaRepository<TestEntity, Long> repository, EntityMetadata metadata) {
+            super(repository, TestEntity.class, metadata);
         }
     }
 }

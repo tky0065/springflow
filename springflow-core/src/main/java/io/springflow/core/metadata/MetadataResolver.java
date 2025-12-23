@@ -120,6 +120,8 @@ public class MetadataResolver {
             generationType = field.getAnnotation(GeneratedValue.class).strategy();
         }
 
+        boolean isJsonIgnored = field.isAnnotationPresent(com.fasterxml.jackson.annotation.JsonIgnore.class);
+
         return new FieldMetadata(
                 field,
                 field.getName(),
@@ -131,7 +133,8 @@ public class MetadataResolver {
                 generationType,
                 validations,
                 filterConfig,
-                relation
+                relation,
+                isJsonIgnored
         );
     }
 
