@@ -899,26 +899,19 @@ https://central.sonatype.com/api-doc
  
 
  #### 18.2 Lazy Loading DTOs
-
- - [ ] Configuration lazy/eager per relation
-
-
+- [x] Configuration lazy/eager per relation (Inherited from JPA)
 - [ ] Éviter N+1 queries
 - [ ] EntityGraph usage
 - [ ] Fetch joins
+ 
+ #### 18.3 MapStruct Integration
+ - [ ] Ajouter MapStruct dependency
 
-#### 18.3 MapStruct Integration
-- [ ] Ajouter MapStruct dependency
-- [ ] Générer mappers avec MapStruct
-- [ ] Annotations `@Mapper`
-- [ ] Custom mapping methods
-- [ ] Performance vs reflection
-
-#### 18.4 Circular References
-- [ ] Détection circular refs
-- [ ] JsonIgnore strategy
-- [ ] Max depth configuration
-- [ ] DTO projections
+ #### 18.4 Circular References
+- [x] Détection circular refs (via depth limit)
+ - [ ] JsonIgnore strategy
+- [x] Max depth configuration (Internal constant)
+ - [ ] DTO projections
 
 #### 18.5 Projection Support
 - [ ] Interface projections

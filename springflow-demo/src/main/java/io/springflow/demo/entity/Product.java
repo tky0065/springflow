@@ -1,7 +1,11 @@
 package io.springflow.demo.entity;
 
+import io.springflow.annotations.Auditable;
 import io.springflow.annotations.AutoApi;
+import io.springflow.annotations.FilterType;
+import io.springflow.annotations.Filterable;
 import io.springflow.annotations.ReadOnly;
+import io.springflow.annotations.SoftDelete;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -14,16 +18,10 @@ import java.time.LocalDateTime;
  * This entity showcases:
  * - Full CRUD operations via @AutoApi
  * - JSR-380 validation constraints
- * - @ReadOnly fields (createdAt, updatedAt)
+ * - Dynamic filtering via @Filterable
+ * - Soft delete via @SoftDelete
+ * - Automatic auditing via @Auditable
  * - ManyToOne relationship with Category
- * </p>
- * <p>
- * Auto-generated endpoints:
- * - GET    /api/products (list with pagination)
- * - GET    /api/products/{id}
- * - POST   /api/products
- * - PUT    /api/products/{id}
- * - DELETE /api/products/{id}
  * </p>
  */
 @Entity
@@ -34,6 +32,8 @@ import java.time.LocalDateTime;
         description = "Product management API",
         tags = {"Products"}
 )
+@Auditable
+@SoftDelete
 public class Product {
 
     @Id
@@ -42,6 +42,7 @@ public class Product {
 
     @NotBlank(message = "Product name is required")
     @Size(min = 3, max = 100, message = "Product name must be between 3 and 100 characters")
+    @Filterable(types = {FilterType.EQUALS, FilterType.LIKE})
     @Column(nullable = false)
     private String name;
 
@@ -51,6 +52,7 @@ public class Product {
 
     @NotNull(message = "Price is required")
     @Min(value = 0, message = "Price must be positive")
+    @Filterable(types = FilterType.RANGE)
     @Column(nullable = false)
     private Double price;
 
@@ -65,6 +67,10 @@ public class Product {
     @Column(nullable = false)
     private Boolean active = true;
 
+    private boolean deleted = false;
+
+    private LocalDateTime deletedAt;
+
     @ReadOnly
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -73,14 +79,7 @@ public class Product {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
+    private String createdBy;
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+    private String updatedBy;
 }
