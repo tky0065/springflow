@@ -36,6 +36,16 @@ import java.lang.annotation.Target;
 public @interface Security {
 
     /**
+     * Whether security is enabled for the endpoints.
+     *
+     * <p>If set to {@code false}, all endpoints are public regardless of the level.
+     * Defaults to {@code true}.
+     *
+     * @return true if security is enabled
+     */
+    boolean enabled() default true;
+
+    /**
      * The security level to apply to the endpoints.
      *
      * <p>Defaults to {@link SecurityLevel#PUBLIC}.
@@ -73,4 +83,22 @@ public @interface Security {
      * @return the required authorities
      */
     String[] authorities() default {};
+
+    /**
+     * Granular security level for read operations (GET).
+     *
+     * <p>If set to {@link SecurityLevel#UNDEFINED}, the global {@link #level()} is used.
+     *
+     * @return the read security level
+     */
+    SecurityLevel readLevel() default SecurityLevel.UNDEFINED;
+
+    /**
+     * Granular security level for write operations (POST, PUT, PATCH, DELETE).
+     *
+     * <p>If set to {@link SecurityLevel#UNDEFINED}, the global {@link #level()} is used.
+     *
+     * @return the write security level
+     */
+    SecurityLevel writeLevel() default SecurityLevel.UNDEFINED;
 }

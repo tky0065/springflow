@@ -79,10 +79,17 @@ class AutoApiAnnotationTest {
 
     @Test
     void shouldSupportAllSecurityLevels() {
-        assertEquals(3, SecurityLevel.values().length, "Should have 3 SecurityLevel values");
-        assertNotNull(SecurityLevel.valueOf("PUBLIC"));
-        assertNotNull(SecurityLevel.valueOf("AUTHENTICATED"));
-        assertNotNull(SecurityLevel.valueOf("ROLE_BASED"));
+        SecurityLevel[] levels = SecurityLevel.values();
+        assertEquals(4, levels.length, "Should have 4 SecurityLevel values");
+        // Verify all levels are present
+        boolean hasPublic = false, hasAuth = false, hasRole = false, hasUndefined = false;
+        for (SecurityLevel level : levels) {
+            if (level == SecurityLevel.PUBLIC) hasPublic = true;
+            if (level == SecurityLevel.AUTHENTICATED) hasAuth = true;
+            if (level == SecurityLevel.ROLE_BASED) hasRole = true;
+            if (level == SecurityLevel.UNDEFINED) hasUndefined = true;
+        }
+        assertTrue(hasPublic && hasAuth && hasRole && hasUndefined, "All SecurityLevel values should be present");
     }
 
     @Test

@@ -114,8 +114,23 @@ class ControllerGeneratorTest {
                     }
 
                     @Override
+                    public boolean enabled() {
+                        return true;
+                    }
+
+                    @Override
                     public io.springflow.annotations.SecurityLevel level() {
                         return io.springflow.annotations.SecurityLevel.PUBLIC;
+                    }
+
+                    @Override
+                    public io.springflow.annotations.SecurityLevel readLevel() {
+                        return io.springflow.annotations.SecurityLevel.UNDEFINED;
+                    }
+
+                    @Override
+                    public io.springflow.annotations.SecurityLevel writeLevel() {
+                        return io.springflow.annotations.SecurityLevel.UNDEFINED;
                     }
 
                     @Override

@@ -42,5 +42,10 @@ public enum SecurityLevel {
      * )
      * }</pre>
      */
-    ROLE_BASED
+    ROLE_BASED,
+
+    /**
+     * Inherit security level from a higher level configuration or use default.
+     */
+    UNDEFINED
 }

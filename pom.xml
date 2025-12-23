@@ -66,6 +66,7 @@
         <springdoc.version>2.3.0</springdoc.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.38</lombok.version>
+        <byte-buddy.version>1.14.10</byte-buddy.version>
 
         <!-- Plugin versions -->
         <jacoco.version>0.8.11</jacoco.version>
@@ -102,6 +103,13 @@
                 <version>${springdoc.version}</version>
             </dependency>
 
+            <!-- Spring Security -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>3.2.1</version>
+            </dependency>
+
             <!-- MapStruct for DTO mapping -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -131,6 +139,13 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-reflect</artifactId>
                 <version>${kotlin.version}</version>
+            </dependency>
+
+            <!-- Byte Buddy for dynamic class generation -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
