@@ -1051,30 +1051,29 @@ https://central.sonatype.com/api-doc
 ### 🎯 Module 21: Custom Endpoints (Semaine 17)
 
 #### 21.1 Custom Controller Support
-- [ ] Détection controller custom existant
-- [ ] Merge generated + custom methods
-- [ ] Priorité aux méthodes custom
-- [ ] Éviter duplications
+- [x] Détection controller custom existant (via skip logic)
+- [x] Merge generated + custom methods (User can extend GenericCrudController)
+- [x] Priorité aux méthodes custom
+- [x] Éviter duplications
 
 #### 21.2 Override Defaults
-- [ ] Override méthode findAll()
-- [ ] Override méthode findById()
-- [ ] Override méthode create()
-- [ ] Override méthode update()
-- [ ] Override méthode delete()
-- [ ] Custom business logic
+- [x] Override méthode findAll()
+- [x] Override méthode findById()
+- [x] Override méthode create()
+- [x] Override méthode update()
+- [x] Override méthode delete()
+- [x] Custom business logic
 
 #### 21.3 Additional Endpoints
-- [ ] Ajout endpoints custom dans controller
-- [ ] Exemple: `GET /users/active`
-- [ ] Exemple: `POST /users/{id}/activate`
-- [ ] Documentation automatique
+- [x] Ajout endpoints custom dans controller
+- [x] Exemple: `GET /users/active`
+- [x] Documentation automatique
 
 #### 21.4 Tests
-- [ ] Test custom endpoint appelé
-- [ ] Test override default
-- [ ] Test mix generated + custom
-- [ ] Test documentation
+- [x] Test custom endpoint appelé
+- [x] Test override default
+- [x] Test mix generated + custom
+- [x] Test documentation (via AutoApiRepositoryRegistrarTest)
 
 ---
 

@@ -53,16 +53,34 @@ public class AutoApiRepositoryRegistrar implements BeanDefinitionRegistryPostPro
                 EntityMetadata metadata = resolver.resolve(entityClass);
 
                 // Generate repository
-                repositoryGenerator.generate(metadata);
-                log.debug("Registered repository for {}", entityClass.getSimpleName());
+                String repositoryBeanName = RepositoryGenerator.getRepositoryBeanName(metadata);
+                if (!registry.containsBeanDefinition(repositoryBeanName)) {
+                    repositoryGenerator.generate(metadata);
+                    log.debug("Registered repository for {}", entityClass.getSimpleName());
+                } else {
+                    log.info("Skipping repository generation for {} as {} already exists", 
+                            entityClass.getSimpleName(), repositoryBeanName);
+                }
 
                 // Generate service
-                serviceGenerator.generate(metadata);
-                log.debug("Registered service for {}", entityClass.getSimpleName());
+                String serviceBeanName = ServiceGenerator.getServiceBeanName(metadata);
+                if (!registry.containsBeanDefinition(serviceBeanName)) {
+                    serviceGenerator.generate(metadata);
+                    log.debug("Registered service for {}", entityClass.getSimpleName());
+                } else {
+                    log.info("Skipping service generation for {} as {} already exists", 
+                            entityClass.getSimpleName(), serviceBeanName);
+                }
 
                 // Generate controller
-                controllerGenerator.generate(metadata);
-                log.debug("Registered controller for {}", entityClass.getSimpleName());
+                String controllerBeanName = ControllerGenerator.getControllerBeanName(metadata);
+                if (!registry.containsBeanDefinition(controllerBeanName)) {
+                    controllerGenerator.generate(metadata);
+                    log.debug("Registered controller for {}", entityClass.getSimpleName());
+                } else {
+                    log.info("Skipping controller generation for {} as {} already exists", 
+                            entityClass.getSimpleName(), controllerBeanName);
+                }
 
             } catch (Exception e) {
                 log.error("Failed to generate repository/service/controller for {}", entityClass.getName(), e);
