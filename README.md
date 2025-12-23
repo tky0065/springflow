@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java Version](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2%2B-brightgreen)](https://spring.io/projects/spring-boot)
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.1.0--SNAPSHOT-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.1.1--SNAPSHOT-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
 > **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
 
@@ -11,7 +11,7 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 
 ---
 
-## ✨ Fonctionnalités Phase 1 MVP (v0.1.0)
+## ✨ Fonctionnalités Phase 1 MVP (v0.1.1)
 
 - 🎯 **Une annotation, API complète** : `@AutoApi` génère tout automatiquement
 - 🔄 **CRUD complet** : GET (list + by ID), POST, PUT, DELETE
@@ -40,13 +40,13 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
 </dependency>
 ```
 
 **Gradle** :
 ```gradle
-implementation 'io.github.tky0065:springflow-starter:0.1.0-SNAPSHOT'
+implementation 'io.github.tky0065:springflow-starter:0.1.1-SNAPSHOT'
 ```
 
 ### 2. Annotez vos entités
@@ -144,7 +144,7 @@ DELETE /api/products/1
     <dependency>
         <groupId>io.github.tky0065</groupId>
         <artifactId>springflow-starter</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.1-SNAPSHOT</version>
     </dependency>
 
     <!-- Spring Boot Starter Web -->
@@ -863,7 +863,7 @@ L'application démarre sur `http://localhost:8080`
 
 Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique des versions.
 
-**Version 0.1.0-SNAPSHOT (Phase 1 MVP)**:
+**Version 0.1.1-SNAPSHOT (Phase 1 MVP)**:
 - ✅ CRUD complet (GET, POST, PUT, DELETE)
 - ✅ Pagination & Sorting
 - ✅ Validation JSR-380
@@ -882,7 +882,7 @@ SpringFlow est sous licence [Apache License 2.0](LICENSE).
 
 ## 🎯 Roadmap
 
-- ✅ **Phase 1 (v0.1.0 - MVP)** : CRUD, pagination, validation, DTOs, Swagger
+- ✅ **Phase 1 (v0.1.1 - MVP)** : CRUD, pagination, validation, DTOs, Swagger
 - 🔄 **Phase 2 (v0.2.0)** : Filtres dynamiques, Security, Soft Delete, Audit
 - 📅 **Phase 3 (v1.0.0)** : GraphQL, Admin UI, CLI, Multi-DB, Monitoring
 

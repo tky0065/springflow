@@ -14,7 +14,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Audit trail (createdBy, updatedBy, createdAt, updatedAt)
 - GraphQL support
 
-## [0.1.0-SNAPSHOT] - 2025-12-21
+## [0.1.1] - 2025-12-23
+
+### Fixed
+- **Swagger UI paths duplication** - Fixed duplicated paths `/api/api/categories` → `/api/categories`
+- **OpenAPI server URL configuration** - Changed server URL from `/api` to `/` to prevent path concatenation issues
+- **"No operations defined in spec!" error** - Resolved issue where dynamically generated endpoints weren't appearing in Swagger UI
+- **Metadata retrieval from factory beans** - Fixed SpringFlowOpenApiCustomizer to retrieve EntityMetadata from factory beans using reflection
+
+### Changed
+- **OpenAPI customizer integration** - Switched from automatic bean detection to direct integration with GroupedOpenApi.builder()
+- **Controller path generation** - Modified ControllerGenerator to return entity-specific paths without global base path (e.g., `/products` instead of `/api/products`)
+- Improved OpenAPI documentation with proper operation IDs, summaries, and descriptions
+
+### Technical Details
+- OpenApiConfiguration.java:98 - Server URL changed from `properties.getBasePath()` to `/`
+- SpringFlowOpenApiCustomizer.java - Added `getMetadataFromFactory()` method to access factory bean metadata
+- ControllerGenerator.java:85 - Base path generation now returns `"/" + plural` instead of `"/api/" + plural`
+
+## [0.1.0] - 2025-12-22
 
 ### 🎉 Phase 1 MVP - Initial Release
 
