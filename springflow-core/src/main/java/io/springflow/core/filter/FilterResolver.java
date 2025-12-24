@@ -4,6 +4,7 @@ import io.springflow.annotations.FilterType;
 import io.springflow.annotations.Filterable;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.FieldMetadata;
+import io.springflow.core.metadata.RelationMetadata;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
@@ -75,10 +76,16 @@ public class FilterResolver {
                     }
                     query.distinct(true);
                 } else {
-                    // Default: fetch all non-hidden relations to avoid N+1 for first level depth
+                    // Default: fetch all non-hidden single-value relations to avoid N+1
+                    // Collection relations (OneToMany, ManyToMany) are NOT fetched by default
+                    // to avoid MultipleBagFetchException.
                     for (FieldMetadata fieldMetadata : metadata.fields()) {
                         if (fieldMetadata.isRelation() && !fieldMetadata.hidden()) {
-                            root.fetch(fieldMetadata.name(), jakarta.persistence.criteria.JoinType.LEFT);
+                            RelationMetadata.RelationType type = fieldMetadata.relation().type();
+                            if (type == RelationMetadata.RelationType.MANY_TO_ONE || 
+                                type == RelationMetadata.RelationType.ONE_TO_ONE) {
+                                root.fetch(fieldMetadata.name(), jakarta.persistence.criteria.JoinType.LEFT);
+                            }
                         }
                     }
                     query.distinct(true);

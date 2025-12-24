@@ -40,12 +40,12 @@ class AuditTrailTest {
 
         FieldMetadata createdAt = new FieldMetadata(
                 TestEntity.class.getDeclaredField("createdAt"),
-                "createdAt", java.time.LocalDateTime.class, true, false, false, false, null,
+                "createdAt", java.time.LocalDateTime.class, true, false, false, false, false, null,
                 Collections.emptyList(), null, null, false
         );
         FieldMetadata createdBy = new FieldMetadata(
                 TestEntity.class.getDeclaredField("createdBy"),
-                "createdBy", String.class, true, false, false, false, null,
+                "createdBy", String.class, true, false, false, false, false, null,
                 Collections.emptyList(), null, null, false
         );
 
@@ -77,8 +77,15 @@ class AuditTrailTest {
         }
     }
 
+    @Test
+    void isVersioned_shouldReturnTrueIfEnabled() {
+        when(auditable.versioned()).thenReturn(true);
+        assertThat(metadata.isVersioned()).isTrue();
+    }
+
     static class TestEntity {
         private Long id;
+        private Long version;
         private java.time.LocalDateTime createdAt;
         private java.time.LocalDateTime updatedAt;
         private String createdBy;
@@ -86,6 +93,8 @@ class AuditTrailTest {
 
         public Long getId() { return id; }
         public void setId(Long id) { this.id = id; }
+        public Long getVersion() { return version; }
+        public void setVersion(Long version) { this.version = version; }
         public java.time.LocalDateTime getCreatedAt() { return createdAt; }
         public void setCreatedAt(java.time.LocalDateTime createdAt) { this.createdAt = createdAt; }
         public String getCreatedBy() { return createdBy; }

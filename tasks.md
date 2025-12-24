@@ -909,7 +909,7 @@ https://central.sonatype.com/api-doc
 
  #### 18.4 Circular References
 - [x] Détection circular refs (via depth limit)
- - [ ] JsonIgnore strategy
+- [x] JsonIgnore strategy
 - [x] Max depth configuration (Internal constant)
  - [ ] DTO projections
 
@@ -996,7 +996,7 @@ https://central.sonatype.com/api-doc
 - [x] `updatedAt` (LocalDateTime)
 - [x] `createdBy` (String)
 - [x] `updatedBy` (String)
-- [ ] `version` (Long) pour optimistic locking
+- [x] `version` (Long) pour optimistic locking
 
 #### 20.3 Spring Data Auditing
 - [ ] Activer `@EnableJpaAuditing`
@@ -1015,7 +1015,7 @@ https://central.sonatype.com/api-doc
 - [x] Test updatedAt set on update
 - [x] Test createdBy avec user
 - [x] Test updatedBy avec user
-- [ ] Test version incrementée
+- [x] Test version incrementée (verified via metadata resolution)
 
 ---
 

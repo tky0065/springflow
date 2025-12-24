@@ -108,8 +108,9 @@ public class MetadataResolver {
 
     private FieldMetadata buildFieldMetadata(Field field) {
         boolean isId = field.isAnnotationPresent(Id.class) || field.isAnnotationPresent(EmbeddedId.class);
+        boolean isVersion = field.isAnnotationPresent(Version.class);
         boolean isNullable = isNullable(field);
-        boolean isReadOnly = field.isAnnotationPresent(ReadOnly.class) || isId; 
+        boolean isReadOnly = field.isAnnotationPresent(ReadOnly.class) || isId || isVersion; 
         
         List<Annotation> validations = extractValidations(field);
         RelationMetadata relation = extractRelation(field);
@@ -130,6 +131,7 @@ public class MetadataResolver {
                 field.isAnnotationPresent(Hidden.class),
                 isReadOnly,
                 isId,
+                isVersion,
                 generationType,
                 validations,
                 filterConfig,

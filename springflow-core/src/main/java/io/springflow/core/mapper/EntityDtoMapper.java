@@ -74,23 +74,35 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
         // If it's the same class as this mapper, we use its metadata
         if (entity.getClass() == entityClass) {
             for (FieldMetadata fieldMeta : metadata.fields()) {
-                if (fieldMeta.hidden()) continue;
+                if (fieldMeta.hidden() || fieldMeta.jsonIgnored()) continue;
                 String fieldName = fieldMeta.name();
 
-                // If fields list is provided, only include requested fields
-                if (fields != null && !fields.isEmpty() && !fields.contains(fieldName)) {
-                    continue;
+                // Check if this field or any of its sub-fields are requested
+                if (fields != null && !fields.isEmpty()) {
+                    boolean exactMatch = fields.contains(fieldName);
+                    boolean subFieldMatch = fields.stream().anyMatch(f -> f.startsWith(fieldName + "."));
+                    
+                    if (!exactMatch && !subFieldMatch) {
+                        continue;
+                    }
                 }
 
                 Object value = getFieldValue((T) entity, fieldMeta.field());
                 if (fieldMeta.isRelation() && value != null) {
-                    value = mapRelationValue(value, fieldMeta, currentDepth);
+                    List<String> subFields = null;
+                    if (fields != null) {
+                        subFields = fields.stream()
+                                .filter(f -> f.startsWith(fieldName + "."))
+                                .map(f -> f.substring(fieldName.length() + 1))
+                                .collect(Collectors.toList());
+                    }
+                    value = mapRelationValue(value, fieldMeta, currentDepth, subFields);
                 }
                 outputDto.put(fieldName, value);
             }
         } else {
             // For related entities, we should ideally use their own mappers
-            // For now, return ID only to avoid complexity
+            // For now, return ID only to avoid complexity unless specific fields requested
             return Collections.singletonMap("id", getEntityIdValue(entity));
         }
 
@@ -105,7 +117,7 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
 
     private void applyDtoToEntity(T entity, Map<String, Object> inputDto) {
         for (FieldMetadata fieldMeta : metadata.fields()) {
-            if (fieldMeta.isId() || fieldMeta.hidden() || fieldMeta.readOnly()) {
+            if (fieldMeta.isId() || fieldMeta.hidden() || fieldMeta.readOnly() || fieldMeta.jsonIgnored()) {
                 continue;
             }
 
@@ -135,21 +147,21 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
         return null;
     }
 
-    private Object mapRelationValue(Object value, FieldMetadata fieldMeta, int currentDepth) {
-        if (currentDepth >= DEFAULT_MAX_DEPTH) {
+    private Object mapRelationValue(Object value, FieldMetadata fieldMetadata, int currentDepth, List<String> subFields) {
+        if (currentDepth >= DEFAULT_MAX_DEPTH && (subFields == null || subFields.isEmpty())) {
             return mapToIdOnly(value);
         }
 
         if (value instanceof Collection<?> collection) {
             return collection.stream()
-                    .map(item -> mapSingleRelationValue(item, fieldMeta, currentDepth))
+                    .map(item -> mapSingleRelationValue(item, fieldMetadata, currentDepth, subFields))
                     .collect(Collectors.toList());
         } else {
-            return mapSingleRelationValue(value, fieldMeta, currentDepth);
+            return mapSingleRelationValue(value, fieldMetadata, currentDepth, subFields);
         }
     }
 
-    private Object mapSingleRelationValue(Object item, FieldMetadata fieldMeta, int currentDepth) {
+    private Object mapSingleRelationValue(Object item, FieldMetadata fieldMeta, int currentDepth, List<String> subFields) {
         if (item == null) return null;
         Class<?> targetClass = fieldMeta.relation().targetEntity();
         
@@ -157,7 +169,7 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
             if (targetClass.isAnnotationPresent(io.springflow.annotations.AutoApi.class)) {
                 DtoMapper mapper = mapperFactory.getMapper(targetClass);
                 if (mapper instanceof EntityDtoMapper entityMapper) {
-                    return entityMapper.toOutputDto(item, null, currentDepth + 1);
+                    return entityMapper.toOutputDto(item, subFields, currentDepth + 1);
                 }
             }
         } catch (Exception e) {

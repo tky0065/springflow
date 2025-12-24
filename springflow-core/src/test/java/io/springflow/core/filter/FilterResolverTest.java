@@ -57,7 +57,7 @@ class FilterResolverTest {
                 TestEntity.class.getDeclaredField("name"),
                 "name",
                 String.class,
-                true, false, false, false, null,
+                true, false, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
                 null,
@@ -92,7 +92,7 @@ class FilterResolverTest {
                 TestEntity.class.getDeclaredField("name"),
                 "name",
                 String.class,
-                true, false, false, false, null,
+                true, false, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
                 null,
@@ -126,7 +126,7 @@ class FilterResolverTest {
                 TestEntity.class.getDeclaredField("age"),
                 "age",
                 Integer.class,
-                true, false, false, false, null,
+                true, false, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
                 null,
@@ -159,7 +159,7 @@ class FilterResolverTest {
                 TestEntity.class.getDeclaredField("name"),
                 "name",
                 String.class,
-                true, false, false, false, null,
+                true, false, false, false, false, null,
                 Collections.emptyList(),
                 filterable,
                 null,
@@ -191,7 +191,7 @@ class FilterResolverTest {
 
         FieldMetadata fieldMetadata = new FieldMetadata(
                 TestEntity.class.getDeclaredField("name"),
-                "name", String.class, true, false, false, false, null,
+                "name", String.class, true, false, false, false, false, null,
                 Collections.emptyList(), filterable, null, false
         );
 
@@ -225,7 +225,7 @@ class FilterResolverTest {
 
         FieldMetadata fieldMetadata = new FieldMetadata(
                 TestEntity.class.getDeclaredField("age"),
-                "age", Integer.class, true, false, false, false, null,
+                "age", Integer.class, true, false, false, false, false, null,
                 Collections.emptyList(), filterable, null, false
         );
 
@@ -254,7 +254,7 @@ class FilterResolverTest {
 
         FieldMetadata fieldMetadata = new FieldMetadata(
                 TestEntity.class.getDeclaredField("age"),
-                "age", Integer.class, true, false, false, false, null,
+                "age", Integer.class, true, false, false, false, false, null,
                 Collections.emptyList(), filterable, null, false
         );
 
@@ -288,12 +288,12 @@ class FilterResolverTest {
 
         FieldMetadata nameField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("name"),
-                "name", String.class, true, false, false, false, null,
+                "name", String.class, true, false, false, false, false, null,
                 Collections.emptyList(), nameFilterable, null, false
         );
         FieldMetadata ageField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("age"),
-                "age", Integer.class, true, false, false, false, null,
+                "age", Integer.class, true, false, false, false, false, null,
                 Collections.emptyList(), ageFilterable, null, false
         );
 
@@ -321,7 +321,7 @@ class FilterResolverTest {
         // Given
         FieldMetadata relationField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("category"),
-                "category", Object.class, true, false, false, false, null,
+                "category", Object.class, true, false, false, false, false, null,
                 Collections.emptyList(), null, mock(io.springflow.core.metadata.RelationMetadata.class), false
         );
 

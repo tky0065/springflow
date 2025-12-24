@@ -43,12 +43,12 @@ class SoftDeleteTest {
 
         FieldMetadata deletedField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("deleted"),
-                "deleted", boolean.class, false, false, false, false, null,
+                "deleted", boolean.class, false, false, false, false, false, null,
                 Collections.emptyList(), null, null, false
         );
         FieldMetadata deletedAtField = new FieldMetadata(
                 TestEntity.class.getDeclaredField("deletedAt"),
-                "deletedAt", java.time.LocalDateTime.class, true, false, false, false, null,
+                "deletedAt", java.time.LocalDateTime.class, true, false, false, false, false, null,
                 Collections.emptyList(), null, null, false
         );
 

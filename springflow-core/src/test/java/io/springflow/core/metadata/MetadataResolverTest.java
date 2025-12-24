@@ -134,6 +134,18 @@ class MetadataResolverTest {
     }
 
     @Test
+    @DisplayName("Should extract version field correctly")
+    void testExtractionVersion() {
+        EntityMetadata metadata = resolver.resolve(VersionedEntity.class);
+        
+        Optional<FieldMetadata> versionField = metadata.getFieldByName("version");
+        assertThat(versionField).isPresent();
+        assertThat(versionField.get().isVersion()).isTrue();
+        assertThat(versionField.get().readOnly()).isTrue();
+        assertThat(metadata.isVersioned()).isTrue();
+    }
+
+    @Test
     @DisplayName("Should throw exception if @AutoApi is missing")
     void testMissingAutoApi() {
         class NonAutoApiEntity {}

@@ -48,4 +48,8 @@ public record EntityMetadata(
     public boolean isAuditable() {
         return auditableConfig != null;
     }
+
+    public boolean isVersioned() {
+        return auditableConfig != null && auditableConfig.versioned();
+    }
 }

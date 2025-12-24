@@ -17,6 +17,7 @@ public record FieldMetadata(
     boolean hidden,
     boolean readOnly,
     boolean isId,
+    boolean isVersion,
     jakarta.persistence.GenerationType generationType,
     List<Annotation> validations,
     Filterable filterConfig,

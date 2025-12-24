@@ -432,6 +432,38 @@ class EntityDtoMapperTest {
     }
 
     @Test
+    void toOutputDto_withNestedFields_shouldIncludeNestedRequestedFields() {
+        // Given
+        RelatedEntity related = new RelatedEntity();
+        related.setId(42L);
+        related.setDescription("Related Description");
+        
+        TestEntity entity = new TestEntity();
+        entity.setId(1L);
+        entity.setName("Test Name");
+        entity.setRelatedEntity(related);
+
+        EntityMetadata relatedMetadata = metadataResolver.resolve(RelatedEntity.class);
+        EntityDtoMapper relatedMapper = new EntityDtoMapper<>(RelatedEntity.class, relatedMetadata, entityManager, mapperFactory);
+        when(mapperFactory.getMapper(RelatedEntity.class)).thenReturn(relatedMapper);
+
+        List<String> requestedFields = Arrays.asList("name", "relatedEntity.description");
+
+        // When
+        Map<String, Object> outputDto = mapper.toOutputDto(entity, requestedFields);
+
+        // Then
+        assertThat(outputDto).hasSize(2);
+        assertThat(outputDto.get("name")).isEqualTo("Test Name");
+        assertThat(outputDto.get("relatedEntity")).isInstanceOf(Map.class);
+        
+        Map<String, Object> relatedDto = (Map<String, Object>) outputDto.get("relatedEntity");
+        assertThat(relatedDto).hasSize(1);
+        assertThat(relatedDto.get("description")).isEqualTo("Related Description");
+        assertThat(relatedDto).doesNotContainKey("id");
+    }
+
+    @Test
     void getEntityClass_shouldReturnCorrectClass() {
         // When/Then
         assertThat(mapper.getEntityClass()).isEqualTo(TestEntity.class);
@@ -532,9 +564,11 @@ class EntityDtoMapperTest {
     }
 
     @Entity
+    @io.springflow.annotations.AutoApi
     static class RelatedEntity {
         @Id
         private Long id;
+        private String description;
 
         public Long getId() {
             return id;
@@ -542,6 +576,14 @@ class EntityDtoMapperTest {
 
         public void setId(Long id) {
             this.id = id;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
     }
 }

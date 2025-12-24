@@ -54,7 +54,9 @@ class GenericCrudControllerTest {
 
         // Mock FilterResolver
         filterResolver = mock(FilterResolver.class);
-        when(filterResolver.buildSpecification(any(), any(), any())).thenReturn(mock(Specification.class));
+        Specification<TestEntity> mockSpec = mock(Specification.class);
+        when(mockSpec.and(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(filterResolver.buildSpecification(any(), any(), any())).thenReturn((Specification) mockSpec);
 
         // Setup DtoMapper mocks
         when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
@@ -190,7 +192,7 @@ class GenericCrudControllerTest {
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("name", "Updated Entity");
 
-        when(repository.findById(1L)).thenReturn(Optional.of(existing));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(existing));
         when(repository.save(any(TestEntity.class))).thenReturn(updated);
 
         // When
@@ -199,7 +201,7 @@ class GenericCrudControllerTest {
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get("name")).isEqualTo("Updated Entity");
-        verify(repository).findById(1L);
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
         verify(repository).save(any(TestEntity.class));
     }
 
@@ -209,12 +211,12 @@ class GenericCrudControllerTest {
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("name", "Updated Entity");
         
-        when(repository.findById(999L)).thenReturn(Optional.empty());
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
 
         // When/Then
         assertThatThrownBy(() -> controller.update(999L, inputDto))
                 .isInstanceOf(EntityNotFoundException.class);
-        verify(repository).findById(999L);
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
         verify(repository, never()).save(any());
     }
 
@@ -222,7 +224,7 @@ class GenericCrudControllerTest {
     void delete_shouldReturnNoContent() {
         // Given
         TestEntity entity = new TestEntity(1L, "Entity");
-        when(repository.findById(1L)).thenReturn(Optional.of(entity));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(entity));
         doNothing().when(repository).deleteById(1L);
 
         // When
@@ -231,19 +233,19 @@ class GenericCrudControllerTest {
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         assertThat(response.getBody()).isNull();
-        verify(repository).findById(1L);
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
         verify(repository).deleteById(1L);
     }
 
     @Test
     void delete_whenNotExists_shouldThrowException() {
         // Given
-        when(repository.findById(999L)).thenReturn(Optional.empty());
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
 
         // When/Then
         assertThatThrownBy(() -> controller.delete(999L))
                 .isInstanceOf(EntityNotFoundException.class);
-        verify(repository).findById(999L);
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
         verify(repository, never()).deleteById(any());
     }
 
