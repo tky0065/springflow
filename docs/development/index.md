@@ -98,7 +98,6 @@ Consultez [Contributing Guide](contributing.md) pour plus de détails.
 
 ## 📖 Documentation Développeur
 
-- [CLAUDE.md](../../CLAUDE.md) - Guide pour Claude Code
 - [CONTRIBUTING.md](contributing.md) - Guide de contribution complet
 - [Architecture Decision Records](../advanced/architecture.md) - Décisions d'architecture
 

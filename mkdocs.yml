@@ -121,5 +121,6 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/tky0065/springflow
-    - icon: fontawesome/brands/maven
+    - icon: material/package-variant
       link: https://central.sonatype.com/artifact/io.github.tky0065/springflow-starter
+      name: Maven Central

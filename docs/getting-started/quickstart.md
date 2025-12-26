@@ -344,14 +344,14 @@ SpringFlow requires Lombok 1.18.36+ for Java 21+ compatibility. Update if needed
 
 ## Next Steps
 
-- Read the full [README.md](README.md) for advanced features
-- Check [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
-- See [roadmap.md](roadmap.md) for upcoming features
-- Explore the [demo application](/springflow-demo) for complete examples
+- Read the [User Guide](../guide/index.md) for advanced features
+- Check [Contributing Guide](../development/contributing.md) for development guidelines
+- See [Roadmap](../about/roadmap.md) for upcoming features
+- Explore the demo application for complete examples
 
 ## Need Help?
 
-- 📚 Documentation: See README.md
+- 📚 Documentation: See [User Guide](../guide/index.md)
 - 🐛 Bug Reports: [GitHub Issues](https://github.com/springflow/springflow/issues)
 - 💬 Questions: Create a discussion on GitHub
 
