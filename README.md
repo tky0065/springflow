@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java Version](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2%2B-brightgreen)](https://spring.io/projects/spring-boot)
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.1.1--SNAPSHOT-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.2.0--SNAPSHOT-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
 > **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
 
@@ -11,7 +11,9 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 
 ---
 
-## ✨ Fonctionnalités Phase 1 MVP (v0.1.1)
+## ✨ Fonctionnalités
+
+### Phase 1 - MVP (v0.1.x) ✅
 
 - 🎯 **Une annotation, API complète** : `@AutoApi` génère tout automatiquement
 - 🔄 **CRUD complet** : GET (list + by ID), POST, PUT, DELETE
@@ -22,12 +24,22 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 - 🎨 **Support Java & Kotlin** : Compatible avec les deux langages
 - 🚀 **Zéro configuration** : Auto-configuration Spring Boot, aucune annotation requise
 
-### 🚧 Fonctionnalités Phase 2 (à venir)
-- 🔍 Filtres dynamiques avec JPA Specifications
-- 🔐 Sécurité avancée (JWT, roles, permissions)
-- 🗑️ Soft Delete avec restauration
-- 📊 Audit Trail (createdBy, updatedBy)
-- 🎨 GraphQL support
+### Phase 2 - Advanced Features (v0.2.0) ✅
+
+- 🔍 **Filtres dynamiques** : Requêtes paramétrables avec JPA Specifications (EQUALS, LIKE, RANGE, IN, BETWEEN, etc.)
+- 🔐 **Sécurité intégrée** : Support Spring Security avec @PreAuthorize dynamique, contrôle par rôle et permission
+- 🗑️ **Soft Delete** : Suppression logique avec support de restauration via `@SoftDelete`
+- 📊 **Audit Trail** : Traçabilité complète avec `@Auditable` (createdAt, updatedAt, createdBy, updatedBy)
+- 🔗 **Relations avancées** : Mapping automatique OneToMany, ManyToOne, ManyToMany avec gestion N+1
+- 🎯 **Controllers personnalisés** : Détection et intégration de controllers custom
+- 📦 **DTO nested** : Support relations imbriquées avec profondeur configurable
+
+### 🚧 Phase 3 - Extended Ecosystem (à venir)
+- 🎨 GraphQL support automatique
+- 💻 Admin UI React/Vue
+- 🛠️ CLI tool pour génération de code
+- 🗄️ Support multi-DB (MongoDB, etc.)
+- 📈 Monitoring & Metrics avec Actuator
 
 ---
 
@@ -40,13 +52,13 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
 **Gradle** :
 ```gradle
-implementation 'io.github.tky0065:springflow-starter:0.1.1-SNAPSHOT'
+implementation 'io.github.tky0065:springflow-starter:0.2.0'
 ```
 
 ### 2. Annotez vos entités
