@@ -2,17 +2,17 @@
 
 Documentation technique complète de l'API SpringFlow.
 
-## 📚 Références
+## :material-book-open-variant: Références
 
 <div class="grid cards" markdown>
 
--   :label: **[Annotations API](annotations.md)**
+-   :material-label: **[Annotations API](annotations.md)**
 
     ---
 
     Toutes les annotations avec paramètres détaillés
 
--   :gear: **[Configuration Properties](configuration.md)**
+-   :material-cog: **[Configuration Properties](configuration.md)**
 
     ---
 
@@ -26,7 +26,7 @@ Documentation technique complète de l'API SpringFlow.
 
 </div>
 
-## 🎯 Vue d'ensemble
+## :material-target: Vue d'ensemble
 
 ### Annotations Principales
 
@@ -65,7 +65,7 @@ Pour chaque entité avec `@AutoApi`, SpringFlow génère :
 | `PUT` | `/api/{path}/{id}` | Mise à jour complète |
 | `DELETE` | `/api/{path}/{id}` | Suppression |
 
-## 📖 Documentation Détaillée
+## :material-book-open-variant: Documentation Détaillée
 
 - **[Annotations API](annotations.md)** - Paramètres, exemples, cas d'usage
 - **[Configuration Properties](configuration.md)** - Toutes les options de configuration

@@ -2,25 +2,25 @@
 
 Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnalités.
 
-## 📖 Table des matières
+## :material-book-open-variant: Table des matières
 
 ### Core Features
 
 <div class="grid cards" markdown>
 
--   :label: **[Annotations](annotations.md)**
+-   :material-label: **[Annotations](annotations.md)**
 
     ---
 
     Référence complète des annotations SpringFlow
 
--   :gear: **[Configuration](configuration.md)**
+-   :material-cog: **[Configuration](configuration.md)**
 
     ---
 
     Options de configuration via YAML et annotations
 
--   :arrows_counterclockwise: **[DTO Mapping](dto-mapping.md)**
+-   :material-sync: **[DTO Mapping](dto-mapping.md)**
 
     ---
 
@@ -32,19 +32,19 @@ Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnal
 
 <div class="grid cards" markdown>
 
--   :mag: **[Filtering](filtering.md)**
+-   :material-magnify: **[Filtering](filtering.md)**
 
     ---
 
     Filtrage dynamique avec @Filterable
 
--   :page_facing_up: **[Pagination & Sorting](pagination.md)**
+-   :material-file-document: **[Pagination & Sorting](pagination.md)**
 
     ---
 
     Pagination et tri des résultats
 
--   :white_check_mark: **[Validation](validation.md)**
+-   :material-check-circle: **[Validation](validation.md)**
 
     ---
 
@@ -56,19 +56,19 @@ Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnal
 
 <div class="grid cards" markdown>
 
--   :lock: **[Security](security.md)**
+-   :material-lock: **[Security](security.md)**
 
     ---
 
     Intégration Spring Security et contrôle d'accès
 
--   :wastebasket: **[Soft Delete](soft-delete.md)**
+-   :material-delete: **[Soft Delete](soft-delete.md)**
 
     ---
 
     Suppression logique avec restauration
 
--   :clipboard: **[Auditing](auditing.md)**
+-   :material-clipboard-text: **[Auditing](auditing.md)**
 
     ---
 
@@ -82,7 +82,7 @@ Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnal
 
 </div>
 
-## 🎯 Par où commencer ?
+## :material-target: Par où commencer ?
 
 Si vous débutez avec SpringFlow, nous recommandons de lire dans cet ordre :
 
@@ -93,7 +93,7 @@ Si vous débutez avec SpringFlow, nous recommandons de lire dans cet ordre :
 
 Ensuite, explorez les fonctionnalités avancées selon vos besoins !
 
-## 🔍 Recherche Rapide
+## :material-magnify: Recherche Rapide
 
 **Je veux...**
 

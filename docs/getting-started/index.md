@@ -2,23 +2,23 @@
 
 Bienvenue dans SpringFlow ! Cette section vous guide pas à pas pour démarrer rapidement.
 
-## 📚 Dans cette section
+## :material-book-open-variant: Dans cette section
 
 <div class="grid cards" markdown>
 
--   :rocket: **[Quick Start](quickstart.md)**
+-   :material-rocket-launch: **[Quick Start](quickstart.md)**
 
     ---
 
     Créez votre première API en 5 minutes avec SpringFlow
 
--   :package: **[Installation](installation.md)**
+-   :material-download: **[Installation](installation.md)**
 
     ---
 
     Guide détaillé d'installation et configuration
 
--   :hammer_and_wrench: **[First Project](first-project.md)**
+-   :material-hammer-wrench: **[First Project](first-project.md)**
 
     ---
 
@@ -26,15 +26,15 @@ Bienvenue dans SpringFlow ! Cette section vous guide pas à pas pour démarrer r
 
 </div>
 
-## 🎯 Prérequis
+## :material-target: Prérequis
 
 Avant de commencer, assurez-vous d'avoir:
 
-- ☕ **Java 17** ou supérieur
-- 🍃 **Spring Boot 3.2.1** ou supérieur
-- 📦 **Maven 3.6+** ou **Gradle 7.0+**
+- :fontawesome-brands-java: **Java 17** ou supérieur
+- :material-leaf: **Spring Boot 3.2.1** ou supérieur
+- :material-package-variant: **Maven 3.6+** ou **Gradle 7.0+**
 
-## ⚡ Installation Rapide
+## :material-flash: Installation Rapide
 
 === "Maven"
 
@@ -73,13 +73,13 @@ public class Product {
 
 **C'est tout !** SpringFlow génère automatiquement :
 
-✅ `GET /api/products` - Liste avec pagination
-✅ `GET /api/products/{id}` - Détails
-✅ `POST /api/products` - Création
-✅ `PUT /api/products/{id}` - Mise à jour
-✅ `DELETE /api/products/{id}` - Suppression
+:material-check-circle:{ .success } `GET /api/products` - Liste avec pagination
+:material-check-circle:{ .success } `GET /api/products/{id}` - Détails
+:material-check-circle:{ .success } `POST /api/products` - Création
+:material-check-circle:{ .success } `PUT /api/products/{id}` - Mise à jour
+:material-check-circle:{ .success } `DELETE /api/products/{id}` - Suppression
 
-## 📖 Parcours Recommandé
+## :material-format-list-numbered: Parcours Recommandé
 
 1. **[Quick Start](quickstart.md)** - Commencez ici pour créer votre première API
 2. **[Installation](installation.md)** - Configuration détaillée

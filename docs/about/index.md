@@ -2,7 +2,7 @@
 
 Informations sur le projet SpringFlow.
 
-## 📚 Dans cette section
+## :material-book-open-variant: Dans cette section
 
 <div class="grid cards" markdown>
 
@@ -26,11 +26,11 @@ Informations sur le projet SpringFlow.
 
 </div>
 
-## 🎯 Vision
+## :material-target: Vision
 
 SpringFlow vise à **réduire 70-90% du code boilerplate** dans les applications Spring Boot en générant automatiquement l'infrastructure REST à partir des entités JPA.
 
-## 🌟 Philosophie
+## :material-star: Philosophie
 
 ### Zero Configuration
 
@@ -56,7 +56,7 @@ Une seule annotation suffit pour générer une API complète.
 - Endpoints custom
 - Intégration avec code existant
 
-## 📊 Statistiques
+## :material-chart-bar: Statistiques
 
 - **Version actuelle**: 0.2.0
 - **Tests**: 136+ tests unitaires et d'intégration
@@ -64,23 +64,23 @@ Une seule annotation suffit pour générer une API complète.
 - **Java**: 17+
 - **Spring Boot**: 3.2.1+
 
-## 🗺️ Feuille de Route
+## :material-map: Feuille de Route
 
-### ✅ Phase 1 - MVP (Complete)
+### :material-check-circle:{ .success } Phase 1 - MVP (Complete)
 - CRUD endpoints automatiques
 - Pagination & sorting
 - DTO mapping
 - Validation JSR-380
 - OpenAPI/Swagger
 
-### ✅ Phase 2 - Advanced (Complete)
+### :material-check-circle:{ .success } Phase 2 - Advanced (Complete)
 - Dynamic filtering
 - Security integration
 - Soft delete
 - Audit trail
 - Advanced DTO mapping
 
-### 🚧 Phase 3 - Extended (En cours)
+### :material-construction:{ .warning } Phase 3 - Extended (En cours)
 - GraphQL support
 - Admin UI
 - CLI tools
@@ -89,18 +89,18 @@ Une seule annotation suffit pour générer une API complète.
 
 Voir la [roadmap complète](roadmap.md) pour plus de détails.
 
-## 📄 License
+## :material-file-document: License
 
 SpringFlow est publié sous [Apache License 2.0](license.md).
 
-## 🤝 Communauté
+## :material-handshake: Communauté
 
 - **GitHub**: [tky0065/springflow](https://github.com/tky0065/springflow)
 - **Issues**: [Signaler un bug](https://github.com/tky0065/springflow/issues)
 - **Discussions**: [Forum](https://github.com/tky0065/springflow/discussions)
 - **Maven Central**: [Artifacts](https://central.sonatype.com/artifact/io.github.tky0065/springflow-starter)
 
-## 💬 Contact
+## :material-chat: Contact
 
 Des questions ? Suggestions ?
 
@@ -110,4 +110,4 @@ Des questions ? Suggestions ?
 
 ---
 
-Merci d'utiliser SpringFlow ! ❤️
+Merci d'utiliser SpringFlow ! :material-heart:

@@ -2,7 +2,7 @@
 
 Maîtrisez les concepts avancés de SpringFlow pour optimiser vos applications.
 
-## 📚 Dans cette section
+## :material-book-open-variant: Dans cette section
 
 <div class="grid cards" markdown>
 
@@ -32,7 +32,7 @@ Maîtrisez les concepts avancés de SpringFlow pour optimiser vos applications.
 
 </div>
 
-## 🎯 Pour qui ?
+## :material-target: Pour qui ?
 
 Cette section est destinée aux développeurs qui souhaitent :
 
@@ -41,7 +41,7 @@ Cette section est destinée aux développeurs qui souhaitent :
 - **Optimiser** les performances pour la production
 - **Appliquer** les meilleures pratiques
 
-## 🔧 Concepts Clés
+## :material-wrench: Concepts Clés
 
 ### Architecture Runtime
 

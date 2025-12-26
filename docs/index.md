@@ -13,11 +13,11 @@
 
 SpringFlow is a Spring Boot library that **reduces 70-90% of boilerplate code** by automatically generating:
 
-- 🔄 **Repositories** (JpaRepository with Specifications)
-- 🔧 **Services** (CRUD operations with transaction management)
-- 🌐 **REST Controllers** (Complete CRUD endpoints)
-- 📄 **DTOs** (Input/Output mapping with validation)
-- 📚 **OpenAPI Documentation** (Swagger UI integration)
+- :material-cached: **Repositories** (JpaRepository with Specifications)
+- :material-wrench: **Services** (CRUD operations with transaction management)
+- :material-web: **REST Controllers** (Complete CRUD endpoints)
+- :material-file-document: **DTOs** (Input/Output mapping with validation)
+- :material-book-open-variant: **OpenAPI Documentation** (Swagger UI integration)
 
 All from a single `@AutoApi` annotation on your JPA entities.
 
@@ -50,24 +50,24 @@ public class Product {
 
 **That's it!** SpringFlow automatically generates:
 
-- ✅ `GET /api/products` - List with pagination & sorting
-- ✅ `GET /api/products/{id}` - Get by ID
-- ✅ `POST /api/products` - Create
-- ✅ `PUT /api/products/{id}` - Update
-- ✅ `DELETE /api/products/{id}` - Delete
-- ✅ Complete OpenAPI/Swagger documentation
-- ✅ Input validation with JSR-380
-- ✅ DTO mapping (excludes `@Hidden` fields)
-- ✅ Repository, Service, and Controller beans
+- :material-check-circle:{ .success } `GET /api/products` - List with pagination & sorting
+- :material-check-circle:{ .success } `GET /api/products/{id}` - Get by ID
+- :material-check-circle:{ .success } `POST /api/products` - Create
+- :material-check-circle:{ .success } `PUT /api/products/{id}` - Update
+- :material-check-circle:{ .success } `DELETE /api/products/{id}` - Delete
+- :material-check-circle:{ .success } Complete OpenAPI/Swagger documentation
+- :material-check-circle:{ .success } Input validation with JSR-380
+- :material-check-circle:{ .success } DTO mapping (excludes `@Hidden` fields)
+- :material-check-circle:{ .success } Repository, Service, and Controller beans
 
 ---
 
 ## Key Features
 
-### 🚀 Zero Boilerplate
+### :material-rocket-launch: Zero Boilerplate
 Write only your domain model. SpringFlow generates everything else at runtime.
 
-### 🔒 Production Ready
+### :material-lock: Production Ready
 - Transaction management
 - Exception handling
 - Input validation (JSR-380)
@@ -75,13 +75,13 @@ Write only your domain model. SpringFlow generates everything else at runtime.
 - Soft delete support
 - Audit trail
 
-### 🎯 Flexible & Extensible
+### :material-target: Flexible & Extensible
 - Override generated behavior
 - Add custom endpoints
 - Configure via annotations or YAML
 - Works with existing Spring components
 
-### 📊 Advanced Filtering
+### :material-chart-bar: Advanced Filtering
 ```java
 @Filterable(types = {FilterType.EQUALS, FilterType.LIKE, FilterType.RANGE})
 private String name;
@@ -89,7 +89,7 @@ private String name;
 
 Enables: `GET /api/products?name_like=Phone&price_range=100,500`
 
-### 🔐 Built-in Security
+### :material-shield-lock: Built-in Security
 ```java
 @AutoApi(
     path = "users",
@@ -100,7 +100,7 @@ Enables: `GET /api/products?name_like=Phone&price_range=100,500`
 )
 ```
 
-### 🗑️ Soft Delete
+### :material-delete: Soft Delete
 ```java
 @Entity
 @AutoApi
@@ -142,9 +142,9 @@ implementation 'io.github.tky0065:springflow-starter:0.2.0'
 
 ## Requirements
 
-- ☕ Java 17 or higher
-- 🍃 Spring Boot 3.2.1 or higher
-- 📦 Maven 3.6+ or Gradle 7.0+
+- :fontawesome-brands-java: Java 17 or higher
+- :material-leaf: Spring Boot 3.2.1 or higher
+- :material-package-variant: Maven 3.6+ or Gradle 7.0+
 
 ---
 
@@ -204,10 +204,10 @@ See [Kotlin Support Guide](guide/kotlin.md) for details.
 
 ## Community & Support
 
-- 📖 **Documentation**: [https://tky0065.github.io/springflow/](https://tky0065.github.io/springflow/)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/tky0065/springflow/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/tky0065/springflow/discussions)
-- 📦 **Maven Central**: [SpringFlow Artifacts](https://central.sonatype.com/artifact/io.github.tky0065/springflow-starter)
+- :material-book-open-variant: **Documentation**: [https://tky0065.github.io/springflow/](https://tky0065.github.io/springflow/)
+- :material-bug: **Issues**: [GitHub Issues](https://github.com/tky0065/springflow/issues)
+- :material-chat: **Discussions**: [GitHub Discussions](https://github.com/tky0065/springflow/discussions)
+- :material-package-variant: **Maven Central**: [SpringFlow Artifacts](https://central.sonatype.com/artifact/io.github.tky0065/springflow-starter)
 
 ---
 
