@@ -1044,8 +1044,8 @@ https://central.sonatype.com/api-doc
 #### 22.5 DataFetchers
 - [x] Auto-generate DataFetchers (via GenericGraphQLController)
 - [ ] Relations loading (deferred to future enhancement)
-- [ ] N+1 problem solution (deferred to future enhancement)
-- [ ] DataLoader support (deferred to future enhancement)
+- [x] N+1 problem solution (implemented with DataLoader batching)
+- [x] DataLoader support (automatic registration for all entities)
 
 #### 22.6 Tests
 - [x] Test GraphQL queries (GraphQLIntegrationTest)

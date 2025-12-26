@@ -16,8 +16,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.graphql.execution.RuntimeWiringConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +48,19 @@ public class SpringFlowGraphQLAutoConfiguration implements BeanFactoryPostProces
     @Bean
     public GraphQLControllerGenerator graphQLControllerGenerator() {
         return new GraphQLControllerGenerator();
+    }
+
+    /**
+     * Configures DataLoaders for batch loading entities.
+     * This solves the N+1 query problem when loading related entities in GraphQL.
+     * <p>
+     * Note: This requires entities and repositories to be already initialized.
+     * DataLoaders will be registered on-demand by GraphQL controllers.
+     * </p>
+     */
+    @Bean
+    public DataLoaderRegistrar dataLoaderRegistrar(ApplicationContext applicationContext) {
+        return new DataLoaderRegistrar(applicationContext);
     }
 
     @Override

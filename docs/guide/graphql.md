@@ -413,13 +413,73 @@ class GraphQLTest {
 }
 ```
 
+## DataLoader for N+1 Problem
+
+SpringFlow GraphQL automatically configures DataLoaders to solve the N+1 query problem when loading related entities.
+
+### What is the N+1 Problem?
+
+When loading a list of entities with related data, naive implementations can execute N+1 database queries:
+- 1 query to load the parent entities
+- N queries to load related entities (one per parent)
+
+**Example without DataLoader:**
+```
+SELECT * FROM Category WHERE ...     -- 1 query
+SELECT * FROM Product WHERE category_id = 1  -- Query 1
+SELECT * FROM Product WHERE category_id = 2  -- Query 2
+... (N more queries)
+```
+
+### How DataLoader Solves This
+
+DataLoader batches multiple fetch requests into a single database query:
+
+**Example with DataLoader:**
+```
+SELECT * FROM Category WHERE ...  -- 1 query
+SELECT * FROM Product WHERE category_id IN (1, 2, 3, ...)  -- 1 batched query
+```
+
+### Automatic Configuration
+
+SpringFlow automatically registers a DataLoader for each entity annotated with `@AutoApi`. No additional configuration required!
+
+When GraphQL resolves entity relationships, SpringFlow's DataLoader:
+1. Collects all IDs that need to be loaded
+2. Batches them into a single `findAllById()` query
+3. Returns entities in the correct order
+4. Dramatically improves query performance
+
+### Performance Comparison
+
+```
+Without DataLoader:
+  Loading 100 categories with products: 101 queries (1 + 100)
+
+With DataLoader:
+  Loading 100 categories with products: 2 queries (1 + 1 batched)
+```
+
+### Implementation Details
+
+DataLoaders are automatically registered at application startup via the `DataLoaderRegistrar` component:
+
+```java
+@Bean
+public DataLoaderRegistrar dataLoaderRegistrar(ApplicationContext applicationContext) {
+    return new DataLoaderRegistrar(applicationContext);
+}
+```
+
+Each entity gets its own DataLoader named `{entityName}Loader` (e.g., `productLoader`, `categoryLoader`).
+
 ## Future Enhancements
 
 Planned for future releases:
-- **Dynamic Filters**: GraphQL filter arguments matching REST filter capabilities
-- **DataLoader**: Automatic N+1 problem mitigation
-- **Relation Loading**: Optimized loading of entity relationships
+- **Relation Loading**: Field resolvers for optimized entity relationships
 - **Subscriptions**: Real-time updates via GraphQL subscriptions
+- **Custom DataLoaders**: Support for custom batching strategies
 
 ## Best Practices
 
