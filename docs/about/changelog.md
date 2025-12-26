@@ -7,12 +7,100 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Planned for Phase 3 (v0.3.0)
-- GraphQL support
+### Planned for Future Releases
 - Admin UI (React/Vue)
 - CLI tool for code generation
 - Multi-DB support (MongoDB, etc.)
 - Monitoring & Metrics with Actuator
+
+## [0.3.0] - 2025-12-26
+
+### 🎉 Phase 3 - Extended Ecosystem (GraphQL Support)
+
+Implementation of GraphQL API generation alongside REST APIs, providing a modern alternative for data fetching with automatic query/mutation generation.
+
+### Added
+
+#### Module 22: GraphQL Support
+- **Auto-generated GraphQL schema** - Automatic type generation from JPA entities
+- **GraphQL queries** - `product(id)` and `products(page, size, filter)` auto-generated
+- **GraphQL mutations** - `createProduct`, `updateProduct`, `deleteProduct` auto-generated
+- **GraphQL pagination** - Connection-style pagination with edges, pageInfo, totalCount
+- **Dynamic filtering** - Map-based filters integrated with FilterResolver (LIKE, range, multiple filters)
+- **DataLoader support** - Automatic N+1 query prevention with batch loading
+- **Opt-in activation** - Add `springflow-graphql` dependency to enable GraphQL
+- **GraphQL Playground** - Available at `/graphiql` for testing queries
+- **Separate module** - `springflow-graphql` as optional dependency (47 KB)
+
+#### Query Examples
+```graphql
+# Fetch single product
+query {
+  product(id: 1) {
+    id name price category { id name }
+  }
+}
+
+# List with pagination and filters
+query {
+  products(
+    page: 0,
+    size: 10,
+    filter: {name_like: "Phone", price_gte: "100"}
+  ) {
+    edges { node { id name price } }
+    pageInfo { hasNextPage hasPreviousPage }
+    totalCount
+  }
+}
+```
+
+#### Mutation Examples
+```graphql
+mutation {
+  createProduct(input: {
+    name: "iPhone 15"
+    price: 999.99
+    categoryId: 1
+  }) {
+    id name price
+  }
+}
+```
+
+### Changed
+- **AutoApiRepositoryRegistrar** - Enhanced to support GraphQL controller registration
+- **springflow-graphql module** - New optional module with zero impact if not included
+- **Documentation** - Added comprehensive GraphQL guide (597 lines)
+
+### Technical Details
+
+#### New Dependencies (optional)
+- `spring-boot-starter-graphql` - Spring GraphQL integration
+- `spring-boot-starter-webflux` - Required for GraphQL subscriptions (future)
+
+#### Performance
+- **DataLoader batching** - Automatic registration for all entities to prevent N+1 queries
+- **Lazy loading** - Relations loaded on-demand based on GraphQL query selection
+- **Query depth limiting** - Built-in protection against overly nested queries
+
+### Known Limitations
+- **Relations** - Nested relation loading deferred to future enhancement
+- **Subscriptions** - Not yet implemented (planned for future release)
+- **Custom scalars** - Limited to basic types for now
+
+### Migration from 0.2.0 to 0.3.0
+
+No changes required! Fully backward compatible.
+
+To enable GraphQL (optional):
+1. Add `springflow-graphql` dependency
+2. Access GraphQL Playground at `/graphiql`
+3. All `@AutoApi` entities automatically get GraphQL schema
+
+### Contributors
+- SpringFlow team
+- Generated with Claude Code (Anthropic)
 
 ## [0.2.0] - 2025-12-26
 
