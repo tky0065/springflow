@@ -474,12 +474,83 @@ public DataLoaderRegistrar dataLoaderRegistrar(ApplicationContext applicationCon
 
 Each entity gets its own DataLoader named `{entityName}Loader` (e.g., `productLoader`, `categoryLoader`).
 
+## Relation Loading (Future Enhancement)
+
+Automatic field resolvers for entity relationships are planned for a future release. This would enable GraphQL queries like:
+
+```graphql
+query {
+  products(page: 0, size: 10) {
+    content {
+      id
+      name
+      category {    # Related entity
+        id
+        name
+      }
+    }
+  }
+}
+
+query {
+  categories {
+    content {
+      id
+      name
+      products {    # One-to-many relation
+        id
+        name
+        price
+      }
+      children {    # Self-referencing relation
+        id
+        name
+      }
+    }
+  }
+}
+```
+
+**Current Workaround:**
+
+For now, you can fetch related entities using separate queries and the DataLoader will batch the requests:
+
+```graphql
+query {
+  products(page: 0, size: 10) {
+    content {
+      id
+      name
+      # Fetch category IDs manually
+    }
+  }
+}
+
+# Then fetch categories by IDs (batched by DataLoader)
+query {
+  category(id: "1") { id, name }
+}
+```
+
+**Implementation Complexity:**
+
+Full relation support requires:
+- Schema generation for relation fields
+- Field resolvers (@SchemaMapping) for each relation type
+- Circular reference handling (e.g., Category ↔ Products)
+- Nested DataLoader orchestration
+- Lazy vs eager loading strategies
+
+This is planned for version 0.4.0 or later.
+
 ## Future Enhancements
 
 Planned for future releases:
-- **Relation Loading**: Field resolvers for optimized entity relationships
+- **Relation Field Resolvers**: Automatic GraphQL field resolvers for JPA relationships (v0.4.0+)
 - **Subscriptions**: Real-time updates via GraphQL subscriptions
 - **Custom DataLoaders**: Support for custom batching strategies
+- **Query Complexity Analysis**: Prevent overly complex queries
+- **Persisted Queries**: Support for persisted/automatic query caching
 
 ## Best Practices
 
