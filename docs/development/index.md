@@ -2,7 +2,7 @@
 
 Guide pour contribuer au développement de SpringFlow.
 
-## 📚 Dans cette section
+## :material-book-open-variant: Dans cette section
 
 <div class="grid cards" markdown>
 
@@ -32,7 +32,7 @@ Guide pour contribuer au développement de SpringFlow.
 
 </div>
 
-## 🚀 Quick Start pour Développeurs
+## :material-rocket-launch: Quick Start pour Développeurs
 
 ### 1. Cloner le Repository
 
@@ -60,7 +60,7 @@ cd springflow-demo
 ../mvnw spring-boot:run
 ```
 
-## 🏗️ Structure du Projet
+## :material-office-building: Structure du Projet
 
 ```
 springflow/
@@ -70,7 +70,7 @@ springflow/
 └── springflow-demo/          # Application de démonstration
 ```
 
-## 🤝 Comment Contribuer ?
+## :material-handshake: Comment Contribuer ?
 
 1. **Fork** le repository
 2. Créer une **branche** (`git checkout -b feature/amazing-feature`)
@@ -89,14 +89,14 @@ Consultez [Contributing Guide](contributing.md) pour plus de détails.
 - [ ] CHANGELOG.md mis à jour
 - [ ] Commit messages suivent la convention
 
-## 🛠️ Outils Recommandés
+## :material-tools: Outils Recommandés
 
 - **IDE**: IntelliJ IDEA / Eclipse / VS Code
 - **Java**: JDK 17 ou supérieur
 - **Build**: Maven 3.6+
 - **Git**: Dernière version
 
-## 📖 Documentation Développeur
+## :material-book-open-variant: Documentation Développeur
 
 - [CONTRIBUTING.md](contributing.md) - Guide de contribution complet
 - [Architecture Decision Records](../advanced/architecture.md) - Décisions d'architecture

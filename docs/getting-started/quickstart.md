@@ -104,13 +104,13 @@ public class MyApplication {
 ```
 
 That's it! SpringFlow will automatically:
-- ✅ Scan for `@AutoApi` entities
-- ✅ Generate JPA repositories with full CRUD operations
-- ✅ Create service layer with transaction management
-- ✅ Build REST controllers with pagination and sorting
-- ✅ Generate OpenAPI/Swagger documentation
-- ✅ Apply JSR-380 validation
-- ✅ Handle DTOs with `@Hidden` and `@ReadOnly` support
+- :material-check-circle:{ .success } Scan for `@AutoApi` entities
+- :material-check-circle:{ .success } Generate JPA repositories with full CRUD operations
+- :material-check-circle:{ .success } Create service layer with transaction management
+- :material-check-circle:{ .success } Build REST controllers with pagination and sorting
+- :material-check-circle:{ .success } Generate OpenAPI/Swagger documentation
+- :material-check-circle:{ .success } Apply JSR-380 validation
+- :material-check-circle:{ .success } Handle DTOs with `@Hidden` and `@ReadOnly` support
 
 ## What Gets Generated
 
@@ -294,13 +294,13 @@ cd springflow-demo
 ```
 
 The demo includes three entities (Product, Category, User) with:
-- ✅ Hierarchical relationships (Category self-reference)
-- ✅ Many-to-One relationships (Product → Category)
-- ✅ Complex validation rules
-- ✅ @Hidden fields (passwords)
-- ✅ @ReadOnly timestamps
-- ✅ Enum support (UserRole)
-- ✅ Sample data (data.sql)
+- :material-check-circle:{ .success } Hierarchical relationships (Category self-reference)
+- :material-check-circle:{ .success } Many-to-One relationships (Product → Category)
+- :material-check-circle:{ .success } Complex validation rules
+- :material-check-circle:{ .success } @Hidden fields (passwords)
+- :material-check-circle:{ .success } @ReadOnly timestamps
+- :material-check-circle:{ .success } Enum support (UserRole)
+- :material-check-circle:{ .success } Sample data (data.sql)
 
 Access points:
 - API Base: http://localhost:8080/api
@@ -351,26 +351,26 @@ SpringFlow requires Lombok 1.18.36+ for Java 21+ compatibility. Update if needed
 
 ## Need Help?
 
-- 📚 Documentation: See [User Guide](../guide/index.md)
-- 🐛 Bug Reports: [GitHub Issues](https://github.com/springflow/springflow/issues)
-- 💬 Questions: Create a discussion on GitHub
+- :material-book-open-variant: Documentation: See [User Guide](../guide/index.md)
+- :material-bug: Bug Reports: [GitHub Issues](https://github.com/springflow/springflow/issues)
+- :material-chat: Questions: Create a discussion on GitHub
 
 ## Current Status (v0.1.0-SNAPSHOT)
 
 **Phase 1 MVP - Implementation Complete**:
-- ✅ Core annotations (@AutoApi, @Hidden, @ReadOnly, @Filterable)
-- ✅ Entity scanning and metadata resolution
-- ✅ Dynamic repository generation
-- ✅ Service layer with transaction management
-- ✅ Controller generation (beans registered)
-- ✅ DTO mapping with reflection
-- ✅ JSR-380 validation with detailed errors
-- ✅ Pagination and sorting configuration
-- ✅ OpenAPI/Swagger integration
-- ✅ Spring Boot auto-configuration
-- ✅ Kotlin support
-- ✅ Lombok compatibility (Java 25)
-- ⚠️ Controller request mapping registration (in progress)
+- :material-check-circle:{ .success } Core annotations (@AutoApi, @Hidden, @ReadOnly, @Filterable)
+- :material-check-circle:{ .success } Entity scanning and metadata resolution
+- :material-check-circle:{ .success } Dynamic repository generation
+- :material-check-circle:{ .success } Service layer with transaction management
+- :material-check-circle:{ .success } Controller generation (beans registered)
+- :material-check-circle:{ .success } DTO mapping with reflection
+- :material-check-circle:{ .success } JSR-380 validation with detailed errors
+- :material-check-circle:{ .success } Pagination and sorting configuration
+- :material-check-circle:{ .success } OpenAPI/Swagger integration
+- :material-check-circle:{ .success } Spring Boot auto-configuration
+- :material-check-circle:{ .success } Kotlin support
+- :material-check-circle:{ .success } Lombok compatibility (Java 25)
+- :material-alert:{ .warning } Controller request mapping registration (in progress)
 
 **Known Limitations**:
 - Controller endpoints are created but HTTP mappings not fully registered yet
