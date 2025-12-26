@@ -1,0 +1,409 @@
+# GraphQL Support
+
+SpringFlow provides automatic GraphQL API generation for your JPA entities. Simply enable the GraphQL feature and SpringFlow will generate a complete GraphQL schema with queries and mutations.
+
+## Quick Start
+
+### 1. Add Dependency
+
+```xml
+<dependency>
+    <groupId>io.github.tky0065</groupId>
+    <artifactId>springflow-graphql</artifactId>
+    <version>0.3.0</version>
+</dependency>
+```
+
+### 2. Enable GraphQL
+
+In your `application.yml`:
+
+```yaml
+springflow:
+  graphql:
+    enabled: true
+    schema-location: src/main/resources/graphql
+    graphiql-enabled: true
+    introspection-enabled: true
+
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    path: /graphql
+```
+
+### 3. That's It!
+
+SpringFlow will automatically generate:
+- GraphQL types for your entities
+- Input types for create/update operations
+- Query resolvers (`findAll`, `findById`)
+- Mutation resolvers (`create`, `update`, `delete`)
+- Pagination support
+
+## Generated GraphQL Schema
+
+For an entity like this:
+
+```java
+@Entity
+@AutoApi(path = "/products")
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    private String name;
+
+    @NotNull
+    @Min(0)
+    private Double price;
+
+    @ReadOnly
+    private LocalDateTime createdAt;
+}
+```
+
+SpringFlow generates:
+
+```graphql
+type Product {
+  id: ID!
+  name: String!
+  price: Float!
+  createdAt: String
+}
+
+input ProductInput {
+  name: String!
+  price: Float!
+}
+
+type ProductPage {
+  content: [Product!]!
+  pageInfo: PageInfo!
+}
+
+type PageInfo {
+  pageNumber: Int!
+  pageSize: Int!
+  totalElements: Int!
+  totalPages: Int!
+  hasNext: Boolean!
+  hasPrevious: Boolean!
+}
+
+type Query {
+  products(page: Int, size: Int): ProductPage!
+  product(id: ID!): Product
+}
+
+type Mutation {
+  createProduct(input: ProductInput!): Product!
+  updateProduct(id: ID!, input: ProductInput!): Product!
+  deleteProduct(id: ID!): Boolean!
+}
+```
+
+## Query Examples
+
+### Find All with Pagination
+
+```graphql
+query {
+  products(page: 0, size: 10) {
+    content {
+      id
+      name
+      price
+      createdAt
+    }
+    pageInfo {
+      totalElements
+      totalPages
+      hasNext
+    }
+  }
+}
+```
+
+### Find by ID
+
+```graphql
+query {
+  product(id: "1") {
+    id
+    name
+    price
+    description
+  }
+}
+```
+
+## Mutation Examples
+
+### Create
+
+```graphql
+mutation {
+  createProduct(input: {
+    name: "Laptop"
+    price: 999.99
+  }) {
+    id
+    name
+    price
+  }
+}
+```
+
+### Update
+
+```graphql
+mutation {
+  updateProduct(id: "1", input: {
+    name: "Gaming Laptop"
+    price: 1499.99
+  }) {
+    id
+    name
+    price
+  }
+}
+```
+
+### Delete
+
+```graphql
+mutation {
+  deleteProduct(id: "1")
+}
+```
+
+## Field Annotations
+
+GraphQL generation respects SpringFlow field annotations:
+
+### @Hidden
+
+Fields marked as `@Hidden` are excluded from both types and input types:
+
+```java
+@Hidden
+private String internalCode;
+```
+
+### @ReadOnly
+
+Fields marked as `@ReadOnly` are included in output types but excluded from input types:
+
+```java
+@ReadOnly
+private LocalDateTime createdAt;
+```
+
+### ID Fields
+
+ID fields are automatically excluded from input types:
+
+```java
+@Id
+@GeneratedValue
+private Long id;
+```
+
+## Configuration Options
+
+```yaml
+springflow:
+  graphql:
+    # Enable/disable GraphQL support
+    enabled: true
+
+    # Where to write the generated schema.graphqls file
+    schema-location: src/main/resources/graphql
+
+    # Enable GraphiQL UI for testing
+    graphiql-enabled: true
+
+    # Enable introspection (disable in production for security)
+    introspection-enabled: true
+```
+
+## GraphiQL Interface
+
+Access the GraphiQL interface at `/graphiql` to explore and test your GraphQL API:
+
+```
+http://localhost:8080/graphiql
+```
+
+GraphiQL provides:
+- Interactive query editor with syntax highlighting
+- Auto-completion
+- Schema documentation
+- Query history
+- Variable support
+
+## Type Mappings
+
+SpringFlow automatically maps Java types to GraphQL types:
+
+| Java Type | GraphQL Type |
+|-----------|--------------|
+| `String` | `String` |
+| `Integer`, `int` | `Int` |
+| `Long`, `long` | `ID` |
+| `Double`, `double`, `Float`, `float` | `Float` |
+| `Boolean`, `boolean` | `Boolean` |
+| `LocalDate`, `LocalDateTime` | `String` (ISO-8601) |
+
+## Pagination
+
+All generated `findAll` queries support pagination:
+
+```graphql
+query {
+  products(page: 0, size: 20) {
+    content {
+      id
+      name
+    }
+    pageInfo {
+      pageNumber      # Current page number
+      pageSize        # Items per page
+      totalElements   # Total items across all pages
+      totalPages      # Total number of pages
+      hasNext         # Is there a next page?
+      hasPrevious     # Is there a previous page?
+    }
+  }
+}
+```
+
+Default values:
+- `page`: 0
+- `size`: 20
+
+## Validation
+
+Input validation is automatically enforced based on JSR-380 annotations:
+
+```java
+@NotBlank
+@Size(min = 3, max = 100)
+private String name;
+
+@NotNull
+@Min(0)
+private Double price;
+```
+
+If validation fails, GraphQL returns an error:
+
+```json
+{
+  "errors": [
+    {
+      "message": "Validation failed: name must not be blank",
+      "path": ["createProduct"]
+    }
+  ]
+}
+```
+
+## Security
+
+GraphQL respects Spring Security configuration. If Spring Security is enabled and configured via `@AutoApi(security = ...)`, the same authorization rules apply to GraphQL operations.
+
+**Production Recommendation:**
+- Set `introspection-enabled: false` in production for security
+- Configure appropriate authentication/authorization
+
+## Testing GraphQL
+
+Use `GraphQlTester` for integration testing:
+
+```java
+@SpringBootTest
+class GraphQLTest {
+
+    @Autowired
+    GraphQlTester graphQlTester;
+
+    @Test
+    void testQuery() {
+        String query = """
+            query {
+              products(page: 0, size: 5) {
+                content {
+                  id
+                  name
+                }
+              }
+            }
+            """;
+
+        graphQlTester.document(query)
+            .execute()
+            .path("products.content")
+            .entityList(Object.class)
+            .satisfies(list -> assertThat(list).isNotNull());
+    }
+}
+```
+
+## Future Enhancements
+
+Planned for future releases:
+- **Dynamic Filters**: GraphQL filter arguments matching REST filter capabilities
+- **DataLoader**: Automatic N+1 problem mitigation
+- **Relation Loading**: Optimized loading of entity relationships
+- **Subscriptions**: Real-time updates via GraphQL subscriptions
+
+## Best Practices
+
+1. **Enable Only When Needed**: GraphQL is opt-in via configuration
+2. **Disable Introspection in Production**: Prevents schema discovery
+3. **Use Pagination**: Always paginate large result sets
+4. **Validate Input**: Rely on JSR-380 annotations for validation
+5. **Test with GraphiQL**: Use the interactive UI during development
+
+## Troubleshooting
+
+### GraphQL Not Available
+
+Ensure GraphQL is enabled:
+
+```yaml
+springflow:
+  graphql:
+    enabled: true
+```
+
+### Schema Not Generated
+
+Check logs for schema generation errors. The schema file should be created at the configured `schema-location`.
+
+### GraphiQL Not Loading
+
+Verify Spring GraphQL configuration:
+
+```yaml
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+```
+
+Access at: `http://localhost:8080/graphiql`
+
+## See Also
+
+- [REST API Guide](rest-api.md)
+- [Annotations Reference](annotations.md)
+- [Configuration Reference](configuration.md)

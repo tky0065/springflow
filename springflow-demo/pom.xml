@@ -24,6 +24,12 @@
             <artifactId>springflow-starter</artifactId>
         </dependency>
 
+        <!-- SpringFlow GraphQL (Optional) -->
+        <dependency>
+            <groupId>io.github.tky0065</groupId>
+            <artifactId>springflow-graphql</artifactId>
+        </dependency>
+
         <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -58,6 +64,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.graphql</groupId>
+            <artifactId>spring-graphql-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

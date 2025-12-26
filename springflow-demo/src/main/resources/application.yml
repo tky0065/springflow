@@ -26,6 +26,13 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
 
+  # GraphQL Configuration
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    path: /graphql
+
 # SpringFlow Configuration
 springflow:
   # Enable SpringFlow (default: true)
@@ -58,6 +65,13 @@ springflow:
     contact-url: https://springflow.io
     license-name: Apache 2.0
     license-url: https://www.apache.org/licenses/LICENSE-2.0
+
+  # GraphQL Configuration
+  graphql:
+    enabled: true
+    schema-location: src/main/resources/graphql
+    graphiql-enabled: true
+    introspection-enabled: true
 
 # Logging Configuration
 logging:

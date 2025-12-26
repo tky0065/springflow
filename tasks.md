@@ -1048,10 +1048,10 @@ https://central.sonatype.com/api-doc
 - [ ] DataLoader support (deferred to future enhancement)
 
 #### 22.6 Tests
-- [ ] Test GraphQL queries (requires integration testing in demo app)
-- [ ] Test GraphQL mutations (requires integration testing in demo app)
+- [ ] Test GraphQL queries (in progress)
+- [ ] Test GraphQL mutations (in progress)
 - [ ] Test filtres (deferred)
-- [ ] Test pagination (requires integration testing in demo app)
+- [ ] Test pagination (in progress)
 - [ ] Test relations (deferred)
 
 ---
@@ -1061,7 +1061,7 @@ https://central.sonatype.com/api-doc
 #### 23.1 UI Project Setup
 - [ ] Créer projet React + TypeScript
 - [ ] Setup Vite ou CRA
-- [ ] Ajouter Material UI ou Ant Design
+- [ ] Ajouter Tailwind css Shadcn ui
 - [ ] Ajouter React Query
 - [ ] Ajouter React Router
 

@@ -34,8 +34,11 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 - 🎯 **Controllers personnalisés** : Détection et intégration de controllers custom
 - 📦 **DTO nested** : Support relations imbriquées avec profondeur configurable
 
-### 🚧 Phase 3 - Extended Ecosystem (à venir)
-- 🎨 GraphQL support automatique
+### Phase 3 - Extended Ecosystem (v0.3.0) 🚀
+
+- ✅ **GraphQL Support** : API GraphQL auto-générée avec queries, mutations et pagination (opt-in)
+
+### 🚧 Prochainement
 - 💻 Admin UI React/Vue
 - 🛠️ CLI tool pour génération de code
 - 🗄️ Support multi-DB (MongoDB, etc.)
@@ -52,13 +55,23 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
+</dependency>
+
+<!-- Optional: GraphQL Support -->
+<dependency>
+    <groupId>io.github.tky0065</groupId>
+    <artifactId>springflow-graphql</artifactId>
+    <version>0.3.0</version>
 </dependency>
 ```
 
 **Gradle** :
 ```gradle
-implementation 'io.github.tky0065:springflow-starter:0.2.0'
+implementation 'io.github.tky0065:springflow-starter:0.3.0'
+
+// Optional: GraphQL Support
+implementation 'io.github.tky0065:springflow-graphql:0.3.0'
 ```
 
 ### 2. Annotez vos entités
