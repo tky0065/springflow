@@ -878,7 +878,7 @@ https://central.sonatype.com/api-doc
 - [x] Fetch joins
  
  #### 18.3 MapStruct Integration
- - [ ] Ajouter MapStruct dependency
+ - [x] Ajouter MapStruct dependency (pom.xml - using reflection-based approach for now)
 
  #### 18.4 Circular References
 - [x] Détection circular refs (via depth limit)
@@ -893,12 +893,12 @@ https://central.sonatype.com/api-doc
 - [ ] JPQL queries
 
 #### 18.6 Tests
-- [ ] Test mapping relations
-- [ ] Test lazy loading
-- [ ] Test circular refs
-- [ ] Test MapStruct
-- [ ] Test projections
-- [ ] Test performance
+- [x] Test mapping relations (EntityDtoMapperTest)
+- [x] Test lazy loading (NPlusOneQueryTest)
+- [x] Test circular refs (CircularReferenceTest)
+- [ ] Test MapStruct (deferred - using reflection-based approach)
+- [ ] Test projections (deferred to future phase)
+- [ ] Test performance (optional)
 
 ---
 
