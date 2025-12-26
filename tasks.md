@@ -298,12 +298,12 @@
 - [x] Status code 200 OK
 
 #### 7.5 PATCH Endpoint
-- [ ] `@PatchMapping("/{id}")` - update partiel ⚠️ DEFERRED: Future enhancement
-- [ ] Request body `Map<String, Object>` ⚠️ DEFERRED: Future enhancement
-- [ ] Validation des champs ⚠️ DEFERRED: Future enhancement
-- [ ] Mise à jour sélective ⚠️ DEFERRED: Future enhancement
-- [ ] Utiliser reflection ⚠️ DEFERRED: Future enhancement
-- [ ] Status code 200 OK ⚠️ DEFERRED: Future enhancement
+- [x] `@PatchMapping("/{id}")` - update partiel
+- [x] Request body `Map<String, Object>`
+- [x] Validation des champs (@Hidden, @ReadOnly protection)
+- [x] Mise à jour sélective (via DtoMapper.updateEntity)
+- [x] Status code 200 OK
+- [x] Swagger documentation complète
 
 #### 7.6 DELETE Endpoint
 - [x] `@DeleteMapping("/{id}")` - delete
@@ -322,7 +322,7 @@
 - [x] Test GET by ID (200, 404)
 - [x] Test POST (201)
 - [x] Test PUT (200, 404)
-- [ ] Test PATCH (deferred)
+- [x] Test PATCH (5 tests: success, not found, hidden field, readonly field, multiple fields)
 - [x] Test DELETE (204, 404)
 - [ ] Test intégration complète (requires Module 9 - Controller Registration)
 

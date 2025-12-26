@@ -249,6 +249,129 @@ class GenericCrudControllerTest {
         verify(repository, never()).deleteById(any());
     }
 
+    @Test
+    void patch_shouldPartiallyUpdateEntity() {
+        // Given
+        TestEntity existing = new TestEntity(1L, "Old Name");
+        TestEntity updated = new TestEntity(1L, "Patched Name");
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Patched Name"); // Only update name
+
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(existing));
+        when(repository.save(any(TestEntity.class))).thenReturn(updated);
+        when(metadata.fields()).thenReturn(List.of()); // No field restrictions
+
+        // When
+        ResponseEntity<Map<String, Object>> response = controller.patch(1L, inputDto);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().get("name")).isEqualTo("Patched Name");
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(repository).save(any(TestEntity.class));
+        verify(dtoMapper).updateEntity(eq(existing), eq(inputDto));
+    }
+
+    @Test
+    void patch_whenNotExists_shouldThrowException() {
+        // Given
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Patched Name");
+
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
+        when(metadata.fields()).thenReturn(List.of());
+
+        // When/Then
+        assertThatThrownBy(() -> controller.patch(999L, inputDto))
+                .isInstanceOf(EntityNotFoundException.class);
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void patch_withHiddenField_shouldThrowException() {
+        // Given
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("password", "new-password"); // Trying to update hidden field
+
+        io.springflow.core.metadata.FieldMetadata hiddenField =
+            new io.springflow.core.metadata.FieldMetadata(
+                null,                           // field
+                "password",                     // name
+                String.class,                   // type
+                false,                          // nullable
+                true,                           // hidden
+                false,                          // readOnly
+                false,                          // isId
+                false,                          // isVersion
+                null,                           // generationType
+                List.of(),                      // validations
+                null,                           // filterConfig
+                null,                           // relation
+                false                           // jsonIgnored
+            );
+        when(metadata.fields()).thenReturn(List.of(hiddenField));
+
+        // When/Then
+        assertThatThrownBy(() -> controller.patch(1L, inputDto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Cannot update hidden field: password");
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void patch_withReadOnlyField_shouldThrowException() {
+        // Given
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("createdAt", "2025-01-01"); // Trying to update read-only field
+
+        io.springflow.core.metadata.FieldMetadata readOnlyField =
+            new io.springflow.core.metadata.FieldMetadata(
+                null,                           // field
+                "createdAt",                    // name
+                String.class,                   // type
+                false,                          // nullable
+                false,                          // hidden
+                true,                           // readOnly
+                false,                          // isId
+                false,                          // isVersion
+                null,                           // generationType
+                List.of(),                      // validations
+                null,                           // filterConfig
+                null,                           // relation
+                false                           // jsonIgnored
+            );
+        when(metadata.fields()).thenReturn(List.of(readOnlyField));
+
+        // When/Then
+        assertThatThrownBy(() -> controller.patch(1L, inputDto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Cannot update read-only field: createdAt");
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+    void patch_withMultipleFields_shouldUpdateAll() {
+        // Given
+        TestEntity existing = new TestEntity(1L, "Old Name");
+        TestEntity updated = new TestEntity(1L, "New Name");
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "New Name");
+        inputDto.put("description", "New Description"); // Multiple fields
+
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(existing));
+        when(repository.save(any(TestEntity.class))).thenReturn(updated);
+        when(metadata.fields()).thenReturn(List.of()); // No restrictions
+
+        // When
+        ResponseEntity<Map<String, Object>> response = controller.patch(1L, inputDto);
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(dtoMapper).updateEntity(eq(existing), eq(inputDto));
+        verify(repository).save(any(TestEntity.class));
+    }
+
     // Test entity class
     static class TestEntity {
         private Long id;

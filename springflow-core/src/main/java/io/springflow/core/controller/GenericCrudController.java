@@ -238,6 +238,84 @@ public abstract class GenericCrudController<T, ID> {
     }
 
     /**
+     * PATCH /{id} - Partially update an existing entity.
+     * <p>
+     * Only the fields present in the request body will be updated.
+     * Missing fields will remain unchanged. This is different from PUT which replaces the entire entity.
+     * </p>
+     *
+     * @param id       the entity ID
+     * @param inputDto the partial data as Map (only fields to update)
+     * @return updated entity DTO with HTTP 200 OK, or HTTP 404 NOT FOUND if not exists
+     */
+    @Operation(
+            summary = "Partially update an entity",
+            description = "Update specific fields of an existing entity. Only the fields provided in the request body will be updated."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Entity successfully updated",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Entity not found",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid field names or validation error",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    @PatchMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> patch(
+            @Parameter(description = "Entity ID", required = true)
+            @PathVariable ID id,
+            @Parameter(description = "Partial entity data (only fields to update)", required = true)
+            @RequestBody Map<String, Object> inputDto) {
+        log.debug("PATCH request to partially update {} with id: {} with data: {}",
+                entityClass.getSimpleName(), id, inputDto);
+
+        // Validate that provided fields are valid (not trying to update @Hidden or @ReadOnly fields)
+        validatePatchFields(inputDto);
+
+        T existing = service.findById(id);
+        dtoMapper.updateEntity(existing, inputDto);
+        T updated = service.save(existing);
+        Map<String, Object> outputDto = dtoMapper.toOutputDto(updated);
+
+        return ResponseEntity.ok(outputDto);
+    }
+
+    /**
+     * Validate that fields in PATCH request are valid for update.
+     * Throws exception if trying to update @Hidden or @ReadOnly fields.
+     *
+     * @param inputDto the partial data map
+     * @throws IllegalArgumentException if invalid fields are present
+     */
+    private void validatePatchFields(Map<String, Object> inputDto) {
+        for (String fieldName : inputDto.keySet()) {
+            // Check if field exists in entity
+            metadata.fields().stream()
+                    .filter(field -> field.name().equals(fieldName))
+                    .findFirst()
+                    .ifPresent(field -> {
+                        if (field.hidden()) {
+                            throw new IllegalArgumentException(
+                                    "Cannot update hidden field: " + fieldName);
+                        }
+                        if (field.readOnly()) {
+                            throw new IllegalArgumentException(
+                                    "Cannot update read-only field: " + fieldName);
+                        }
+                    });
+        }
+    }
+
+    /**
      * DELETE /{id} - Delete an entity.
      *
      * @param id the entity ID
