@@ -841,60 +841,32 @@ https://central.sonatype.com/api-doc
  - [x] Configuration granulaire
  - [ ] Override dans custom controller
  
- #### 17.5 User Context
--- [ ] Accès à `SecurityContext`
--- [ ] Injection `Authentication`
--- [ ] Récupération user courant
--- [ ] Audit avec user info
-+- [x] Accès à `SecurityContext` (via SecurityUtils)
-+- [x] Injection `Authentication`
-+- [x] Récupération user courant
-+- [ ] Audit avec user info (Phase 2, Module 20)
+#### 17.5 User Context
+- [x] Accès à `SecurityContext` (via SecurityUtils)
+- [x] Injection `Authentication`
+- [x] Récupération user courant
+- [ ] Audit avec user info (Phase 2, Module 20)
  
- #### 17.6 Tests
--- [ ] Test endpoints publics
--- [ ] Test endpoints sécurisés (401)
--- [ ] Test avec role valide (200)
--- [ ] Test avec role invalide (403)
--- [ ] Test JWT tokens
--- [ ] Test intégration complète
-+- [x] Test endpoints publics
-+- [x] Test endpoints sécurisés (verified via annotation presence)
-+- [x] Test avec role valide (verified via expression building)
-+- [x] Test avec role invalide
-+- [ ] Test JWT tokens
-+- [x] Test intégration complète (via SecurityIntegrationTest)
+#### 17.6 Tests
+- [x] Test endpoints publics
+- [x] Test endpoints sécurisés (verified via annotation presence)
+- [x] Test avec role valide (verified via expression building)
+- [x] Test avec role invalide
+- [ ] Test JWT tokens
+- [x] Test intégration complète (via SecurityIntegrationTest)
 ---
 
 ### 🗺️ Module 18: Advanced DTO Mapping (Semaine 14)
 
  
 
- #### 18.1 Relations Mapping
-
--- [ ] OneToMany mapping
-
--- [ ] ManyToOne mapping
-
--- [ ] ManyToMany mapping
-
--- [ ] OneToOne mapping
-
--- [ ] Nested DTOs
-
--- [ ] IDs only mode
-
-+- [x] OneToMany mapping
-
-+- [x] ManyToOne mapping
-
-+- [x] ManyToMany mapping
-
-+- [x] OneToOne mapping
-
-+- [x] Nested DTOs (1 level depth)
-
-+- [x] IDs only mode (beyond depth limit)
+#### 18.1 Relations Mapping
+- [x] OneToMany mapping
+- [x] ManyToOne mapping
+- [x] ManyToMany mapping
+- [x] OneToOne mapping
+- [x] Nested DTOs (1 level depth)
+- [x] IDs only mode (beyond depth limit)
 
  
 
@@ -932,25 +904,17 @@ https://central.sonatype.com/api-doc
 
 ### 🗑️ Module 19: Soft Delete (Semaine 15)
  
- #### 19.1 @SoftDelete Annotation
--- [ ] Créer annotation `@SoftDelete`
--- [ ] Paramètre `deletedField` (default "deleted")
--- [ ] Paramètre `deletedAtField` (default "deletedAt")
--- [ ] Documentation
-+- [x] Créer annotation `@SoftDelete`
-+- [x] Paramètre `deletedField` (default "deleted")
-+- [x] Paramètre `deletedAtField` (default "deletedAt")
-+- [x] Documentation
+#### 19.1 @SoftDelete Annotation
+- [x] Créer annotation `@SoftDelete`
+- [x] Paramètre `deletedField` (default "deleted")
+- [x] Paramètre `deletedAtField` (default "deletedAt")
+- [x] Documentation
  
- #### 19.2 Entity Enhancement
--- [ ] Ajout automatique champ `deleted`
--- [ ] Ajout automatique champ `deletedAt`
--- [ ] Type Boolean pour deleted
--- [ ] Type LocalDateTime pour deletedAt
-+- [x] Ajout automatique champ `deleted` (via reflection)
-+- [x] Ajout automatique champ `deletedAt` (via reflection)
-+- [x] Type Boolean pour deleted
-+- [x] Type LocalDateTime pour deletedAt
+#### 19.2 Entity Enhancement
+- [x] Ajout automatique champ `deleted` (via reflection)
+- [x] Ajout automatique champ `deletedAt` (via reflection)
+- [x] Type Boolean pour deleted
+- [x] Type LocalDateTime pour deletedAt
  
  #### 19.3 Repository Filters
 - [x] Filter automatique des deleted
