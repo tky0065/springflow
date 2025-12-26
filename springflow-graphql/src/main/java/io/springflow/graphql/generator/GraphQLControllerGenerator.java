@@ -51,11 +51,13 @@ public class GraphQLControllerGenerator {
             BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(controllerClass);
             builder.setScope(BeanDefinition.SCOPE_SINGLETON);
 
-            // Constructor args: service, dtoMapper, and metadata
+            // Constructor args: service, dtoMapper, filterResolver, filterConverter, and metadata
             String serviceBeanName = Character.toLowerCase(entityName.charAt(0)) + entityName.substring(1) + "Service";
             String dtoMapperBeanName = Character.toLowerCase(entityName.charAt(0)) + entityName.substring(1) + "DtoMapper";
             builder.addConstructorArgReference(serviceBeanName);
             builder.addConstructorArgReference(dtoMapperBeanName);
+            builder.addConstructorArgReference("filterResolver");
+            builder.addConstructorArgReference("graphQLFilterConverter");
             builder.addConstructorArgValue(metadata);
 
             // Register bean

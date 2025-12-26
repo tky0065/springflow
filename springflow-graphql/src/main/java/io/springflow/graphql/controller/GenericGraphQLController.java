@@ -1,11 +1,14 @@
 package io.springflow.graphql.controller;
 
+import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.service.GenericCrudService;
+import io.springflow.graphql.filter.GraphQLFilterConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -44,27 +47,41 @@ public abstract class GenericGraphQLController<T, ID> {
 
     protected final GenericCrudService<T, ID> service;
     protected final DtoMapper<T, ID> dtoMapper;
+    protected final FilterResolver filterResolver;
+    protected final GraphQLFilterConverter filterConverter;
     protected final EntityMetadata metadata;
     protected final String entityName;
     protected final String pluralName;
 
     protected GenericGraphQLController(GenericCrudService<T, ID> service,
                                       DtoMapper<T, ID> dtoMapper,
+                                      FilterResolver filterResolver,
+                                      GraphQLFilterConverter filterConverter,
                                       EntityMetadata metadata) {
         this.service = service;
         this.dtoMapper = dtoMapper;
+        this.filterResolver = filterResolver;
+        this.filterConverter = filterConverter;
         this.metadata = metadata;
         this.entityName = metadata.entityName();
         this.pluralName = Character.toLowerCase(entityName.charAt(0)) + entityName.substring(1) + "s";
     }
 
     /**
-     * Query: Find all entities with pagination.
+     * Query: Find all entities with pagination and filtering.
      * <p>
      * GraphQL query example:
      * <pre>
      * query {
-     *   products(page: 0, size: 10) {
+     *   products(
+     *     page: 0,
+     *     size: 10,
+     *     filters: {
+     *       name_like: "Laptop"
+     *       price_gte: "500"
+     *       price_lte: "2000"
+     *     }
+     *   ) {
      *     content {
      *       id
      *       name
@@ -78,21 +95,33 @@ public abstract class GenericGraphQLController<T, ID> {
      * }
      * </pre>
      *
-     * @param page page number (default: 0)
-     * @param size page size (default: 20)
+     * @param page    page number (default: 0)
+     * @param size    page size (default: 20)
+     * @param filters optional filter criteria (map-based for simplicity)
      * @return paginated result with content and pageInfo
      */
     @QueryMapping(name = "#{target.pluralName}")
     public Map<String, Object> findAll(@Argument Integer page,
-                                        @Argument Integer size) {
+                                        @Argument Integer size,
+                                        @Argument Map<String, Object> filters) {
         // Set default values if not provided
         int pageNumber = (page != null) ? page : 0;
         int pageSize = (size != null) ? size : 20;
 
-        log.debug("GraphQL Query: {}(page={}, size={})", pluralName, pageNumber, pageSize);
+        log.debug("GraphQL Query: {}(page={}, size={}, filters={})", pluralName, pageNumber, pageSize, filters);
 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        Page<T> entityPage = service.findAll(pageRequest);
+
+        // Apply filters if provided
+        Page<T> entityPage;
+        if (filters != null && !filters.isEmpty()) {
+            Map<String, String> filterParams = filterConverter.convertSimpleFilter(filters);
+            Specification<T> spec = filterResolver.buildSpecification(filterParams, metadata, null);
+            entityPage = service.findAll(spec, pageRequest);
+        } else {
+            entityPage = service.findAll(pageRequest);
+        }
+
         Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(entityPage, null);
 
         Map<String, Object> response = new HashMap<>();

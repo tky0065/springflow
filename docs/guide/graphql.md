@@ -130,6 +130,63 @@ query {
 }
 ```
 
+### Find All with Filters
+
+SpringFlow GraphQL supports dynamic filtering using the same filter syntax as the REST API:
+
+```graphql
+query {
+  products(
+    page: 0,
+    size: 10,
+    filters: {
+      name_like: "Laptop"
+      price_gte: "500"
+      price_lte: "2000"
+    }
+  ) {
+    content {
+      id
+      name
+      price
+    }
+    pageInfo {
+      totalElements
+    }
+  }
+}
+```
+
+**Available Filter Operations:**
+- `field`: Equals (e.g., `category: "Electronics"`)
+- `field_like`: Contains/LIKE (e.g., `name_like: "Laptop"`)
+- `field_gt`: Greater than (e.g., `price_gt: "100"`)
+- `field_gte`: Greater than or equal (e.g., `price_gte: "100"`)
+- `field_lt`: Less than (e.g., `price_lt: "1000"`)
+- `field_lte`: Less than or equal (e.g., `price_lte: "1000"`)
+- `field_in`: In list (e.g., `category_in: "Electronics,Computers"`)
+- `field_not_in`: Not in list (e.g., `status_not_in: "DELETED,ARCHIVED"`)
+- `field_null`: Is null (e.g., `deletedAt_null: "true"`)
+- `field_between`: Between (e.g., `price_between: "100,500"`)
+
+**Multiple Filters:**
+All filters are combined with AND logic:
+
+```graphql
+query {
+  products(
+    filters: {
+      name_like: "Laptop"
+      price_gte: "500"
+      price_lte: "2000"
+      category: "Electronics"
+    }
+  ) {
+    content { id, name, price }
+  }
+}
+```
+
 ### Find by ID
 
 ```graphql

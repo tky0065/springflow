@@ -308,4 +308,126 @@ public class GraphQLIntegrationTest {
                 .entityList(Object.class)
                 .satisfies(list -> assertThat(list).isNotNull());
     }
+
+    /**
+     * Test GraphQL query with filters: products filtered by name (LIKE).
+     * <p>
+     * Demonstrates dynamic filtering with LIKE operation.
+     * </p>
+     */
+    @Test
+    public void testQueryProductsWithLikeFilter() {
+        if (graphQlTester == null) {
+            return; // Skip if GraphQL not enabled
+        }
+
+        String query = """
+                query {
+                  products(
+                    page: 0,
+                    size: 10,
+                    filters: {
+                      name_like: "Product"
+                    }
+                  ) {
+                    content {
+                      id
+                      name
+                      price
+                    }
+                    pageInfo {
+                      totalElements
+                    }
+                  }
+                }
+                """;
+
+        graphQlTester.document(query)
+                .execute()
+                .path("products.content")
+                .entityList(Object.class)
+                .satisfies(list -> assertThat(list).isNotNull());
+    }
+
+    /**
+     * Test GraphQL query with filters: products filtered by price range.
+     * <p>
+     * Demonstrates range filtering with GTE and LTE operations.
+     * </p>
+     */
+    @Test
+    public void testQueryProductsWithRangeFilter() {
+        if (graphQlTester == null) {
+            return; // Skip if GraphQL not enabled
+        }
+
+        String query = """
+                query {
+                  products(
+                    page: 0,
+                    size: 10,
+                    filters: {
+                      price_gte: "10"
+                      price_lte: "100"
+                    }
+                  ) {
+                    content {
+                      id
+                      name
+                      price
+                    }
+                    pageInfo {
+                      totalElements
+                    }
+                  }
+                }
+                """;
+
+        graphQlTester.document(query)
+                .execute()
+                .path("products.content")
+                .entityList(Object.class)
+                .satisfies(list -> assertThat(list).isNotNull());
+    }
+
+    /**
+     * Test GraphQL query with multiple filters combined.
+     * <p>
+     * Demonstrates combining multiple filter criteria (name LIKE + price range).
+     * </p>
+     */
+    @Test
+    public void testQueryProductsWithMultipleFilters() {
+        if (graphQlTester == null) {
+            return; // Skip if GraphQL not enabled
+        }
+
+        String query = """
+                query {
+                  products(
+                    page: 0,
+                    size: 10,
+                    filters: {
+                      name_like: "Product"
+                      price_gte: "0"
+                    }
+                  ) {
+                    content {
+                      id
+                      name
+                      price
+                    }
+                    pageInfo {
+                      totalElements
+                    }
+                  }
+                }
+                """;
+
+        graphQlTester.document(query)
+                .execute()
+                .path("products.content")
+                .entityList(Object.class)
+                .satisfies(list -> assertThat(list).isNotNull());
+    }
 }

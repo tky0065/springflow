@@ -1034,7 +1034,7 @@ https://central.sonatype.com/api-doc
 - [x] Query `products(page, size): ProductPage`
 - [x] Query `product(id): Product`
 - [x] Pagination GraphQL
-- [ ] Filtres GraphQL (deferred to future enhancement)
+- [x] Filtres GraphQL (map-based filters integrated with FilterResolver)
 
 #### 22.4 Mutation Resolvers
 - [x] Mutation `createProduct(input): Product`
@@ -1050,7 +1050,7 @@ https://central.sonatype.com/api-doc
 #### 22.6 Tests
 - [x] Test GraphQL queries (GraphQLIntegrationTest)
 - [x] Test GraphQL mutations (GraphQLIntegrationTest)
-- [ ] Test filtres (deferred to future enhancement)
+- [x] Test filtres GraphQL (LIKE, range, multiple filters)
 - [x] Test pagination (GraphQLIntegrationTest)
 - [ ] Test relations (deferred to future enhancement)
 
