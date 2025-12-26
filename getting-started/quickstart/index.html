@@ -864,6 +864,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#customization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#need-help" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1552,6 +1563,8 @@
       
         
       
+        
+      
     
     
     
@@ -1623,6 +1636,34 @@
     
   
     Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/custom-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Components
   
 
     
@@ -2599,6 +2640,38 @@
 <li>See <a href="../../about/roadmap/">Roadmap</a> for upcoming features</li>
 <li>Explore the demo application for complete examples</li>
 </ul>
+<h2 id="customization"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64z"/></svg></span> Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h2>
+<p>SpringFlow automatically generates repositories, services, and controllers, but <strong>you can provide your own custom implementations</strong> for any layer.</p>
+<div class="admonition tip">
+<p class="admonition-title">Custom Components</p>
+<p>SpringFlow will automatically detect and use your custom components instead of generating them.</p>
+<p><strong>Convention</strong>: Use the naming pattern <code>{EntityName}Repository</code>, <code>{EntityName}Service</code>, <code>{EntityName}Controller</code></p>
+</div>
+<p><strong>4 Customization Scenarios</strong>:</p>
+<ol>
+<li><strong>Custom Repository Only</strong> - Add complex queries, JPQL, specifications</li>
+<li><strong>Custom Service</strong> - Add business logic, validation, hooks (beforeCreate, afterCreate, etc.)</li>
+<li><strong>Custom Controller</strong> - Add custom endpoints beyond CRUD</li>
+<li><strong>Fully Custom</strong> - Complete control over all three layers</li>
+</ol>
+<p>Example - Custom Service with validation hooks:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nd">@Service</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ProductService</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">GenericCrudService</span><span class="o">&lt;</span><span class="n">Product</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ProductService</span><span class="p">(</span><span class="nd">@Qualifier</span><span class="p">(</span><span class="s">&quot;productRepository&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">Product</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">repository</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">repository</span><span class="p">,</span><span class="w"> </span><span class="n">Product</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">beforeCreate</span><span class="p">(</span><span class="n">Product</span><span class="w"> </span><span class="n">product</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">        </span><span class="c1">// Custom validation</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">product</span><span class="p">.</span><span class="na">getPrice</span><span class="p">().</span><span class="na">compareTo</span><span class="p">(</span><span class="n">BigDecimal</span><span class="p">.</span><span class="na">ZERO</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Price must be positive&quot;</span><span class="p">);</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Learn More</strong>: See <a href="../../advanced/custom-components/">Custom Components</a> for complete documentation with 4 detailed scenarios, troubleshooting, and best practices.</p>
 <h2 id="need-help">Need Help?<a class="headerlink" href="#need-help" title="Permanent link">&para;</a></h2>
 <ul>
 <li><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5m1 3.5c1.11-.68 2.6-1 4.5-1 .91 0 1.76.09 2.5.28V9.23c-.87-.15-1.71-.23-2.5-.23q-2.655 0-4.5.84zm4.5.17c-1.71 0-3.21.26-4.5.79v1.69c1.11-.65 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24v-1.5c-.87-.16-1.71-.23-2.5-.23m2.5 2.9c-.87-.16-1.71-.24-2.5-.24-1.83 0-3.33.27-4.5.8v1.69c1.11-.66 2.6-.99 4.5-.99 1.04 0 1.88.08 2.5.24z"/></svg></span> Documentation: See <a href="../../guide/">User Guide</a></li>
@@ -2656,7 +2729,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 13:32:26 UTC">December 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 15:36:41 UTC">December 26, 2025</span>
   </span>
 
     

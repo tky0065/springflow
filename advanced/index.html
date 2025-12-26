@@ -1222,6 +1222,8 @@
       
         
       
+        
+      
     
     
     
@@ -1294,6 +1296,34 @@
     
   
     Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Components
   
 
     
@@ -2005,9 +2035,14 @@
 <p>Comprendre l'architecture interne de SpringFlow</p>
 </li>
 <li>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 2a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2m-2 12c-.25 0-.46-.18-.5-.42l-.37-2.65c-.63-.25-1.17-.59-1.69-.99l-2.49 1.01c-.22.08-.49 0-.61-.22l-2-3.46a.493.493 0 0 1 .12-.64l2.11-1.66L4.5 12l.07-1-2.11-1.63a.493.493 0 0 1-.12-.64l2-3.46c.12-.22.39-.31.61-.22l2.49 1c.52-.39 1.06-.73 1.69-.98l.37-2.65c.04-.24.25-.42.5-.42h4c.25 0 .46.18.5.42l.37 2.65c.63.25 1.17.59 1.69.98l2.49-1c.22-.09.49 0 .61.22l2 3.46c.13.22.07.49-.12.64L19.43 11l.07 1-.07 1 2.11 1.63c.19.15.25.42.12.64l-2 3.46c-.12.22-.39.31-.61.22l-2.49-1c-.52.39-1.06.73-1.69.98l-.37 2.65c-.04.24-.25.42-.5.42zm1.25-18-.37 2.61c-1.2.25-2.26.89-3.03 1.78L5.44 7.35l-.75 1.3L6.8 10.2a5.55 5.55 0 0 0 0 3.6l-2.12 1.56.75 1.3 2.43-1.04c.77.88 1.82 1.52 3.01 1.76l.37 2.62h1.52l.37-2.61c1.19-.25 2.24-.89 3.01-1.77l2.43 1.04.75-1.3-2.12-1.55c.4-1.17.4-2.44 0-3.61l2.11-1.55-.75-1.3-2.41 1.04a5.42 5.42 0 0 0-3.03-1.77L12.75 4z"/></svg></span> <strong><a href="custom-components/">Custom Components</a></strong></p>
+<hr />
+<p>Repositories, Services et Controllers personnalisés - Guide complet avec 4 scénarios</p>
+</li>
+<li>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 7H5a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2m0 4H5V9h2m7-2h-4v10h2v-4h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2m0 4h-2V9h2m6 0v6h1v2h-4v-2h1V9h-1V7h4v2Z"/></svg></span> <strong><a href="custom-endpoints/">Custom Endpoints</a></strong></p>
 <hr />
-<p>Ajouter vos propres endpoints personnalisés</p>
+<p>Exemples rapides pour ajouter des endpoints personnalisés</p>
 </li>
 <li>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 16a3 3 0 0 1-3-3c0-1.12.61-2.1 1.5-2.61l9.71-5.62-5.53 9.58c-.5.98-1.51 1.65-2.68 1.65m0-13c1.81 0 3.5.5 4.97 1.32l-2.1 1.21C14 5.19 13 5 12 5a8 8 0 0 0-8 8c0 2.21.89 4.21 2.34 5.65h.01c.39.39.39 1.02 0 1.41s-1.03.39-1.42.01A9.97 9.97 0 0 1 2 13 10 10 0 0 1 12 3m10 10c0 2.76-1.12 5.26-2.93 7.07-.39.38-1.02.38-1.41-.01a.996.996 0 0 1 0-1.41A7.95 7.95 0 0 0 20 13c0-1-.19-2-.54-2.9L20.67 8C21.5 9.5 22 11.18 22 13"/></svg></span> <strong><a href="performance/">Performance</a></strong></p>
@@ -2025,6 +2060,7 @@
 <p>Cette section est destinée aux développeurs qui souhaitent :</p>
 <ul>
 <li><strong>Comprendre</strong> comment SpringFlow fonctionne sous le capot</li>
+<li><strong>Personnaliser</strong> repositories, services et controllers avec leurs propres implémentations</li>
 <li><strong>Étendre</strong> le comportement par défaut avec des endpoints custom</li>
 <li><strong>Optimiser</strong> les performances pour la production</li>
 <li><strong>Appliquer</strong> les meilleures pratiques</li>
@@ -2038,12 +2074,14 @@
 <li>Proxy dynamique pour les repositories générés</li>
 </ul>
 <h3 id="extensibilite">Extensibilité<a class="headerlink" href="#extensibilite" title="Permanent link">&para;</a></h3>
-<p>SpringFlow est conçu pour être étendu :</p>
+<p>SpringFlow est conçu pour être étendu avec vos composants personnalisés :</p>
 <ul>
-<li>Override des contrôleurs générés</li>
-<li>Hooks de service personnalisés</li>
-<li>Specifications JPA personnalisées</li>
-<li>Intégration avec votre architecture existante</li>
+<li><strong>Détection automatique</strong> - SpringFlow détecte et respecte vos repositories, services et controllers custom</li>
+<li><strong>4 scénarios</strong> - Repository seul, Service seul, Controller seul, ou tous les trois custom</li>
+<li><strong>Classes de base</strong> - Étendez <code>GenericCrudService</code> et <code>GenericCrudController</code> pour hériter des fonctionnalités</li>
+<li><strong>Hooks de lifecycle</strong> - beforeCreate, afterCreate, beforeUpdate, afterUpdate, beforeDelete, afterDelete</li>
+<li><strong>Specifications JPA</strong> - Vos repositories peuvent ajouter des méthodes de requête personnalisées</li>
+<li><strong>Intégration</strong> - Compatible avec votre architecture Spring existante</li>
 </ul>
 <h3 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h3>
 <p>Points clés pour la performance :</p>
@@ -2078,7 +2116,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 13:29:58 UTC">December 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 15:36:41 UTC">December 26, 2025</span>
   </span>
 
     
