@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#annotations-api" class="md-skip">
+        <a href="#annotations-api-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -1519,6 +1519,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotations API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1535,6 +1553,893 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#annotations-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Annotations Principales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Annotations Principales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @AutoApi
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@AutoApi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-basique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple Basique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-complet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple Complet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @Filterable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@Filterable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-par-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples par Type
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples par Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equals-correspondance-exacte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EQUALS - Correspondance exacte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#like-recherche-textuelle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LIKE - Recherche textuelle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#range-intervalle-numeriquetemporel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RANGE - Intervalle numérique/temporel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-multiples-valeurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IN - Multiples valeurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combinaisons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinaisons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-avances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples Avancés
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples Avancés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtre-avec-nom-personnalise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtre avec Nom Personnalisé
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-types-avec-case-insensitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Types avec Case-Insensitive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hidden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @Hidden
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@Hidden">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caracteristiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caractéristiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dusage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparaison-avec-readonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison avec @ReadOnly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @ReadOnly
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@ReadOnly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caracteristiques_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caractéristiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dusage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ID Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtertype-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FilterType Enum
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FilterType Enum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#liste-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Liste Complète
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-par-cas-dusage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples par Cas d'Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples par Cas d&#39;Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recherche-textuelle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recherche Textuelle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plages-de-prix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plages de Prix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtres-de-dates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtres de Dates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statuts-multiples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statuts Multiples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotations-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Annotations de Sécurité
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Annotations de Sécurité">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-access-par-defaut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Access (Par Défaut)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentification-requise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentification Requise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-sur-les-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basé sur les Rôles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securite-granulaire-readwrite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sécurité Granulaire (Read/Write)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authorities-fine-grained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authorities (Fine-Grained)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securitylevel-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SecurityLevel Enum
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotations-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Annotations Phase 2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Annotations Phase 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#softdelete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @SoftDelete
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@SoftDelete">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auditable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @Auditable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@Auditable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expose-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expose Enum
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expose Enum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs Disponibles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Valeurs Disponibles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-par-defaut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ALL (Par Défaut)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read_only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        READ_ONLY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CREATE_UPDATE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CUSTOM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resume-des-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé des Annotations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Résumé des Annotations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#annotations-implementees-phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Annotations Implémentées (Phase 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotations-phase-2-a-venir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Annotations Phase 2 (À venir)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enums
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-complets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples Complets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples Complets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e-commerce-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E-Commerce Product
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions-frequentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions Fréquentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Questions Fréquentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#puis-je-combiner-hidden-et-readonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Puis-je combiner @Hidden et @ReadOnly?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-filtrer-sur-une-relation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment filtrer sur une relation?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtertyperange-vs-between" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FilterType.RANGE vs BETWEEN?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-desactiver-la-pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment désactiver la pagination?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voir-aussi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voir Aussi
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2034,9 +2939,1093 @@
   
 
 
-<h1 id="annotations-api">Annotations API<a class="headerlink" href="#annotations-api" title="Permanent link">&para;</a></h1>
-<p>Référence complète de toutes les annotations SpringFlow.</p>
-<p>Coming soon. Voir <a href="../../getting-started/quickstart/">Quick Start</a> pour des exemples.</p>
+<h1 id="annotations-api-reference">Annotations API Reference<a class="headerlink" href="#annotations-api-reference" title="Permanent link">&para;</a></h1>
+<p>Référence complète de toutes les annotations SpringFlow avec exemples détaillés.</p>
+<h2 id="annotations-principales"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.5 7A1.5 1.5 0 0 1 4 5.5 1.5 1.5 0 0 1 5.5 4 1.5 1.5 0 0 1 7 5.5 1.5 1.5 0 0 1 5.5 7m15.91 4.58-9-9C12.05 2.22 11.55 2 11 2H4c-1.11 0-2 .89-2 2v7c0 .55.22 1.05.59 1.41l8.99 9c.37.36.87.59 1.42.59s1.05-.23 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.56-.23-1.06-.59-1.42"/></svg></span> Annotations Principales<a class="headerlink" href="#annotations-principales" title="Permanent link">&para;</a></h2>
+<h3 id="autoapi">@AutoApi<a class="headerlink" href="#autoapi" title="Permanent link">&para;</a></h3>
+<p>Active la génération automatique d'une API REST complète pour une entité JPA.</p>
+<p><strong>Cible</strong>: Type (Class)
+<strong>Retention</strong>: Runtime
+<strong>Package</strong>: <code>io.springflow.annotations</code></p>
+<h4 id="parametres">Paramètres<a class="headerlink" href="#parametres" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Type</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>String</td>
+<td><code>""</code></td>
+<td>Chemin de base pour les endpoints (sans slash initial)</td>
+</tr>
+<tr>
+<td><code>expose</code></td>
+<td>Expose</td>
+<td><code>ALL</code></td>
+<td>Opérations CRUD exposées</td>
+</tr>
+<tr>
+<td><code>security</code></td>
+<td>@Security</td>
+<td><code>@Security()</code></td>
+<td>Configuration de sécurité</td>
+</tr>
+<tr>
+<td><code>pagination</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active la pagination</td>
+</tr>
+<tr>
+<td><code>sorting</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active le tri</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td><code>""</code></td>
+<td>Description pour OpenAPI</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>String[]</td>
+<td><code>{}</code></td>
+<td>Tags OpenAPI pour regroupement</td>
+</tr>
+</tbody>
+</table>
+<h4 id="exemple-basique">Exemple Basique<a class="headerlink" href="#exemple-basique" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;products&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/products&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Product</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Génère automatiquement</strong>:
+- <code>GET /api/products</code> - Liste avec pagination
+- <code>GET /api/products/{id}</code> - Détails
+- <code>POST /api/products</code> - Création
+- <code>PUT /api/products/{id}</code> - Mise à jour complète
+- <code>PATCH /api/products/{id}</code> - Mise à jour partielle
+- <code>DELETE /api/products/{id}</code> - Suppression</p>
+<h4 id="exemple-complet">Exemple Complet<a class="headerlink" href="#exemple-complet" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/products&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">ALL</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">pagination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Product management API&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Products&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Inventory&quot;</span><span class="p">},</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">AUTHENTICATED</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Product</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="nd">@NotBlank</span><span class="p">(</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Name is required&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="nd">@Size</span><span class="p">(</span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">})</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="nd">@Min</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">RANGE</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">IN</span><span class="p">})</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">    </span><span class="nd">@Enumerated</span><span class="p">(</span><span class="n">EnumType</span><span class="p">.</span><span class="na">STRING</span><span class="p">)</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ProductStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createdAt</span><span class="p">;</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">internalNotes</span><span class="p">;</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="path-configuration">Path Configuration<a class="headerlink" href="#path-configuration" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Chemin simple</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/products&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">// → /api/products</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">// Chemin hiérarchique</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/admin/users&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1">// → /api/admin/users</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1">// Chemin avec sous-ressource</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/orders/{orderId}/items&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1">// → /api/orders/{orderId}/items</span>
+</code></pre></div>
+<hr />
+<h3 id="filterable">@Filterable<a class="headerlink" href="#filterable" title="Permanent link">&para;</a></h3>
+<p>Active le filtrage dynamique sur un champ d'entité.</p>
+<p><strong>Cible</strong>: Field
+<strong>Retention</strong>: Runtime
+<strong>Package</strong>: <code>io.springflow.annotations</code></p>
+<h4 id="parametres_1">Paramètres<a class="headerlink" href="#parametres_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Type</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>types</code></td>
+<td>FilterType[]</td>
+<td><code>EQUALS</code></td>
+<td>Types de filtres supportés</td>
+</tr>
+<tr>
+<td><code>paramName</code></td>
+<td>String</td>
+<td><code>""</code></td>
+<td>Nom personnalisé du paramètre (utilise le nom du champ si vide)</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td><code>""</code></td>
+<td>Description pour OpenAPI</td>
+</tr>
+<tr>
+<td><code>caseSensitive</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Sensibilité à la casse (pour EQUALS, LIKE)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="exemples-par-type">Exemples par Type<a class="headerlink" href="#exemples-par-type" title="Permanent link">&para;</a></h4>
+<h5 id="equals-correspondance-exacte">EQUALS - Correspondance exacte<a class="headerlink" href="#equals-correspondance-exacte" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Utilisation</strong>: <code>GET /api/products?status=ACTIVE</code></p>
+<h5 id="like-recherche-textuelle">LIKE - Recherche textuelle<a class="headerlink" href="#like-recherche-textuelle" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">,</span><span class="w"> </span><span class="n">caseSensitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Utilisation</strong>: <code>GET /api/products?name_like=laptop</code>
+<strong>SQL</strong>: <code>WHERE LOWER(name) LIKE LOWER('%laptop%')</code></p>
+<h5 id="range-intervalle-numeriquetemporel">RANGE - Intervalle numérique/temporel<a class="headerlink" href="#range-intervalle-numeriquetemporel" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">RANGE</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">RANGE</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createdAt</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Utilisation</strong>:
+- <code>GET /api/products?price_gte=100&amp;price_lte=500</code>
+- <code>GET /api/products?createdAt_gte=2024-01-01&amp;createdAt_lte=2024-12-31</code></p>
+<h5 id="in-multiples-valeurs">IN - Multiples valeurs<a class="headerlink" href="#in-multiples-valeurs" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">IN</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">ProductStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Utilisation</strong>: <code>GET /api/products?status_in=ACTIVE,PENDING,DRAFT</code></p>
+<h5 id="combinaisons">Combinaisons<a class="headerlink" href="#combinaisons" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">IS_NULL</span><span class="p">})</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Utilisation</strong>:
+- <code>?category=Electronics</code> - Exact
+- <code>?category_like=Elect</code> - Partiel
+- <code>?category_null=false</code> - Non null</p>
+<h4 id="exemples-avances">Exemples Avancés<a class="headerlink" href="#exemples-avances" title="Permanent link">&para;</a></h4>
+<h5 id="filtre-avec-nom-personnalise">Filtre avec Nom Personnalisé<a class="headerlink" href="#filtre-avec-nom-personnalise" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nd">@Filterable</span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">},</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">paramName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;search&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Search by product name or SKU&quot;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Utilisation</strong>: <code>?search=laptop</code> ou <code>?search_like=lap</code></p>
+<h5 id="multiple-types-avec-case-insensitive">Multiple Types avec Case-Insensitive<a class="headerlink" href="#multiple-types-avec-case-insensitive" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nd">@Filterable</span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">},</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="n">caseSensitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Filter by customer name (case-insensitive)&quot;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">customerName</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h3 id="hidden">@Hidden<a class="headerlink" href="#hidden" title="Permanent link">&para;</a></h3>
+<p>Exclut un champ des DTOs générés (input et output).</p>
+<p><strong>Cible</strong>: Field
+<strong>Retention</strong>: Runtime
+<strong>Package</strong>: <code>io.springflow.annotations</code></p>
+<h4 id="caracteristiques">Caractéristiques<a class="headerlink" href="#caracteristiques" title="Permanent link">&para;</a></h4>
+<ul>
+<li>❌ N'apparaît jamais dans les requêtes POST/PUT</li>
+<li>❌ N'apparaît jamais dans les réponses GET</li>
+<li>❌ N'apparaît pas dans le schéma OpenAPI</li>
+<li>✅ Reste accessible dans le code Java</li>
+</ul>
+<h4 id="cas-dusage">Cas d'Usage<a class="headerlink" href="#cas-dusage" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">username</span><span class="p">;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nd">@Email</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="c1">// Champs sensibles - jamais exposés</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">nullable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">passwordHash</span><span class="p">;</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">apiKey</span><span class="p">;</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">    </span><span class="c1">// Champs internes - jamais exposés</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">internalNotes</span><span class="p">;</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">loginAttempts</span><span class="p">;</span>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Résultat</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">// GET /api/users/1</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p">{</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;john.doe&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;john@example.com&quot;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="c1">// passwordHash, apiKey, internalNotes, loginAttempts ne sont PAS inclus</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="comparaison-avec-readonly">Comparaison avec @ReadOnly<a class="headerlink" href="#comparaison-avec-readonly" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Input DTO</th>
+<th>Output DTO</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@Hidden</code></td>
+<td>❌ Exclu</td>
+<td>❌ Exclu</td>
+<td>Données sensibles, champs internes</td>
+</tr>
+<tr>
+<td><code>@ReadOnly</code></td>
+<td>❌ Exclu</td>
+<td>✅ Inclus</td>
+<td>Timestamps, IDs, champs calculés</td>
+</tr>
+<tr>
+<td>(rien)</td>
+<td>✅ Inclus</td>
+<td>✅ Inclus</td>
+<td>Données normales</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="readonly">@ReadOnly<a class="headerlink" href="#readonly" title="Permanent link">&para;</a></h3>
+<p>Marque un champ comme lecture seule dans l'API REST.</p>
+<p><strong>Cible</strong>: Field
+<strong>Retention</strong>: Runtime
+<strong>Package</strong>: <code>io.springflow.annotations</code></p>
+<h4 id="caracteristiques_1">Caractéristiques<a class="headerlink" href="#caracteristiques_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>❌ Exclu des requêtes POST/PUT (non modifiable)</li>
+<li>✅ Inclus dans les réponses GET (visible)</li>
+<li>📄 Documenté comme "read-only" dans OpenAPI</li>
+</ul>
+<h4 id="cas-dusage_1">Cas d'Usage<a class="headerlink" href="#cas-dusage_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/orders&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Order</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="nd">@ReadOnly</span><span class="w">  </span><span class="c1">// ID auto-généré</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">customerName</span><span class="p">;</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="nd">@OneToMany</span><span class="p">(</span><span class="n">mappedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;order&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">OrderItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">items</span><span class="p">;</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="c1">// Champs calculés</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">totalAmount</span><span class="p">;</span><span class="w">  </span><span class="c1">// Calculé à partir des items</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">itemCount</span><span class="p">;</span><span class="w">       </span><span class="c1">// Nombre d&#39;items</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">    </span><span class="c1">// Timestamps</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">nullable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">updatable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createdAt</span><span class="p">;</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">updatedAt</span><span class="p">;</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">    </span><span class="c1">// Statut auto-généré</span>
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="w">    </span><span class="nd">@Enumerated</span><span class="p">(</span><span class="n">EnumType</span><span class="p">.</span><span class="na">STRING</span><span class="p">)</span>
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">OrderStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="w">    </span><span class="nd">@PrePersist</span>
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onCreate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="w">        </span><span class="n">createdAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span>
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="w">        </span><span class="n">updatedAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span>
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a><span class="w">        </span><span class="n">calculateTotals</span><span class="p">();</span>
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a><span class="w">    </span><span class="nd">@PreUpdate</span>
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onUpdate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a><span class="w">        </span><span class="n">updatedAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span>
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a><span class="w">        </span><span class="n">calculateTotals</span><span class="p">();</span>
+<a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>
+<a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">calculateTotals</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a><span class="w">        </span><span class="n">totalAmount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+<a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a><span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">OrderItem</span><span class="p">::</span><span class="n">getSubtotal</span><span class="p">)</span>
+<a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a><span class="w">            </span><span class="p">.</span><span class="na">reduce</span><span class="p">(</span><span class="n">BigDecimal</span><span class="p">.</span><span class="na">ZERO</span><span class="p">,</span><span class="w"> </span><span class="n">BigDecimal</span><span class="p">::</span><span class="n">add</span><span class="p">);</span>
+<a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a><span class="w">        </span><span class="n">itemCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">.</span><span class="na">size</span><span class="p">();</span>
+<a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Comportement</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">// POST /api/orders</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1">// Input DTO (totalAmount, itemCount, createdAt IGNORÉS)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">{</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="s">&quot;customerName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;John Doe&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="s">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">}</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1">// Réponse (tous les champs visibles)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="p">{</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">  </span><span class="s">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">  </span><span class="s">&quot;customerName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;John Doe&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">  </span><span class="s">&quot;totalAmount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">499.99</span><span class="p">,</span><span class="w">     </span><span class="c1">// ✅ Calculé automatiquement</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">  </span><span class="s">&quot;itemCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">            </span><span class="c1">// ✅ Calculé automatiquement</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">  </span><span class="s">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2024-12-26T10:00:00&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">  </span><span class="s">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2024-12-26T10:00:00&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">  </span><span class="s">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PENDING&quot;</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="id-fields">ID Fields<a class="headerlink" href="#id-fields" title="Permanent link">&para;</a></h4>
+<div class="admonition tip">
+<p class="admonition-title">ID Fields sont toujours ReadOnly</p>
+<p>Les champs annotés avec <code>@Id</code> ou <code>@EmbeddedId</code> sont automatiquement traités comme <code>@ReadOnly</code>, même sans l'annotation explicite.</p>
+</div>
+<hr />
+<h2 id="filtertype-enum"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.99.99 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12z"/></svg></span> FilterType Enum<a class="headerlink" href="#filtertype-enum" title="Permanent link">&para;</a></h2>
+<p>Types de filtres disponibles pour <code>@Filterable</code>.</p>
+<h3 id="liste-complete">Liste Complète<a class="headerlink" href="#liste-complete" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Paramètre</th>
+<th>SQL Equivalent</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EQUALS</strong></td>
+<td><code>?field=value</code></td>
+<td><code>WHERE field = ?</code></td>
+<td><code>?status=ACTIVE</code></td>
+</tr>
+<tr>
+<td><strong>LIKE</strong></td>
+<td><code>?field_like=pattern</code></td>
+<td><code>WHERE field LIKE '%?%'</code></td>
+<td><code>?name_like=laptop</code></td>
+</tr>
+<tr>
+<td><strong>GREATER_THAN</strong></td>
+<td><code>?field_gt=value</code></td>
+<td><code>WHERE field &gt; ?</code></td>
+<td><code>?price_gt=100</code></td>
+</tr>
+<tr>
+<td><strong>LESS_THAN</strong></td>
+<td><code>?field_lt=value</code></td>
+<td><code>WHERE field &lt; ?</code></td>
+<td><code>?price_lt=1000</code></td>
+</tr>
+<tr>
+<td><strong>GREATER_THAN_OR_EQUAL</strong></td>
+<td><code>?field_gte=value</code></td>
+<td><code>WHERE field &gt;= ?</code></td>
+<td><code>?age_gte=18</code></td>
+</tr>
+<tr>
+<td><strong>LESS_THAN_OR_EQUAL</strong></td>
+<td><code>?field_lte=value</code></td>
+<td><code>WHERE field &lt;= ?</code></td>
+<td><code>?age_lte=65</code></td>
+</tr>
+<tr>
+<td><strong>RANGE</strong></td>
+<td><code>?field_gte=min&amp;field_lte=max</code></td>
+<td><code>WHERE field BETWEEN ? AND ?</code></td>
+<td><code>?price_gte=100&amp;price_lte=500</code></td>
+</tr>
+<tr>
+<td><strong>IN</strong></td>
+<td><code>?field_in=v1,v2,v3</code></td>
+<td><code>WHERE field IN (?, ?, ?)</code></td>
+<td><code>?status_in=ACTIVE,PENDING</code></td>
+</tr>
+<tr>
+<td><strong>NOT_IN</strong></td>
+<td><code>?field_not_in=v1,v2</code></td>
+<td><code>WHERE field NOT IN (?, ?)</code></td>
+<td><code>?status_not_in=DELETED</code></td>
+</tr>
+<tr>
+<td><strong>IS_NULL</strong></td>
+<td><code>?field_null=true/false</code></td>
+<td><code>WHERE field IS [NOT] NULL</code></td>
+<td><code>?deletedAt_null=true</code></td>
+</tr>
+<tr>
+<td><strong>BETWEEN</strong></td>
+<td><code>?field_between=min,max</code></td>
+<td><code>WHERE field BETWEEN ? AND ?</code></td>
+<td><code>?age_between=18,65</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="exemples-par-cas-dusage">Exemples par Cas d'Usage<a class="headerlink" href="#exemples-par-cas-dusage" title="Permanent link">&para;</a></h3>
+<h4 id="recherche-textuelle">Recherche Textuelle<a class="headerlink" href="#recherche-textuelle" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">})</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">productName</span><span class="p">;</span>
+</code></pre></div>
+<p>Requêtes:
+- <code>?productName=Laptop</code> - Exactement "Laptop"
+- <code>?productName_like=lap</code> - Contient "lap"</p>
+<h4 id="plages-de-prix">Plages de Prix<a class="headerlink" href="#plages-de-prix" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">RANGE</span><span class="p">)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span>
+</code></pre></div>
+<p>Requêtes:
+- <code>?price_gte=100</code> - Prix &gt;= 100
+- <code>?price_lte=500</code> - Prix &lt;= 500
+- <code>?price_gte=100&amp;price_lte=500</code> - Entre 100 et 500</p>
+<h4 id="filtres-de-dates">Filtres de Dates<a class="headerlink" href="#filtres-de-dates" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">RANGE</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">IS_NULL</span><span class="p">})</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">publishedAt</span><span class="p">;</span>
+</code></pre></div>
+<p>Requêtes:
+- <code>?publishedAt_gte=2024-01-01</code> - Publié après le 1er janvier
+- <code>?publishedAt_null=false</code> - Articles publiés (non null)
+- <code>?publishedAt_null=true</code> - Brouillons (null)</p>
+<h4 id="statuts-multiples">Statuts Multiples<a class="headerlink" href="#statuts-multiples" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">IN</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">NOT_IN</span><span class="p">})</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nd">@Enumerated</span><span class="p">(</span><span class="n">EnumType</span><span class="p">.</span><span class="na">STRING</span><span class="p">)</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="kd">private</span><span class="w"> </span><span class="n">OrderStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+</code></pre></div>
+<p>Requêtes:
+- <code>?status=ACTIVE</code> - Statut ACTIVE uniquement
+- <code>?status_in=ACTIVE,PENDING</code> - ACTIVE ou PENDING
+- <code>?status_not_in=DELETED,ARCHIVED</code> - Exclure DELETED et ARCHIVED</p>
+<hr />
+<h2 id="annotations-de-securite"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3"/></svg></span> Annotations de Sécurité<a class="headerlink" href="#annotations-de-securite" title="Permanent link">&para;</a></h2>
+<h3 id="security">@Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<p>Configure l'authentification et l'autorisation pour les endpoints générés.</p>
+<p><strong>Cible</strong>: Annotation (utilisée dans @AutoApi)
+<strong>Retention</strong>: Runtime
+<strong>Package</strong>: <code>io.springflow.annotations</code></p>
+<h4 id="parametres_2">Paramètres<a class="headerlink" href="#parametres_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Type</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active/désactive la sécurité</td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td>SecurityLevel</td>
+<td><code>PUBLIC</code></td>
+<td>Niveau de sécurité global</td>
+</tr>
+<tr>
+<td><code>roles</code></td>
+<td>String[]</td>
+<td><code>{}</code></td>
+<td>Rôles requis (pour ROLE_BASED)</td>
+</tr>
+<tr>
+<td><code>authorities</code></td>
+<td>String[]</td>
+<td><code>{}</code></td>
+<td>Authorities requises (pour ROLE_BASED)</td>
+</tr>
+<tr>
+<td><code>readLevel</code></td>
+<td>SecurityLevel</td>
+<td><code>UNDEFINED</code></td>
+<td>Niveau pour GET (override level)</td>
+</tr>
+<tr>
+<td><code>writeLevel</code></td>
+<td>SecurityLevel</td>
+<td><code>UNDEFINED</code></td>
+<td>Niveau pour POST/PUT/DELETE (override level)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="exemples">Exemples<a class="headerlink" href="#exemples" title="Permanent link">&para;</a></h4>
+<h5 id="public-access-par-defaut">Public Access (Par Défaut)<a class="headerlink" href="#public-access-par-defaut" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/products&quot;</span><span class="p">,</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">PUBLIC</span><span class="p">)</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">)</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Product</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Tous les endpoints sont publics.</p>
+<h5 id="authentification-requise">Authentification Requise<a class="headerlink" href="#authentification-requise" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/orders&quot;</span><span class="p">,</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">AUTHENTICATED</span><span class="p">)</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="p">)</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Order</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Utilisateur doit être authentifié (JWT valide, session active).</p>
+<h5 id="base-sur-les-roles">Basé sur les Rôles<a class="headerlink" href="#base-sur-les-roles" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">        </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">ROLE_BASED</span><span class="p">,</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">        </span><span class="n">roles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;ADMIN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;USER_MANAGER&quot;</span><span class="p">}</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="p">)</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Utilisateur doit avoir le rôle ADMIN OU USER_MANAGER.</p>
+<h5 id="securite-granulaire-readwrite">Sécurité Granulaire (Read/Write)<a class="headerlink" href="#securite-granulaire-readwrite" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/reports&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">        </span><span class="n">readLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">AUTHENTICATED</span><span class="p">,</span><span class="w">     </span><span class="c1">// GET: n&#39;importe quel user</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">        </span><span class="n">writeLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">ROLE_BASED</span><span class="p">,</span><span class="w">       </span><span class="c1">// POST/PUT/DELETE: admin seulement</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">        </span><span class="n">roles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;ADMIN&quot;</span><span class="p">}</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="p">)</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Report</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><strong>GET</strong> endpoints: authentification simple</li>
+<li><strong>POST/PUT/DELETE</strong> endpoints: rôle ADMIN requis</li>
+</ul>
+<h5 id="authorities-fine-grained">Authorities (Fine-Grained)<a class="headerlink" href="#authorities-fine-grained" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/documents&quot;</span><span class="p">,</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">        </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">ROLE_BASED</span><span class="p">,</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">        </span><span class="n">authorities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;document:read&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;document:write&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;document:delete&quot;</span><span class="p">}</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="p">)</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Document</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="securitylevel-enum">SecurityLevel Enum<a class="headerlink" href="#securitylevel-enum" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PUBLIC</strong></td>
+<td>Aucune authentification</td>
+<td>APIs publiques, données ouvertes</td>
+</tr>
+<tr>
+<td><strong>AUTHENTICATED</strong></td>
+<td>Authentification simple</td>
+<td>Données utilisateur, profils</td>
+</tr>
+<tr>
+<td><strong>ROLE_BASED</strong></td>
+<td>Rôles/authorities spécifiques</td>
+<td>Admin, gestion, opérations sensibles</td>
+</tr>
+<tr>
+<td><strong>UNDEFINED</strong></td>
+<td>Hérite du niveau parent</td>
+<td>Utilisé pour readLevel/writeLevel</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="annotations-phase-2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"/></svg></span> Annotations Phase 2<a class="headerlink" href="#annotations-phase-2" title="Permanent link">&para;</a></h2>
+<p>Ces annotations sont définies mais <strong>pas encore implémentées</strong> (Phase 2 du roadmap).</p>
+<h3 id="softdelete">@SoftDelete<a class="headerlink" href="#softdelete" title="Permanent link">&para;</a></h3>
+<p>Active la suppression logique (soft delete) pour une entité.</p>
+<p><strong>Status</strong>: 🚧 Phase 2 - Non implémenté
+<strong>Cible</strong>: Type (Class)
+<strong>Retention</strong>: Runtime</p>
+<h4 id="parametres_3">Paramètres<a class="headerlink" href="#parametres_3" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Type</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deletedField</code></td>
+<td>String</td>
+<td><code>"deleted"</code></td>
+<td>Nom du champ boolean de suppression</td>
+</tr>
+<tr>
+<td><code>deletedAtField</code></td>
+<td>String</td>
+<td><code>"deletedAt"</code></td>
+<td>Nom du champ timestamp de suppression</td>
+</tr>
+</tbody>
+</table>
+<h4 id="exemple">Exemple<a class="headerlink" href="#exemple" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/products&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nd">@SoftDelete</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Product</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">    </span><span class="c1">// Champs ajoutés pour soft delete</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Boolean</span><span class="w"> </span><span class="n">deleted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">deletedAt</span><span class="p">;</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Comportement attendu</strong>:
+- <code>DELETE /api/products/1</code> → Met <code>deleted = true</code>, <code>deletedAt = now()</code>
+- <code>GET /api/products</code> → Filtre automatiquement <code>WHERE deleted = false</code>
+- Endpoint de restauration: <code>POST /api/products/1/restore</code></p>
+<hr />
+<h3 id="auditable">@Auditable<a class="headerlink" href="#auditable" title="Permanent link">&para;</a></h3>
+<p>Active le tracking automatique des modifications (audit trail).</p>
+<p><strong>Status</strong>: 🚧 Phase 2 - Non implémenté
+<strong>Cible</strong>: Type (Class)
+<strong>Retention</strong>: Runtime</p>
+<h4 id="parametres_4">Paramètres<a class="headerlink" href="#parametres_4" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Type</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>versioned</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Active l'optimistic locking avec @Version</td>
+</tr>
+<tr>
+<td><code>createdAtField</code></td>
+<td>String</td>
+<td><code>"createdAt"</code></td>
+<td>Nom du champ timestamp création</td>
+</tr>
+<tr>
+<td><code>updatedAtField</code></td>
+<td>String</td>
+<td><code>"updatedAt"</code></td>
+<td>Nom du champ timestamp mise à jour</td>
+</tr>
+<tr>
+<td><code>createdByField</code></td>
+<td>String</td>
+<td><code>"createdBy"</code></td>
+<td>Nom du champ créateur</td>
+</tr>
+<tr>
+<td><code>updatedByField</code></td>
+<td>String</td>
+<td><code>"updatedBy"</code></td>
+<td>Nom du champ dernier modificateur</td>
+</tr>
+</tbody>
+</table>
+<h4 id="exemple_1">Exemple<a class="headerlink" href="#exemple_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/documents&quot;</span><span class="p">)</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nd">@Auditable</span><span class="p">(</span><span class="n">versioned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Document</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">title</span><span class="p">;</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">content</span><span class="p">;</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">    </span><span class="c1">// Champs ajoutés automatiquement:</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createdAt</span><span class="p">;</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">updatedAt</span><span class="p">;</span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">createdBy</span><span class="p">;</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">updatedBy</span><span class="p">;</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">version</span><span class="p">;</span><span class="w">  </span><span class="c1">// Pour versioned = true</span>
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Comportement attendu</strong>:
+- Remplissage automatique de <code>createdAt</code>, <code>createdBy</code> lors de la création
+- Mise à jour automatique de <code>updatedAt</code>, <code>updatedBy</code> lors des modifications
+- Intégration avec Spring Security pour récupérer l'utilisateur courant
+- Optimistic locking avec <code>version</code> si <code>versioned = true</code></p>
+<hr />
+<h2 id="expose-enum"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.83 9 15 12.16V12a3 3 0 0 0-3-3zm-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7"/></svg></span> Expose Enum<a class="headerlink" href="#expose-enum" title="Permanent link">&para;</a></h2>
+<p>Contrôle quelles opérations CRUD sont exposées via l'API.</p>
+<h3 id="valeurs-disponibles">Valeurs Disponibles<a class="headerlink" href="#valeurs-disponibles" title="Permanent link">&para;</a></h3>
+<h4 id="all-par-defaut">ALL (Par Défaut)<a class="headerlink" href="#all-par-defaut" title="Permanent link">&para;</a></h4>
+<p>Expose toutes les opérations CRUD.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/products&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">ALL</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Endpoints générés</strong>:
+- ✅ <code>GET /api/products</code> - Liste
+- ✅ <code>GET /api/products/{id}</code> - Détails
+- ✅ <code>POST /api/products</code> - Création
+- ✅ <code>PUT /api/products/{id}</code> - Mise à jour complète
+- ✅ <code>PATCH /api/products/{id}</code> - Mise à jour partielle
+- ✅ <code>DELETE /api/products/{id}</code> - Suppression</p>
+<h4 id="read_only">READ_ONLY<a class="headerlink" href="#read_only" title="Permanent link">&para;</a></h4>
+<p>Expose uniquement les opérations de lecture.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/reports&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">READ_ONLY</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Endpoints générés</strong>:
+- ✅ <code>GET /api/reports</code> - Liste
+- ✅ <code>GET /api/reports/{id}</code> - Détails
+- ❌ POST, PUT, PATCH, DELETE</p>
+<p><strong>Use Cases</strong>:
+- Données de reporting
+- Vues en lecture seule
+- Données générées automatiquement</p>
+<h4 id="create_update">CREATE_UPDATE<a class="headerlink" href="#create_update" title="Permanent link">&para;</a></h4>
+<p>Expose création et modification, mais pas la suppression.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/customers&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">CREATE_UPDATE</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Endpoints générés</strong>:
+- ✅ <code>GET /api/customers</code> - Liste
+- ✅ <code>GET /api/customers/{id}</code> - Détails
+- ✅ <code>POST /api/customers</code> - Création
+- ✅ <code>PUT /api/customers/{id}</code> - Mise à jour complète
+- ✅ <code>PATCH /api/customers/{id}</code> - Mise à jour partielle
+- ❌ DELETE</p>
+<p><strong>Use Cases</strong>:
+- Entités qui ne doivent jamais être supprimées physiquement
+- Combiné avec <code>@SoftDelete</code> pour suppression logique
+- Données réglementaires (conservation obligatoire)</p>
+<h4 id="custom">CUSTOM<a class="headerlink" href="#custom" title="Permanent link">&para;</a></h4>
+<p>Réservé pour Phase 2 - contrôle fin des opérations.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/advanced&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">CUSTOM</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Status</strong>: 🚧 Phase 2 - Configuration granulaire par opération</p>
+<hr />
+<h2 id="resume-des-annotations"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h6v4H3zm12 7h6v4h-6zm0 7h6v4h-6zm-2-4H7v5h6v2H5V9h2v2h6z"/></svg></span> Résumé des Annotations<a class="headerlink" href="#resume-des-annotations" title="Permanent link">&para;</a></h2>
+<h3 id="annotations-implementees-phase-1">Annotations Implémentées (Phase 1)<a class="headerlink" href="#annotations-implementees-phase-1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Niveau</th>
+<th>Usage</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@AutoApi</code></td>
+<td>Class</td>
+<td>Active génération API complète</td>
+<td>✅ Implémenté</td>
+</tr>
+<tr>
+<td><code>@Filterable</code></td>
+<td>Field</td>
+<td>Active filtrage dynamique</td>
+<td>✅ Implémenté</td>
+</tr>
+<tr>
+<td><code>@Hidden</code></td>
+<td>Field</td>
+<td>Exclut du DTO (input + output)</td>
+<td>✅ Implémenté</td>
+</tr>
+<tr>
+<td><code>@ReadOnly</code></td>
+<td>Field</td>
+<td>Exclut du DTO input uniquement</td>
+<td>✅ Implémenté</td>
+</tr>
+<tr>
+<td><code>@Security</code></td>
+<td>Annotation</td>
+<td>Configure sécurité endpoints</td>
+<td>✅ Implémenté</td>
+</tr>
+</tbody>
+</table>
+<h3 id="annotations-phase-2-a-venir">Annotations Phase 2 (À venir)<a class="headerlink" href="#annotations-phase-2-a-venir" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Niveau</th>
+<th>Usage</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@SoftDelete</code></td>
+<td>Class</td>
+<td>Suppression logique</td>
+<td>🚧 Phase 2</td>
+</tr>
+<tr>
+<td><code>@Auditable</code></td>
+<td>Class</td>
+<td>Audit trail automatique</td>
+<td>🚧 Phase 2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enums">Enums<a class="headerlink" href="#enums" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Enum</th>
+<th>Usage</th>
+<th>Valeurs</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FilterType</code></td>
+<td>Types de filtres</td>
+<td>EQUALS, LIKE, RANGE, IN, etc. (12 types)</td>
+<td>✅ Implémenté</td>
+</tr>
+<tr>
+<td><code>Expose</code></td>
+<td>Opérations exposées</td>
+<td>ALL, READ_ONLY, CREATE_UPDATE, CUSTOM</td>
+<td>✅ Implémenté</td>
+</tr>
+<tr>
+<td><code>SecurityLevel</code></td>
+<td>Niveau de sécurité</td>
+<td>PUBLIC, AUTHENTICATED, ROLE_BASED</td>
+<td>✅ Implémenté</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="exemples-complets"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg></span> Exemples Complets<a class="headerlink" href="#exemples-complets" title="Permanent link">&para;</a></h2>
+<h3 id="e-commerce-product">E-Commerce Product<a class="headerlink" href="#e-commerce-product" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;products&quot;</span><span class="p">)</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/products&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">ALL</span><span class="p">,</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">    </span><span class="n">pagination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">    </span><span class="n">sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Product catalog management&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="w">    </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Products&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Inventory&quot;</span><span class="p">},</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="w">        </span><span class="n">readLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">PUBLIC</span><span class="p">,</span>
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="w">        </span><span class="n">writeLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">ROLE_BASED</span><span class="p">,</span>
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="w">        </span><span class="n">roles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;ADMIN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;INVENTORY_MANAGER&quot;</span><span class="p">}</span>
+<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a><span class="p">)</span>
+<a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Product</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>
+<a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span>
+<a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a>
+<a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a><span class="w">    </span><span class="nd">@NotBlank</span>
+<a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a><span class="w">    </span><span class="nd">@Size</span><span class="p">(</span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="p">)</span>
+<a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">})</span>
+<a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a>
+<a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a><span class="w">    </span><span class="nd">@Size</span><span class="p">(</span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2000</span><span class="p">)</span>
+<a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="p">;</span>
+<a id="__codelineno-29-30" name="__codelineno-29-30" href="#__codelineno-29-30"></a>
+<a id="__codelineno-29-31" name="__codelineno-29-31" href="#__codelineno-29-31"></a><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">unique</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-29-32" name="__codelineno-29-32" href="#__codelineno-29-32"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">)</span>
+<a id="__codelineno-29-33" name="__codelineno-29-33" href="#__codelineno-29-33"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">sku</span><span class="p">;</span>
+<a id="__codelineno-29-34" name="__codelineno-29-34" href="#__codelineno-29-34"></a>
+<a id="__codelineno-29-35" name="__codelineno-29-35" href="#__codelineno-29-35"></a><span class="w">    </span><span class="nd">@Min</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-29-36" name="__codelineno-29-36" href="#__codelineno-29-36"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">RANGE</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">GREATER_THAN_OR_EQUAL</span><span class="p">})</span>
+<a id="__codelineno-29-37" name="__codelineno-29-37" href="#__codelineno-29-37"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span>
+<a id="__codelineno-29-38" name="__codelineno-29-38" href="#__codelineno-29-38"></a>
+<a id="__codelineno-29-39" name="__codelineno-29-39" href="#__codelineno-29-39"></a><span class="w">    </span><span class="nd">@Min</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-29-40" name="__codelineno-29-40" href="#__codelineno-29-40"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">RANGE</span><span class="p">)</span>
+<a id="__codelineno-29-41" name="__codelineno-29-41" href="#__codelineno-29-41"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">stock</span><span class="p">;</span>
+<a id="__codelineno-29-42" name="__codelineno-29-42" href="#__codelineno-29-42"></a>
+<a id="__codelineno-29-43" name="__codelineno-29-43" href="#__codelineno-29-43"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">IN</span><span class="p">})</span>
+<a id="__codelineno-29-44" name="__codelineno-29-44" href="#__codelineno-29-44"></a><span class="w">    </span><span class="nd">@Enumerated</span><span class="p">(</span><span class="n">EnumType</span><span class="p">.</span><span class="na">STRING</span><span class="p">)</span>
+<a id="__codelineno-29-45" name="__codelineno-29-45" href="#__codelineno-29-45"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ProductStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<a id="__codelineno-29-46" name="__codelineno-29-46" href="#__codelineno-29-46"></a>
+<a id="__codelineno-29-47" name="__codelineno-29-47" href="#__codelineno-29-47"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">})</span>
+<a id="__codelineno-29-48" name="__codelineno-29-48" href="#__codelineno-29-48"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">;</span>
+<a id="__codelineno-29-49" name="__codelineno-29-49" href="#__codelineno-29-49"></a>
+<a id="__codelineno-29-50" name="__codelineno-29-50" href="#__codelineno-29-50"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-29-51" name="__codelineno-29-51" href="#__codelineno-29-51"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createdAt</span><span class="p">;</span>
+<a id="__codelineno-29-52" name="__codelineno-29-52" href="#__codelineno-29-52"></a>
+<a id="__codelineno-29-53" name="__codelineno-29-53" href="#__codelineno-29-53"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-29-54" name="__codelineno-29-54" href="#__codelineno-29-54"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">updatedAt</span><span class="p">;</span>
+<a id="__codelineno-29-55" name="__codelineno-29-55" href="#__codelineno-29-55"></a>
+<a id="__codelineno-29-56" name="__codelineno-29-56" href="#__codelineno-29-56"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-29-57" name="__codelineno-29-57" href="#__codelineno-29-57"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">supplierNotes</span><span class="p">;</span>
+<a id="__codelineno-29-58" name="__codelineno-29-58" href="#__codelineno-29-58"></a>
+<a id="__codelineno-29-59" name="__codelineno-29-59" href="#__codelineno-29-59"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-29-60" name="__codelineno-29-60" href="#__codelineno-29-60"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">costPrice</span><span class="p">;</span>
+<a id="__codelineno-29-61" name="__codelineno-29-61" href="#__codelineno-29-61"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="user-management">User Management<a class="headerlink" href="#user-management" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nd">@Entity</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;users&quot;</span><span class="p">)</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="nd">@AutoApi</span><span class="p">(</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/users&quot;</span><span class="p">,</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">    </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">CREATE_UPDATE</span><span class="p">,</span><span class="w">  </span><span class="c1">// Pas de DELETE physique</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;User management&quot;</span><span class="p">,</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">    </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Users&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Authentication&quot;</span><span class="p">},</span>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@Security</span><span class="p">(</span>
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="w">        </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SecurityLevel</span><span class="p">.</span><span class="na">ROLE_BASED</span><span class="p">,</span>
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="w">        </span><span class="n">roles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;ADMIN&quot;</span><span class="p">}</span>
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a><span class="p">)</span>
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a><span class="w">    </span><span class="nd">@Id</span>
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span>
+<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>
+<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a><span class="w">    </span><span class="nd">@NotBlank</span>
+<a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a><span class="w">    </span><span class="nd">@Size</span><span class="p">(</span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">)</span>
+<a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">unique</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">LIKE</span><span class="p">})</span>
+<a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">username</span><span class="p">;</span>
+<a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>
+<a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a><span class="w">    </span><span class="nd">@Email</span>
+<a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a><span class="w">    </span><span class="nd">@NotBlank</span>
+<a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">unique</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-30-29" name="__codelineno-30-29" href="#__codelineno-30-29"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">)</span>
+<a id="__codelineno-30-30" name="__codelineno-30-30" href="#__codelineno-30-30"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span>
+<a id="__codelineno-30-31" name="__codelineno-30-31" href="#__codelineno-30-31"></a>
+<a id="__codelineno-30-32" name="__codelineno-30-32" href="#__codelineno-30-32"></a><span class="w">    </span><span class="nd">@Hidden</span><span class="w">  </span><span class="c1">// Jamais exposé</span>
+<a id="__codelineno-30-33" name="__codelineno-30-33" href="#__codelineno-30-33"></a><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">nullable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-30-34" name="__codelineno-30-34" href="#__codelineno-30-34"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">passwordHash</span><span class="p">;</span>
+<a id="__codelineno-30-35" name="__codelineno-30-35" href="#__codelineno-30-35"></a>
+<a id="__codelineno-30-36" name="__codelineno-30-36" href="#__codelineno-30-36"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">IN</span><span class="p">})</span>
+<a id="__codelineno-30-37" name="__codelineno-30-37" href="#__codelineno-30-37"></a><span class="w">    </span><span class="nd">@Enumerated</span><span class="p">(</span><span class="n">EnumType</span><span class="p">.</span><span class="na">STRING</span><span class="p">)</span>
+<a id="__codelineno-30-38" name="__codelineno-30-38" href="#__codelineno-30-38"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">UserRole</span><span class="w"> </span><span class="n">role</span><span class="p">;</span>
+<a id="__codelineno-30-39" name="__codelineno-30-39" href="#__codelineno-30-39"></a>
+<a id="__codelineno-30-40" name="__codelineno-30-40" href="#__codelineno-30-40"></a><span class="w">    </span><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">)</span>
+<a id="__codelineno-30-41" name="__codelineno-30-41" href="#__codelineno-30-41"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Boolean</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-30-42" name="__codelineno-30-42" href="#__codelineno-30-42"></a>
+<a id="__codelineno-30-43" name="__codelineno-30-43" href="#__codelineno-30-43"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-30-44" name="__codelineno-30-44" href="#__codelineno-30-44"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">lastLogin</span><span class="p">;</span>
+<a id="__codelineno-30-45" name="__codelineno-30-45" href="#__codelineno-30-45"></a>
+<a id="__codelineno-30-46" name="__codelineno-30-46" href="#__codelineno-30-46"></a><span class="w">    </span><span class="nd">@ReadOnly</span>
+<a id="__codelineno-30-47" name="__codelineno-30-47" href="#__codelineno-30-47"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createdAt</span><span class="p">;</span>
+<a id="__codelineno-30-48" name="__codelineno-30-48" href="#__codelineno-30-48"></a>
+<a id="__codelineno-30-49" name="__codelineno-30-49" href="#__codelineno-30-49"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-30-50" name="__codelineno-30-50" href="#__codelineno-30-50"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">failedLoginAttempts</span><span class="p">;</span>
+<a id="__codelineno-30-51" name="__codelineno-30-51" href="#__codelineno-30-51"></a>
+<a id="__codelineno-30-52" name="__codelineno-30-52" href="#__codelineno-30-52"></a><span class="w">    </span><span class="nd">@Hidden</span>
+<a id="__codelineno-30-53" name="__codelineno-30-53" href="#__codelineno-30-53"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">resetToken</span><span class="p">;</span>
+<a id="__codelineno-30-54" name="__codelineno-30-54" href="#__codelineno-30-54"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="questions-frequentes"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg></span> Questions Fréquentes<a class="headerlink" href="#questions-frequentes" title="Permanent link">&para;</a></h2>
+<h3 id="puis-je-combiner-hidden-et-readonly">Puis-je combiner @Hidden et @ReadOnly?<a class="headerlink" href="#puis-je-combiner-hidden-et-readonly" title="Permanent link">&para;</a></h3>
+<p>Non, c'est redondant. <code>@Hidden</code> exclut déjà le champ des DTOs input ET output.</p>
+<h3 id="comment-filtrer-sur-une-relation">Comment filtrer sur une relation?<a class="headerlink" href="#comment-filtrer-sur-une-relation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nd">@ManyToOne</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="nd">@JoinColumn</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;category_id&quot;</span><span class="p">)</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="nd">@Filterable</span><span class="p">(</span><span class="n">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FilterType</span><span class="p">.</span><span class="na">EQUALS</span><span class="p">,</span><span class="w"> </span><span class="n">paramName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;categoryId&quot;</span><span class="p">)</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="kd">private</span><span class="w"> </span><span class="n">Category</span><span class="w"> </span><span class="n">category</span><span class="p">;</span>
+</code></pre></div>
+<p>Utilisation: <code>?categoryId=5</code></p>
+<h3 id="filtertyperange-vs-between">FilterType.RANGE vs BETWEEN?<a class="headerlink" href="#filtertyperange-vs-between" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>RANGE</strong>: Utilise <code>?field_gte=X&amp;field_lte=Y</code> (deux paramètres séparés)</li>
+<li><strong>BETWEEN</strong>: Utilise <code>?field_between=X,Y</code> (un seul paramètre avec virgule)</li>
+</ul>
+<p>Les deux génèrent le même SQL <code>BETWEEN X AND Y</code>.</p>
+<h3 id="comment-desactiver-la-pagination">Comment désactiver la pagination?<a class="headerlink" href="#comment-desactiver-la-pagination" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/config&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pagination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+</code></pre></div>
+<p>L'endpoint retournera toujours tous les résultats (attention aux performances!).</p>
+<hr />
+<h2 id="voir-aussi"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg></span> Voir Aussi<a class="headerlink" href="#voir-aussi" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../getting-started/quickstart/">Quick Start</a> - Premiers pas</li>
+<li><a href="../../guide/configuration/">Configuration</a> - Configuration complète</li>
+<li><a href="../../guide/filtering/">Filtrage</a> - Guide du filtrage dynamique</li>
+<li><a href="../../guide/security/">Sécurité</a> - Configuration de la sécurité</li>
+<li><a href="../../advanced/custom-components/">Custom Components</a> - Personnalisation avancée</li>
+</ul>
 
 
 
@@ -2059,7 +4048,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 13:08:41 UTC">December 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 15:51:15 UTC">December 26, 2025</span>
   </span>
 
     

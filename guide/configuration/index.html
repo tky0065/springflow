@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configuration" class="md-skip">
+        <a href="#configuration-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -812,6 +812,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -828,6 +846,775 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration de Base
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration de Base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-minimale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Minimale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-recommandee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Recommandée
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activation-desactivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activation / Désactivation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activation / Désactivation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activer-springflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activer SpringFlow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desactiver-completement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désactiver Complètement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desactivation-par-profil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désactivation par Profil
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chemin-de-base-base-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chemin de Base (Base Path)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chemin de Base (Base Path)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-du-chemin-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration du Chemin de Base
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-de-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples de Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples de Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-versionnee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Versionnée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pas-de-prefixe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pas de Préfixe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chemin-custom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chemin Custom
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-de-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan de Packages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scan de Packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scan-automatique-recommande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan Automatique (Recommandé)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packages-explicites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages Explicites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-multi-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple Multi-Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pagination
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pagination">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Complète
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametres-detailles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres Détaillés
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paramètres Détaillés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-page-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        default-page-size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-page-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        max-page-size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-parameter-size-parameter-sort-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        page-parameter, size-parameter, sort-parameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-indexed-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        one-indexed-parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-de-configuration_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples de Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples de Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-haute-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Haute Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-api-publique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration API Publique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatible-avec-systemes-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compatible avec Systèmes Legacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swagger-openapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swagger / OpenAPI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Swagger / OpenAPI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-complete_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Complète
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametres-detailles_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres Détaillés
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paramètres Détaillés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        enabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadonnees-de-lapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métadonnées de l'API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#informations-de-contact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Informations de Contact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#licence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Licence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-de-configuration_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples de Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples de Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-open-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Open Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-entreprise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Entreprise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desactivation-en-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désactivation en Production
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-par-environnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration par Environnement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration par Environnement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-recommandee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure Recommandée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationyml-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        application.yml (Base)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-devyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        application-dev.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-testyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        application-test.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-prodyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        application-prod.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-complete-exemple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Complète Exemple
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Complète Exemple">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-reelle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application Réelle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-avancee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Avancée
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Avancée">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proprietes-spring-boot-compatibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propriétés Spring Boot Compatibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables d'Environnement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationproperties-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        application.properties (Alternative)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions-frequentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions Fréquentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Questions Fréquentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comment-desactiver-springflow-pour-certains-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment désactiver SpringFlow pour certains tests?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-avoir-des-pages-de-1-a-n-au-lieu-de-0-a-n-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment avoir des pages de 1 à N au lieu de 0 à N-1?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puis-je-avoir-des-configurations-differentes-par-entite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Puis-je avoir des configurations différentes par entité?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-acceder-a-swagger-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment accéder à Swagger UI?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-configuration-sapplique-t-elle-aux-composants-custom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La configuration s'applique-t-elle aux composants custom?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voir-aussi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voir Aussi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resume-des-proprietes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé des Propriétés
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2061,8 +2848,596 @@
   
 
 
-<h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h1>
-<p>Coming soon. See <a href="../../getting-started/installation/">Installation</a> for basic configuration.</p>
+<h1 id="configuration-guide">Configuration Guide<a class="headerlink" href="#configuration-guide" title="Permanent link">&para;</a></h1>
+<p>Guide complet de configuration de SpringFlow pour personnaliser le comportement de votre API.</p>
+<h2 id="configuration-de-base"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64z"/></svg></span> Configuration de Base<a class="headerlink" href="#configuration-de-base" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-minimale">Configuration Minimale<a class="headerlink" href="#configuration-minimale" title="Permanent link">&para;</a></h3>
+<p>SpringFlow fonctionne avec <strong>zéro configuration</strong>! Il suffit d'ajouter la dépendance:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Aucune configuration nécessaire</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># SpringFlow utilise les valeurs par défaut</span>
+</code></pre></div>
+<h3 id="configuration-recommandee">Configuration Recommandée<a class="headerlink" href="#configuration-recommandee" title="Permanent link">&para;</a></h3>
+<p>Pour un contrôle plus fin, ajoutez ces paramètres dans <code>application.yml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">base-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Application API</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Auto-generated REST API</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+</code></pre></div>
+<hr />
+<h2 id="activation-desactivation"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg></span> Activation / Désactivation<a class="headerlink" href="#activation-desactivation" title="Permanent link">&para;</a></h2>
+<h3 id="activer-springflow">Activer SpringFlow<a class="headerlink" href="#activer-springflow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p><strong>Valeur par défaut</strong>: <code>true</code></p>
+<h3 id="desactiver-completement">Désactiver Complètement<a class="headerlink" href="#desactiver-completement" title="Permanent link">&para;</a></h3>
+<p>Utile pour les tests ou certains profils:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Avec cette configuration, <strong>aucune</strong> API ne sera générée.</p>
+<h3 id="desactivation-par-profil">Désactivation par Profil<a class="headerlink" href="#desactivation-par-profil" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># application-test.yml</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Lancer avec profil test</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>./mvnw<span class="w"> </span>spring-boot:run<span class="w"> </span>-Dspring.profiles.active<span class="o">=</span><span class="nb">test</span>
+</code></pre></div>
+<hr />
+<h2 id="chemin-de-base-base-path"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 7H5a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2m0 4H5V9h2m7-2h-4v10h2v-4h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2m0 4h-2V9h2m6 0v6h1v2h-4v-2h1V9h-1V7h4v2Z"/></svg></span> Chemin de Base (Base Path)<a class="headerlink" href="#chemin-de-base-base-path" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-du-chemin-de-base">Configuration du Chemin de Base<a class="headerlink" href="#configuration-du-chemin-de-base" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">base-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api</span>
+</code></pre></div>
+<p><strong>Valeur par défaut</strong>: <code>/api</code></p>
+<p><strong>Résultat</strong>:
+- <code>@AutoApi(path = "/products")</code> → <code>/api/products</code>
+- <code>@AutoApi(path = "/orders")</code> → <code>/api/orders</code></p>
+<h3 id="exemples-de-configuration">Exemples de Configuration<a class="headerlink" href="#exemples-de-configuration" title="Permanent link">&para;</a></h3>
+<h4 id="api-versionnee">API Versionnée<a class="headerlink" href="#api-versionnee" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">base-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/v1</span>
+</code></pre></div>
+<p>Résultat: <code>/api/v1/products</code>, <code>/api/v1/orders</code></p>
+<h4 id="pas-de-prefixe">Pas de Préfixe<a class="headerlink" href="#pas-de-prefixe" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">base-path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+</code></pre></div>
+<p>Résultat: <code>/products</code>, <code>/orders</code> (directement à la racine)</p>
+<h4 id="chemin-custom">Chemin Custom<a class="headerlink" href="#chemin-custom" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">base-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/rest/public</span>
+</code></pre></div>
+<p>Résultat: <code>/rest/public/products</code></p>
+<hr />
+<h2 id="scan-de-packages"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 10.96a.985.985 0 0 1-.37-1.37L3.13 7c.11-.2.28-.34.47-.42l7.83-4.4c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.19.1.35.26.44.46l1.45 2.52c.28.48.11 1.09-.36 1.36l-1 .58v4.96c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.99.99 0 0 1 3 16.5v-5.54c-.3.17-.68.18-1 0m10-6.81v6.7l5.96-3.35zM5 15.91l6 3.38v-6.71L5 9.21zm14 0v-3.22l-5 2.9c-.33.18-.7.17-1 .01v3.69zm-5.15-2.55 6.28-3.63-.58-1.01-6.28 3.63z"/></svg></span> Scan de Packages<a class="headerlink" href="#scan-de-packages" title="Permanent link">&para;</a></h2>
+<h3 id="scan-automatique-recommande">Scan Automatique (Recommandé)<a class="headerlink" href="#scan-automatique-recommande" title="Permanent link">&para;</a></h3>
+<p>Par défaut, SpringFlow scanne les packages de votre application automatiquement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Pas de configuration nécessaire</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># Utilise AutoConfigurationPackages de Spring Boot</span>
+</code></pre></div>
+<h3 id="packages-explicites">Packages Explicites<a class="headerlink" href="#packages-explicites" title="Permanent link">&para;</a></h3>
+<p>Pour cibler des packages spécifiques:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">base-packages</span><span class="p">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.myapp.domain</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.myapp.entities</span>
+</code></pre></div>
+<p><strong>Use Cases</strong>:
+- Multi-modules avec entités dans plusieurs packages
+- Exclusion de certains packages
+- Performance (scan plus rapide)</p>
+<h3 id="exemple-multi-modules">Exemple Multi-Modules<a class="headerlink" href="#exemple-multi-modules" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">base-packages</span><span class="p">:</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.core.domain</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.catalog.entities</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.orders.models</span>
+</code></pre></div>
+<hr />
+<h2 id="pagination"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m0 6v8h4V8z"/></svg></span> Pagination<a class="headerlink" href="#pagination" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-complete">Configuration Complète<a class="headerlink" href="#configuration-complete" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span><span class="w">          </span><span class="c1"># Taille par défaut</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">              </span><span class="c1"># Taille maximum autorisée</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nt">page-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page</span><span class="w">            </span><span class="c1"># Nom du paramètre de page</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nt">size-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">size</span><span class="w">            </span><span class="c1"># Nom du paramètre de taille</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">sort-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sort</span><span class="w">            </span><span class="c1"># Nom du paramètre de tri</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="nt">one-indexed-parameters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># Pagination commence à 0 ou 1</span>
+</code></pre></div>
+<h3 id="parametres-detailles">Paramètres Détaillés<a class="headerlink" href="#parametres-detailles" title="Permanent link">&para;</a></h3>
+<h4 id="default-page-size">default-page-size<a class="headerlink" href="#default-page-size" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+</code></pre></div>
+<p><strong>Valeur par défaut</strong>: <code>20</code></p>
+<p>Taille de page utilisée si l'utilisateur ne spécifie pas <code>?size=X</code>.</p>
+<p><strong>Exemples</strong>:
+- <code>GET /api/products</code> → 20 résultats
+- <code>GET /api/products?page=0</code> → 20 résultats
+- <code>GET /api/products?size=50</code> → 50 résultats</p>
+<h4 id="max-page-size">max-page-size<a class="headerlink" href="#max-page-size" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</code></pre></div>
+<p><strong>Valeur par défaut</strong>: <code>100</code></p>
+<p>Taille maximum autorisée. Protège contre les requêtes trop gourmandes.</p>
+<p><strong>Comportement</strong>:
+- <code>?size=50</code> → OK, retourne 50 résultats
+- <code>?size=200</code> → Limité à 100 résultats</p>
+<h4 id="page-parameter-size-parameter-sort-parameter">page-parameter, size-parameter, sort-parameter<a class="headerlink" href="#page-parameter-size-parameter-sort-parameter" title="Permanent link">&para;</a></h4>
+<p>Personnaliser les noms des paramètres de requête:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="nt">page-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">p</span><span class="w">       </span><span class="c1"># ?p=0</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="nt">size-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">limit</span><span class="w">   </span><span class="c1"># ?limit=20</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="nt">sort-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">order</span><span class="w">   </span><span class="c1"># ?order=name,asc</span>
+</code></pre></div>
+<p><strong>Requête avec configuration par défaut</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>GET /api/products?page=1&amp;size=20&amp;sort=name,asc
+</code></pre></div></p>
+<p><strong>Requête avec configuration custom</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>GET /api/products?p=1&amp;limit=20&amp;order=name,asc
+</code></pre></div></p>
+<h4 id="one-indexed-parameters">one-indexed-parameters<a class="headerlink" href="#one-indexed-parameters" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="nt">one-indexed-parameters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p><strong>Valeur par défaut</strong>: <code>false</code> (commence à 0)</p>
+<ul>
+<li><code>false</code>: Première page = <code>?page=0</code> (standard Spring Data)</li>
+<li><code>true</code>: Première page = <code>?page=1</code> (plus intuitif pour certains)</li>
+</ul>
+<h3 id="exemples-de-configuration_1">Exemples de Configuration<a class="headerlink" href="#exemples-de-configuration_1" title="Permanent link">&para;</a></h3>
+<h4 id="configuration-haute-performance">Configuration Haute Performance<a class="headerlink" href="#configuration-haute-performance" title="Permanent link">&para;</a></h4>
+<p>Pour APIs internes avec gros volumes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</code></pre></div>
+<h4 id="configuration-api-publique">Configuration API Publique<a class="headerlink" href="#configuration-api-publique" title="Permanent link">&para;</a></h4>
+<p>Pour limiter la charge:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+</code></pre></div>
+<h4 id="compatible-avec-systemes-legacy">Compatible avec Systèmes Legacy<a class="headerlink" href="#compatible-avec-systemes-legacy" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="nt">page-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pageNumber</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="nt">size-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pageSize</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="nt">sort-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sortBy</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="nt">one-indexed-parameters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Résultat: <code>?pageNumber=1&amp;pageSize=25&amp;sortBy=name,asc</code></p>
+<hr />
+<h2 id="swagger-openapi"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2zm3-4v-2H6v2z"/></svg></span> Swagger / OpenAPI<a class="headerlink" href="#swagger-openapi" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-complete_1">Configuration Complète<a class="headerlink" href="#configuration-complete_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Application API</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Complete REST API documentation</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">    </span><span class="nt">contact-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Support Team</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">    </span><span class="nt">contact-email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api@example.com</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">    </span><span class="nt">contact-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://example.com/support</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">    </span><span class="nt">license-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apache 2.0</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="nt">license-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.apache.org/licenses/LICENSE-2.0</span>
+</code></pre></div>
+<h3 id="parametres-detailles_1">Paramètres Détaillés<a class="headerlink" href="#parametres-detailles_1" title="Permanent link">&para;</a></h3>
+<h4 id="enabled">enabled<a class="headerlink" href="#enabled" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p><strong>Valeur par défaut</strong>: <code>true</code></p>
+<p>Active/désactive la documentation Swagger UI.</p>
+<p><strong>Accès</strong>: <code>http://localhost:8080/swagger-ui.html</code></p>
+<h4 id="metadonnees-de-lapi">Métadonnées de l'API<a class="headerlink" href="#metadonnees-de-lapi" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">E-Commerce API</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">      </span><span class="no">API REST complète pour la gestion de catalogue produits,</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">      </span><span class="no">commandes et clients.</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">      </span><span class="no">## Authentification</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">      </span><span class="no">Utilise JWT Bearer tokens.</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">      </span><span class="no">## Rate Limiting</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="w">      </span><span class="no">1000 requêtes par heure.</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.1.0</span>
+</code></pre></div>
+<p>Ces informations apparaissent en haut de Swagger UI.</p>
+<h4 id="informations-de-contact">Informations de Contact<a class="headerlink" href="#informations-de-contact" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="nt">contact-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Support Technique</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">    </span><span class="nt">contact-email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">support@mycompany.com</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">    </span><span class="nt">contact-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://mycompany.com/api-support</span>
+</code></pre></div>
+<p>Affiche un lien de contact dans Swagger UI.</p>
+<h4 id="licence">Licence<a class="headerlink" href="#licence" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">    </span><span class="nt">license-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MIT License</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">    </span><span class="nt">license-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://opensource.org/licenses/MIT</span>
+</code></pre></div>
+<h3 id="exemples-de-configuration_2">Exemples de Configuration<a class="headerlink" href="#exemples-de-configuration_2" title="Permanent link">&para;</a></h3>
+<h4 id="configuration-open-source">Configuration Open Source<a class="headerlink" href="#configuration-open-source" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SpringFlow Demo API</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Demonstration API showcasing SpringFlow capabilities</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1.0-SNAPSHOT</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="w">    </span><span class="nt">license-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apache License 2.0</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="w">    </span><span class="nt">license-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.apache.org/licenses/LICENSE-2.0</span>
+</code></pre></div>
+<h4 id="configuration-entreprise">Configuration Entreprise<a class="headerlink" href="#configuration-entreprise" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Internal CRM API</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Customer Relationship Management API - Internal Use Only</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.2.1</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">    </span><span class="nt">contact-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Architecture Team</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="w">    </span><span class="nt">contact-email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">architecture@company.com</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="w">    </span><span class="nt">contact-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://wiki.company.com/api-docs</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="w">    </span><span class="nt">license-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Proprietary</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="w">    </span><span class="nt">license-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://company.com/license</span>
+</code></pre></div>
+<h4 id="desactivation-en-production">Désactivation en Production<a class="headerlink" href="#desactivation-en-production" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># application-prod.yml</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p><strong>Raison</strong>: Cacher la documentation en production pour des raisons de sécurité.</p>
+<hr />
+<h2 id="configuration-par-environnement"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 7h5.5L15 1.5zM8 0h8l6 6v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2M4 4v18h16v2H4a2 2 0 0 1-2-2V4z"/></svg></span> Configuration par Environnement<a class="headerlink" href="#configuration-par-environnement" title="Permanent link">&para;</a></h2>
+<h3 id="structure-recommandee">Structure Recommandée<a class="headerlink" href="#structure-recommandee" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>src/main/resources/
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>├── application.yml              # Configuration commune
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>├── application-dev.yml          # Développement
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>├── application-test.yml         # Tests
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>└── application-prod.yml         # Production
+</code></pre></div>
+<h3 id="applicationyml-base">application.yml (Base)<a class="headerlink" href="#applicationyml-base" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nt">spring</span><span class="p">:</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="nt">application</span><span class="p">:</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-application</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="w">  </span><span class="nt">base-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="w">    </span><span class="nt">page-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="w">    </span><span class="nt">size-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">size</span>
+<a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="w">    </span><span class="nt">sort-parameter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sort</span>
+</code></pre></div>
+<h3 id="application-devyml">application-dev.yml<a class="headerlink" href="#application-devyml" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w">   </span><span class="c1"># Petites pages pour debug</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My API (DEV)</span>
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Development environment</span>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${project.version}-SNAPSHOT</span>
+</code></pre></div>
+<h3 id="application-testyml">application-test.yml<a class="headerlink" href="#application-testyml" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># Désactivé pour tests unitaires</span>
+</code></pre></div>
+<h3 id="application-prodyml">application-prod.yml<a class="headerlink" href="#application-prodyml" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># Caché en production</span>
+</code></pre></div>
+<h3 id="activation">Activation<a class="headerlink" href="#activation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Développement (par défaut)</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>./mvnw<span class="w"> </span>spring-boot:run
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="c1"># Test</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>./mvnw<span class="w"> </span>spring-boot:run<span class="w"> </span>-Dspring.profiles.active<span class="o">=</span><span class="nb">test</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="c1"># Production</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>./mvnw<span class="w"> </span>spring-boot:run<span class="w"> </span>-Dspring.profiles.active<span class="o">=</span>prod
+</code></pre></div>
+<hr />
+<h2 id="configuration-complete-exemple"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.41 13.41 6 19l1.41-1.42L1.83 12m20.41-6.42L11.66 16.17 7.5 12l-1.43 1.41L11.66 19l12-12M18 7l-1.41-1.42-6.35 6.35 1.42 1.41z"/></svg></span> Configuration Complète Exemple<a class="headerlink" href="#configuration-complete-exemple" title="Permanent link">&para;</a></h2>
+<h3 id="application-reelle">Application Réelle<a class="headerlink" href="#application-reelle" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># application.yml</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nt">spring</span><span class="p">:</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">  </span><span class="nt">application</span><span class="p">:</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ecommerce-api</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="w">  </span><span class="nt">datasource</span><span class="p">:</span>
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdbc:postgresql://localhost:5432/ecommerce</span>
+<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_USERNAME}</span>
+<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_PASSWORD}</span>
+<a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>
+<a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a><span class="w">  </span><span class="nt">jpa</span><span class="p">:</span>
+<a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="w">    </span><span class="nt">hibernate</span><span class="p">:</span>
+<a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a><span class="w">      </span><span class="nt">ddl-auto</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate</span>
+<a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a><span class="w">    </span><span class="nt">show-sql</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>
+<a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a><span class="w">  </span><span class="nt">base-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/v1</span>
+<a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a>
+<a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a><span class="w">  </span><span class="nt">base-packages</span><span class="p">:</span>
+<a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.ecommerce.domain.catalog</span>
+<a id="__codelineno-37-22" name="__codelineno-37-22" href="#__codelineno-37-22"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.ecommerce.domain.orders</span>
+<a id="__codelineno-37-23" name="__codelineno-37-23" href="#__codelineno-37-23"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.example.ecommerce.domain.customers</span>
+<a id="__codelineno-37-24" name="__codelineno-37-24" href="#__codelineno-37-24"></a>
+<a id="__codelineno-37-25" name="__codelineno-37-25" href="#__codelineno-37-25"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-37-26" name="__codelineno-37-26" href="#__codelineno-37-26"></a><span class="w">    </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<a id="__codelineno-37-27" name="__codelineno-37-27" href="#__codelineno-37-27"></a><span class="w">    </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<a id="__codelineno-37-28" name="__codelineno-37-28" href="#__codelineno-37-28"></a><span class="w">    </span><span class="nt">one-indexed-parameters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-37-29" name="__codelineno-37-29" href="#__codelineno-37-29"></a>
+<a id="__codelineno-37-30" name="__codelineno-37-30" href="#__codelineno-37-30"></a><span class="w">  </span><span class="nt">swagger</span><span class="p">:</span>
+<a id="__codelineno-37-31" name="__codelineno-37-31" href="#__codelineno-37-31"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-37-32" name="__codelineno-37-32" href="#__codelineno-37-32"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">E-Commerce REST API</span>
+<a id="__codelineno-37-33" name="__codelineno-37-33" href="#__codelineno-37-33"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-37-34" name="__codelineno-37-34" href="#__codelineno-37-34"></a><span class="w">      </span><span class="no">## E-Commerce Platform API</span>
+<a id="__codelineno-37-35" name="__codelineno-37-35" href="#__codelineno-37-35"></a>
+<a id="__codelineno-37-36" name="__codelineno-37-36" href="#__codelineno-37-36"></a><span class="w">      </span><span class="no">Cette API permet de gérer:</span>
+<a id="__codelineno-37-37" name="__codelineno-37-37" href="#__codelineno-37-37"></a><span class="w">      </span><span class="no">- Catalogue produits</span>
+<a id="__codelineno-37-38" name="__codelineno-37-38" href="#__codelineno-37-38"></a><span class="w">      </span><span class="no">- Commandes clients</span>
+<a id="__codelineno-37-39" name="__codelineno-37-39" href="#__codelineno-37-39"></a><span class="w">      </span><span class="no">- Gestion utilisateurs</span>
+<a id="__codelineno-37-40" name="__codelineno-37-40" href="#__codelineno-37-40"></a>
+<a id="__codelineno-37-41" name="__codelineno-37-41" href="#__codelineno-37-41"></a><span class="w">      </span><span class="no">### Authentification</span>
+<a id="__codelineno-37-42" name="__codelineno-37-42" href="#__codelineno-37-42"></a><span class="w">      </span><span class="no">Utilise OAuth2 Bearer tokens.</span>
+<a id="__codelineno-37-43" name="__codelineno-37-43" href="#__codelineno-37-43"></a>
+<a id="__codelineno-37-44" name="__codelineno-37-44" href="#__codelineno-37-44"></a><span class="w">      </span><span class="no">### Rate Limiting</span>
+<a id="__codelineno-37-45" name="__codelineno-37-45" href="#__codelineno-37-45"></a><span class="w">      </span><span class="no">- Utilisateurs authentifiés: 5000 req/h</span>
+<a id="__codelineno-37-46" name="__codelineno-37-46" href="#__codelineno-37-46"></a><span class="w">      </span><span class="no">- Utilisateurs anonymes: 100 req/h</span>
+<a id="__codelineno-37-47" name="__codelineno-37-47" href="#__codelineno-37-47"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.5.1</span>
+<a id="__codelineno-37-48" name="__codelineno-37-48" href="#__codelineno-37-48"></a><span class="w">    </span><span class="nt">contact-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Team</span>
+<a id="__codelineno-37-49" name="__codelineno-37-49" href="#__codelineno-37-49"></a><span class="w">    </span><span class="nt">contact-email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-team@example.com</span>
+<a id="__codelineno-37-50" name="__codelineno-37-50" href="#__codelineno-37-50"></a><span class="w">    </span><span class="nt">contact-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://example.com/api-docs</span>
+<a id="__codelineno-37-51" name="__codelineno-37-51" href="#__codelineno-37-51"></a><span class="w">    </span><span class="nt">license-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Proprietary</span>
+<a id="__codelineno-37-52" name="__codelineno-37-52" href="#__codelineno-37-52"></a><span class="w">    </span><span class="nt">license-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://example.com/license</span>
+<a id="__codelineno-37-53" name="__codelineno-37-53" href="#__codelineno-37-53"></a>
+<a id="__codelineno-37-54" name="__codelineno-37-54" href="#__codelineno-37-54"></a><span class="c1"># Logging</span>
+<a id="__codelineno-37-55" name="__codelineno-37-55" href="#__codelineno-37-55"></a><span class="nt">logging</span><span class="p">:</span>
+<a id="__codelineno-37-56" name="__codelineno-37-56" href="#__codelineno-37-56"></a><span class="w">  </span><span class="nt">level</span><span class="p">:</span>
+<a id="__codelineno-37-57" name="__codelineno-37-57" href="#__codelineno-37-57"></a><span class="w">    </span><span class="nt">io.springflow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
+<a id="__codelineno-37-58" name="__codelineno-37-58" href="#__codelineno-37-58"></a><span class="w">    </span><span class="nt">com.example.ecommerce</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+</code></pre></div>
+<hr />
+<h2 id="configuration-avancee"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.78 15.3 6 6 2.11-2.16-6-6zm3.72-5.2c-.39 0-.81-.05-1.14-.19L4.97 21.25l-2.11-2.11 7.41-7.4L8.5 9.96l-.72.7-1.45-1.41v2.86l-.7.7-3.52-3.56.7-.7h2.81l-1.4-1.41 3.56-3.56a2.976 2.976 0 0 1 4.22 0L9.89 5.74l1.41 1.4-.71.71 1.79 1.78 1.82-1.88c-.14-.33-.2-.75-.2-1.12a3.49 3.49 0 0 1 3.5-3.52c.59 0 1.11.14 1.58.42L16.41 6.2l1.5 1.5 2.67-2.67c.28.47.42.97.42 1.6 0 1.92-1.55 3.47-3.5 3.47"/></svg></span> Configuration Avancée<a class="headerlink" href="#configuration-avancee" title="Permanent link">&para;</a></h2>
+<h3 id="proprietes-spring-boot-compatibles">Propriétés Spring Boot Compatibles<a class="headerlink" href="#proprietes-spring-boot-compatibles" title="Permanent link">&para;</a></h3>
+<p>SpringFlow s'intègre avec la configuration Spring Boot standard:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nt">spring</span><span class="p">:</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">  </span><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="nt">web</span><span class="p">:</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">      </span><span class="nt">pageable</span><span class="p">:</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">        </span><span class="nt">default-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">        </span><span class="nt">max-page-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</code></pre></div>
+<p><strong>Note</strong>: Les valeurs <code>springflow.pagination.*</code> prennent le dessus sur <code>spring.data.web.pageable.*</code>.</p>
+<h3 id="variables-denvironnement">Variables d'Environnement<a class="headerlink" href="#variables-denvironnement" title="Permanent link">&para;</a></h3>
+<p>Toutes les propriétés peuvent être surchargées via variables d'environnement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Format: SPRINGFLOW_PROPERTY_NAME</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SPRINGFLOW_ENABLED</span><span class="o">=</span><span class="nb">true</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SPRINGFLOW_BASE_PATH</span><span class="o">=</span>/api/v2
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SPRINGFLOW_PAGINATION_DEFAULT_PAGE_SIZE</span><span class="o">=</span><span class="m">50</span>
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SPRINGFLOW_SWAGGER_TITLE</span><span class="o">=</span><span class="s2">&quot;My Custom API&quot;</span>
+</code></pre></div>
+<h3 id="applicationproperties-alternative">application.properties (Alternative)<a class="headerlink" href="#applicationproperties-alternative" title="Permanent link">&para;</a></h3>
+<p>Si vous préférez le format <code>.properties</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># springflow-starter/src/main/resources/application.properties</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="na">springflow.enabled</span><span class="o">=</span><span class="s">true</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="na">springflow.base-path</span><span class="o">=</span><span class="s">/api</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="na">springflow.base-packages</span><span class="o">=</span><span class="s">com.example.domain</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="na">springflow.pagination.default-page-size</span><span class="o">=</span><span class="s">20</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="na">springflow.pagination.max-page-size</span><span class="o">=</span><span class="s">100</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="na">springflow.pagination.page-parameter</span><span class="o">=</span><span class="s">page</span>
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="na">springflow.pagination.size-parameter</span><span class="o">=</span><span class="s">size</span>
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="na">springflow.pagination.sort-parameter</span><span class="o">=</span><span class="s">sort</span>
+<a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="na">springflow.pagination.one-indexed-parameters</span><span class="o">=</span><span class="s">false</span>
+<a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>
+<a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="na">springflow.swagger.enabled</span><span class="o">=</span><span class="s">true</span>
+<a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a><span class="na">springflow.swagger.title</span><span class="o">=</span><span class="s">My API</span>
+<a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="na">springflow.swagger.description</span><span class="o">=</span><span class="s">Auto-generated REST API</span>
+<a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="na">springflow.swagger.version</span><span class="o">=</span><span class="s">1.0.0</span>
+<a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a><span class="na">springflow.swagger.contact-name</span><span class="o">=</span><span class="s">Support</span>
+<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="na">springflow.swagger.contact-email</span><span class="o">=</span><span class="s">support@example.com</span>
+</code></pre></div>
+<hr />
+<h2 id="questions-frequentes"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 15H6l-4 4V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1m5-6v14l-4-4H8a1 1 0 0 1-1-1v-1h14V8h1a1 1 0 0 1 1 1M8.19 4c-.87 0-1.57.2-2.11.59-.52.41-.78.98-.77 1.77l.01.03h1.93c.01-.3.1-.53.28-.69a1 1 0 0 1 .66-.23c.31 0 .57.1.75.28.18.19.26.45.26.75 0 .32-.07.59-.23.82-.14.23-.35.43-.61.59-.51.34-.86.64-1.05.91C7.11 9.08 7 9.5 7 10h2c0-.31.04-.56.13-.74s.26-.36.51-.52c.45-.24.82-.53 1.11-.93s.44-.81.44-1.31c0-.76-.27-1.37-.81-1.82C9.85 4.23 9.12 4 8.19 4M7 11v2h2v-2zm6 2h2v-2h-2zm0-9v6h2V4z"/></svg></span> Questions Fréquentes<a class="headerlink" href="#questions-frequentes" title="Permanent link">&para;</a></h2>
+<h3 id="comment-desactiver-springflow-pour-certains-tests">Comment désactiver SpringFlow pour certains tests?<a class="headerlink" href="#comment-desactiver-springflow-pour-certains-tests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nd">@SpringBootTest</span><span class="p">(</span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;springflow.enabled=false&quot;</span><span class="p">)</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="kd">class</span> <span class="nc">MyTest</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="c1">// ...</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="comment-avoir-des-pages-de-1-a-n-au-lieu-de-0-a-n-1">Comment avoir des pages de 1 à N au lieu de 0 à N-1?<a class="headerlink" href="#comment-avoir-des-pages-de-1-a-n-au-lieu-de-0-a-n-1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">    </span><span class="nt">one-indexed-parameters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h3 id="puis-je-avoir-des-configurations-differentes-par-entite">Puis-je avoir des configurations différentes par entité?<a class="headerlink" href="#puis-je-avoir-des-configurations-differentes-par-entite" title="Permanent link">&para;</a></h3>
+<p>Non, la configuration est globale. Utilisez <code>@AutoApi(pagination = false)</code> pour désactiver la pagination sur une entité spécifique.</p>
+<h3 id="comment-acceder-a-swagger-ui">Comment accéder à Swagger UI?<a class="headerlink" href="#comment-acceder-a-swagger-ui" title="Permanent link">&para;</a></h3>
+<p>Par défaut: <code>http://localhost:8080/swagger-ui.html</code></p>
+<p>Avec custom port: <code>http://localhost:9090/swagger-ui.html</code></p>
+<h3 id="la-configuration-sapplique-t-elle-aux-composants-custom">La configuration s'applique-t-elle aux composants custom?<a class="headerlink" href="#la-configuration-sapplique-t-elle-aux-composants-custom" title="Permanent link">&para;</a></h3>
+<p>Partiellement. Le <code>base-path</code> s'applique si vous utilisez <code>@RequestMapping</code> sans chemin complet. Les composants custom ont un contrôle total sur leur comportement.</p>
+<hr />
+<h2 id="voir-aussi"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg></span> Voir Aussi<a class="headerlink" href="#voir-aussi" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="../../api/configuration/">Référence API Configuration</a></strong> - Documentation complète des propriétés</li>
+<li><strong><a href="../../getting-started/installation/">Installation</a></strong> - Premier pas avec SpringFlow</li>
+<li><strong><a href="../annotations/">Annotations</a></strong> - Configuration au niveau entité</li>
+<li><strong><a href="../pagination/">Pagination</a></strong> - Guide détaillé de la pagination</li>
+<li><strong><a href="../../advanced/custom-components/">Custom Components</a></strong> - Personnalisation avancée</li>
+</ul>
+<hr />
+<h2 id="resume-des-proprietes"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 4v4h6V8zm8 0v4h6V8zm-8 6v4h6v-4zm8 0v4h6v-4z"/></svg></span> Résumé des Propriétés<a class="headerlink" href="#resume-des-proprietes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Propriété</th>
+<th>Type</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active/désactive SpringFlow</td>
+</tr>
+<tr>
+<td><code>base-path</code></td>
+<td>String</td>
+<td><code>/api</code></td>
+<td>Chemin de base des endpoints</td>
+</tr>
+<tr>
+<td><code>base-packages</code></td>
+<td>String[]</td>
+<td><code>[]</code></td>
+<td>Packages à scanner</td>
+</tr>
+<tr>
+<td><strong>Pagination</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>default-page-size</code></td>
+<td>int</td>
+<td><code>20</code></td>
+<td>Taille de page par défaut</td>
+</tr>
+<tr>
+<td><code>max-page-size</code></td>
+<td>int</td>
+<td><code>100</code></td>
+<td>Taille maximum autorisée</td>
+</tr>
+<tr>
+<td><code>page-parameter</code></td>
+<td>String</td>
+<td><code>page</code></td>
+<td>Nom du paramètre de page</td>
+</tr>
+<tr>
+<td><code>size-parameter</code></td>
+<td>String</td>
+<td><code>size</code></td>
+<td>Nom du paramètre de taille</td>
+</tr>
+<tr>
+<td><code>sort-parameter</code></td>
+<td>String</td>
+<td><code>sort</code></td>
+<td>Nom du paramètre de tri</td>
+</tr>
+<tr>
+<td><code>one-indexed-parameters</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Pages commencent à 1 si true</td>
+</tr>
+<tr>
+<td><strong>Swagger</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active Swagger UI</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>String</td>
+<td><code>SpringFlow API</code></td>
+<td>Titre de l'API</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td><code>Auto-generated...</code></td>
+<td>Description</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>String</td>
+<td><code>1.0.0</code></td>
+<td>Version de l'API</td>
+</tr>
+<tr>
+<td><code>contact-name</code></td>
+<td>String</td>
+<td><code>null</code></td>
+<td>Nom du contact</td>
+</tr>
+<tr>
+<td><code>contact-email</code></td>
+<td>String</td>
+<td><code>null</code></td>
+<td>Email du contact</td>
+</tr>
+<tr>
+<td><code>contact-url</code></td>
+<td>String</td>
+<td><code>null</code></td>
+<td>URL du contact</td>
+</tr>
+<tr>
+<td><code>license-name</code></td>
+<td>String</td>
+<td><code>null</code></td>
+<td>Nom de la licence</td>
+</tr>
+<tr>
+<td><code>license-url</code></td>
+<td>String</td>
+<td><code>null</code></td>
+<td>URL de la licence</td>
+</tr>
+</tbody>
+</table>
+<p><a href="../../api/configuration/">Voir la référence API complète →</a></p>
 
 
 
@@ -2085,7 +3460,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 12:43:18 UTC">December 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 15:56:41 UTC">December 26, 2025</span>
   </span>
 
     
