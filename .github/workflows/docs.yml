@@ -29,10 +29,10 @@ jobs:
           python-version: '3.x'
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-mkdocs
           restore-keys: |
             ${{ runner.os }}-pip-
 
@@ -41,15 +41,21 @@ jobs:
           pip install --upgrade pip
           pip install mkdocs-material
           pip install mkdocs-git-revision-date-localized-plugin
-          pip install mike
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Build documentation
-        run: mkdocs build --strict
+        run: mkdocs build --strict --verbose
 
       - name: Deploy to GitHub Pages
-        run: mkdocs gh-deploy --force
+        run: |
+          mkdocs gh-deploy --force --verbose
 
       - name: Create deployment summary
+        if: success()
         run: |
           echo "## Documentation Deployment" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -58,3 +64,5 @@ jobs:
           echo "**URL:** https://tky0065.github.io/springflow/" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "⏳ Note: It may take a few minutes for the site to be available." >> $GITHUB_STEP_SUMMARY

@@ -44,14 +44,14 @@ jobs:
 
       - name: Archive test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results-java-${{ matrix.java }}
           path: '**/target/surefire-reports/*.xml'
 
       - name: Archive code coverage results
         if: matrix.java == '17'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: '**/target/site/jacoco/'
@@ -74,7 +74,7 @@ jobs:
           cache: 'maven'
 
       - name: Cache SonarQube packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
