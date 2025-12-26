@@ -12,14 +12,14 @@ SpringFlow est une bibliothèque qui automatise la génération de REST APIs CRU
 Fournir les fonctionnalités de base pour générer automatiquement des APIs CRUD complètes avec pagination, tri et documentation OpenAPI.
 
 ### Fonctionnalités clés
-- ✅ Annotation `@AutoApi` pour activer la génération automatique
-- ✅ Génération automatique de Repository, Service et Controller
-- ✅ CRUD complet (Create, Read, Update, Delete)
-- ✅ Pagination et Sorting
-- ✅ Documentation Swagger/OpenAPI automatique
-- ✅ Support Java et Kotlin
-- ✅ DTO auto-générés (Input/Output)
-- ✅ Validation JSR-380
+- :material-check-circle:{ .success } Annotation `@AutoApi` pour activer la génération automatique
+- :material-check-circle:{ .success } Génération automatique de Repository, Service et Controller
+- :material-check-circle:{ .success } CRUD complet (Create, Read, Update, Delete)
+- :material-check-circle:{ .success } Pagination et Sorting
+- :material-check-circle:{ .success } Documentation Swagger/OpenAPI automatique
+- :material-check-circle:{ .success } Support Java et Kotlin
+- :material-check-circle:{ .success } DTO auto-générés (Input/Output)
+- :material-check-circle:{ .success } Validation JSR-380
 
 ### Livrables
 - Bibliothèque core fonctionnelle
@@ -38,13 +38,13 @@ Fournir les fonctionnalités de base pour générer automatiquement des APIs CRU
 Ajouter des fonctionnalités avancées pour couvrir les cas d'usage complexes en production.
 
 ### Fonctionnalités clés
-- 🔄 Filtres dynamiques avec `@Filterable`
-- 🔐 Sécurité et gestion des rôles
-- 🗺️ Mapping avancé (relations JPA, lazy loading)
-- 🗑️ Soft Delete avec `@SoftDelete`
-- 🎯 Endpoints personnalisés (merge generated + custom)
-- 📊 Audit trail (createdAt, updatedAt, createdBy, updatedBy)
-- 🔍 Recherche full-text (optionnel)
+- :material-sync: Filtres dynamiques avec `@Filterable`
+- :material-shield-lock: Sécurité et gestion des rôles
+- :material-map: Mapping avancé (relations JPA, lazy loading)
+- :material-delete: Soft Delete avec `@SoftDelete`
+- :material-target: Endpoints personnalisés (merge generated + custom)
+- :material-clipboard-text: Audit trail (createdAt, updatedAt, createdBy, updatedBy)
+- :material-magnify: Recherche full-text (optionnel)
 
 ### Livrables
 - SpringFlow v2.0
@@ -63,13 +63,13 @@ Ajouter des fonctionnalités avancées pour couvrir les cas d'usage complexes en
 Étendre l'écosystème avec des outils et intégrations supplémentaires.
 
 ### Fonctionnalités clés
-- 🎨 Support GraphQL automatique
-- 💻 UI Admin auto-générée (React/Vue)
-- 🛠️ CLI pour scaffolding de projets
-- 🗄️ Support multi-DB (MongoDB, PostgreSQL avancé)
-- 📦 Plugins pour IDE (IntelliJ, VS Code)
-- 🌐 Internationalisation (i18n)
-- 📈 Métriques et monitoring intégrés
+- :material-graphql: Support GraphQL automatique
+- :material-monitor-dashboard: UI Admin auto-générée (React/Vue)
+- :material-tools: CLI pour scaffolding de projets
+- :material-database: Support multi-DB (MongoDB, PostgreSQL avancé)
+- :material-puzzle: Plugins pour IDE (IntelliJ, VS Code)
+- :material-web: Internationalisation (i18n)
+- :material-chart-line: Métriques et monitoring intégrés
 
 ### Livrables
 - SpringFlow v3.0
@@ -87,12 +87,12 @@ Ajouter des fonctionnalités avancées pour couvrir les cas d'usage complexes en
 
 | Milestone | Date estimée | Description |
 |-----------|--------------|-------------|
-| 🎯 MVP Alpha | Semaine 8 | CRUD basique + Swagger fonctionnel |
-| 🚀 MVP Release | Semaine 10 | Version 1.0 prête pour production |
-| 🔥 Advanced Beta | Semaine 16 | Filtres + Sécurité + Soft Delete |
-| 💎 Advanced Release | Semaine 18 | Version 2.0 avec features avancées |
-| 🌟 Extended Beta | Semaine 24 | GraphQL + Admin UI |
-| 🏆 Full Release | Semaine 26 | Version 3.0 - Écosystème complet |
+| :material-target: MVP Alpha | Semaine 8 | CRUD basique + Swagger fonctionnel |
+| :material-rocket-launch: MVP Release | Semaine 10 | Version 1.0 prête pour production |
+| :material-fire: Advanced Beta | Semaine 16 | Filtres + Sécurité + Soft Delete |
+| :material-diamond: Advanced Release | Semaine 18 | Version 2.0 avec features avancées |
+| :material-star: Extended Beta | Semaine 24 | GraphQL + Admin UI |
+| :material-trophy: Full Release | Semaine 26 | Version 3.0 - Écosystème complet |
 
 ---
 
@@ -151,19 +151,19 @@ Ajouter des fonctionnalités avancées pour couvrir les cas d'usage complexes en
 ## Métriques de succès
 
 ### Phase 1
-- ✅ API CRUD fonctionnelle en < 5 lignes de code
-- ✅ Génération < 2 secondes au démarrage
-- ✅ Documentation automatique complète
+- :material-check-circle:{ .success } API CRUD fonctionnelle en < 5 lignes de code
+- :material-check-circle:{ .success } Génération < 2 secondes au démarrage
+- :material-check-circle:{ .success } Documentation automatique complète
 
 ### Phase 2
-- ✅ 90% des cas d'usage couverts
-- ✅ Performance équivalente à code manuel
-- ✅ Sécurité production-ready
+- :material-check-circle:{ .success } 90% des cas d'usage couverts
+- :material-check-circle:{ .success } Performance équivalente à code manuel
+- :material-check-circle:{ .success } Sécurité production-ready
 
 ### Phase 3
-- ✅ Écosystème complet d'outils
-- ✅ Adoption par 100+ projets
-- ✅ Contributeurs externes actifs
+- :material-check-circle:{ .success } Écosystème complet d'outils
+- :material-check-circle:{ .success } Adoption par 100+ projets
+- :material-check-circle:{ .success } Contributeurs externes actifs
 
 ---
 

@@ -13,26 +13,26 @@ Kotlin support is fully configured in:
 
 ## Features Supported
 
-### ✅ Kotlin Data Classes
+### :material-check-circle:{ .success } Kotlin Data Classes
 - Full support for Kotlin `data class` as JPA entities
 - Support for `@AutoApi` annotation on data classes
 - All SpringFlow annotations work with Kotlin
 
-### ✅ Nullable Types
+### :material-check-circle:{ .success } Nullable Types
 - Kotlin nullable types (`String?`, `Int?`) are fully supported
 - Proper detection of nullable/non-nullable fields
 - Validation annotations work with nullable types
 
-### ✅ Annotation Targets
+### :material-check-circle:{ .success } Annotation Targets
 - Support for `@field:NotBlank`, `@field:Email`, etc.
 - Support for `@get:NotBlank` annotation targets
 - All JSR-380 validation annotations compatible
 
-### ✅ Default Values
+### :material-check-circle:{ .success } Default Values
 - Kotlin default parameter values are preserved
 - Works with JPA no-arg constructor requirement
 
-### ✅ SpringFlow Features
+### :material-check-circle:{ .success } SpringFlow Features
 - Metadata resolution from Kotlin classes
 - DTO mapping (entity ↔ Map)
 - Repository generation

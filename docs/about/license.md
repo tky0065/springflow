@@ -24,10 +24,10 @@ limitations under the License.
 
 The Apache License 2.0 is a permissive free software license that:
 
-- ✅ **Permits**: Commercial use, modification, distribution, patent use, and private use
-- ✅ **Requires**: License and copyright notice inclusion, and state changes documentation
-- ✅ **Allows**: Sublicensing under compatible licenses
-- ❌ **Does not provide**: Trademark use rights or warranty
+- :material-check-circle:{ .success } **Permits**: Commercial use, modification, distribution, patent use, and private use
+- :material-check-circle:{ .success } **Requires**: License and copyright notice inclusion, and state changes documentation
+- :material-check-circle:{ .success } **Allows**: Sublicensing under compatible licenses
+- :material-close-circle:{ .error } **Does not provide**: Trademark use rights or warranty
 
 ## Full License Text
 
