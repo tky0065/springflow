@@ -1048,11 +1048,11 @@ https://central.sonatype.com/api-doc
 - [ ] DataLoader support (deferred to future enhancement)
 
 #### 22.6 Tests
-- [ ] Test GraphQL queries (in progress)
-- [ ] Test GraphQL mutations (in progress)
-- [ ] Test filtres (deferred)
-- [ ] Test pagination (in progress)
-- [ ] Test relations (deferred)
+- [x] Test GraphQL queries (GraphQLIntegrationTest)
+- [x] Test GraphQL mutations (GraphQLIntegrationTest)
+- [ ] Test filtres (deferred to future enhancement)
+- [x] Test pagination (GraphQLIntegrationTest)
+- [ ] Test relations (deferred to future enhancement)
 
 ---
 
