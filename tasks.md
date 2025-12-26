@@ -900,9 +900,10 @@ https://central.sonatype.com/api-doc
 
  #### 18.2 Lazy Loading DTOs
 - [x] Configuration lazy/eager per relation (Inherited from JPA)
-- [ ] Éviter N+1 queries
-- [ ] EntityGraph usage
-- [ ] Fetch joins
+- [x] Fix MultipleBagFetchException by refined fetching
+- [x] Éviter N+1 queries
+- [x] EntityGraph usage (via fetch joins)
+- [x] Fetch joins
  
  #### 18.3 MapStruct Integration
  - [ ] Ajouter MapStruct dependency
