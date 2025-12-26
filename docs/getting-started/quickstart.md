@@ -349,6 +349,44 @@ SpringFlow requires Lombok 1.18.36+ for Java 21+ compatibility. Update if needed
 - See [Roadmap](../about/roadmap.md) for upcoming features
 - Explore the demo application for complete examples
 
+## :material-cog: Customization
+
+SpringFlow automatically generates repositories, services, and controllers, but **you can provide your own custom implementations** for any layer.
+
+!!! tip "Custom Components"
+    SpringFlow will automatically detect and use your custom components instead of generating them.
+
+    **Convention**: Use the naming pattern `{EntityName}Repository`, `{EntityName}Service`, `{EntityName}Controller`
+
+**4 Customization Scenarios**:
+
+1. **Custom Repository Only** - Add complex queries, JPQL, specifications
+2. **Custom Service** - Add business logic, validation, hooks (beforeCreate, afterCreate, etc.)
+3. **Custom Controller** - Add custom endpoints beyond CRUD
+4. **Fully Custom** - Complete control over all three layers
+
+Example - Custom Service with validation hooks:
+
+```java
+@Service
+public class ProductService extends GenericCrudService<Product, Long> {
+
+    public ProductService(@Qualifier("productRepository") JpaRepository<Product, Long> repository) {
+        super(repository, Product.class);
+    }
+
+    @Override
+    protected void beforeCreate(Product product) {
+        // Custom validation
+        if (product.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Price must be positive");
+        }
+    }
+}
+```
+
+**Learn More**: See [Custom Components](../advanced/custom-components.md) for complete documentation with 4 detailed scenarios, troubleshooting, and best practices.
+
 ## Need Help?
 
 - :material-book-open-variant: Documentation: See [User Guide](../guide/index.md)

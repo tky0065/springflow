@@ -97,6 +97,7 @@ nav:
   - Advanced:
       - advanced/index.md
       - Architecture: advanced/architecture.md
+      - Custom Components: advanced/custom-components.md
       - Custom Endpoints: advanced/custom-endpoints.md
       - Performance: advanced/performance.md
       - Best Practices: advanced/best-practices.md

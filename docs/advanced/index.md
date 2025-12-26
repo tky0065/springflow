@@ -12,11 +12,17 @@ Maîtrisez les concepts avancés de SpringFlow pour optimiser vos applications.
 
     Comprendre l'architecture interne de SpringFlow
 
+-   :material-cog-outline: **[Custom Components](custom-components.md)**
+
+    ---
+
+    Repositories, Services et Controllers personnalisés - Guide complet avec 4 scénarios
+
 -   :material-api: **[Custom Endpoints](custom-endpoints.md)**
 
     ---
 
-    Ajouter vos propres endpoints personnalisés
+    Exemples rapides pour ajouter des endpoints personnalisés
 
 -   :material-speedometer: **[Performance](performance.md)**
 
@@ -37,6 +43,7 @@ Maîtrisez les concepts avancés de SpringFlow pour optimiser vos applications.
 Cette section est destinée aux développeurs qui souhaitent :
 
 - **Comprendre** comment SpringFlow fonctionne sous le capot
+- **Personnaliser** repositories, services et controllers avec leurs propres implémentations
 - **Étendre** le comportement par défaut avec des endpoints custom
 - **Optimiser** les performances pour la production
 - **Appliquer** les meilleures pratiques
@@ -53,12 +60,14 @@ SpringFlow génère les composants **au runtime** via :
 
 ### Extensibilité
 
-SpringFlow est conçu pour être étendu :
+SpringFlow est conçu pour être étendu avec vos composants personnalisés :
 
-- Override des contrôleurs générés
-- Hooks de service personnalisés
-- Specifications JPA personnalisées
-- Intégration avec votre architecture existante
+- **Détection automatique** - SpringFlow détecte et respecte vos repositories, services et controllers custom
+- **4 scénarios** - Repository seul, Service seul, Controller seul, ou tous les trois custom
+- **Classes de base** - Étendez `GenericCrudService` et `GenericCrudController` pour hériter des fonctionnalités
+- **Hooks de lifecycle** - beforeCreate, afterCreate, beforeUpdate, afterUpdate, beforeDelete, afterDelete
+- **Specifications JPA** - Vos repositories peuvent ajouter des méthodes de requête personnalisées
+- **Intégration** - Compatible avec votre architecture Spring existante
 
 ### Performance
 

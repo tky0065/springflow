@@ -474,6 +474,623 @@ public class User {
 
 ## 🎨 Personnalisation
 
+SpringFlow génère automatiquement repositories, services et controllers, mais vous pouvez fournir vos propres implémentations personnalisées pour n'importe quelle couche. **SpringFlow détectera automatiquement vos composants custom et sautera la génération pour ces couches.**
+
+### :material-cog: Convention de Nommage pour Détection Automatique
+
+Pour que SpringFlow détecte vos composants personnalisés, **respectez strictement cette convention**:
+
+| Composant | Convention | Exemple |
+|-----------|------------|---------|
+| Repository | `{EntityName}Repository` | `OrderRepository` pour l'entité `Order` |
+| Service | `{EntityName}Service` | `InvoiceService` pour l'entité `Invoice` |
+| Controller | `{EntityName}Controller` | `ShipmentController` pour l'entité `Shipment` |
+
+:material-alert-circle: **Important**: Si le nom ne correspond pas exactement, SpringFlow générera un bean supplémentaire, ce qui causera des conflits!
+
+### :material-strategy: Scénarios de Personnalisation
+
+#### 1. Repository Personnalisé Uniquement
+
+**Cas d'usage**: Requêtes complexes, méthodes JPA spécifiques, queries JPQL/native
+
+SpringFlow génère le service et le controller, mais utilise votre repository custom.
+
+```java
+@Entity
+@AutoApi(path = "/orders", description = "Order management")
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String orderNumber;
+
+    @Column(nullable = false)
+    private BigDecimal totalAmount;
+
+    private String status;
+
+    // getters/setters
+}
+```
+
+```java
+@Repository
+public interface OrderRepository extends JpaRepository<Order, Long>,
+                                          JpaSpecificationExecutor<Order> {
+    // Méthodes de requête personnalisées
+    Optional<Order> findByOrderNumber(String orderNumber);
+
+    List<Order> findByStatus(String status);
+
+    List<Order> findByTotalAmountGreaterThanEqual(BigDecimal minAmount);
+
+    // Query JPQL personnalisée
+    @Query("SELECT COALESCE(SUM(o.totalAmount), 0) FROM Order o WHERE o.status = :status")
+    BigDecimal calculateTotalRevenueByStatus(@Param("status") String status);
+}
+```
+
+:material-check-circle: **Résultat**:
+- :material-close: `orderRepository` → Votre implémentation custom (détectée, génération sautée)
+- :material-check: `orderService` → Généré automatiquement par SpringFlow
+- :material-check: `orderController` → Généré automatiquement par SpringFlow
+
+#### 2. Service Personnalisé avec Logique Métier
+
+**Cas d'usage**: Validation métier, workflows, règles du domaine, intégrations
+
+Étendez `GenericCrudService` pour hériter des méthodes CRUD et ajouter votre logique.
+
+```java
+@Entity
+@AutoApi(path = "/invoices", description = "Invoice management")
+public class Invoice {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String invoiceNumber;
+
+    @Column(nullable = false)
+    private BigDecimal amount;
+
+    @Column(nullable = false)
+    private LocalDateTime issueDate;
+
+    private LocalDateTime dueDate;
+    private String status;
+
+    // getters/setters
+}
+```
+
+```java
+@Service
+public class InvoiceService extends GenericCrudService<Invoice, Long> {
+
+    public InvoiceService(JpaRepository<Invoice, Long> repository) {
+        super(repository, Invoice.class);
+    }
+
+    // Hook: Validation avant création
+    @Override
+    protected void beforeCreate(Invoice invoice) {
+        // Validation: montant positif
+        if (invoice.getAmount() == null || invoice.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Invoice amount must be positive");
+        }
+
+        // Auto-génération du numéro de facture
+        if (invoice.getInvoiceNumber() == null || invoice.getInvoiceNumber().isBlank()) {
+            invoice.setInvoiceNumber("INV-" + System.currentTimeMillis());
+        }
+
+        // Date d'émission par défaut
+        if (invoice.getIssueDate() == null) {
+            invoice.setIssueDate(LocalDateTime.now());
+        }
+
+        // Date d'échéance (30 jours)
+        if (invoice.getDueDate() == null) {
+            invoice.setDueDate(invoice.getIssueDate().plusDays(30));
+        }
+
+        // Statut par défaut
+        if (invoice.getStatus() == null) {
+            invoice.setStatus("DRAFT");
+        }
+    }
+
+    // Hook: Validation avant mise à jour
+    @Override
+    protected void beforeUpdate(Invoice existing, Invoice updated) {
+        // Empêcher modification des factures émises
+        if ("ISSUED".equals(existing.getStatus()) || "PAID".equals(existing.getStatus())) {
+            if (!existing.getInvoiceNumber().equals(updated.getInvoiceNumber())) {
+                throw new IllegalStateException("Cannot change invoice number for issued invoices");
+            }
+            if (existing.getAmount().compareTo(updated.getAmount()) != 0) {
+                throw new IllegalStateException("Cannot change amount for issued invoices");
+            }
+        }
+    }
+
+    // Méthode métier personnalisée
+    public BigDecimal getTotalRevenue() {
+        return repository.findAll().stream()
+                .map(Invoice::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public List<Invoice> findOverdueInvoices() {
+        LocalDateTime now = LocalDateTime.now();
+        return repository.findAll().stream()
+                .filter(invoice -> !"PAID".equals(invoice.getStatus()) &&
+                                   invoice.getDueDate() != null &&
+                                   invoice.getDueDate().isBefore(now))
+                .toList();
+    }
+
+    public Invoice issueInvoice(Long id) {
+        Invoice invoice = findById(id);
+        if (!"DRAFT".equals(invoice.getStatus())) {
+            throw new IllegalStateException("Only draft invoices can be issued");
+        }
+        invoice.setStatus("ISSUED");
+        invoice.setIssueDate(LocalDateTime.now());
+        return repository.save(invoice);
+    }
+}
+```
+
+:material-check-circle: **Résultat**:
+- :material-check: `invoiceRepository` → Généré automatiquement par SpringFlow
+- :material-close: `invoiceService` → Votre implémentation custom (détectée, génération sautée)
+- :material-check: `invoiceController` → Généré automatiquement par SpringFlow
+
+**Hooks disponibles**:
+- `beforeCreate(T entity)` - Avant création
+- `afterCreate(T entity)` - Après création
+- `beforeUpdate(T existing, T updated)` - Avant mise à jour
+- `afterUpdate(T entity)` - Après mise à jour
+- `beforeDelete(ID id)` - Avant suppression
+- `afterDelete(ID id)` - Après suppression
+
+#### 3. Controller Personnalisé avec Endpoints Additionnels
+
+**Cas d'usage**: Endpoints non-CRUD, opérations métier spécifiques, workflows complexes
+
+Étendez `GenericCrudController` pour hériter des endpoints CRUD et ajouter les vôtres.
+
+```java
+@Entity
+@AutoApi(path = "/shipments", description = "Shipment tracking")
+public class Shipment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String trackingNumber;
+
+    @Column(nullable = false)
+    private String status;
+
+    private LocalDateTime shippedDate;
+    private LocalDateTime estimatedDeliveryDate;
+    private LocalDateTime actualDeliveryDate;
+    private String carrier;
+
+    // getters/setters
+}
+```
+
+```java
+@RestController
+@RequestMapping("/api/shipments")
+public class ShipmentController extends GenericCrudController<Shipment, Long> {
+
+    public ShipmentController(
+            @Qualifier("shipmentService") GenericCrudService<Shipment, Long> service,
+            @Qualifier("shipmentDtoMapper") DtoMapper<Shipment, Long> dtoMapper,
+            FilterResolver filterResolver,
+            @Qualifier("shipmentMetadata") EntityMetadata metadata
+    ) {
+        super(service, dtoMapper, filterResolver, metadata, Shipment.class);
+    }
+
+    @Override
+    protected Long getEntityId(Shipment entity) {
+        return entity.getId();
+    }
+
+    // Endpoint personnalisé: Mettre à jour le statut
+    @PutMapping("/{id}/update-status")
+    public ResponseEntity<Map<String, Object>> updateStatus(
+            @PathVariable Long id,
+            @RequestParam String status
+    ) {
+        Shipment shipment = service.findById(id);
+        shipment.setStatus(status);
+
+        // Logique métier selon le statut
+        LocalDateTime now = LocalDateTime.now();
+        switch (status) {
+            case "IN_TRANSIT" -> {
+                if (shipment.getShippedDate() == null) {
+                    shipment.setShippedDate(now);
+                }
+            }
+            case "DELIVERED" -> shipment.setActualDeliveryDate(now);
+        }
+
+        Shipment updated = service.save(shipment);
+        return ResponseEntity.ok(dtoMapper.toOutputDto(updated));
+    }
+
+    // Endpoint personnalisé: Expédier
+    @PostMapping("/{id}/ship")
+    public ResponseEntity<Map<String, Object>> ship(
+            @PathVariable Long id,
+            @RequestParam(required = false) String carrier
+    ) {
+        Shipment shipment = service.findById(id);
+
+        if (!"PENDING".equals(shipment.getStatus())) {
+            throw new IllegalStateException("Only pending shipments can be shipped");
+        }
+
+        shipment.setStatus("IN_TRANSIT");
+        shipment.setShippedDate(LocalDateTime.now());
+        if (carrier != null) {
+            shipment.setCarrier(carrier);
+        }
+
+        Shipment updated = service.save(shipment);
+        return ResponseEntity.ok(dtoMapper.toOutputDto(updated));
+    }
+
+    // Endpoint personnalisé: Tracking
+    @GetMapping("/{id}/tracking")
+    public ResponseEntity<TrackingInfo> getTracking(@PathVariable Long id) {
+        Shipment shipment = service.findById(id);
+        TrackingInfo trackingInfo = new TrackingInfo(
+                shipment.getTrackingNumber(),
+                shipment.getStatus(),
+                shipment.getCarrier(),
+                shipment.getShippedDate(),
+                shipment.getEstimatedDeliveryDate(),
+                shipment.getActualDeliveryDate()
+        );
+        return ResponseEntity.ok(trackingInfo);
+    }
+
+    public record TrackingInfo(
+            String trackingNumber,
+            String status,
+            String carrier,
+            LocalDateTime shippedDate,
+            LocalDateTime estimatedDeliveryDate,
+            LocalDateTime actualDeliveryDate
+    ) {}
+}
+```
+
+:material-check-circle: **Résultat**:
+- :material-check: `shipmentRepository` → Généré automatiquement par SpringFlow
+- :material-check: `shipmentService` → Généré automatiquement par SpringFlow
+- :material-close: `shipmentController` → Votre implémentation custom (détectée, génération sautée)
+
+**Endpoints disponibles**:
+- :material-check: `GET /api/shipments` - Liste (hérité)
+- :material-check: `GET /api/shipments/{id}` - Détail (hérité)
+- :material-check: `POST /api/shipments` - Création (hérité)
+- :material-check: `PUT /api/shipments/{id}` - Mise à jour (hérité)
+- :material-check: `DELETE /api/shipments/{id}` - Suppression (hérité)
+- :material-plus-circle: `PUT /api/shipments/{id}/update-status` - Custom
+- :material-plus-circle: `POST /api/shipments/{id}/ship` - Custom
+- :material-plus-circle: `GET /api/shipments/{id}/tracking` - Custom
+
+#### 4. Implémentation Complètement Personnalisée
+
+**Cas d'usage**: Contrôle total, logique très spécifique, ne pas utiliser les patterns SpringFlow
+
+Pour un contrôle complet, implémentez les trois couches sans étendre les classes de base.
+
+```java
+@Entity
+@AutoApi(path = "/customers", description = "Customer management")
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String customerCode;
+
+    @Column(nullable = false)
+    private String companyName;
+
+    @Column(unique = true)
+    private String email;
+
+    private String status; // ACTIVE, INACTIVE, SUSPENDED
+
+    // getters/setters
+}
+```
+
+```java
+// Repository custom
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Optional<Customer> findByCustomerCode(String customerCode);
+    Optional<Customer> findByEmail(String email);
+    List<Customer> findByStatus(String status);
+    boolean existsByCustomerCode(String customerCode);
+    boolean existsByEmail(String email);
+    long countByStatus(String status);
+}
+
+// Service custom (ne pas étendre GenericCrudService)
+@Service
+@Transactional
+public class CustomerService {
+
+    private final CustomerRepository repository;
+
+    public CustomerService(CustomerRepository repository) {
+        this.repository = repository;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Customer> findAll() {
+        return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Customer findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Customer.class, id));
+    }
+
+    public Customer create(Customer customer) {
+        // Validation
+        if (customer.getCompanyName() == null || customer.getCompanyName().isBlank()) {
+            throw new IllegalArgumentException("Company name is required");
+        }
+
+        // Auto-génération du code client
+        if (customer.getCustomerCode() == null || customer.getCustomerCode().isBlank()) {
+            customer.setCustomerCode(generateCustomerCode());
+        }
+
+        // Vérifier unicité
+        if (repository.existsByCustomerCode(customer.getCustomerCode())) {
+            throw new IllegalArgumentException("Customer code already exists");
+        }
+
+        // Statut par défaut
+        if (customer.getStatus() == null) {
+            customer.setStatus("ACTIVE");
+        }
+
+        return repository.save(customer);
+    }
+
+    public Customer update(Long id, Customer customer) {
+        Customer existing = findById(id);
+
+        // Ne pas permettre de changer le code client
+        if (customer.getCustomerCode() != null &&
+            !customer.getCustomerCode().equals(existing.getCustomerCode())) {
+            throw new IllegalArgumentException("Cannot change customer code");
+        }
+
+        // Mettre à jour les champs
+        if (customer.getCompanyName() != null) {
+            existing.setCompanyName(customer.getCompanyName());
+        }
+        if (customer.getEmail() != null) {
+            existing.setEmail(customer.getEmail());
+        }
+        if (customer.getStatus() != null) {
+            existing.setStatus(customer.getStatus());
+        }
+
+        return repository.save(existing);
+    }
+
+    public void deleteById(Long id) {
+        if (!repository.existsById(id)) {
+            throw new EntityNotFoundException(Customer.class, id);
+        }
+        repository.deleteById(id);
+    }
+
+    public Customer activate(Long id) {
+        Customer customer = findById(id);
+        customer.setStatus("ACTIVE");
+        return repository.save(customer);
+    }
+
+    private String generateCustomerCode() {
+        return "CUST-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    }
+
+    public CustomerStats getStatistics() {
+        long total = repository.count();
+        long active = repository.countByStatus("ACTIVE");
+        long inactive = repository.countByStatus("INACTIVE");
+        long suspended = repository.countByStatus("SUSPENDED");
+        return new CustomerStats(total, active, inactive, suspended);
+    }
+
+    public record CustomerStats(long total, long active, long inactive, long suspended) {}
+}
+
+// Controller custom (ne pas étendre GenericCrudController)
+@RestController
+@RequestMapping("/api/customers")
+public class CustomerController {
+
+    private final CustomerService service;
+
+    public CustomerController(CustomerService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Customer>> findAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<Customer> create(@Valid @RequestBody Customer customer) {
+        if (customer.getId() != null) {
+            throw new IllegalArgumentException("A new customer cannot have an ID");
+        }
+        Customer created = service.create(customer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> update(
+            @PathVariable Long id,
+            @Valid @RequestBody Customer customer
+    ) {
+        Customer updated = service.update(id, customer);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/activate")
+    public ResponseEntity<Customer> activate(@PathVariable Long id) {
+        return ResponseEntity.ok(service.activate(id));
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<CustomerService.CustomerStats> getStatistics() {
+        return ResponseEntity.ok(service.getStatistics());
+    }
+}
+```
+
+:material-check-circle: **Résultat**:
+- :material-close: `customerRepository` → Votre implémentation custom (détectée, génération sautée)
+- :material-close: `customerService` → Votre implémentation custom (détectée, génération sautée)
+- :material-close: `customerController` → Votre implémentation custom (détectée, génération sautée)
+
+### :material-lightbulb: Tableau des Cas d'Usage
+
+| Besoin | Couche(s) Custom | Raison | Exemple |
+|--------|------------------|--------|---------|
+| Requêtes SQL complexes | Repository | Queries JPQL, native SQL, specifications | `OrderRepository` avec `calculateTotalRevenueByStatus()` |
+| Validation métier avancée | Service | Règles domaine, workflows, états | `InvoiceService` avec validation montant et statut |
+| Endpoints spécifiques | Controller | Opérations non-CRUD, actions métier | `ShipmentController` avec `/ship`, `/deliver` |
+| Auto-génération de données | Service | Numéros uniques, codes, timestamps | `CustomerService` avec `generateCustomerCode()` |
+| Contrôle total | Tous | Domaines complexes, patterns spécifiques | `Customer` avec logique complètement custom |
+| Intégrations externes | Service | APIs tierces, messagerie, cache | Service avec appels REST, Kafka, Redis |
+| Sécurité fine | Controller ou Service | Autorisation par méthode, ACL | Controller avec `@PreAuthorize` |
+| Audit et logging | Service | Traçabilité, événements métier | Service avec hooks `after*` |
+
+### :material-check-decagram: Best Practices
+
+1. **:material-arrow-up: Étendre les classes de base** quand possible
+   - Héritez de `GenericCrudService` ou `GenericCrudController`
+   - Vous bénéficiez des fonctionnalités standard + vos ajouts
+   - Moins de code à maintenir
+
+2. **:material-hook: Utiliser les hooks** pour la logique transversale
+   - `beforeCreate` / `afterCreate` pour validation et logging
+   - `beforeUpdate` / `afterUpdate` pour cohérence des données
+   - `beforeDelete` / `afterDelete` pour cleanup et vérifications
+
+3. **:material-tag: Respecter la convention de nommage**
+   - `{EntityName}Repository`, `{EntityName}Service`, `{EntityName}Controller`
+   - Exactement comme le nom de l'entité (case-sensitive)
+   - Sinon SpringFlow générera un bean en doublon!
+
+4. **:material-puzzle: Mixer custom et généré** selon vos besoins
+   - Repository custom pour queries → Service et Controller générés
+   - Service custom pour métier → Repository et Controller générés
+   - Pas besoin de tout faire custom!
+
+5. **:material-code-braces: @Qualifier et DtoMapperFactory**
+   - Si vous étendez `GenericCrudController`, utilisez `@Qualifier` pour le service et injectez `DtoMapperFactory`:
+   ```java
+   public ShipmentController(
+       @Qualifier("shipmentService") GenericCrudService<Shipment, Long> service,
+       DtoMapperFactory dtoMapperFactory,
+       FilterResolver filterResolver
+   ) {
+       super(service,
+             dtoMapperFactory.getMapper(Shipment.class, new MetadataResolver().resolve(Shipment.class)),
+             filterResolver,
+             new MetadataResolver().resolve(Shipment.class),
+             Shipment.class);
+   }
+   ```
+
+   - Si vous étendez `GenericCrudService`, utilisez `@Qualifier` pour le repository:
+   ```java
+   public InvoiceService(@Qualifier("invoiceRepository") JpaRepository<Invoice, Long> repository) {
+       super(repository, Invoice.class);
+   }
+   ```
+
+### :material-alert-decagram: Troubleshooting
+
+**Problème**: SpringFlow génère encore un bean alors que j'ai un composant custom
+
+:material-arrow-right: **Solution**: Vérifiez la convention de nommage
+- Le bean doit s'appeler exactement `{entityName}Repository`, `{entityName}Service`, ou `{entityName}Controller`
+- Respectez la casse: `ProductService` pour `Product`, pas `productservice` ou `ProductSvc`
+
+**Problème**: `No qualifying bean of type 'GenericCrudService<MyEntity, Long>'`
+
+:material-arrow-right: **Solution**: Ajoutez `@Qualifier` au constructeur du controller custom
+```java
+public MyController(
+    @Qualifier("myEntityService") GenericCrudService<MyEntity, Long> service
+) { ... }
+```
+
+**Problème**: `log has private access in GenericCrudService`
+
+:material-arrow-right: **Solution**: Ajoutez votre propre logger dans la classe custom
+```java
+@Service
+public class MyService extends GenericCrudService<MyEntity, Long> {
+    private static final Logger log = LoggerFactory.getLogger(MyService.class);
+    // ...
+}
+```
+
+**Problème**: Mon repository custom n'a pas les méthodes de filtrage
+
+:material-arrow-right: **Solution**: Étendez aussi `JpaSpecificationExecutor`
+```java
+public interface MyRepository extends JpaRepository<MyEntity, Long>,
+                                       JpaSpecificationExecutor<MyEntity> {
+    // ...
+}
+```
+
 ### Ajouter des endpoints personnalisés
 
 Vous pouvez créer votre propre controller qui étend `GenericCrudController`:
