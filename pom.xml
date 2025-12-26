@@ -48,6 +48,7 @@
     <modules>
         <module>springflow-annotations</module>
         <module>springflow-core</module>
+        <module>springflow-graphql</module>
         <module>springflow-starter</module>
         <module>springflow-demo</module>
     </modules>
@@ -88,6 +89,11 @@
             <dependency>
                 <groupId>io.github.tky0065</groupId>
                 <artifactId>springflow-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.tky0065</groupId>
+                <artifactId>springflow-graphql</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

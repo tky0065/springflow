@@ -1020,39 +1020,39 @@ https://central.sonatype.com/api-doc
 ### 🎨 Module 22: GraphQL Support (Semaines 18-20)
 
 #### 22.1 Spring GraphQL Integration
-- [ ] Ajouter dependency spring-boot-starter-graphql
-- [ ] Configuration GraphQL
-- [ ] Auto-configuration
+- [x] Ajouter dependency spring-boot-starter-graphql
+- [x] Configuration GraphQL
+- [x] Auto-configuration
 
 #### 22.2 Schema Generation
-- [ ] Générer types GraphQL depuis entités
-- [ ] Générer queries
-- [ ] Générer mutations
-- [ ] Générer input types
+- [x] Générer types GraphQL depuis entités
+- [x] Générer queries
+- [x] Générer mutations
+- [x] Générer input types
 
 #### 22.3 Query Resolvers
-- [ ] Query `products(page, size): ProductPage`
-- [ ] Query `product(id): Product`
-- [ ] Pagination GraphQL
-- [ ] Filtres GraphQL
+- [x] Query `products(page, size): ProductPage`
+- [x] Query `product(id): Product`
+- [x] Pagination GraphQL
+- [ ] Filtres GraphQL (deferred to future enhancement)
 
 #### 22.4 Mutation Resolvers
-- [ ] Mutation `createProduct(input): Product`
-- [ ] Mutation `updateProduct(id, input): Product`
-- [ ] Mutation `deleteProduct(id): Boolean`
+- [x] Mutation `createProduct(input): Product`
+- [x] Mutation `updateProduct(id, input): Product`
+- [x] Mutation `deleteProduct(id): Boolean`
 
 #### 22.5 DataFetchers
-- [ ] Auto-generate DataFetchers
-- [ ] Relations loading
-- [ ] N+1 problem solution
-- [ ] DataLoader support
+- [x] Auto-generate DataFetchers (via GenericGraphQLController)
+- [ ] Relations loading (deferred to future enhancement)
+- [ ] N+1 problem solution (deferred to future enhancement)
+- [ ] DataLoader support (deferred to future enhancement)
 
 #### 22.6 Tests
-- [ ] Test GraphQL queries
-- [ ] Test GraphQL mutations
-- [ ] Test filtres
-- [ ] Test pagination
-- [ ] Test relations
+- [ ] Test GraphQL queries (requires integration testing in demo app)
+- [ ] Test GraphQL mutations (requires integration testing in demo app)
+- [ ] Test filtres (deferred)
+- [ ] Test pagination (requires integration testing in demo app)
+- [ ] Test relations (deferred)
 
 ---
 
