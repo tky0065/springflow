@@ -23,14 +23,30 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.tabs
-    - navigation.sections
-    - navigation.expand
-    - navigation.top
-    - search.highlight
-    - search.share
-    - content.code.copy
-    - content.code.annotate
+    # Navigation
+    - navigation.tabs              # Tabs en haut
+    - navigation.tabs.sticky       # Tabs restent visibles en scrollant
+    - navigation.sections          # Sections dans la sidebar
+    - navigation.expand            # Sections expandées par défaut
+    - navigation.path              # Breadcrumb path
+    - navigation.indexes           # Pages d'index pour sections
+    - navigation.top               # Bouton "retour en haut"
+    - navigation.footer            # Liens prev/next en bas
+    - navigation.tracking          # URL tracking
+
+    # Table of contents
+    - toc.follow                   # TOC suit le scroll
+    - toc.integrate                # TOC intégrée dans la sidebar
+
+    # Search
+    - search.highlight             # Highlight résultats
+    - search.share                 # Partage lien de recherche
+    - search.suggest               # Suggestions de recherche
+
+    # Code
+    - content.code.copy            # Bouton copier code
+    - content.code.annotate        # Annotations dans code
+    - content.tabs.link            # Tabs synchronisés
 
 plugins:
   - search
@@ -57,35 +73,44 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started:
+      - getting-started/index.md
       - Quick Start: getting-started/quickstart.md
       - Installation: getting-started/installation.md
       - First Project: getting-started/first-project.md
   - User Guide:
-      - Annotations: guide/annotations.md
-      - Configuration: guide/configuration.md
-      - DTO Mapping: guide/dto-mapping.md
-      - Filtering: guide/filtering.md
-      - Pagination & Sorting: guide/pagination.md
-      - Validation: guide/validation.md
-      - Security: guide/security.md
-      - Soft Delete: guide/soft-delete.md
-      - Auditing: guide/auditing.md
-      - Kotlin Support: guide/kotlin.md
+      - guide/index.md
+      - Core Features:
+          - Annotations: guide/annotations.md
+          - Configuration: guide/configuration.md
+          - DTO Mapping: guide/dto-mapping.md
+      - Data Management:
+          - Filtering: guide/filtering.md
+          - Pagination & Sorting: guide/pagination.md
+          - Validation: guide/validation.md
+      - Advanced Features:
+          - Security: guide/security.md
+          - Soft Delete: guide/soft-delete.md
+          - Auditing: guide/auditing.md
+          - Kotlin Support: guide/kotlin.md
   - Advanced:
+      - advanced/index.md
       - Architecture: advanced/architecture.md
       - Custom Endpoints: advanced/custom-endpoints.md
       - Performance: advanced/performance.md
       - Best Practices: advanced/best-practices.md
   - API Reference:
+      - api/index.md
       - Annotations API: api/annotations.md
       - Configuration Properties: api/configuration.md
       - Generated Endpoints: api/endpoints.md
   - Development:
+      - development/index.md
       - Contributing: development/contributing.md
       - Building: development/building.md
       - Testing: development/testing.md
       - Release Process: development/release.md
   - About:
+      - about/index.md
       - Roadmap: about/roadmap.md
       - Changelog: about/changelog.md
       - License: about/license.md
