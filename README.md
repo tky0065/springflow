@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java Version](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2%2B-brightgreen)](https://spring.io/projects/spring-boot)
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.2.0--SNAPSHOT-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.3.0-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
 > **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
 
@@ -1525,8 +1525,8 @@ SpringFlow est sous licence [Apache License 2.0](LICENSE).
 ## 🎯 Roadmap
 
 - ✅ **Phase 1 (v0.1.1 - MVP)** : CRUD, pagination, validation, DTOs, Swagger
-- 🔄 **Phase 2 (v0.2.0)** : Filtres dynamiques, Security, Soft Delete, Audit
-- 📅 **Phase 3 (v1.0.0)** : GraphQL, Admin UI, CLI, Multi-DB, Monitoring
+- ✅ **Phase 2 (v0.2.0)** : Filtres dynamiques, Security, Soft Delete, Audit
+- 🔄 **Phase 3 (v0.3.0)** : GraphQL (done), Admin UI, CLI, Multi-DB, Monitoring (future)
 
 Voir [roadmap.md](roadmap.md) pour plus de détails.
 
