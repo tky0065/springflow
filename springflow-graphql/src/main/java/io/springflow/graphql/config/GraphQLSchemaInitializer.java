@@ -28,17 +28,21 @@ import java.util.List;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class GraphQLSchemaInitializer {
 
     private final ApplicationContext applicationContext;
-    private final EntityScanner entityScanner;
-    private final MetadataResolver metadataResolver;
     private final GraphQLSchemaGenerator schemaGenerator;
-    private final GraphQLControllerGenerator controllerGenerator;
     private final SpringFlowGraphQLProperties properties;
 
     private boolean initialized = false;
+
+    public GraphQLSchemaInitializer(ApplicationContext applicationContext,
+                                   GraphQLSchemaGenerator schemaGenerator,
+                                   SpringFlowGraphQLProperties properties) {
+        this.applicationContext = applicationContext;
+        this.schemaGenerator = schemaGenerator;
+        this.properties = properties;
+    }
 
     /**
      * Initializes GraphQL schema and controllers when application is ready.
@@ -54,6 +58,10 @@ public class GraphQLSchemaInitializer {
         log.info("Starting SpringFlow GraphQL schema initialization...");
 
         try {
+            // Create instances of required components
+            EntityScanner entityScanner = new EntityScanner();
+            MetadataResolver metadataResolver = new MetadataResolver();
+
             // Get base packages
             List<String> basePackages = determineBasePackages();
             log.debug("Scanning packages for @AutoApi entities: {}", basePackages);
