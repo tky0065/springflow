@@ -52,7 +52,7 @@ Avant de commencer, assurez-vous d'avoir:
     implementation 'io.github.tky0065:springflow-starter:0.2.0'
     ```
 
-## 🚀 Exemple Minimal
+## :material-rocket-launch: Exemple Minimal
 
 ```java
 @Entity
