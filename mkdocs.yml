@@ -1,0 +1,100 @@
+site_name: SpringFlow Documentation
+site_description: Auto-generate REST APIs from JPA entities with annotations
+site_author: SpringFlow Team
+site_url: https://tky0065.github.io/springflow/
+
+repo_name: tky0065/springflow
+repo_url: https://github.com/tky0065/springflow
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: getting-started/quickstart.md
+      - Installation: getting-started/installation.md
+      - First Project: getting-started/first-project.md
+  - User Guide:
+      - Annotations: guide/annotations.md
+      - Configuration: guide/configuration.md
+      - DTO Mapping: guide/dto-mapping.md
+      - Filtering: guide/filtering.md
+      - Pagination & Sorting: guide/pagination.md
+      - Validation: guide/validation.md
+      - Security: guide/security.md
+      - Soft Delete: guide/soft-delete.md
+      - Auditing: guide/auditing.md
+      - Kotlin Support: guide/kotlin.md
+  - Advanced:
+      - Architecture: advanced/architecture.md
+      - Custom Endpoints: advanced/custom-endpoints.md
+      - Performance: advanced/performance.md
+      - Best Practices: advanced/best-practices.md
+  - API Reference:
+      - Annotations API: api/annotations.md
+      - Configuration Properties: api/configuration.md
+      - Generated Endpoints: api/endpoints.md
+  - Development:
+      - Contributing: development/contributing.md
+      - Building: development/building.md
+      - Testing: development/testing.md
+      - Release Process: development/release.md
+  - About:
+      - Roadmap: about/roadmap.md
+      - Changelog: about/changelog.md
+      - License: about/license.md
+
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/tky0065/springflow
+    - icon: fontawesome/brands/maven
+      link: https://central.sonatype.com/artifact/io.github.tky0065/springflow-starter

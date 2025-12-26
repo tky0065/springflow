@@ -87,7 +87,13 @@ jobs:
         run: |
           if [ -n "$SONAR_TOKEN" ]; then
             ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-              -Dsonar.projectKey=springflow_springflow
+              -Dsonar.projectKey=springflow_springflow \
+              -Dsonar.qualitygate.wait=true
           else
             echo "SonarQube analysis skipped (SONAR_TOKEN not set)"
           fi
+
+      - name: Check Quality Gate
+        if: env.SONAR_TOKEN != ''
+        run: |
+          echo "Quality gate check completed. Build will fail if gate fails."

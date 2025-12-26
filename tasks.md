@@ -31,13 +31,13 @@
 - [x] Configurer tests automatiques
 - [x] Setup SonarQube analysis
 - [x] Configurer code coverage (JaCoCo)
-- [ ] Setup quality gates
-- [ ] Configurer artifact publication
+- [x] Setup quality gates (sonar-project.properties + workflow)
+- [x] Configurer artifact publication (publish.yml workflow)
 
 #### 1.4 Documentation Infrastructure
 - [x] Créer structure docs/
-- [ ] Setup MkDocs ou similaire
-- [ ] Configurer GitHub Pages
+- [x] Setup MkDocs (mkdocs.yml + docs structure)
+- [x] Configurer GitHub Pages (docs.yml workflow)
 - [x] Template README.md
 - [x] Template CONTRIBUTING.md
 - [x] Template LICENSE
