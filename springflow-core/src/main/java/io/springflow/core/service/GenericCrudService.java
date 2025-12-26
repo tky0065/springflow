@@ -338,6 +338,13 @@ public abstract class GenericCrudService<T, ID> {
     }
 
     private void handleAuditing(T entity, boolean isCreate) {
+        // Skip manual auditing if the entity has Spring Data JPA auditing annotations
+        if (hasSpringDataAuditingAnnotations(entity)) {
+            log.debug("Skipping manual auditing for {} as it has Spring Data JPA auditing annotations", 
+                    entityClass.getSimpleName());
+            return;
+        }
+
         String currentUser = SecurityUtils.getCurrentUserLogin().orElse("system");
         LocalDateTime now = LocalDateTime.now();
 
@@ -351,6 +358,31 @@ public abstract class GenericCrudService<T, ID> {
         } catch (Exception e) {
             log.warn("Failed to apply auditing to {}", entityClass.getSimpleName());
         }
+    }
+
+    private boolean hasSpringDataAuditingAnnotations(T entity) {
+        for (Field field : entityClass.getDeclaredFields()) {
+            if (field.isAnnotationPresent(org.springframework.data.annotation.CreatedDate.class) ||
+                field.isAnnotationPresent(org.springframework.data.annotation.LastModifiedDate.class) ||
+                field.isAnnotationPresent(org.springframework.data.annotation.CreatedBy.class) ||
+                field.isAnnotationPresent(org.springframework.data.annotation.LastModifiedBy.class)) {
+                return true;
+            }
+        }
+        // Also check superclasses
+        Class<?> superclass = entityClass.getSuperclass();
+        while (superclass != null && superclass != Object.class) {
+            for (Field field : superclass.getDeclaredFields()) {
+                if (field.isAnnotationPresent(org.springframework.data.annotation.CreatedDate.class) ||
+                    field.isAnnotationPresent(org.springframework.data.annotation.LastModifiedDate.class) ||
+                    field.isAnnotationPresent(org.springframework.data.annotation.CreatedBy.class) ||
+                    field.isAnnotationPresent(org.springframework.data.annotation.LastModifiedBy.class)) {
+                    return true;
+                }
+            }
+            superclass = superclass.getSuperclass();
+        }
+        return false;
     }
 
     private void setFieldValueSafely(T entity, String fieldName, Object value) {

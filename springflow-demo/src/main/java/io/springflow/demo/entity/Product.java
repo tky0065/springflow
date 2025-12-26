@@ -34,6 +34,7 @@ import java.time.LocalDateTime;
 )
 @Auditable
 @SoftDelete
+@EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 public class Product {
 
     @Id
@@ -72,14 +73,18 @@ public class Product {
     private LocalDateTime deletedAt;
 
     @ReadOnly
+    @org.springframework.data.annotation.CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @ReadOnly
+    @org.springframework.data.annotation.LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @org.springframework.data.annotation.CreatedBy
     private String createdBy;
 
+    @org.springframework.data.annotation.LastModifiedBy
     private String updatedBy;
 }

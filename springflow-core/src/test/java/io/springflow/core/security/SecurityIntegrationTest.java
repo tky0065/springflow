@@ -77,7 +77,7 @@ class SecurityIntegrationTest {
 
         // Then
         assertThat(controller).isNotNull();
-        assertThat(controller.getClass().getName()).contains("Impl");
+        assertThat(controller.getClass().getName()).contains("AutoController");
         
         Method findAllMethod = controller.getClass().getMethod("findAll", 
                 org.springframework.data.domain.Pageable.class, java.util.Map.class);

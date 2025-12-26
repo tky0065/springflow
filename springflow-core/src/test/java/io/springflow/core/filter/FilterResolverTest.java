@@ -343,6 +343,35 @@ class FilterResolverTest {
         verify(query).distinct(true);
     }
 
+    @Test
+    void buildSpecification_withoutFetchFields_shouldAddDefaultFetchJoins() throws Exception {
+        // Given
+        io.springflow.core.metadata.RelationMetadata relationMetadata = mock(io.springflow.core.metadata.RelationMetadata.class);
+        when(relationMetadata.type()).thenReturn(io.springflow.core.metadata.RelationMetadata.RelationType.MANY_TO_ONE);
+
+        FieldMetadata relationField = new FieldMetadata(
+                TestEntity.class.getDeclaredField("category"),
+                "category", Object.class, true, false, false, false, false, null,
+                Collections.emptyList(), null, relationMetadata, false
+        );
+
+        EntityMetadata metadata = new EntityMetadata(
+                TestEntity.class, Long.class, "TestEntity", "test_entity", null,
+                Collections.singletonList(relationField)
+        );
+
+        Map<String, String> params = new HashMap<>();
+
+        // When
+        Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
+        doReturn(TestEntity.class).when(query).getResultType();
+        spec.toPredicate(root, query, cb);
+
+        // Then
+        verify(root).fetch(eq("category"), any(jakarta.persistence.criteria.JoinType.class));
+        verify(query).distinct(true);
+    }
+
     static class TestEntity {
         private String name;
         private Integer age;

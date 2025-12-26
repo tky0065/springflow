@@ -101,7 +101,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
 
         DynamicType.Builder<GenericCrudController> builder = (DynamicType.Builder<GenericCrudController>) new ByteBuddy()
                 .subclass(GenericCrudController.class)
-                .name(GenericCrudController.class.getName() + "$" + entityClass.getSimpleName() + "Impl");
+                .name("io.springflow.generated.controller." + entityClass.getSimpleName() + "AutoController" + System.nanoTime());
 
         // Override CRUD methods and add method-specific @PreAuthorize
         String[] methodsToSecure = {"findAll", "findById", "create", "update", "delete"};
@@ -129,7 +129,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
 
         Class<? extends GenericCrudController<T, ID>> loadedClass = (Class<? extends GenericCrudController<T, ID>>) builder
                 .make()
-                .load(GenericCrudController.class.getClassLoader())
+                .load(GenericCrudController.class.getClassLoader(), net.bytebuddy.dynamic.loading.ClassLoadingStrategy.Default.INJECTION)
                 .getLoaded();
 
         return loadedClass

@@ -1000,16 +1000,16 @@ https://central.sonatype.com/api-doc
 - [x] `version` (Long) pour optimistic locking
 
 #### 20.3 Spring Data Auditing
-- [ ] Activer `@EnableJpaAuditing`
-- [ ] Annotations `@CreatedDate`
-- [ ] Annotations `@LastModifiedDate`
-- [ ] Annotations `@CreatedBy`
-- [ ] Annotations `@LastModifiedBy`
+- [x] Activer `@EnableJpaAuditing`
+- [x] Annotations `@CreatedDate`
+- [x] Annotations `@LastModifiedDate`
+- [x] Annotations `@CreatedBy`
+- [x] Annotations `@LastModifiedBy`
 
 #### 20.4 AuditorAware
 - [x] Implémenter `AuditorAware<String>` (via SecurityUtils)
 - [x] Récupération user depuis SecurityContext
-- [ ] Configuration bean
+- [x] Configuration bean
 
 #### 20.5 Tests
 - [x] Test createdAt set on create
