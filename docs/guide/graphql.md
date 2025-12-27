@@ -592,6 +592,6 @@ Access at: `http://localhost:8080/graphiql`
 
 ## See Also
 
-- [REST API Guide](rest-api.md)
+- [User Guide](index.md)
 - [Annotations Reference](annotations.md)
 - [Configuration Reference](configuration.md)
