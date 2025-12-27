@@ -7,7 +7,9 @@ import io.springflow.core.controller.support.RequestMappingRegistrar;
 import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapperFactory;
 import io.springflow.core.repository.AutoApiRepositoryRegistrar;
+import io.springflow.core.validation.EntityValidator;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -113,5 +115,17 @@ public class SpringFlowAutoConfiguration {
     public FilterResolver filterResolver(ConversionService conversionService) {
         log.debug("Creating FilterResolver bean");
         return new FilterResolver(conversionService);
+    }
+
+    /**
+     * Creates EntityValidator bean for JSR-380 validation with group support.
+     * Used by controllers to validate entities on create and update operations.
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = "springflow", name = "enabled", havingValue = "true", matchIfMissing = true)
+    @ConditionalOnClass(Validator.class)
+    public EntityValidator entityValidator(Validator validator) {
+        log.debug("Creating EntityValidator bean");
+        return new EntityValidator(validator);
     }
 }

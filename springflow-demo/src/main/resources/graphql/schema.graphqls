@@ -1,5 +1,5 @@
 # SpringFlow Auto-Generated GraphQL Schema
-# Generated at: 2025-12-26T21:06:03.753816
+# Generated at: 2025-12-27T13:52:14.764054
 
 type PageInfo {
   pageNumber: Int!
@@ -8,44 +8,6 @@ type PageInfo {
   totalPages: Int!
   hasNext: Boolean!
   hasPrevious: Boolean!
-}
-
-type Category {
-  id: ID
-  name: String!
-  description: String
-  parent: String
-  children: String
-  products: String
-}
-
-input CategoryInput {
-  name: String!
-  description: String
-  parent: String
-  children: String
-  products: String
-}
-
-type Shipment {
-  id: ID
-  trackingNumber: String!
-  status: String!
-  shippedDate: String
-  estimatedDeliveryDate: String
-  actualDeliveryDate: String
-  carrier: String
-  notes: String
-}
-
-input ShipmentInput {
-  trackingNumber: String!
-  status: String!
-  shippedDate: String
-  estimatedDeliveryDate: String
-  actualDeliveryDate: String
-  carrier: String
-  notes: String
 }
 
 type Order {
@@ -84,54 +46,6 @@ input InvoiceInput {
   description: String
 }
 
-type Customer {
-  id: ID
-  customerCode: String
-  companyName: String!
-  email: String
-  phone: String
-  address: String
-  city: String
-  country: String
-  status: String
-}
-
-input CustomerInput {
-  customerCode: String
-  companyName: String!
-  email: String
-  phone: String
-  address: String
-  city: String
-  country: String
-  status: String
-}
-
-type User {
-  id: ID
-  username: String!
-  email: String!
-  firstName: String!
-  lastName: String!
-  birthDate: String
-  phoneNumber: String
-  role: String
-  active: Boolean
-  createdAt: String
-  lastLogin: String
-}
-
-input UserInput {
-  username: String!
-  email: String!
-  firstName: String!
-  lastName: String!
-  birthDate: String
-  phoneNumber: String
-  role: String
-  active: Boolean
-}
-
 type Product {
   id: ID
   name: String!
@@ -161,21 +75,93 @@ input ProductInput {
   updatedBy: String
 }
 
+type Customer {
+  id: ID
+  customerCode: String
+  companyName: String!
+  email: String
+  phone: String
+  address: String
+  city: String
+  country: String
+  status: String
+}
+
+input CustomerInput {
+  customerCode: String
+  companyName: String!
+  email: String
+  phone: String
+  address: String
+  city: String
+  country: String
+  status: String
+}
+
+type Shipment {
+  id: ID
+  trackingNumber: String!
+  status: String!
+  shippedDate: String
+  estimatedDeliveryDate: String
+  actualDeliveryDate: String
+  carrier: String
+  notes: String
+}
+
+input ShipmentInput {
+  trackingNumber: String!
+  status: String!
+  shippedDate: String
+  estimatedDeliveryDate: String
+  actualDeliveryDate: String
+  carrier: String
+  notes: String
+}
+
+type Category {
+  id: ID
+  name: String!
+  description: String
+  parent: String
+  children: String
+  products: String
+}
+
+input CategoryInput {
+  name: String!
+  description: String
+  parent: String
+  children: String
+  products: String
+}
+
+type User {
+  id: ID
+  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  birthDate: String
+  phoneNumber: String
+  role: String
+  active: Boolean
+  createdAt: String
+  lastLogin: String
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  birthDate: String
+  phoneNumber: String
+  role: String
+  active: Boolean
+}
+
 type Query {
-  categorys(page: Int = 0, size: Int = 20): CategoryPage!
-  category(id: ID!): Category
-}
-
-type CategoryPage {
-  content: [Category!]!
-  pageInfo: PageInfo!
-  shipments(page: Int = 0, size: Int = 20): ShipmentPage!
-  shipment(id: ID!): Shipment
-}
-
-type ShipmentPage {
-  content: [Shipment!]!
-  pageInfo: PageInfo!
   orders(page: Int = 0, size: Int = 20): OrderPage!
   order(id: ID!): Order
 }
@@ -190,12 +176,33 @@ type OrderPage {
 type InvoicePage {
   content: [Invoice!]!
   pageInfo: PageInfo!
+  products(page: Int = 0, size: Int = 20): ProductPage!
+  product(id: ID!): Product
+}
+
+type ProductPage {
+  content: [Product!]!
+  pageInfo: PageInfo!
   customers(page: Int = 0, size: Int = 20): CustomerPage!
   customer(id: ID!): Customer
 }
 
 type CustomerPage {
   content: [Customer!]!
+  pageInfo: PageInfo!
+  shipments(page: Int = 0, size: Int = 20): ShipmentPage!
+  shipment(id: ID!): Shipment
+}
+
+type ShipmentPage {
+  content: [Shipment!]!
+  pageInfo: PageInfo!
+  categorys(page: Int = 0, size: Int = 20): CategoryPage!
+  category(id: ID!): Category
+}
+
+type CategoryPage {
+  content: [Category!]!
   pageInfo: PageInfo!
   users(page: Int = 0, size: Int = 20): UserPage!
   user(id: ID!): User
@@ -204,36 +211,29 @@ type CustomerPage {
 type UserPage {
   content: [User!]!
   pageInfo: PageInfo!
-  products(page: Int = 0, size: Int = 20): ProductPage!
-  product(id: ID!): Product
-}
-
-type ProductPage {
-  content: [Product!]!
-  pageInfo: PageInfo!
 }
 
 type Mutation {
-  createCategory(input: CategoryInput!): Category!
-  updateCategory(id: ID!, input: CategoryInput!): Category!
-  deleteCategory(id: ID!): Boolean!
-  createShipment(input: ShipmentInput!): Shipment!
-  updateShipment(id: ID!, input: ShipmentInput!): Shipment!
-  deleteShipment(id: ID!): Boolean!
   createOrder(input: OrderInput!): Order!
   updateOrder(id: ID!, input: OrderInput!): Order!
   deleteOrder(id: ID!): Boolean!
   createInvoice(input: InvoiceInput!): Invoice!
   updateInvoice(id: ID!, input: InvoiceInput!): Invoice!
   deleteInvoice(id: ID!): Boolean!
-  createCustomer(input: CustomerInput!): Customer!
-  updateCustomer(id: ID!, input: CustomerInput!): Customer!
-  deleteCustomer(id: ID!): Boolean!
-  createUser(input: UserInput!): User!
-  updateUser(id: ID!, input: UserInput!): User!
-  deleteUser(id: ID!): Boolean!
   createProduct(input: ProductInput!): Product!
   updateProduct(id: ID!, input: ProductInput!): Product!
   deleteProduct(id: ID!): Boolean!
+  createCustomer(input: CustomerInput!): Customer!
+  updateCustomer(id: ID!, input: CustomerInput!): Customer!
+  deleteCustomer(id: ID!): Boolean!
+  createShipment(input: ShipmentInput!): Shipment!
+  updateShipment(id: ID!, input: ShipmentInput!): Shipment!
+  deleteShipment(id: ID!): Boolean!
+  createCategory(input: CategoryInput!): Category!
+  updateCategory(id: ID!, input: CategoryInput!): Category!
+  deleteCategory(id: ID!): Boolean!
+  createUser(input: UserInput!): User!
+  updateUser(id: ID!, input: UserInput!): User!
+  deleteUser(id: ID!): Boolean!
 }
 

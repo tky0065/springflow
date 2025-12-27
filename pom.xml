@@ -70,7 +70,7 @@
         <byte-buddy.version>1.15.11</byte-buddy.version>
 
         <!-- Plugin versions -->
-        <jacoco.version>0.8.11</jacoco.version>
+        <jacoco.version>0.8.12</jacoco.version>
         <sonar.version>3.10.0.2594</sonar.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
@@ -186,9 +186,14 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0</version>
                     <configuration>
+                        <argLine>@{jacocoArgLine} -Xmx1024m -XX:+EnableDynamicAgentLoading</argLine>
                         <systemPropertyVariables>
                             <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
                         </systemPropertyVariables>
+                        <excludes>
+                            <exclude>**/*$HibernateProxy$*</exclude>
+                            <exclude>**/*$ByteBuddy$*</exclude>
+                        </excludes>
                     </configuration>
                 </plugin>
 
@@ -201,6 +206,13 @@
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
+                            <configuration>
+                                <propertyName>jacocoArgLine</propertyName>
+                                <append>true</append>
+                                <excludeClassLoaders>
+                                    <excludeClassLoader>sun.reflect.DelegatingClassLoader</excludeClassLoader>
+                                </excludeClassLoaders>
+                            </configuration>
                         </execution>
                         <execution>
                             <id>report</id>
@@ -208,6 +220,17 @@
                             <goals>
                                 <goal>report</goal>
                             </goals>
+                            <configuration>
+                                <excludes>
+                                    <!-- Exclude Hibernate proxies -->
+                                    <exclude>**/*$HibernateProxy$*</exclude>
+                                    <!-- Exclude ByteBuddy proxies -->
+                                    <exclude>**/*$ByteBuddy$*</exclude>
+                                    <!-- Exclude CGLIB proxies -->
+                                    <exclude>**/*$$EnhancerBySpringCGLIB$$*</exclude>
+                                    <exclude>**/*$$FastClassBySpringCGLIB$$*</exclude>
+                                </excludes>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>

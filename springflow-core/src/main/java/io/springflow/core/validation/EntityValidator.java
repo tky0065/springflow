@@ -5,7 +5,6 @@ import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
@@ -27,7 +26,6 @@ import java.util.Set;
  * @see jakarta.validation.Validator
  * @since 0.4.0
  */
-@Component
 public class EntityValidator {
 
     private static final Logger log = LoggerFactory.getLogger(EntityValidator.class);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Custom service for Invoice entity that extends GenericCrudService.
@@ -176,7 +177,8 @@ public class InvoiceService extends GenericCrudService<Invoice, Long> {
      * @return generated invoice number
      */
     private String generateInvoiceNumber() {
-        return "INV-" + System.currentTimeMillis();
+        // Use UUID to ensure uniqueness even if called in quick succession
+        return "INV-" + System.currentTimeMillis() + "-" + UUID.randomUUID().toString().substring(0, 8);
     }
 
     /**
