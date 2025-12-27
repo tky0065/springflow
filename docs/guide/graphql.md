@@ -10,7 +10,7 @@ SpringFlow provides automatic GraphQL API generation for your JPA entities. Simp
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-graphql</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 

@@ -13,6 +13,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-DB support (MongoDB, etc.)
 - Monitoring & Metrics with Actuator
 
+## [0.3.2] - 2025-12-27
+
+### 🐛 Critical Bugfixes
+
+This release addresses critical test failures and missing bean configuration issues discovered in the CI/CD pipeline.
+
+### Fixed
+
+#### Missing EntityValidator Bean Configuration
+- **Fixed** `NoSuchBeanDefinitionException` when starting application
+- Added `EntityValidator` bean definition in `SpringFlowAutoConfiguration`
+- Removed duplicate `@Component` annotation from `EntityValidator`
+- Controllers now properly inject validation dependency
+
+**Impact**: All applications using validation groups now work without manual bean configuration.
+
+#### JaCoCo Instrumentation Conflicts
+- **Fixed** 13 test failures caused by `IllegalClassFormatException`
+- Upgraded JaCoCo from 0.8.11 to 0.8.12
+- Disabled JaCoCo instrumentation for demo module
+- Configured proper exclusions for JDK and Hibernate proxy classes
+
+**Impact**: Tests now run successfully in all environments including CI/CD pipelines.
+
+#### Invoice Number Collision in Tests
+- **Fixed** `DataIntegrityViolationException` in concurrent test scenarios
+- Enhanced invoice number generation with UUID suffix for guaranteed uniqueness
+- Format changed from `INV-{timestamp}` to `INV-{timestamp}-{uuid}`
+
+**Impact**: Demo service now handles high-concurrency scenarios correctly.
+
+### Changed
+- **JaCoCo**: Upgraded from 0.8.11 to 0.8.12
+
+### Compatibility
+✅ Fully backward compatible with v0.3.1. No breaking changes.
+
 ## [0.3.1] - 2025-12-27
 
 ### 🎯 Phase 2 Enhancements - Advanced Features

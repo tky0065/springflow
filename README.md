@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java Version](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2%2B-brightgreen)](https://spring.io/projects/spring-boot)
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.3.1-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.3.2-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
 > **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
 
@@ -38,6 +38,12 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 
 - ✅ **GraphQL Support** : API GraphQL auto-générée avec queries, mutations et pagination (opt-in)
 
+#### v0.3.2 - Critical Bugfixes 🐛
+
+- 🔧 **EntityValidator Bean** : Configuration automatique du bean EntityValidator
+- 📊 **JaCoCo Upgrade** : Version 0.8.12 avec meilleure compatibilité Hibernate
+- 🔒 **Invoice Collision Fix** : Génération UUID pour numéros de facture uniques
+
 #### v0.3.1 - Phase 2 Enhancements ⚡
 
 - 🛡️ **PATCH Security** : Protection @Hidden/@ReadOnly avec validation stricte des champs
@@ -61,23 +67,23 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
 </dependency>
 
 <!-- Optional: GraphQL Support -->
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-graphql</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 
 **Gradle** :
 ```gradle
-implementation 'io.github.tky0065:springflow-starter:0.3.1'
+implementation 'io.github.tky0065:springflow-starter:0.3.2'
 
 // Optional: GraphQL Support
-implementation 'io.github.tky0065:springflow-graphql:0.3.1'
+implementation 'io.github.tky0065:springflow-graphql:0.3.2'
 ```
 
 ### 2. Annotez vos entités
