@@ -91,14 +91,8 @@ public class DataLoaderRegistrar {
         List<String> packages = new ArrayList<>();
 
         try {
-            Object autoConfigPackages = applicationContext.getBean("org.springframework.boot.autoconfigure.AutoConfigurationPackages");
-            String[] pkgs = (String[]) autoConfigPackages.getClass()
-                    .getMethod("get", Object.class)
-                    .invoke(null, applicationContext);
-
-            if (pkgs != null && pkgs.length > 0) {
-                packages.addAll(List.of(pkgs));
-            }
+            // Use ApplicationContext as BeanFactory to get auto-configuration packages
+            packages.addAll(org.springframework.boot.autoconfigure.AutoConfigurationPackages.get(applicationContext));
         } catch (Exception e) {
             log.debug("Could not determine auto-configuration packages", e);
         }

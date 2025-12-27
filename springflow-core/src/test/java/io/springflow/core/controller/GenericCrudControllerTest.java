@@ -57,7 +57,7 @@ class GenericCrudControllerTest {
         // Mock FilterResolver
         filterResolver = mock(FilterResolver.class);
         Specification<TestEntity> mockSpec = mock(Specification.class);
-        when(mockSpec.and(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(mockSpec.and(any(Specification.class))).thenAnswer(inv -> inv.getArgument(0));
         when(filterResolver.buildSpecification(any(), any(), any())).thenReturn((Specification) mockSpec);
 
         // Mock EntityValidator
@@ -138,7 +138,7 @@ class GenericCrudControllerTest {
     void findById_whenExists_shouldReturnEntity() {
         // Given
         TestEntity entity = new TestEntity(1L, "Test Entity");
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(entity));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(entity));
 
         // When
         ResponseEntity<Map<String, Object>> response = controller.findById(1L, new HashMap<>());
@@ -153,7 +153,7 @@ class GenericCrudControllerTest {
     @Test
     void findById_whenNotExists_shouldThrowException() {
         // Given
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.empty());
 
         // When/Then
         assertThatThrownBy(() -> controller.findById(999L, new HashMap<>()))
@@ -200,7 +200,7 @@ class GenericCrudControllerTest {
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("name", "Updated Entity");
 
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(existing));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(existing));
         when(repository.save(any(TestEntity.class))).thenReturn(updated);
 
         // When
@@ -209,7 +209,7 @@ class GenericCrudControllerTest {
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get("name")).isEqualTo("Updated Entity");
-        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
         verify(repository).save(any(TestEntity.class));
     }
 
@@ -219,12 +219,12 @@ class GenericCrudControllerTest {
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("name", "Updated Entity");
         
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.empty());
 
         // When/Then
         assertThatThrownBy(() -> controller.update(999L, inputDto))
                 .isInstanceOf(EntityNotFoundException.class);
-        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
         verify(repository, never()).save(any());
     }
 
@@ -232,7 +232,7 @@ class GenericCrudControllerTest {
     void delete_shouldReturnNoContent() {
         // Given
         TestEntity entity = new TestEntity(1L, "Entity");
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(entity));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(entity));
         doNothing().when(repository).deleteById(1L);
 
         // When
@@ -241,19 +241,19 @@ class GenericCrudControllerTest {
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         assertThat(response.getBody()).isNull();
-        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
         verify(repository).deleteById(1L);
     }
 
     @Test
     void delete_whenNotExists_shouldThrowException() {
         // Given
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.empty());
 
         // When/Then
         assertThatThrownBy(() -> controller.delete(999L))
                 .isInstanceOf(EntityNotFoundException.class);
-        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
         verify(repository, never()).deleteById(any());
     }
 
@@ -265,7 +265,7 @@ class GenericCrudControllerTest {
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("name", "Patched Name"); // Only update name
 
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(existing));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(existing));
         when(repository.save(any(TestEntity.class))).thenReturn(updated);
         when(metadata.fields()).thenReturn(List.of()); // No field restrictions
 
@@ -275,7 +275,7 @@ class GenericCrudControllerTest {
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().get("name")).isEqualTo("Patched Name");
-        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
         verify(repository).save(any(TestEntity.class));
         verify(dtoMapper).updateEntity(eq(existing), eq(inputDto));
     }
@@ -286,13 +286,13 @@ class GenericCrudControllerTest {
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("name", "Patched Name");
 
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.empty());
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.empty());
         when(metadata.fields()).thenReturn(List.of());
 
         // When/Then
         assertThatThrownBy(() -> controller.patch(999L, inputDto))
                 .isInstanceOf(EntityNotFoundException.class);
-        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any());
+        verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
         verify(repository, never()).save(any());
     }
 
@@ -367,7 +367,7 @@ class GenericCrudControllerTest {
         inputDto.put("name", "New Name");
         inputDto.put("description", "New Description"); // Multiple fields
 
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(existing));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(existing));
         when(repository.save(any(TestEntity.class))).thenReturn(updated);
         when(metadata.fields()).thenReturn(List.of()); // No restrictions
 

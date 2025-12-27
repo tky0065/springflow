@@ -81,7 +81,7 @@ public abstract class GenericCrudService<T, ID> {
     public List<T> findAll(boolean includeDeleted) {
         log.debug("Finding all {}, includeDeleted: {}", entityClass.getSimpleName(), includeDeleted);
         if (metadata != null && metadata.isSoftDeleteEnabled() && repository instanceof JpaSpecificationExecutor) {
-            return ((JpaSpecificationExecutor<T>) repository).findAll(buildSoftDeleteSpecification(includeDeleted));
+            return ((JpaSpecificationExecutor<T>) repository).findAll((Specification<T>) buildSoftDeleteSpecification(includeDeleted));
         }
         return repository.findAll();
     }
@@ -110,9 +110,9 @@ public abstract class GenericCrudService<T, ID> {
         if (repository instanceof JpaSpecificationExecutor) {
             @SuppressWarnings("unchecked")
             JpaSpecificationExecutor<T> specExecutor = (JpaSpecificationExecutor<T>) repository;
-            return specExecutor.findAll(effectiveSpec, pageable);
+            return specExecutor.findAll((Specification<T>) effectiveSpec, pageable);
         }
-        
+
         if (spec == null && (metadata == null || !metadata.isSoftDeleteEnabled())) {
             return repository.findAll(pageable);
         }
@@ -170,9 +170,9 @@ public abstract class GenericCrudService<T, ID> {
         if (repository instanceof JpaSpecificationExecutor) {
             @SuppressWarnings("unchecked")
             JpaSpecificationExecutor<T> specExecutor = (JpaSpecificationExecutor<T>) repository;
-            return specExecutor.findAll(effectiveSpec, pageable);
+            return specExecutor.findAll((Specification<T>) effectiveSpec, pageable);
         }
-        
+
         throw new UnsupportedOperationException(
                 "Repository does not support JpaSpecificationExecutor for dynamic filtering"
         );
@@ -209,7 +209,7 @@ public abstract class GenericCrudService<T, ID> {
             
             @SuppressWarnings("unchecked")
             JpaSpecificationExecutor<T> specExecutor = (JpaSpecificationExecutor<T>) repository;
-            return specExecutor.findOne(effectiveSpec)
+            return specExecutor.findOne((Specification<T>) effectiveSpec)
                     .orElseThrow(() -> new EntityNotFoundException(entityClass, id));
         }
 

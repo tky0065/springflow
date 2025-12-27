@@ -67,7 +67,7 @@ class SoftDeleteTest {
         TestEntity entity = new TestEntity();
         entity.setId(1L);
         entity.setDeleted(false);
-        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any())).thenReturn(Optional.of(entity));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(entity));
 
         // When
         service.deleteById(1L);
@@ -86,7 +86,7 @@ class SoftDeleteTest {
         service.findAll();
 
         // Then
-        verify((JpaSpecificationExecutor<TestEntity>) repository).findAll(any());
+        verify((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class));
     }
 
     @Test

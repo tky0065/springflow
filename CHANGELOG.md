@@ -12,8 +12,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CLI tool for code generation
 - Multi-DB support (MongoDB, etc.)
 - Monitoring & Metrics with Actuator
-- GraphQL relation field resolvers (v0.4.0+)
+- GraphQL relation field resolvers
 - GraphQL subscriptions
+
+## [0.4.0] - 2025-12-27
+
+### 🚀 Major Framework Upgrade
+
+Complete migration to Spring Boot 4.0.1 and Java 25 with enhanced compatibility and performance.
+
+### Changed
+- **Upgraded to Spring Boot 4.0.1** (from 3.2.1) - Latest Spring Boot version with Jakarta EE 11 and native compilation support
+- **Minimum Java version now 25** (backwards compatible to Java 17) - Support for latest JVM features and virtual threads
+- **Upgraded ByteBuddy to 1.17.0** (from 1.15.11) - Java 25 module system support with ASM 9.8
+- **Upgraded SpringDoc OpenAPI to 2.8.14** (from 2.3.0) - Jackson 3 compatible for Spring Boot 4.0
+- **Upgraded Kotlin to 2.2.0** (from 2.1.0) - Spring Boot 4.0 compatibility requirement
+- **Upgraded MapStruct to 1.6.3** (from 1.5.5.Final) - Latest stable version with improved performance
+- **Upgraded Maven Surefire to 3.5.2** (from 3.0.0) - Better Java 25 test support
+
+### Added
+- **Java 25 module system support** with `--add-opens` JVM flags for reflection access
+- **lombok-mapstruct-binding 0.2.0** for Lombok 1.18.16+ compatibility
+- **GitHub Actions CI now tests on Java 17, 21, and 25** - Ensuring backward compatibility
+- **Enhanced JVM configuration** for ByteBuddy dynamic class loading with Java 25
+
+### Fixed
+- **ByteBuddy dynamic class loading** compatible with Java 25 module system
+- **Reflection-based metadata resolution** works correctly with Java 25 access restrictions
+- **Spring Security version** now managed by Spring Boot parent (removed hardcoded version)
+
+### Technical Details
+
+**Dependency Updates:**
+- Spring Boot: 3.2.1 → 4.0.1
+- Java: 17 → 25 (minimum)
+- ByteBuddy: 1.15.11 → 1.17.0
+- SpringDoc: 2.3.0 → 2.8.14
+- Kotlin: 2.1.0 → 2.2.0
+- MapStruct: 1.5.5.Final → 1.6.3
+- Surefire: 3.0.0 → 3.5.2
+
+**JVM Flags Added:**
+```xml
+--add-opens java.base/java.lang=ALL-UNNAMED
+--add-opens java.base/java.lang.reflect=ALL-UNNAMED
+--add-opens java.base/java.util=ALL-UNNAMED
+--add-opens java.base/java.text=ALL-UNNAMED
+--add-opens java.base/sun.nio.ch=ALL-UNNAMED
+--add-opens java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
+--add-opens java.desktop/java.awt.font=ALL-UNNAMED
+```
+
+### Breaking Changes
+None - Fully backward compatible with Java 17 and 21.
+
+### Migration Guide
+See `MIGRATION_v0.4.0.md` for detailed upgrade instructions.
 
 ## [0.3.0] - 2025-12-26
 
