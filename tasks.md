@@ -539,7 +539,10 @@
 - [ ] Support MapStruct (Phase 2)
 - [x] Gestion null values
 - [x] Gestion collections (List, Page)
-- [ ] Gestion relations complexes (Phase 2)
+- [x] Gestion relations complexes (DtoMappingConfig, MappingContext)
+- [x] Support max depth configurable (DEFAULT=1, DEEP=3, SHALLOW=0)
+- [x] Détection cycles pour relations bidirectionnelles
+- [x] Field selection avancée avec notation pointée (fields=category.name)
 
 #### 12.6 Advanced Features
 - [ ] Support JsonView (Phase 2)
