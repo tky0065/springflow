@@ -13,6 +13,191 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-DB support (MongoDB, etc.)
 - Monitoring & Metrics with Actuator
 
+## [0.3.1] - 2025-12-27
+
+### 🎯 Phase 2 Enhancements - Advanced Features
+
+This release brings significant enhancements to Phase 2 features with improved validation, PATCH endpoint security, and advanced DTO mapping capabilities.
+
+### Added
+
+#### PATCH Endpoint Field Validation
+- **@Hidden field protection** - PATCH requests attempting to modify `@Hidden` fields are rejected with 400 Bad Request
+- **@ReadOnly field protection** - PATCH requests attempting to modify `@ReadOnly` fields are rejected with 400 Bad Request
+- **Error messages** - Clear error messages: "Cannot update hidden field: {fieldName}" and "Cannot update read-only field: {fieldName}"
+- **Security enhancement** - Prevents unauthorized modification of sensitive or computed fields
+
+**Example**:
+```java
+@Entity
+@AutoApi(path = "users")
+public class User {
+    @Hidden
+    private String passwordHash;  // Protected from PATCH requests
+
+    @ReadOnly
+    private LocalDateTime createdAt;  // Protected from PATCH requests
+}
+```
+
+#### Validation Groups (JSR-380)
+- **ValidationGroups.Create** - Marker interface for creation-specific validations
+- **ValidationGroups.Update** - Marker interface for update-specific validations
+- **EntityValidator component** - Central validation service with group support
+- **Automatic group application**:
+  - POST `/api/entities` → `ValidationGroups.Create`
+  - PUT `/api/entities/{id}` → `ValidationGroups.Update`
+  - PATCH `/api/entities/{id}` → `ValidationGroups.Update`
+- **Manual validation API** - `entityValidator.validateForCreate()`, `validateForUpdate()`, `validate(entity, groups...)`
+
+**Example**:
+```java
+@Entity
+@AutoApi(path = "products")
+public class Product {
+    @NotNull(groups = Create.class, message = "Category required on creation")
+    private String initialCategory;  // Required only on POST
+
+    @Email(groups = Update.class, message = "Supplier email must be valid")
+    private String supplierEmail;  // Validated only on PUT/PATCH
+}
+```
+
+#### Advanced DTO Mapping Configuration
+- **DtoMappingConfig class** - Configurable DTO mapping behavior
+- **Predefined configurations**:
+  - `DtoMappingConfig.DEFAULT` - Max depth 1, cycle detection enabled
+  - `DtoMappingConfig.DEEP` - Max depth 3 for complex object graphs
+  - `DtoMappingConfig.SHALLOW` - Max depth 0 (IDs only) for minimal payloads
+- **Custom configuration builder** - `DtoMappingConfig.builder()` with options:
+  - `maxDepth(int)` - Configure relation mapping depth
+  - `detectCycles(boolean)` - Enable/disable circular reference detection
+  - `includeNullFields(boolean)` - Include/exclude null fields in DTOs
+- **MappingContext** - Cycle detection using `System.identityHashCode()` for bidirectional relations
+- **Context forking** - `context.fork()` for isolated nested mappings
+
+**Example**:
+```java
+// Mobile API - minimal payload
+DtoMappingConfig config = DtoMappingConfig.SHALLOW;
+
+// Admin dashboard - complete data
+DtoMappingConfig config = DtoMappingConfig.DEEP;
+
+// Custom configuration
+DtoMappingConfig config = DtoMappingConfig.builder()
+    .maxDepth(2)
+    .includeNullFields(true)
+    .build();
+```
+
+### Changed
+
+#### GenericCrudController
+- **EntityValidator injection** - Added optional `EntityValidator` parameter to constructor
+- **Backward compatibility** - Deprecated constructor without validator still supported
+- **PATCH validation** - `validatePatchFields()` method for field-level security checks
+- **Group-aware validation** - POST uses `Create` group, PUT/PATCH use `Update` group
+
+#### SpringFlowControllerFactoryBean
+- **EntityValidator wiring** - Automatically injects `EntityValidator` into generated controllers
+- **Graceful degradation** - Works without `EntityValidator` bean for backward compatibility
+
+#### ControllerGenerator
+- **Constructor update** - Generates controllers with `EntityValidator` parameter
+
+### Documentation
+
+#### New Guides
+- **Validation Groups** - Complete guide with 170+ lines covering:
+  - Automatic group application by endpoint
+  - Creation vs Update scenarios
+  - Manual validation examples
+  - Error message format with `validationGroup` field
+  - Advanced use cases and hierarchies
+- **Advanced DTO Mapping** - Enhanced guide with 300+ lines covering:
+  - Three predefined configurations (DEFAULT, DEEP, SHALLOW)
+  - Custom configuration builder
+  - Cycle detection with MappingContext
+  - Performance comparison table
+  - Use case scenarios (mobile API, admin dashboard, JSON export)
+  - Null field inclusion control
+
+#### Updated Guides
+- **PATCH Endpoint** - Enhanced documentation with:
+  - Field validation behavior (@Hidden/@ReadOnly protection)
+  - Validation Groups integration
+  - Error response examples
+  - Security best practices
+
+### Technical Details
+
+#### New Classes
+- `ValidationGroups` - Marker interfaces for Create/Update groups (2 interfaces)
+- `EntityValidator` - Spring component for group-aware JSR-380 validation
+- `DtoMappingConfig` - Configuration class with builder pattern (3 presets + builder)
+- `MappingContext` - Cycle detection and visited entity tracking
+
+#### Tests Added
+- `ValidationGroupsTest` - 8 comprehensive tests for group validation
+- `DtoMappingConfigTest` - 5 tests for configuration presets and builder
+- `MappingContextTest` - 5 tests for cycle detection and entity tracking
+- **Total new tests**: 18
+- **New test coverage**: 100% on new classes
+
+#### Code Statistics
+- **New production code**: ~350 lines
+- **New test code**: ~250 lines
+- **Updated files**: 6
+- **Breaking changes**: 0 (fully backward compatible)
+
+### Performance
+
+#### DTO Mapping Performance
+| Configuration | Payload Size | Mapping Time | Memory Usage |
+|---------------|--------------|--------------|--------------|
+| SHALLOW       | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| DEFAULT       | ⭐⭐⭐⭐☆ | ⭐⭐⭐⭐☆ | ⭐⭐⭐⭐☆ |
+| DEEP          | ⭐⭐⭐☆☆ | ⭐⭐⭐☆☆ | ⭐⭐⭐☆☆ |
+
+### Security
+
+- **Enhanced PATCH security** - @Hidden and @ReadOnly fields cannot be modified via PATCH
+- **Validation context awareness** - Different validation rules for creation vs updates
+- **Cycle detection** - Prevents infinite loops in bidirectional entity graphs
+
+### Backward Compatibility
+
+✅ **Fully backward compatible** with 0.3.0
+- Existing controllers work without `EntityValidator`
+- Default validation behavior unchanged (no groups)
+- DTO mapping uses DEFAULT config if not specified
+- No migration required
+
+### Upgrade Guide
+
+No breaking changes! To use new features:
+
+1. **Validation Groups** (optional):
+```java
+@NotNull(groups = ValidationGroups.Create.class)
+private String requiredOnCreation;
+```
+
+2. **PATCH field protection** (automatic):
+- `@Hidden` and `@ReadOnly` fields automatically protected
+
+3. **DTO Mapping config** (optional):
+```java
+// Use in custom controllers if needed
+DtoMappingConfig config = DtoMappingConfig.DEEP;
+```
+
+### See Also
+- [Validation Groups Guide](../guide/validation.md#validation-groups)
+- [Advanced DTO Mapping](../guide/dto-mapping.md#configuration-avancée)
+- [PATCH Endpoint Documentation](../api/endpoints.md#patch-partial-update)
+
 ## [0.3.0] - 2025-12-26
 
 ### 🎉 Phase 3 - Extended Ecosystem (GraphQL Support)

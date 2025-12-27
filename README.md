@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java Version](https://img.shields.io/badge/Java-17%2B-orange)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2%2B-brightgreen)](https://spring.io/projects/spring-boot)
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.3.0-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.3.1-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
 > **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
 
@@ -34,9 +34,15 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 - 🎯 **Controllers personnalisés** : Détection et intégration de controllers custom
 - 📦 **DTO nested** : Support relations imbriquées avec profondeur configurable
 
-### Phase 3 - Extended Ecosystem (v0.3.0) 🚀
+### Phase 3 - Extended Ecosystem (v0.3.0+) 🚀
 
 - ✅ **GraphQL Support** : API GraphQL auto-générée avec queries, mutations et pagination (opt-in)
+
+#### v0.3.1 - Phase 2 Enhancements ⚡
+
+- 🛡️ **PATCH Security** : Protection @Hidden/@ReadOnly avec validation stricte des champs
+- 🔖 **Validation Groups** : Validation contextuelle (Create/Update) avec JSR-380
+- 🗺️ **Advanced DTO Mapping** : Configuration profondeur (SHALLOW/DEFAULT/DEEP), détection cycles
 
 ### 🚧 Prochainement
 - 💻 Admin UI React/Vue
@@ -55,23 +61,23 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
 </dependency>
 
 <!-- Optional: GraphQL Support -->
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-graphql</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
 </dependency>
 ```
 
 **Gradle** :
 ```gradle
-implementation 'io.github.tky0065:springflow-starter:0.3.0'
+implementation 'io.github.tky0065:springflow-starter:0.3.1'
 
 // Optional: GraphQL Support
-implementation 'io.github.tky0065:springflow-graphql:0.3.0'
+implementation 'io.github.tky0065:springflow-graphql:0.3.1'
 ```
 
 ### 2. Annotez vos entités
@@ -122,11 +128,17 @@ Content-Type: application/json
   "price": 999.99
 }
 
-# Mettre à jour
+# Mettre à jour (complète)
 PUT /api/products/1
 {
   "name": "Laptop Pro",
   "price": 1299.99
+}
+
+# Mettre à jour (partielle) - v0.3.1+
+PATCH /api/products/1
+{
+  "price": 899.99
 }
 
 # Supprimer

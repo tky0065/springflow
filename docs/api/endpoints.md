@@ -215,7 +215,7 @@ POST {base-path}/{entity-path}
 - Les champs `@Hidden` sont ignorés (même s'ils sont fournis)
 - Les champs `@ReadOnly` sont ignorés (ID, timestamps, etc.)
 - Les champs `@Id` avec `@GeneratedValue` sont auto-générés
-- Les validations JSR-380 (`@NotBlank`, `@Min`, etc.) sont appliquées
+- Les validations JSR-380 avec **groupe Create** sont appliquées (v0.4.0+)
 
 **Corps de Réponse** (201 Created):
 
@@ -341,7 +341,7 @@ PUT {base-path}/{entity-path}/{id}
 - **Tous les champs** doivent être fournis (sauf `@ReadOnly` et `@Hidden`)
 - Les champs omis sont mis à `null` (sauf contraintes NOT NULL)
 - Les champs `@ReadOnly` sont ignorés
-- Les validations sont appliquées
+- Les validations avec **groupe Update** sont appliquées (v0.4.0+)
 
 **Corps de Réponse** (200 OK):
 
@@ -412,8 +412,9 @@ PATCH {base-path}/{entity-path}/{id}
 - **Seuls les champs fournis** sont mis à jour
 - Les champs omis conservent leur valeur actuelle
 - Les champs `null` sont traités comme "ne pas modifier" (pas comme "mettre à null")
-- Les champs `@ReadOnly` sont ignorés
-- Les validations sont appliquées
+- Les champs `@ReadOnly` sont **rejetés** avec erreur 400 (v0.4.0+)
+- Les champs `@Hidden` sont **rejetés** avec erreur 400 (v0.4.0+)
+- Les validations sont appliquées avec **groupe Update** (v0.4.0+)
 
 **Corps de Réponse** (200 OK):
 
@@ -466,6 +467,136 @@ curl -X PATCH "http://localhost:8080/api/products/42" \
 | **Champs omis** | Mis à null | Inchangés |
 | **Use Case** | Remplacement complet | Modification partielle |
 | **Idempotence** | Oui | Oui |
+
+#### Validation de Champs (v0.4.0+)
+
+!!! info "Nouveau depuis v0.4.0"
+    SpringFlow valide maintenant strictement les champs dans les requêtes PATCH, en rejetant les tentatives de modification de champs protégés.
+
+**Protection des Champs @Hidden**:
+
+```java
+@Entity
+@AutoApi(path = "users")
+public class User {
+    @Id
+    private Long id;
+    private String name;
+
+    @Hidden
+    private String passwordHash;  // Protégé contre les modifications
+}
+```
+
+**Requête rejetée**:
+```bash
+curl -X PATCH "http://localhost:8080/api/users/1" \
+  -H "Content-Type: application/json" \
+  -d '{"passwordHash": "hacked"}'  # ❌ Rejeté
+```
+
+**Réponse 400**:
+```json
+{
+  "timestamp": "2025-12-27T10:30:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Cannot update hidden field: passwordHash"
+}
+```
+
+**Protection des Champs @ReadOnly**:
+
+```java
+@Entity
+@AutoApi(path = "products")
+public class Product {
+    @Id
+    private Long id;
+    private String name;
+
+    @ReadOnly
+    private LocalDateTime createdAt;  // Protégé contre les modifications
+}
+```
+
+**Requête rejetée**:
+```bash
+curl -X PATCH "http://localhost:8080/api/products/1" \
+  -H "Content-Type: application/json" \
+  -d '{"createdAt": "2020-01-01T00:00:00"}'  # ❌ Rejeté
+```
+
+**Réponse 400**:
+```json
+{
+  "timestamp": "2025-12-27T10:30:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Cannot update read-only field: createdAt"
+}
+```
+
+#### Validation Groups (v0.4.0+)
+
+PATCH applique automatiquement le **groupe Update** pour les validations JSR-380.
+
+**Exemple avec Validation Conditionnelle**:
+
+```java
+@Entity
+@AutoApi(path = "products")
+public class Product {
+    @Id
+    private Long id;
+
+    @NotBlank(groups = {Create.class, Update.class})
+    private String name;
+
+    @NotNull(groups = Create.class, message = "Category required on creation")
+    private String initialCategory;  // Requis à la création, optionnel en update
+
+    @Email(groups = Update.class, message = "Supplier email must be valid")
+    private String supplierEmail;  // Validé UNIQUEMENT en update
+}
+```
+
+**PATCH avec validation Update**:
+```bash
+curl -X PATCH "http://localhost:8080/api/products/1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "supplierEmail": "invalid-email"  # ❌ Validation échoue (groupe Update)
+  }'
+```
+
+**Réponse 400**:
+```json
+{
+  "timestamp": "2025-12-27T10:30:00",
+  "status": 400,
+  "errors": [
+    {
+      "field": "supplierEmail",
+      "message": "Supplier email must be valid",
+      "rejectedValue": "invalid-email",
+      "code": "Email",
+      "validationGroup": "Update"
+    }
+  ]
+}
+```
+
+**PATCH réussi**:
+```bash
+curl -X PATCH "http://localhost:8080/api/products/1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "supplierEmail": "supplier@example.com"  # ✅ Valide
+  }'
+```
+
+**Note**: Le champ `initialCategory` n'est **pas** validé en PATCH car il n'appartient qu'au groupe `Create`.
 
 ---
 
