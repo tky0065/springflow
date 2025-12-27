@@ -42,14 +42,14 @@ Avant de commencer, assurez-vous d'avoir:
     <dependency>
         <groupId>io.github.tky0065</groupId>
         <artifactId>springflow-starter</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.2</version>
     </dependency>
     ```
 
 === "Gradle"
 
     ```gradle
-    implementation 'io.github.tky0065:springflow-starter:0.2.0'
+    implementation 'io.github.tky0065:springflow-starter:0.3.2'
     ```
 
 ## :material-rocket-launch: Exemple Minimal

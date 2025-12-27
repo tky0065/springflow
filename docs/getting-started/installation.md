@@ -16,7 +16,7 @@ Add the SpringFlow starter dependency to your `pom.xml`:
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 
@@ -25,13 +25,13 @@ Add the SpringFlow starter dependency to your `pom.xml`:
 Add the dependency to your `build.gradle`:
 
 ```gradle
-implementation 'io.github.tky0065:springflow-starter:0.2.0'
+implementation 'io.github.tky0065:springflow-starter:0.3.2'
 ```
 
 For Gradle Kotlin DSL (`build.gradle.kts`):
 
 ```kotlin
-implementation("io.github.tky0065:springflow-starter:0.2.0")
+implementation("io.github.tky0065:springflow-starter:0.3.2")
 ```
 
 ## Configuration
