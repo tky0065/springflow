@@ -4,6 +4,7 @@ import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.service.GenericCrudService;
+import io.springflow.core.validation.EntityValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -50,17 +51,35 @@ public abstract class GenericCrudController<T, ID> {
     protected final FilterResolver filterResolver;
     protected final EntityMetadata metadata;
     protected final Class<T> entityClass;
+    protected final EntityValidator entityValidator;
 
     protected GenericCrudController(GenericCrudService<T, ID> service,
                                     DtoMapper<T, ID> dtoMapper,
                                     FilterResolver filterResolver,
                                     EntityMetadata metadata,
-                                    Class<T> entityClass) {
+                                    Class<T> entityClass,
+                                    EntityValidator entityValidator) {
         this.service = service;
         this.dtoMapper = dtoMapper;
         this.filterResolver = filterResolver;
         this.metadata = metadata;
         this.entityClass = entityClass;
+        this.entityValidator = entityValidator;
+    }
+
+    /**
+     * Constructor without EntityValidator for backward compatibility.
+     * Validation groups will not be applied if this constructor is used.
+     *
+     * @deprecated Use constructor with EntityValidator parameter
+     */
+    @Deprecated
+    protected GenericCrudController(GenericCrudService<T, ID> service,
+                                    DtoMapper<T, ID> dtoMapper,
+                                    FilterResolver filterResolver,
+                                    EntityMetadata metadata,
+                                    Class<T> entityClass) {
+        this(service, dtoMapper, filterResolver, metadata, entityClass, null);
     }
 
     /**
@@ -181,6 +200,12 @@ public abstract class GenericCrudController<T, ID> {
         log.debug("POST request to create new {}: {}", entityClass.getSimpleName(), inputDto);
 
         T entity = dtoMapper.toEntity(inputDto);
+
+        // Validate with Create group if validator is available
+        if (entityValidator != null) {
+            entityValidator.validateForCreate(entity);
+        }
+
         T created = service.save(entity);
         Map<String, Object> outputDto = dtoMapper.toOutputDto(created);
 
@@ -231,6 +256,12 @@ public abstract class GenericCrudController<T, ID> {
 
         T existing = service.findById(id);
         dtoMapper.updateEntity(existing, inputDto);
+
+        // Validate with Update group if validator is available
+        if (entityValidator != null) {
+            entityValidator.validateForUpdate(existing);
+        }
+
         T updated = service.save(existing);
         Map<String, Object> outputDto = dtoMapper.toOutputDto(updated);
 
@@ -283,6 +314,12 @@ public abstract class GenericCrudController<T, ID> {
 
         T existing = service.findById(id);
         dtoMapper.updateEntity(existing, inputDto);
+
+        // Validate with Update group if validator is available
+        if (entityValidator != null) {
+            entityValidator.validateForUpdate(existing);
+        }
+
         T updated = service.save(existing);
         Map<String, Object> outputDto = dtoMapper.toOutputDto(updated);
 

@@ -42,6 +42,7 @@ public class ControllerGenerator {
                 .addPropertyReference("dtoMapperFactory", "dtoMapperFactory")
                 .addPropertyReference("filterResolver", "filterResolver")
                 .addPropertyValue("metadata", metadata)
+                .addPropertyReference("entityValidator", "entityValidator")
                 .getBeanDefinition();
 
         // Add @RestController and @RequestMapping annotations metadata

@@ -5,6 +5,7 @@ import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.exception.EntityNotFoundException;
 import io.springflow.core.mapper.DtoMapper;
 import io.springflow.core.service.GenericCrudService;
+import io.springflow.core.validation.EntityValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -35,6 +36,7 @@ class GenericCrudControllerTest {
     private DtoMapper<TestEntity, Long> dtoMapper;
     private FilterResolver filterResolver;
     private EntityMetadata metadata;
+    private EntityValidator entityValidator;
     private GenericCrudController<TestEntity, Long> controller;
 
     @BeforeEach
@@ -57,6 +59,12 @@ class GenericCrudControllerTest {
         Specification<TestEntity> mockSpec = mock(Specification.class);
         when(mockSpec.and(any())).thenAnswer(inv -> inv.getArgument(0));
         when(filterResolver.buildSpecification(any(), any(), any())).thenReturn((Specification) mockSpec);
+
+        // Mock EntityValidator
+        entityValidator = mock(EntityValidator.class);
+        // By default, validation passes (no exception thrown)
+        doNothing().when(entityValidator).validateForCreate(any());
+        doNothing().when(entityValidator).validateForUpdate(any());
 
         // Setup DtoMapper mocks
         when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
@@ -94,7 +102,7 @@ class GenericCrudControllerTest {
         });
 
         // Create the controller
-        controller = new GenericCrudController<>(service, dtoMapper, filterResolver, metadata, TestEntity.class) {
+        controller = new GenericCrudController<>(service, dtoMapper, filterResolver, metadata, TestEntity.class, entityValidator) {
             @Override
             protected Long getEntityId(TestEntity entity) {
                 return entity.getId();

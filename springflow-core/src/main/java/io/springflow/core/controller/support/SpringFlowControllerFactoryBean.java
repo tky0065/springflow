@@ -8,6 +8,7 @@ import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.FieldMetadata;
 import io.springflow.core.security.SecurityExpressionBuilder;
 import io.springflow.core.service.GenericCrudService;
+import io.springflow.core.validation.EntityValidator;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.description.annotation.AnnotationDescription;
 import net.bytebuddy.dynamic.DynamicType;
@@ -44,6 +45,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
     private DtoMapperFactory dtoMapperFactory;
     private FilterResolver filterResolver;
     private EntityMetadata metadata;
+    private EntityValidator entityValidator;
     private final SecurityExpressionBuilder securityExpressionBuilder = new SecurityExpressionBuilder();
 
     public void setEntityClass(Class<T> entityClass) {
@@ -66,6 +68,10 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
         this.metadata = metadata;
     }
 
+    public void setEntityValidator(EntityValidator entityValidator) {
+        this.entityValidator = entityValidator;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public GenericCrudController<T, ID> getObject() throws Exception {
@@ -85,7 +91,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
     }
 
     private GenericCrudController<T, ID> createAnonymousController(DtoMapper<T, ID> dtoMapper) {
-        return new GenericCrudController<T, ID>(service, dtoMapper, filterResolver, metadata, entityClass) {
+        return new GenericCrudController<T, ID>(service, dtoMapper, filterResolver, metadata, entityClass, entityValidator) {
             @Override
             protected ID getEntityId(T entity) {
                 return extractIdFromEntity(entity);
@@ -133,8 +139,8 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
                 .getLoaded();
 
         return loadedClass
-                .getConstructor(GenericCrudService.class, DtoMapper.class, FilterResolver.class, EntityMetadata.class, Class.class)
-                .newInstance(service, dtoMapper, filterResolver, metadata, entityClass);
+                .getConstructor(GenericCrudService.class, DtoMapper.class, FilterResolver.class, EntityMetadata.class, Class.class, EntityValidator.class)
+                .newInstance(service, dtoMapper, filterResolver, metadata, entityClass, entityValidator);
     }
 
     private Method findMethod(Class<?> clazz, String name) {

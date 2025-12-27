@@ -589,7 +589,12 @@
 - [ ] Exemple: `@UniqueEmail` (deferred to Phase 2)
 
 #### 13.4 Validation Groups
-- [ ] Support validation groups (deferred to Phase 2)
+- [x] Created ValidationGroups.Create and ValidationGroups.Update interfaces
+- [x] Implemented EntityValidator with group support
+- [x] Modified GenericCrudController to apply groups (Create for POST, Update for PUT/PATCH)
+- [x] Integrated EntityValidator into SpringFlowControllerFactoryBean
+- [x] Added 8 comprehensive tests for validation groups
+- [x] Backward compatible (deprecated constructor without validator)
 - [ ] Groupes: Create, Update (deferred to Phase 2)
 - [ ] Configuration par endpoint (deferred to Phase 2)
 
