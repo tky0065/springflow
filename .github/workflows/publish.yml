@@ -17,10 +17,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '25'
           distribution: 'temurin'
           cache: 'maven'
           server-id: central
@@ -30,10 +30,10 @@ jobs:
           gpg-passphrase: GPG_PASSPHRASE
 
       - name: Build and verify
-        run: ./mvnw clean verify -B -V
+        run: ./mvnw clean verify -B -V -Djacoco.skip=true
 
       - name: Run all tests
-        run: ./mvnw test -B
+        run: ./mvnw test -B -Djacoco.skip=true
 
       - name: Publish to Maven Central
         env:
@@ -41,7 +41,7 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          ./mvnw deploy -P release -DskipTests -B
+          ./mvnw deploy -P release -DskipTests -B -Djacoco.skip=true
 
       - name: Create deployment summary
         run: |
