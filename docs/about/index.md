@@ -58,7 +58,7 @@ Une seule annotation suffit pour générer une API complète.
 
 ## :material-chart-bar: Statistiques
 
-- **Version actuelle**: 0.4.0
+- **Version actuelle**: 0.4.1
 - **Tests**: 136+ tests unitaires et d'intégration
 - **Coverage**: >80%
 - **Java**: 17+
