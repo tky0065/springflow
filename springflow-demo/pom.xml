@@ -17,6 +17,11 @@
     <name>SpringFlow Demo</name>
     <description>Demo application for SpringFlow framework</description>
 
+    <properties>
+        <!-- Exclude demo module from Maven Central deployment -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <dependencies>
         <!-- SpringFlow Starter -->
         <dependency>
