@@ -76,6 +76,11 @@ public class GraphQLSchemaGenerator {
         }
         schema.append("}\n\n");
 
+        // Generate Page types for each entity
+        for (EntityMetadata metadata : entitiesMetadata) {
+            schema.append(generatePageType(metadata));
+        }
+
         // Generate Mutation type
         schema.append("type Mutation {\n");
         for (EntityMetadata metadata : entitiesMetadata) {
@@ -185,13 +190,22 @@ public class GraphQLSchemaGenerator {
                 .append("(id: ID!): ")
                 .append(entityName).append("\n");
 
-        // Define Page type for this entity
-        queries.append("}\n\n");
-        queries.append("type ").append(entityName).append("Page {\n");
-        queries.append("  content: [").append(entityName).append("!]!\n");
-        queries.append("  pageInfo: PageInfo!\n");
-
         return queries.toString();
+    }
+
+    /**
+     * Generates Page type for an entity.
+     */
+    private String generatePageType(EntityMetadata metadata) {
+        String entityName = metadata.entityName();
+        StringBuilder pageType = new StringBuilder();
+
+        pageType.append("type ").append(entityName).append("Page {\n");
+        pageType.append("  content: [").append(entityName).append("!]!\n");
+        pageType.append("  pageInfo: PageInfo!\n");
+        pageType.append("}\n\n");
+
+        return pageType.toString();
     }
 
     /**

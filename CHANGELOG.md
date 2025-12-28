@@ -15,6 +15,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GraphQL relation field resolvers
 - GraphQL subscriptions
 
+## [0.4.1] - 2025-12-28
+
+### Fixed
+
+#### GraphQL Module - Spring Boot 4.0.1 Compatibility
+
+- **ByteBuddy version alignment**: Updated from 1.17.0 to 1.17.8 for Spring Boot 4.0.1 compatibility
+- **GraphQLFilterConverter bean**: Added missing bean registration in SpringFlowGraphQLAutoConfiguration
+- **Custom service detection**: GraphQL controller generation now skips entities with custom service implementations
+- **Schema generation**: Fixed incorrect nesting of queries inside Page types - all queries now properly defined in Query type
+- **Parameter annotations**: Preserved @Argument annotations in ByteBuddy-generated controllers using MethodAttributeAppender
+- **DtoMapper integration**: Migrated GenericGraphQLController to use DtoMapperFactory for consistency with REST architecture
+- **Schema regeneration**: Fixed demo schema structure with properly organized Query and Page types
+
+### Technical Details
+
+**Affected Components**:
+- `springflow-graphql` module (7 files modified)
+- `pom.xml` (ByteBuddy version bump)
+
+**Test Results**:
+- All GraphQL queries working correctly
+- Pagination functioning as expected
+- Custom services (Customer, Invoice) properly excluded from GraphQL generation
+
+**Maven Dependencies**:
+```xml
+<dependency>
+    <groupId>io.github.tky0065</groupId>
+    <artifactId>springflow-starter</artifactId>
+    <version>0.4.1</version>
+</dependency>
+```
+
 ## [0.4.0] - 2025-12-27
 
 ### 🚀 Major Framework Upgrade

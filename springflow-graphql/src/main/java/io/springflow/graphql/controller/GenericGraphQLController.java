@@ -2,6 +2,7 @@ package io.springflow.graphql.controller;
 
 import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapper;
+import io.springflow.core.mapper.DtoMapperFactory;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.service.GenericCrudService;
 import io.springflow.graphql.filter.GraphQLFilterConverter;
@@ -53,13 +54,14 @@ public abstract class GenericGraphQLController<T, ID> {
     protected final String entityName;
     protected final String pluralName;
 
+    @SuppressWarnings("unchecked")
     protected GenericGraphQLController(GenericCrudService<T, ID> service,
-                                      DtoMapper<T, ID> dtoMapper,
+                                      DtoMapperFactory dtoMapperFactory,
                                       FilterResolver filterResolver,
                                       GraphQLFilterConverter filterConverter,
                                       EntityMetadata metadata) {
         this.service = service;
-        this.dtoMapper = dtoMapper;
+        this.dtoMapper = (DtoMapper<T, ID>) dtoMapperFactory.getMapper(metadata.entityClass(), metadata);
         this.filterResolver = filterResolver;
         this.filterConverter = filterConverter;
         this.metadata = metadata;
@@ -100,7 +102,7 @@ public abstract class GenericGraphQLController<T, ID> {
      * @param filters optional filter criteria (map-based for simplicity)
      * @return paginated result with content and pageInfo
      */
-    @QueryMapping(name = "#{target.pluralName}")
+    // @QueryMapping annotation will be added dynamically by ByteBuddy for each entity
     public Map<String, Object> findAll(@Argument Integer page,
                                         @Argument Integer size,
                                         @Argument Map<String, Object> filters) {
@@ -149,7 +151,7 @@ public abstract class GenericGraphQLController<T, ID> {
      * @param id the entity ID
      * @return entity DTO or null if not found
      */
-    @QueryMapping(name = "#{target.entityName.toLowerCase()}")
+    // @QueryMapping annotation will be added dynamically by ByteBuddy for each entity
     public Map<String, Object> findById(@Argument ID id) {
         log.debug("GraphQL Query: {}(id={})", entityName.toLowerCase(), id);
         T entity = service.findById(id);
@@ -173,7 +175,7 @@ public abstract class GenericGraphQLController<T, ID> {
      * @param input entity data as Map
      * @return created entity DTO
      */
-    @MutationMapping(name = "create#{target.entityName}")
+    // @MutationMapping annotation will be added dynamically by ByteBuddy for each entity
     public Map<String, Object> create(@Argument Map<String, Object> input) {
         log.debug("GraphQL Mutation: create{}(input={})", entityName, input);
         T entity = dtoMapper.toEntity(input);
@@ -199,7 +201,7 @@ public abstract class GenericGraphQLController<T, ID> {
      * @param input updated entity data as Map
      * @return updated entity DTO
      */
-    @MutationMapping(name = "update#{target.entityName}")
+    // @MutationMapping annotation will be added dynamically by ByteBuddy for each entity
     public Map<String, Object> update(@Argument ID id, @Argument Map<String, Object> input) {
         log.debug("GraphQL Mutation: update{}(id={}, input={})", entityName, id, input);
         T existing = service.findById(id);
@@ -221,7 +223,7 @@ public abstract class GenericGraphQLController<T, ID> {
      * @param id entity ID
      * @return true if deleted successfully
      */
-    @MutationMapping(name = "delete#{target.entityName}")
+    // @MutationMapping annotation will be added dynamically by ByteBuddy for each entity
     public boolean delete(@Argument ID id) {
         log.debug("GraphQL Mutation: delete{}(id={})", entityName, id);
         service.deleteById(id);

@@ -2,6 +2,7 @@ package io.springflow.graphql.config;
 
 import io.springflow.core.metadata.MetadataResolver;
 import io.springflow.core.scanner.EntityScanner;
+import io.springflow.graphql.filter.GraphQLFilterConverter;
 import io.springflow.graphql.generator.GraphQLControllerGenerator;
 import io.springflow.graphql.schema.GraphQLSchemaGenerator;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,11 @@ public class SpringFlowGraphQLAutoConfiguration {
     @Bean
     public GraphQLControllerGenerator graphQLControllerGenerator() {
         return new GraphQLControllerGenerator();
+    }
+
+    @Bean
+    public GraphQLFilterConverter graphQLFilterConverter() {
+        return new GraphQLFilterConverter();
     }
 
     /**
