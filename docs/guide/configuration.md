@@ -603,6 +603,96 @@ springflow.swagger.contact-email=support@example.com
 
 ---
 
+## :material-graphql: Configuration GraphQL
+
+!!! info "Module Optionnel"
+    Le support GraphQL nécessite la dépendance `springflow-graphql`. Voir le [Guide GraphQL](graphql.md) pour plus de détails.
+
+### Configuration SpringFlow GraphQL
+
+```yaml
+springflow:
+  graphql:
+    enabled: true                        # Active le support GraphQL
+    schema-location: src/main/resources/graphql  # Emplacement du schéma généré
+    graphiql-enabled: true               # Active l'interface GraphiQL
+    introspection-enabled: true          # Active l'introspection (désactiver en prod)
+```
+
+### Configuration Spring Boot GraphQL (Obligatoire)
+
+!!! danger "Configuration Obligatoire"
+    Cette configuration est **obligatoire** pour que SpringFlow GraphQL fonctionne correctement:
+
+```yaml
+spring:
+  graphql:
+    graphiql:
+      enabled: true    # OBLIGATOIRE - active l'infrastructure Spring GraphQL
+      path: /graphiql  # Optionnel - personnalise le chemin GraphiQL
+    path: /graphql     # Optionnel - personnalise le chemin de l'endpoint GraphQL
+```
+
+**Pourquoi est-ce obligatoire?**
+
+SpringFlow GraphQL dépend de l'infrastructure Spring Boot GraphQL (`BatchLoaderRegistry`, `GraphQlSource`, etc.).
+Ces beans ne sont créés que lorsque l'auto-configuration Spring Boot GraphQL est activée.
+Sans `spring.graphql.graphiql.enabled=true`, l'application échouera au démarrage avec:
+
+```
+NoSuchBeanDefinitionException: No qualifying bean of type
+'org.springframework.graphql.execution.BatchLoaderRegistry' available
+```
+
+### Configuration Complète GraphQL
+
+```yaml
+springflow:
+  graphql:
+    enabled: true
+    schema-location: src/main/resources/graphql
+    graphiql-enabled: true
+    introspection-enabled: false  # Recommandé en production
+
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    path: /graphql
+    schema:
+      printer:
+        enabled: true
+```
+
+### Propriétés GraphQL
+
+| Propriété | Type | Défaut | Description |
+|-----------|------|--------|-------------|
+| **SpringFlow GraphQL** ||||
+| `graphql.enabled` | boolean | `false` | Active le support GraphQL |
+| `graphql.schema-location` | String | `src/main/resources/graphql` | Emplacement du schéma |
+| `graphql.graphiql-enabled` | boolean | `true` | Active GraphiQL UI |
+| `graphql.introspection-enabled` | boolean | `true` | Active l'introspection |
+| **Spring GraphQL (Obligatoire)** ||||
+| `spring.graphql.graphiql.enabled` | boolean | - | **OBLIGATOIRE** - Active l'infra Spring |
+| `spring.graphql.graphiql.path` | String | `/graphiql` | Chemin de l'interface |
+| `spring.graphql.path` | String | `/graphql` | Chemin de l'endpoint |
+
+### Désactiver GraphQL
+
+Pour désactiver GraphQL complètement:
+
+```yaml
+springflow:
+  graphql:
+    enabled: false
+```
+
+Ou simplement retirer la dépendance `springflow-graphql` du pom.xml.
+
+---
+
 ## :material-frequently-asked-questions: Questions Fréquentes
 
 ### Comment désactiver SpringFlow pour certains tests?
@@ -672,5 +762,13 @@ Partiellement. Le `base-path` s'applique si vous utilisez `@RequestMapping` sans
 | `contact-url` | String | `null` | URL du contact |
 | `license-name` | String | `null` | Nom de la licence |
 | `license-url` | String | `null` | URL de la licence |
+| **GraphQL** ||||
+| `graphql.enabled` | boolean | `false` | Active le support GraphQL |
+| `graphql.schema-location` | String | `src/main/resources/graphql` | Emplacement du schéma |
+| `graphql.graphiql-enabled` | boolean | `true` | Active GraphiQL UI |
+| `graphql.introspection-enabled` | boolean | `true` | Active l'introspection |
+
+!!! warning "Configuration Spring GraphQL Requise"
+    En plus des propriétés ci-dessus, `spring.graphql.graphiql.enabled=true` est **obligatoire** pour activer GraphQL.
 
 [Voir la référence API complète →](../api/configuration.md)

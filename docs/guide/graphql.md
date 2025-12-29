@@ -10,7 +10,7 @@ SpringFlow provides automatic GraphQL API generation for your JPA entities. Simp
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-graphql</artifactId>
-    <version>0.4.1</version>
+    <version>0.4.2</version>
 </dependency>
 ```
 
@@ -26,13 +26,21 @@ springflow:
     graphiql-enabled: true
     introspection-enabled: true
 
+# IMPORTANT: Spring Boot GraphQL auto-configuration must be enabled
 spring:
   graphql:
     graphiql:
-      enabled: true
+      enabled: true    # Required - activates Spring GraphQL infrastructure
       path: /graphiql
     path: /graphql
 ```
+
+!!! warning "Required Configuration"
+    The `spring.graphql.graphiql.enabled=true` setting is **mandatory** when using `springflow-graphql`.
+    Without it, Spring Boot's GraphQL auto-configuration will not activate, causing a
+    `NoSuchBeanDefinitionException: No qualifying bean of type 'BatchLoaderRegistry'` error at startup.
+
+    This configuration activates the Spring GraphQL infrastructure that SpringFlow depends on.
 
 ### 3. That's It!
 
@@ -274,6 +282,8 @@ private Long id;
 
 ## Configuration Options
 
+### SpringFlow GraphQL Configuration
+
 ```yaml
 springflow:
   graphql:
@@ -289,6 +299,26 @@ springflow:
     # Enable introspection (disable in production for security)
     introspection-enabled: true
 ```
+
+### Required Spring GraphQL Configuration
+
+!!! danger "Mandatory Configuration"
+    These Spring Boot GraphQL settings are **required** for SpringFlow GraphQL to work:
+
+```yaml
+spring:
+  graphql:
+    graphiql:
+      enabled: true    # MANDATORY - without this, application will fail to start
+      path: /graphiql  # Optional - customize GraphiQL path
+    path: /graphql     # Optional - customize GraphQL endpoint path
+```
+
+**Why is this required?**
+
+SpringFlow GraphQL depends on Spring Boot's GraphQL infrastructure (`BatchLoaderRegistry`, `GraphQlSource`, etc.).
+These beans are only created when Spring Boot's GraphQL auto-configuration is activated.
+Setting `spring.graphql.graphiql.enabled=true` triggers this auto-configuration.
 
 ## GraphiQL Interface
 
@@ -561,6 +591,37 @@ Planned for future releases:
 5. **Test with GraphiQL**: Use the interactive UI during development
 
 ## Troubleshooting
+
+### Application Fails to Start: NoSuchBeanDefinitionException
+
+**Error:**
+```
+org.springframework.beans.factory.NoSuchBeanDefinitionException:
+No qualifying bean of type 'org.springframework.graphql.execution.BatchLoaderRegistry' available
+```
+
+**Cause:** Spring Boot GraphQL auto-configuration is not activated.
+
+**Solution:** Add the required Spring GraphQL configuration to `application.yml`:
+
+```yaml
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+```
+
+This configuration is **mandatory** when using `springflow-graphql`. It activates Spring Boot's GraphQL
+infrastructure that SpringFlow depends on.
+
+**Technical Details:**
+
+SpringFlow GraphQL requires several Spring Boot GraphQL beans (`BatchLoaderRegistry`, `GraphQlSource`, etc.)
+that are only created when Spring Boot's GraphQL auto-configuration activates. Setting
+`spring.graphql.graphiql.enabled=true` is the simplest way to trigger this auto-configuration.
+
+Starting with SpringFlow v0.4.2, the `DataLoaderRegistrar` bean is conditional on `BatchLoaderRegistry`
+existence, which prevents this error and allows the REST API to work even if GraphQL configuration is incomplete.
 
 ### GraphQL Not Available
 

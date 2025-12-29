@@ -6,6 +6,7 @@ import io.springflow.core.scanner.EntityScanner;
 import io.springflow.graphql.dataloader.EntityBatchLoader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
@@ -21,12 +22,20 @@ import java.util.List;
  * This component solves the N+1 query problem by registering DataLoaders
  * that batch entity fetch requests into single queries.
  * </p>
+ * <p>
+ * This bean is conditional on the presence of {@link BatchLoaderRegistry},
+ * which is provided by Spring Boot GraphQL auto-configuration. If Spring GraphQL
+ * is not activated (e.g., missing {@code spring.graphql.graphiql.enabled=true} in
+ * configuration), this bean will not be created, allowing REST API functionality
+ * to work normally without GraphQL support.
+ * </p>
  *
  * @author SpringFlow
  * @since 0.3.0
  */
 @Slf4j
 @RequiredArgsConstructor
+@ConditionalOnBean(BatchLoaderRegistry.class)
 public class DataLoaderRegistrar {
 
     private final ApplicationContext applicationContext;

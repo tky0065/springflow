@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java Version](https://img.shields.io/badge/Java-25%2B%20(17%2B)-orange)](https://www.oracle.com/java/technologies/javase-downloads.html)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0%2B-brightgreen)](https://spring.io/projects/spring-boot)
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.4.1-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.4.2-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
 > **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
 
@@ -67,23 +67,23 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.4.1</version>
+    <version>0.4.2</version>
 </dependency>
 
 <!-- Optional: GraphQL Support -->
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-graphql</artifactId>
-    <version>0.4.1</version>
+    <version>0.4.2</version>
 </dependency>
 ```
 
 **Gradle** :
 ```gradle
-implementation 'io.github.tky0065:springflow-starter:0.4.1'
+implementation 'io.github.tky0065:springflow-starter:0.4.2'
 
 // Optional: GraphQL Support
-implementation 'io.github.tky0065:springflow-graphql:0.4.1'
+implementation 'io.github.tky0065:springflow-graphql:0.4.2'
 ```
 
 ### 2. Annotez vos entités
@@ -272,7 +272,21 @@ springflow:
     contact:
       name: "API Support"
       email: "support@example.com"
+
+  # GraphQL Support (requires springflow-graphql dependency)
+  graphql:
+    enabled: true                        # Activer le support GraphQL
+    graphiql-enabled: true               # Activer GraphiQL UI
+    schema-location: src/main/resources/graphql
+
+# IMPORTANT: Configuration Spring GraphQL requise
+spring:
+  graphql:
+    graphiql:
+      enabled: true                      # Active Spring Boot GraphQL auto-configuration
 ```
+
+> ⚠️ **Note importante pour GraphQL**: Lorsque vous utilisez `springflow-graphql`, vous devez également configurer `spring.graphql.graphiql.enabled=true` pour activer l'auto-configuration Spring Boot GraphQL. Sans cette configuration, l'application ne démarrera pas correctement.
 
 ---
 

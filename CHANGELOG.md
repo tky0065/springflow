@@ -15,6 +15,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GraphQL relation field resolvers
 - GraphQL subscriptions
 
+## [0.4.2] - 2025-12-29
+
+### Fixed
+
+#### GraphQL Module - Improved Startup Behavior
+
+- **DataLoaderRegistrar conditional bean**: Added `@ConditionalOnBean(BatchLoaderRegistry.class)` annotation to `DataLoaderRegistrar`
+  - Prevents `NoSuchBeanDefinitionException` when Spring GraphQL auto-configuration is not activated
+  - Allows REST API functionality to work normally even if GraphQL configuration is incomplete
+  - Provides graceful degradation instead of application startup failure
+
+### Changed
+
+#### Documentation Updates
+
+- **README.md**: Added mandatory Spring GraphQL configuration section with warning about `spring.graphql.graphiql.enabled=true` requirement
+- **docs/guide/graphql.md**:
+  - Added prominent warning in Quick Start section about required Spring GraphQL configuration
+  - Enhanced Configuration Options section with detailed explanation of mandatory settings
+  - Added new troubleshooting section for `NoSuchBeanDefinitionException` error
+- **docs/guide/configuration.md**: Added complete GraphQL configuration section with:
+  - SpringFlow GraphQL properties
+  - Mandatory Spring Boot GraphQL configuration
+  - Configuration examples and best practices
+  - Updated summary table with GraphQL properties
+
+### Technical Details
+
+**Problem**: Users adding `springflow-graphql` dependency experienced startup failures with:
+```
+NoSuchBeanDefinitionException: No qualifying bean of type
+'org.springframework.graphql.execution.BatchLoaderRegistry' available
+```
+
+**Root Cause**: Spring Boot GraphQL auto-configuration was not activating because the required configuration trigger (`spring.graphql.graphiql.enabled=true`) was not documented as mandatory.
+
+**Solution**:
+1. Made `DataLoaderRegistrar` bean conditional on `BatchLoaderRegistry` existence
+2. Updated all documentation to clearly mark Spring GraphQL configuration as mandatory
+3. Added comprehensive troubleshooting guide
+
+**Benefit**: Users can now add `springflow-graphql` dependency without worrying about startup failures. If Spring GraphQL is not properly configured, only the DataLoader functionality will be unavailable - the REST API will continue to work normally.
+
+### Migration Guide
+
+**For Existing Users**: No changes required. If you already have GraphQL working, your configuration is correct.
+
+**For New Users**: When adding `springflow-graphql` dependency, you **must** also add:
+
+```yaml
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+```
+
+See [GraphQL Guide](docs/guide/graphql.md) for complete configuration details.
+
 ## [0.4.1] - 2025-12-28
 
 ### Fixed
