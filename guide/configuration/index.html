@@ -1519,6 +1519,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configuration-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration GraphQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration GraphQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-springflow-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration SpringFlow GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-spring-boot-graphql-obligatoire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Spring Boot GraphQL (Obligatoire)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-complete-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Complète GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proprietes-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propriétés GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desactiver-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désactiver GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#questions-frequentes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3305,17 +3377,142 @@
 <a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="na">springflow.swagger.contact-email</span><span class="o">=</span><span class="s">support@example.com</span>
 </code></pre></div>
 <hr />
+<h2 id="configuration-graphql"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 5.37-.44-.06L6 14.9c.24.21.4.48.47.78h11.06c.07-.3.23-.57.47-.78l-5.56-9.59zM6.6 16.53l4.28 2.53c.29-.27.69-.43 1.12-.43s.83.16 1.12.43l4.28-2.53zM12 22a1.68 1.68 0 0 1-1.68-1.68l.09-.56-4.3-2.55c-.31.36-.76.58-1.27.58a1.68 1.68 0 0 1-1.68-1.68c0-.79.53-1.45 1.26-1.64V9.36c-.83-.11-1.47-.82-1.47-1.68A1.68 1.68 0 0 1 4.63 6c.55 0 1.03.26 1.34.66l4.41-2.53-.06-.45c0-.93.75-1.68 1.68-1.68s1.68.75 1.68 1.68l-.06.45 4.41 2.53c.31-.4.79-.66 1.34-.66a1.68 1.68 0 0 1 1.68 1.68c0 .86-.64 1.57-1.47 1.68v5.11c.73.19 1.26.85 1.26 1.64a1.68 1.68 0 0 1-1.68 1.68c-.51 0-.96-.22-1.27-.58l-4.3 2.55.09.56A1.68 1.68 0 0 1 12 22M10.8 4.86 6.3 7.44l.02.24c0 .71-.44 1.32-1.06 1.57l.03 5.25zm2.4 0 5.51 9.64.03-5.25c-.62-.25-1.06-.86-1.06-1.57l.02-.24z"/></svg></span> Configuration GraphQL<a class="headerlink" href="#configuration-graphql" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Module Optionnel</p>
+<p>Le support GraphQL nécessite la dépendance <code>springflow-graphql</code>. Voir le <a href="../graphql/">Guide GraphQL</a> pour plus de détails.</p>
+</div>
+<h3 id="configuration-springflow-graphql">Configuration SpringFlow GraphQL<a class="headerlink" href="#configuration-springflow-graphql" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w">  </span><span class="nt">graphql</span><span class="p">:</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">                        </span><span class="c1"># Active le support GraphQL</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="w">    </span><span class="nt">schema-location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/main/resources/graphql</span><span class="w">  </span><span class="c1"># Emplacement du schéma généré</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="w">    </span><span class="nt">graphiql-enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">               </span><span class="c1"># Active l&#39;interface GraphiQL</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="w">    </span><span class="nt">introspection-enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">          </span><span class="c1"># Active l&#39;introspection (désactiver en prod)</span>
+</code></pre></div>
+<h3 id="configuration-spring-boot-graphql-obligatoire">Configuration Spring Boot GraphQL (Obligatoire)<a class="headerlink" href="#configuration-spring-boot-graphql-obligatoire" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Configuration Obligatoire</p>
+<p>Cette configuration est <strong>obligatoire</strong> pour que SpringFlow GraphQL fonctionne correctement:</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nt">spring</span><span class="p">:</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">  </span><span class="nt">graphql</span><span class="p">:</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">    </span><span class="nt">graphiql</span><span class="p">:</span>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">    </span><span class="c1"># OBLIGATOIRE - active l&#39;infrastructure Spring GraphQL</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/graphiql</span><span class="w">  </span><span class="c1"># Optionnel - personnalise le chemin GraphiQL</span>
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/graphql</span><span class="w">     </span><span class="c1"># Optionnel - personnalise le chemin de l&#39;endpoint GraphQL</span>
+</code></pre></div>
+<p><strong>Pourquoi est-ce obligatoire?</strong></p>
+<p>SpringFlow GraphQL dépend de l'infrastructure Spring Boot GraphQL (<code>BatchLoaderRegistry</code>, <code>GraphQlSource</code>, etc.).
+Ces beans ne sont créés que lorsque l'auto-configuration Spring Boot GraphQL est activée.
+Sans <code>spring.graphql.graphiql.enabled=true</code>, l'application échouera au démarrage avec:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>NoSuchBeanDefinitionException: No qualifying bean of type
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>&#39;org.springframework.graphql.execution.BatchLoaderRegistry&#39; available
+</code></pre></div>
+<h3 id="configuration-complete-graphql">Configuration Complète GraphQL<a class="headerlink" href="#configuration-complete-graphql" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">  </span><span class="nt">graphql</span><span class="p">:</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">    </span><span class="nt">schema-location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/main/resources/graphql</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="w">    </span><span class="nt">graphiql-enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="w">    </span><span class="nt">introspection-enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># Recommandé en production</span>
+<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>
+<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="nt">spring</span><span class="p">:</span>
+<a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="w">  </span><span class="nt">graphql</span><span class="p">:</span>
+<a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a><span class="w">    </span><span class="nt">graphiql</span><span class="p">:</span>
+<a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/graphiql</span>
+<a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/graphql</span>
+<a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a><span class="w">    </span><span class="nt">schema</span><span class="p">:</span>
+<a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a><span class="w">      </span><span class="nt">printer</span><span class="p">:</span>
+<a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h3 id="proprietes-graphql">Propriétés GraphQL<a class="headerlink" href="#proprietes-graphql" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Propriété</th>
+<th>Type</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SpringFlow GraphQL</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>graphql.enabled</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Active le support GraphQL</td>
+</tr>
+<tr>
+<td><code>graphql.schema-location</code></td>
+<td>String</td>
+<td><code>src/main/resources/graphql</code></td>
+<td>Emplacement du schéma</td>
+</tr>
+<tr>
+<td><code>graphql.graphiql-enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active GraphiQL UI</td>
+</tr>
+<tr>
+<td><code>graphql.introspection-enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active l'introspection</td>
+</tr>
+<tr>
+<td><strong>Spring GraphQL (Obligatoire)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>spring.graphql.graphiql.enabled</code></td>
+<td>boolean</td>
+<td>-</td>
+<td><strong>OBLIGATOIRE</strong> - Active l'infra Spring</td>
+</tr>
+<tr>
+<td><code>spring.graphql.graphiql.path</code></td>
+<td>String</td>
+<td><code>/graphiql</code></td>
+<td>Chemin de l'interface</td>
+</tr>
+<tr>
+<td><code>spring.graphql.path</code></td>
+<td>String</td>
+<td><code>/graphql</code></td>
+<td>Chemin de l'endpoint</td>
+</tr>
+</tbody>
+</table>
+<h3 id="desactiver-graphql">Désactiver GraphQL<a class="headerlink" href="#desactiver-graphql" title="Permanent link">&para;</a></h3>
+<p>Pour désactiver GraphQL complètement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="w">  </span><span class="nt">graphql</span><span class="p">:</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Ou simplement retirer la dépendance <code>springflow-graphql</code> du pom.xml.</p>
+<hr />
 <h2 id="questions-frequentes"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 15H6l-4 4V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1m5-6v14l-4-4H8a1 1 0 0 1-1-1v-1h14V8h1a1 1 0 0 1 1 1M8.19 4c-.87 0-1.57.2-2.11.59-.52.41-.78.98-.77 1.77l.01.03h1.93c.01-.3.1-.53.28-.69a1 1 0 0 1 .66-.23c.31 0 .57.1.75.28.18.19.26.45.26.75 0 .32-.07.59-.23.82-.14.23-.35.43-.61.59-.51.34-.86.64-1.05.91C7.11 9.08 7 9.5 7 10h2c0-.31.04-.56.13-.74s.26-.36.51-.52c.45-.24.82-.53 1.11-.93s.44-.81.44-1.31c0-.76-.27-1.37-.81-1.82C9.85 4.23 9.12 4 8.19 4M7 11v2h2v-2zm6 2h2v-2h-2zm0-9v6h2V4z"/></svg></span> Questions Fréquentes<a class="headerlink" href="#questions-frequentes" title="Permanent link">&para;</a></h2>
 <h3 id="comment-desactiver-springflow-pour-certains-tests">Comment désactiver SpringFlow pour certains tests?<a class="headerlink" href="#comment-desactiver-springflow-pour-certains-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nd">@SpringBootTest</span><span class="p">(</span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;springflow.enabled=false&quot;</span><span class="p">)</span>
-<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="kd">class</span> <span class="nc">MyTest</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="nd">@SpringBootTest</span><span class="p">(</span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;springflow.enabled=false&quot;</span><span class="p">)</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="kd">class</span> <span class="nc">MyTest</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="w">    </span><span class="c1">// ...</span>
+<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="comment-avoir-des-pages-de-1-a-n-au-lieu-de-0-a-n-1">Comment avoir des pages de 1 à N au lieu de 0 à N-1?<a class="headerlink" href="#comment-avoir-des-pages-de-1-a-n-au-lieu-de-0-a-n-1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nt">springflow</span><span class="p">:</span>
-<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
-<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">    </span><span class="nt">one-indexed-parameters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nt">springflow</span><span class="p">:</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="w">    </span><span class="nt">one-indexed-parameters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <h3 id="puis-je-avoir-des-configurations-differentes-par-entite">Puis-je avoir des configurations différentes par entité?<a class="headerlink" href="#puis-je-avoir-des-configurations-differentes-par-entite" title="Permanent link">&para;</a></h3>
 <p>Non, la configuration est globale. Utilisez <code>@AutoApi(pagination = false)</code> pour désactiver la pagination sur une entité spécifique.</p>
@@ -3465,8 +3662,42 @@
 <td><code>null</code></td>
 <td>URL de la licence</td>
 </tr>
+<tr>
+<td><strong>GraphQL</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>graphql.enabled</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Active le support GraphQL</td>
+</tr>
+<tr>
+<td><code>graphql.schema-location</code></td>
+<td>String</td>
+<td><code>src/main/resources/graphql</code></td>
+<td>Emplacement du schéma</td>
+</tr>
+<tr>
+<td><code>graphql.graphiql-enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active GraphiQL UI</td>
+</tr>
+<tr>
+<td><code>graphql.introspection-enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Active l'introspection</td>
+</tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Configuration Spring GraphQL Requise</p>
+<p>En plus des propriétés ci-dessus, <code>spring.graphql.graphiql.enabled=true</code> est <strong>obligatoire</strong> pour activer GraphQL.</p>
+</div>
 <p><a href="../../api/configuration/">Voir la référence API complète →</a></p>
 
 
@@ -3490,7 +3721,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 15:56:41 UTC">December 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 29, 2025 09:44:27 UTC">December 29, 2025</span>
   </span>
 
     
