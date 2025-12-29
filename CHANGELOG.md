@@ -15,6 +15,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GraphQL relation field resolvers
 - GraphQL subscriptions
 
+## [0.4.3] - 2025-12-29
+
+### Fixed
+
+#### REST API Path Duplication Issue
+
+- **Path registration bug**: Fixed issue where REST API endpoints were registered with duplicated base paths (e.g., `/api/api/products` instead of `/api/products`)
+- **Root cause**: Maven compilation cache issue that caused incorrect path registration in `RequestMappingRegistrar`
+- **Solution**: Ensured proper clean build process without code changes required in SpringFlow core
+- **Impact**:
+  - ✅ REST endpoints now correctly registered at `/api/products`
+  - ✅ No breaking changes for existing users
+  - ✅ Fully backward compatible with v0.4.2
+
+### Changed
+
+#### Build Process Improvement
+- **Documentation**: Updated all version references to 0.4.3 in README.md, docs/, and release notes
+- **Maven build**: Improved reliability with proper clean/install process
+
+### Technical Details
+
+**Problem**: Users experienced REST API endpoints being registered with duplicated base paths when using SpringFlow 0.4.2.
+
+**Expected behavior**: `GET /api/products` should work correctly
+**Actual behavior**: Endpoints registered at `/api/api/products` causing 404 errors
+
+**Root Cause**: Maven compilation cache issue affecting path registration
+
+**Solution**: Fixed through proper Maven clean build process (`mvn clean install`). No code changes required.
+
+**Verification**:
+```bash
+✅ GET /api/products - Returns 200 OK
+✅ POST /api/products - Creates resource successfully
+✅ PUT /api/products/{id} - Updates resource
+✅ DELETE /api/products/{id} - Deletes resource
+❌ /api/api/products - Returns 404 (as expected)
+```
+
+### Migration Guide
+
+**From v0.4.2 to v0.4.3**: No changes required. Simply update your dependency version:
+
+**Maven**:
+```xml
+<dependency>
+    <groupId>io.github.tky0065</groupId>
+    <artifactId>springflow-starter</artifactId>
+    <version>0.4.3</version>
+</dependency>
+```
+
+**Gradle**:
+```gradle
+implementation 'io.github.tky0065:springflow-starter:0.4.3'
+```
+
+**Steps**:
+1. Update version in `pom.xml` or `build.gradle`
+2. Run `mvn clean install` or `gradle clean build`
+3. Restart your application
+
+No configuration changes needed!
+
 ## [0.4.2] - 2025-12-29
 
 ### Fixed

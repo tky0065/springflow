@@ -50,7 +50,7 @@
         <module>springflow-core</module>
         <module>springflow-graphql</module>
         <module>springflow-starter</module>
-        <module>springflow-demo</module>
+<!--        <module>springflow-demo</module>-->
     </modules>
 
     <properties>
