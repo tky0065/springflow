@@ -92,14 +92,10 @@ public class OpenApiConfiguration {
 
         OpenAPI openAPI = new OpenAPI().info(info);
 
-        // Add server with base path
+        // Add server - use "/" as base since operation paths already include springflow.base-path
         List<Server> servers = new ArrayList<>();
         Server server = new Server();
-        String basePath = properties.getBasePath();
-        if (basePath == null || basePath.isEmpty()) {
-            basePath = "/";
-        }
-        server.setUrl(basePath);
+        server.setUrl("/");  // Fixed: Don't use basePath to avoid double path concatenation in Swagger UI
         server.setDescription("SpringFlow API Server");
         servers.add(server);
         openAPI.setServers(servers);

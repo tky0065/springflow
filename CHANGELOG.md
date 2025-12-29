@@ -15,6 +15,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GraphQL relation field resolvers
 - GraphQL subscriptions
 
+## [0.4.4] - 2025-12-29
+
+### Fixed
+
+#### Swagger UI OpenAPI Server URL Double Path Concatenation
+
+- **OpenAPI server URL bug**: Fixed issue where Swagger UI "Execute" button sent requests to duplicated paths (e.g., `/api/api/products` instead of `/api/products`)
+- **Root cause**: OpenAPI server URL was set to `springflow.base-path` (`/api`), causing Swagger UI to concatenate it with operation paths that already included the base path
+- **Solution**: Changed server URL to `/` in `OpenApiConfiguration.java` since operation paths already include the full path
+- **Impact**:
+  - ✅ Swagger UI now correctly executes requests to `/api/products`
+  - ✅ No breaking changes for existing users
+  - ✅ Fully backward compatible with v0.4.3
+
+### Technical Details
+
+**Problem**: Users saw correct paths `/api/products` in Swagger UI documentation, but clicking "Execute" sent requests to `/api/api/products`, resulting in 404 errors.
+
+**Expected behavior**: Swagger UI should send requests to `/api/products`
+**Actual behavior**: Requests sent to `/api/api/products` due to server URL concatenation
+
+**Root Cause**: OpenAPI configuration set server URL to `basePath` value (`/api`). Swagger UI concatenates: `server.url` (`/api`) + `operation.path` (`/api/products`) = `/api/api/products`
+
+**Solution**: Changed `OpenApiConfiguration.java` line 98 from:
+```java
+server.setUrl(basePath);  // Was "/api"
+```
+To:
+```java
+server.setUrl("/");  // Fixed: Use root since paths include base
+```
+
+**Files Modified**:
+- `springflow-starter/src/main/java/io/springflow/starter/config/OpenApiConfiguration.java`
+
+**Verification**:
+```bash
+✅ Swagger UI displays /api/products in documentation
+✅ Execute button sends requests to /api/products (not /api/api/products)
+✅ OpenAPI JSON shows server URL as "/"
+✅ All CRUD operations work correctly
+```
+
+### Migration Guide
+
+**From v0.4.3 to v0.4.4**: No changes required. Simply update your dependency version:
+
+**Maven**:
+```xml
+<dependency>
+    <groupId>io.github.tky0065</groupId>
+    <artifactId>springflow-starter</artifactId>
+    <version>0.4.4</version>
+</dependency>
+```
+
+**Gradle**:
+```gradle
+implementation 'io.github.tky0065:springflow-starter:0.4.4'
+```
+
+No configuration changes needed!
+
 ## [0.4.3] - 2025-12-29
 
 ### Fixed
