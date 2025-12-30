@@ -14,7 +14,7 @@
 
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-parent</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>SpringFlow</name>
