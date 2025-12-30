@@ -81,17 +81,17 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(20);
-        assertThat(response.getBody().getTotalElements()).isEqualTo(100);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(5);
-        assertThat(response.getBody().getNumber()).isEqualTo(0);
-        assertThat(response.getBody().getSize()).isEqualTo(20);
-        assertThat(response.getBody().isFirst()).isTrue();
-        assertThat(response.getBody().isLast()).isFalse();
+        assertThat(response.getBody().getPage().getTotalElements()).isEqualTo(100);
+        assertThat(response.getBody().getPage().getTotalPages()).isEqualTo(5);
+        assertThat(response.getBody().getPage().getNumber()).isEqualTo(0);
+        assertThat(response.getBody().getPage().getSize()).isEqualTo(20);
+        assertThat(response.getBody().getPage().isFirst()).isTrue();
+        assertThat(response.getBody().getPage().isLast()).isFalse();
     }
 
     @Test
@@ -104,12 +104,12 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(10);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(10);
+        assertThat(response.getBody().getPage().getTotalPages()).isEqualTo(10);
     }
 
     @Test
@@ -122,13 +122,13 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getNumber()).isEqualTo(1);
-        assertThat(response.getBody().isFirst()).isFalse();
-        assertThat(response.getBody().isLast()).isFalse();
+        assertThat(response.getBody().getPage().getNumber()).isEqualTo(1);
+        assertThat(response.getBody().getPage().isFirst()).isFalse();
+        assertThat(response.getBody().getPage().isLast()).isFalse();
     }
 
     @Test
@@ -141,13 +141,13 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getNumber()).isEqualTo(4);
-        assertThat(response.getBody().isFirst()).isFalse();
-        assertThat(response.getBody().isLast()).isTrue();
+        assertThat(response.getBody().getPage().getNumber()).isEqualTo(4);
+        assertThat(response.getBody().getPage().isFirst()).isFalse();
+        assertThat(response.getBody().getPage().isLast()).isTrue();
     }
 
     @Test
@@ -165,7 +165,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -189,7 +189,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -212,12 +212,12 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(5);
-        assertThat(response.getBody().getSort().isSorted()).isTrue();
+        // Note: Sort information is not exposed in PageResponse, but sorting is still applied to content
     }
 
     @Test
@@ -229,13 +229,13 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).isEmpty();
-        assertThat(response.getBody().getTotalElements()).isEqualTo(0);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(0);
+        assertThat(response.getBody().getPage().getTotalElements()).isEqualTo(0);
+        assertThat(response.getBody().getPage().getTotalPages()).isEqualTo(0);
     }
 
     @Test
@@ -249,13 +249,13 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getNumber()).isEqualTo(1);
-        assertThat(response.getBody().getSize()).isEqualTo(10);
-        assertThat(response.getBody().getSort().isSorted()).isTrue();
+        assertThat(response.getBody().getPage().getNumber()).isEqualTo(1);
+        assertThat(response.getBody().getPage().getSize()).isEqualTo(10);
+        // Note: Sort information is not exposed in PageResponse, but sorting is still applied to content
     }
 
     // Helper methods

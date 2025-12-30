@@ -122,7 +122,9 @@ class OpenApiConfigurationTest {
                     OpenAPI openAPI = context.getBean(OpenAPI.class);
 
                     assertThat(openAPI.getServers()).isNotEmpty();
-                    assertThat(openAPI.getServers().get(0).getUrl()).isEqualTo("/api/v2");
+                    // Server URL is always "/" to avoid double path concatenation
+                    // Operation paths already include the basePath
+                    assertThat(openAPI.getServers().get(0).getUrl()).isEqualTo("/");
                     assertThat(openAPI.getServers().get(0).getDescription()).isEqualTo("SpringFlow API Server");
                 });
     }

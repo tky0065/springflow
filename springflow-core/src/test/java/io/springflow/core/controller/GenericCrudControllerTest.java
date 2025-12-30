@@ -123,13 +123,13 @@ class GenericCrudControllerTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<Page<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(2);
-        assertThat(response.getBody().getTotalElements()).isEqualTo(2);
+        assertThat(response.getBody().getPage().getTotalElements()).isEqualTo(2);
         assertThat(response.getBody().getContent().get(0).get("name")).isEqualTo("Entity 1");
         verify((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable));
     }

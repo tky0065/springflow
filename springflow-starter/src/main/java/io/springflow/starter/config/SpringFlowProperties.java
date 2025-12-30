@@ -2,6 +2,9 @@ package io.springflow.starter.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Configuration properties for SpringFlow framework.
  * <p>
@@ -22,6 +25,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *   swagger:
  *     enabled: true
  *     title: My API
+ *   logging:
+ *     log-bot-requests: false
+ *     bot-patterns:
+ *       - .php
+ *       - wp-admin
  * </pre>
  */
 @ConfigurationProperties(prefix = "springflow")
@@ -52,6 +60,11 @@ public class SpringFlowProperties {
      * Swagger/OpenAPI configuration properties.
      */
     private Swagger swagger = new Swagger();
+
+    /**
+     * Logging configuration properties.
+     */
+    private Logging logging = new Logging();
 
     public boolean isEnabled() {
         return enabled;
@@ -91,6 +104,14 @@ public class SpringFlowProperties {
 
     public void setSwagger(Swagger swagger) {
         this.swagger = swagger;
+    }
+
+    public Logging getLogging() {
+        return logging;
+    }
+
+    public void setLogging(Logging logging) {
+        this.logging = logging;
     }
 
     /**
@@ -295,6 +316,52 @@ public class SpringFlowProperties {
 
         public void setLicenseUrl(String licenseUrl) {
             this.licenseUrl = licenseUrl;
+        }
+    }
+
+    /**
+     * Logging configuration for exception handling and bot detection.
+     */
+    public static class Logging {
+        /**
+         * Whether to log bot requests (at DEBUG level).
+         * When false, bot requests are logged at DEBUG level.
+         * When true, bot requests are logged at INFO level.
+         */
+        private boolean logBotRequests = false;
+
+        /**
+         * List of path patterns that identify bot/scanner requests.
+         * These requests will be logged at DEBUG level instead of ERROR.
+         */
+        private List<String> botPatterns = Arrays.asList(
+                ".php",
+                "wp-admin",
+                "wp-content",
+                "wp-includes",
+                ".asp",
+                ".aspx",
+                "phpmyadmin",
+                "admin/",
+                "cgi-bin",
+                ".env",
+                ".git"
+        );
+
+        public boolean isLogBotRequests() {
+            return logBotRequests;
+        }
+
+        public void setLogBotRequests(boolean logBotRequests) {
+            this.logBotRequests = logBotRequests;
+        }
+
+        public List<String> getBotPatterns() {
+            return botPatterns;
+        }
+
+        public void setBotPatterns(List<String> botPatterns) {
+            this.botPatterns = botPatterns;
         }
     }
 }

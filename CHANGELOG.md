@@ -15,6 +15,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GraphQL relation field resolvers
 - GraphQL subscriptions
 
+## [0.5.0] - 2025-12-30
+
+### Added
+- PageResponse DTO personnalisé pour les réponses paginées
+- Handler intelligent NoResourceFoundException pour filtrer le bruit des bots
+- Configuration `springflow.logging` avec patterns de détection de bots
+- Tests GlobalExceptionHandlerTest (10 tests)
+- Tests PageResponseTest (9 tests)
+
+### Changed
+- Return type de GenericCrudController.findAll() : Page → PageResponse
+- Niveau de log pour les requêtes de bots : ERROR → DEBUG
+- SpringFlowProperties étendu avec classe Logging
+
+### Fixed
+- Warning Spring Data "Serializing PageImpl instances as-is is not supported"
+- Pollution des logs par les requêtes de bots/scanners
+- Stack traces complètes pour les 404 de ressources statiques
+
+### Documentation
+- Ajout de la documentation sur le filtrage des bots
+- Documentation PageResponse API
+- Mise à jour de tous les exemples de version vers 0.5.0
+
 ## [0.4.5] - 2025-12-30
 
 ### Fixed

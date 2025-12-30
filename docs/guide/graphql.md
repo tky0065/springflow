@@ -10,7 +10,7 @@ SpringFlow provides automatic GraphQL API generation for your JPA entities. Simp
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-graphql</artifactId>
-    <version>0.4.3</version>
+    <version>0.5.0</version>
 </dependency>
 ```
 
@@ -620,7 +620,7 @@ SpringFlow GraphQL requires several Spring Boot GraphQL beans (`BatchLoaderRegis
 that are only created when Spring Boot's GraphQL auto-configuration activates. Setting
 `spring.graphql.graphiql.enabled=true` is the simplest way to trigger this auto-configuration.
 
-Starting with SpringFlow v0.4.3, the `DataLoaderRegistrar` bean is conditional on `BatchLoaderRegistry`
+Starting with SpringFlow v0.5.0, the `DataLoaderRegistrar` bean is conditional on `BatchLoaderRegistry`
 existence, which prevents this error and allows the REST API to work even if GraphQL configuration is incomplete.
 
 ### GraphQL Not Available

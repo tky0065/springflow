@@ -66,7 +66,7 @@ Ouvrez `pom.xml` et ajoutez la dépendance SpringFlow dans la section `<dependen
 <dependency>
     <groupId>io.github.tky0065</groupId>
     <artifactId>springflow-starter</artifactId>
-    <version>0.4.3</version>
+    <version>0.5.0</version>
 </dependency>
 ```
 

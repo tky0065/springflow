@@ -101,7 +101,7 @@ public abstract class GenericCrudController<T, ID> {
             )
     })
     @GetMapping
-    public ResponseEntity<Page<Map<String, Object>>> findAll(
+    public ResponseEntity<PageResponse<Map<String, Object>>> findAll(
             @Parameter(description = "Pagination parameters (page, size, sort)")
             @PageableDefault(size = 20) Pageable pageable,
             @Parameter(description = "Filter parameters", hidden = true)
@@ -112,10 +112,10 @@ public abstract class GenericCrudController<T, ID> {
         boolean includeDeleted = Boolean.parseBoolean(params.getOrDefault("includeDeleted", "false"));
         boolean deletedOnly = Boolean.parseBoolean(params.getOrDefault("deletedOnly", "false"));
         List<String> fields = extractFields(params.get("fields"));
-        
+
         Specification<T> spec = filterResolver.buildSpecification(params, metadata, fields);
         Page<T> page;
-        
+
         if (deletedOnly) {
              page = service.findDeletedOnly(spec, pageable);
         } else {
@@ -123,7 +123,8 @@ public abstract class GenericCrudController<T, ID> {
         }
 
         Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page, fields);
-        return ResponseEntity.ok(dtoPage);
+        PageResponse<Map<String, Object>> response = new PageResponse<>(dtoPage);
+        return ResponseEntity.ok(response);
     }
 
     /**

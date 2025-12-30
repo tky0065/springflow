@@ -12,8 +12,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,34 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    private final String basePath;
+    private final boolean logBotRequests;
+    private final List<String> botPatterns;
+
+    /**
+     * Default constructor with standard bot patterns.
+     */
+    public GlobalExceptionHandler() {
+        this("/api", false, Arrays.asList(
+                ".php", "wp-admin", "wp-content", "wp-includes",
+                ".asp", ".aspx", "phpmyadmin", "admin/",
+                "cgi-bin", ".env", ".git"
+        ));
+    }
+
+    /**
+     * Constructor with custom configuration.
+     *
+     * @param basePath        the API base path (e.g., "/api")
+     * @param logBotRequests  whether to log bot requests at INFO level (false = DEBUG level)
+     * @param botPatterns     list of path patterns that identify bot/scanner requests
+     */
+    public GlobalExceptionHandler(String basePath, boolean logBotRequests, List<String> botPatterns) {
+        this.basePath = basePath != null ? basePath : "/api";
+        this.logBotRequests = logBotRequests;
+        this.botPatterns = botPatterns != null ? botPatterns : new ArrayList<>();
+    }
 
     /**
      * Handle EntityNotFoundException - return HTTP 404 NOT FOUND.
@@ -141,6 +171,73 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    /**
+     * Handle NoResourceFoundException - return HTTP 404 NOT FOUND.
+     * This exception is thrown by Spring when a static resource or endpoint is not found.
+     * We use intelligent logging to reduce noise from bot/scanner requests.
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoResourceFound(
+            NoResourceFoundException ex,
+            HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        // Determine appropriate log level based on request type
+        if (isBotRequest(path)) {
+            // Bot/scanner requests - log at DEBUG or INFO level to reduce noise
+            if (logBotRequests) {
+                log.info("Bot request to non-existent resource: {}", path);
+            } else {
+                log.debug("Bot request to non-existent resource: {}", path);
+            }
+        } else if (isLikelyApiRequest(path)) {
+            // Potential API endpoint not found - log at WARN level for visibility
+            log.warn("API endpoint not found: {} - {}", path, ex.getMessage());
+        } else {
+            // Other static resources - log at DEBUG level
+            log.debug("Static resource not found: {}", path);
+        }
+
+        // Return standard 404 response without exposing internal details
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                "Not Found",
+                "The requested resource was not found",
+                path
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    /**
+     * Check if the request path matches known bot/scanner patterns.
+     *
+     * @param path the request path
+     * @return true if the path matches bot patterns
+     */
+    private boolean isBotRequest(String path) {
+        if (botPatterns == null || botPatterns.isEmpty()) {
+            return false;
+        }
+
+        for (String pattern : botPatterns) {
+            if (path.contains(pattern)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if the request path is likely an API endpoint request.
+     *
+     * @param path the request path
+     * @return true if the path starts with the configured API base path
+     */
+    private boolean isLikelyApiRequest(String path) {
+        return path.startsWith(basePath);
     }
 
     /**
