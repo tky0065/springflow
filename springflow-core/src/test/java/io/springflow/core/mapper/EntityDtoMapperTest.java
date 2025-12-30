@@ -37,6 +37,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -469,6 +471,154 @@ class EntityDtoMapperTest {
         assertThat(mapper.getEntityClass()).isEqualTo(TestEntity.class);
     }
 
+    @Test
+    void toEntity_shouldConvertDoubleStringToBigDecimal() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Product");
+        inputDto.put("price", "99.99");  // String value
+
+        // When
+        ProductTestEntity entity = productMapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getPrice()).isNotNull();
+        assertThat(entity.getPrice()).isEqualByComparingTo(new BigDecimal("99.99"));
+    }
+
+    @Test
+    void toEntity_shouldConvertDoubleNumberToBigDecimal() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Product");
+        inputDto.put("price", 99.99);  // Double value (from JSON)
+
+        // When
+        ProductTestEntity entity = productMapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getPrice()).isNotNull();
+        assertThat(entity.getPrice()).isEqualByComparingTo(new BigDecimal("99.99"));
+    }
+
+    @Test
+    void toEntity_shouldConvertIntegerToBigDecimal() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Product");
+        inputDto.put("price", 100);  // Integer value
+
+        // When
+        ProductTestEntity entity = productMapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getPrice()).isNotNull();
+        assertThat(entity.getPrice()).isEqualByComparingTo(new BigDecimal("100"));
+    }
+
+    @Test
+    void toEntity_shouldConvertLongToBigDecimal() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Product");
+        inputDto.put("price", 999999L);  // Long value
+
+        // When
+        ProductTestEntity entity = productMapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getPrice()).isNotNull();
+        assertThat(entity.getPrice()).isEqualByComparingTo(new BigDecimal("999999"));
+    }
+
+    @Test
+    void toEntity_shouldHandleBigDecimalDirectly() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Product");
+        inputDto.put("price", new BigDecimal("123.45"));  // Already BigDecimal
+
+        // When
+        ProductTestEntity entity = productMapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getPrice()).isNotNull();
+        assertThat(entity.getPrice()).isEqualByComparingTo(new BigDecimal("123.45"));
+    }
+
+    @Test
+    void toEntity_shouldConvertStringToBigInteger() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Product");
+        inputDto.put("quantity", "1000");  // String value
+
+        // When
+        ProductTestEntity entity = productMapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getQuantity()).isNotNull();
+        assertThat(entity.getQuantity()).isEqualTo(new BigInteger("1000"));
+    }
+
+    @Test
+    void toEntity_shouldConvertIntegerToBigInteger() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("name", "Test Product");
+        inputDto.put("quantity", 500);  // Integer value
+
+        // When
+        ProductTestEntity entity = productMapper.toEntity(inputDto);
+
+        // Then
+        assertThat(entity.getQuantity()).isNotNull();
+        assertThat(entity.getQuantity()).isEqualTo(new BigInteger("500"));
+    }
+
+    @Test
+    void updateEntity_shouldUpdateBigDecimalField() {
+        // Given
+        EntityMetadata productMetadata = metadataResolver.resolve(ProductTestEntity.class);
+        EntityDtoMapper<ProductTestEntity, Long> productMapper = new EntityDtoMapper<>(ProductTestEntity.class, productMetadata, entityManager, mapperFactory);
+
+        ProductTestEntity entity = new ProductTestEntity();
+        entity.setId(1L);
+        entity.setName("Old Product");
+        entity.setPrice(new BigDecimal("50.00"));
+
+        Map<String, Object> inputDto = new HashMap<>();
+        inputDto.put("price", 99.99);  // Update with Double
+
+        // When
+        productMapper.updateEntity(entity, inputDto);
+
+        // Then
+        assertThat(entity.getPrice()).isEqualByComparingTo(new BigDecimal("99.99"));
+        assertThat(entity.getName()).isEqualTo("Old Product");  // Unchanged
+    }
+
     // Test entity for DTO mapping tests
     @Entity
     @io.springflow.annotations.AutoApi
@@ -584,6 +734,54 @@ class EntityDtoMapperTest {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+    }
+
+    // Test entity with BigDecimal and BigInteger fields
+    @Entity
+    @io.springflow.annotations.AutoApi
+    static class ProductTestEntity {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        @NotBlank
+        private String name;
+
+        private BigDecimal price;
+
+        private BigInteger quantity;
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public BigDecimal getPrice() {
+            return price;
+        }
+
+        public void setPrice(BigDecimal price) {
+            this.price = price;
+        }
+
+        public BigInteger getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(BigInteger quantity) {
+            this.quantity = quantity;
         }
     }
 }

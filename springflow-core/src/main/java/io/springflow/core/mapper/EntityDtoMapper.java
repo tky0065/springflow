@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -272,19 +274,42 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
 
     private Object convertValue(Object value, Class<?> targetType) {
         if (targetType.isInstance(value)) return value;
+
+        // String to target type conversions
         if (value instanceof String strValue) {
             if (targetType == Integer.class || targetType == int.class) return Integer.valueOf(strValue);
             if (targetType == Long.class || targetType == long.class) return Long.valueOf(strValue);
             if (targetType == Double.class || targetType == double.class) return Double.valueOf(strValue);
             if (targetType == Float.class || targetType == float.class) return Float.valueOf(strValue);
             if (targetType == Boolean.class || targetType == boolean.class) return Boolean.valueOf(strValue);
+            if (targetType == BigDecimal.class) return new BigDecimal(strValue);
+            if (targetType == BigInteger.class) return new BigInteger(strValue);
         }
+
+        // Number to target type conversions
         if (value instanceof Number numValue) {
             if (targetType == Integer.class || targetType == int.class) return numValue.intValue();
             if (targetType == Long.class || targetType == long.class) return numValue.longValue();
             if (targetType == Double.class || targetType == double.class) return numValue.doubleValue();
             if (targetType == Float.class || targetType == float.class) return numValue.floatValue();
+            if (targetType == BigDecimal.class) {
+                // Handle BigDecimal conversion from various number types
+                if (numValue instanceof BigDecimal) return numValue;
+                if (numValue instanceof BigInteger) return new BigDecimal((BigInteger) numValue);
+                if (numValue instanceof Double || numValue instanceof Float) {
+                    // Use string conversion to avoid precision loss
+                    return new BigDecimal(numValue.toString());
+                }
+                // For Integer, Long, etc.
+                return BigDecimal.valueOf(numValue.longValue());
+            }
+            if (targetType == BigInteger.class) {
+                if (numValue instanceof BigInteger) return numValue;
+                if (numValue instanceof BigDecimal) return ((BigDecimal) numValue).toBigInteger();
+                return BigInteger.valueOf(numValue.longValue());
+            }
         }
+
         return value;
     }
 }

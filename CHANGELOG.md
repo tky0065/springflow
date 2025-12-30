@@ -15,6 +15,123 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GraphQL relation field resolvers
 - GraphQL subscriptions
 
+## [0.4.5] - 2025-12-30
+
+### Fixed
+
+#### BigDecimal and BigInteger Type Conversion in EntityDtoMapper
+
+- **Type conversion bug**: Fixed issue where creating or updating entities with `BigDecimal` or `BigInteger` fields failed with `IllegalArgumentException: Can not set java.math.BigDecimal field to java.lang.Double`
+- **Root cause**: `EntityDtoMapper.convertValue()` method did not handle conversion from JSON numeric types (Double, Integer, Long) to `BigDecimal` and `BigInteger`
+- **Solution**: Enhanced `convertValue()` method in `EntityDtoMapper.java` to support:
+  - `String` → `BigDecimal` / `BigInteger`
+  - `Number` (Double, Float, Integer, Long) → `BigDecimal`
+  - `Number` (Integer, Long) → `BigInteger`
+  - Proper precision handling for floating-point to BigDecimal conversion
+- **Impact**:
+  - ✅ Entities with `BigDecimal` fields (e.g., price, amount) now work correctly in REST APIs
+  - ✅ Entities with `BigInteger` fields (e.g., large quantities) now work correctly
+  - ✅ All numeric type conversions properly handled (String, Double, Integer, Long, Float)
+  - ✅ No breaking changes - fully backward compatible with v0.4.4
+  - ✅ 8 new unit tests added for type conversion coverage
+
+### Technical Details
+
+**Problem**: Users creating entities with `BigDecimal` fields via REST API received errors:
+```
+ERROR: Can not set java.math.BigDecimal field com.example.Product.price to java.lang.Double
+```
+
+**Example failure case**:
+```java
+@Entity
+public class Product {
+    @Id
+    private Long id;
+    private String name;
+    private BigDecimal price;  // ❌ Failed when receiving JSON: {"price": 99.99}
+}
+```
+
+**Root Cause**: When JSON is parsed by Jackson, numeric values become Java `Double`, `Integer`, or `Long` objects. The `EntityDtoMapper.convertValue()` method used reflection to set field values but only handled primitive types and simple conversions, not `BigDecimal` or `BigInteger`.
+
+**Solution**: Enhanced `EntityDtoMapper.java` lines 275-314 with comprehensive numeric type conversions:
+
+```java
+private Object convertValue(Object value, Class<?> targetType) {
+    // ... existing code ...
+
+    // String to BigDecimal/BigInteger
+    if (value instanceof String strValue) {
+        if (targetType == BigDecimal.class) return new BigDecimal(strValue);
+        if (targetType == BigInteger.class) return new BigInteger(strValue);
+    }
+
+    // Number to BigDecimal/BigInteger
+    if (value instanceof Number numValue) {
+        if (targetType == BigDecimal.class) {
+            // Handle precision for floating-point types
+            if (numValue instanceof Double || numValue instanceof Float) {
+                return new BigDecimal(numValue.toString());  // Preserves precision
+            }
+            return BigDecimal.valueOf(numValue.longValue());
+        }
+        if (targetType == BigInteger.class) {
+            return BigInteger.valueOf(numValue.longValue());
+        }
+    }
+}
+```
+
+**Files Modified**:
+- `springflow-core/src/main/java/io/springflow/core/mapper/EntityDtoMapper.java`
+  - Added imports for `BigDecimal` and `BigInteger` (lines 12-13)
+  - Enhanced `convertValue()` method with BigDecimal/BigInteger support (lines 275-314)
+- `springflow-core/src/test/java/io/springflow/core/mapper/EntityDtoMapperTest.java`
+  - Added 8 new test cases for BigDecimal/BigInteger conversions
+  - Added `ProductTestEntity` test class with BigDecimal and BigInteger fields
+
+**Tests Added** (8 new tests, 173 total tests passing):
+1. `toEntity_shouldConvertDoubleStringToBigDecimal` - String "99.99" → BigDecimal
+2. `toEntity_shouldConvertDoubleNumberToBigDecimal` - Double 99.99 → BigDecimal
+3. `toEntity_shouldConvertIntegerToBigDecimal` - Integer 100 → BigDecimal
+4. `toEntity_shouldConvertLongToBigDecimal` - Long 999999L → BigDecimal
+5. `toEntity_shouldHandleBigDecimalDirectly` - BigDecimal → BigDecimal (pass-through)
+6. `toEntity_shouldConvertStringToBigInteger` - String "1000" → BigInteger
+7. `toEntity_shouldConvertIntegerToBigInteger` - Integer 500 → BigInteger
+8. `updateEntity_shouldUpdateBigDecimalField` - Update existing entity with BigDecimal field
+
+**Verification**:
+```bash
+✅ All 173 tests passing (0 failures, 1 skipped)
+✅ BigDecimal fields work with JSON numeric values
+✅ BigInteger fields work correctly
+✅ Precision preserved for floating-point conversions
+✅ No regression in existing functionality
+```
+
+### Migration Guide
+
+**From v0.4.4 to v0.4.5**: No changes required. Simply update your dependency version:
+
+**Maven**:
+```xml
+<dependency>
+    <groupId>io.github.tky0065</groupId>
+    <artifactId>springflow-starter</artifactId>
+    <version>0.4.5</version>
+</dependency>
+```
+
+**Gradle**:
+```gradle
+implementation 'io.github.tky0065:springflow-starter:0.4.5'
+```
+
+**Benefits for existing users**:
+- Entities with BigDecimal/BigInteger fields that previously failed will now work automatically
+- No code changes needed - just upgrade the version
+
 ## [0.4.4] - 2025-12-29
 
 ### Fixed
