@@ -1,7 +1,7 @@
 # Plan: Entity Filtering Support
 
 ## Phase 1: Core Definitions
-- [ ] Task: Define `FilterType` Enum
+- [x] Task: Define `FilterType` Enum 64306c3
     - [ ] Subtask: Create enum with values (EQUALS, LIKE, IN, GT, LT, etc.)
 - [ ] Task: Create `@Filterable` Annotation
     - [ ] Subtask: Define annotation with `FilterType[]` attribute
