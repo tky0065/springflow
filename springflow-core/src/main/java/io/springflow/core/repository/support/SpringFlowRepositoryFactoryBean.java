@@ -8,12 +8,17 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 public class SpringFlowRepositoryFactoryBean<T, ID> implements FactoryBean<SimpleJpaRepository<T, ID>> {
 
     private Class<T> entityClass;
+    private boolean supportSpecification;
     
     @PersistenceContext
     private EntityManager entityManager;
 
     public void setEntityClass(Class<T> entityClass) {
         this.entityClass = entityClass;
+    }
+
+    public void setSupportSpecification(boolean supportSpecification) {
+        this.supportSpecification = supportSpecification;
     }
 
     @Override

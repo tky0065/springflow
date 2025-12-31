@@ -21,6 +21,7 @@ public class RepositoryGenerator {
         BeanDefinition beanDefinition = BeanDefinitionBuilder
                 .genericBeanDefinition(SpringFlowRepositoryFactoryBean.class)
                 .addPropertyValue("entityClass", metadata.entityClass())
+                .addPropertyValue("supportSpecification", metadata.isSpecificationSupported())
                 .getBeanDefinition();
 
         registry.registerBeanDefinition(beanName, beanDefinition);
