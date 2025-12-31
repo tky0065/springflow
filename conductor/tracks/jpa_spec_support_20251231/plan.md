@@ -1,9 +1,9 @@
 # Plan: JpaSpecificationExecutor Support
 
-## Phase 1: Foundation (Annotation & Metadata)
+## Phase 1: Foundation (Annotation & Metadata) [checkpoint: 03efefd]
 - [x] Task: TDD - Add `supportSpecification` to `@AutoApi` annotation 4945c07
 - [x] Task: TDD - Update metadata processing to extract specification support flag 67b442a
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
 ## Phase 2: Repository Generation
 - [ ] Task: TDD - Update Dynamic Repository Generator to extend `JpaSpecificationExecutor` conditionally
