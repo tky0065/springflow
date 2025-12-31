@@ -9,11 +9,11 @@
 - [x] Task: TDD - Update Dynamic Repository Generator to extend `JpaSpecificationExecutor` conditionally da721b9
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Repository Generation' (Protocol in workflow.md)
 
-## Phase 3: DTOs & Search Logic
+## Phase 3: DTOs & Search Logic [checkpoint: e524bcd]
 - [x] Task: TDD - Implement `FilterDTO` generation logic for entities
 - [x] Task: TDD - Implement `SpecificationBuilder` utility to convert `FilterDTO` to `Specification` 6f95fdb
 - [x] Task: TDD - Update Service generator to include search methods using Specifications 6f95fdb
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: DTOs & Search Logic' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: DTOs & Search Logic' (Protocol in workflow.md)
 
 ## Phase 4: Controller & API
 - [ ] Task: TDD - Update Controller generator to add `POST /search` endpoint
@@ -24,7 +24,3 @@
 - [ ] Task: Update `springflow-demo` to demonstrate the new search functionality
 - [ ] Task: Final integration test pass for all generated layers
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Verification & Integration' (Protocol in workflow.md)
-
-## Phase 6 : update ALL docs
-- [ ] Task : update Readme
-- [ ] Task : update mkdocs 
