@@ -28,6 +28,20 @@ public enum FilterType {
     EQUALS,
 
     /**
+     * Not equal match filter.
+     *
+     * <p>Query parameter: {@code ?field_ne=value}
+     *
+     * <p>Examples:
+     * <ul>
+     *   <li>{@code ?status_ne=DELETED} - Matches status NOT DELETED</li>
+     * </ul>
+     *
+     * <p>SQL equivalent: {@code WHERE field != ?}
+     */
+    NOT_EQUALS,
+
+    /**
      * Pattern matching filter for strings.
      *
      * <p>Query parameter: {@code ?field_like=pattern}
