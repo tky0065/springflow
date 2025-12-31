@@ -81,9 +81,10 @@ class FilterableAnnotationTest {
 
     @Test
     void shouldSupportAllFilterTypes() {
-        assertEquals(11, FilterType.values().length, "Should have 11 FilterType values");
+        assertEquals(12, FilterType.values().length, "Should have 12 FilterType values");
 
         assertNotNull(FilterType.valueOf("EQUALS"));
+        assertNotNull(FilterType.valueOf("NOT_EQUALS"));
         assertNotNull(FilterType.valueOf("LIKE"));
         assertNotNull(FilterType.valueOf("GREATER_THAN"));
         assertNotNull(FilterType.valueOf("LESS_THAN"));
