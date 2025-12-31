@@ -16,8 +16,8 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: DTOs & Search Logic' (Protocol in workflow.md)
 
 ## Phase 4: Controller & API
-- [ ] Task: TDD - Update Controller generator to add `POST /search` endpoint
-- [ ] Task: TDD - Ensure search endpoint is documented in OpenAPI/Swagger
+- [x] Task: TDD - Update Controller generator to add `POST /search` endpoint cfd9938
+- [x] Task: TDD - Ensure search endpoint is documented in OpenAPI/Swagger cfd9938
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Controller & API' (Protocol in workflow.md)
 
 ## Phase 5: Verification & Integration
