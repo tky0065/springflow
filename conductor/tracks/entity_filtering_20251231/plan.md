@@ -3,7 +3,7 @@
 ## Phase 1: Core Definitions
 - [x] Task: Define `FilterType` Enum 64306c3
     - [ ] Subtask: Create enum with values (EQUALS, LIKE, IN, GT, LT, etc.)
-- [ ] Task: Create `@Filterable` Annotation
+- [x] Task: Create `@Filterable` Annotation 659e9cc
     - [ ] Subtask: Define annotation with `FilterType[]` attribute
 - [ ] Task: Conductor - User Manual Verification 'Core Definitions' (Protocol in workflow.md)
 
