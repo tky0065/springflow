@@ -30,7 +30,8 @@ import java.time.LocalDateTime;
 @AutoApi(
         path = "/products",
         description = "Product management API",
-        tags = {"Products"}
+        tags = {"Products"},
+        supportSpecification = true
 )
 @Auditable
 @SoftDelete

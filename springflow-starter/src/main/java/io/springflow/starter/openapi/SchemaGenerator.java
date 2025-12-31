@@ -130,11 +130,13 @@ public class SchemaGenerator {
         schema.setType("object");
         schema.setName("SearchRequest");
         schema.addProperty("criteria", new ArraySchema().items(criteriaSchema).description("List of filter criteria"));
-        schema.addProperty("operator", new StringSchema()
-                ._enum(java.util.Arrays.stream(io.springflow.core.dto.SearchRequest.LogicalOperator.values())
-                        .map(Enum::name).toList())
-                .description("Logical operator (AND/OR) between criteria")
-                .defaultValue("AND"));
+        
+        StringSchema operatorSchema = new StringSchema();
+        operatorSchema._enum(java.util.Arrays.stream(io.springflow.core.dto.SearchRequest.LogicalOperator.values())
+                        .map(Enum::name).toList());
+        operatorSchema.description("Logical operator (AND/OR) between criteria");
+        operatorSchema.setDefault("AND");
+        schema.addProperty("operator", operatorSchema);
 
         return schema;
     }
