@@ -1,11 +1,9 @@
 # Plan: Entity Filtering Support
 
-## Phase 1: Core Definitions
+## Phase 1: Core Definitions [checkpoint: a6261e8]
 - [x] Task: Define `FilterType` Enum 64306c3
-    - [ ] Subtask: Create enum with values (EQUALS, LIKE, IN, GT, LT, etc.)
 - [x] Task: Create `@Filterable` Annotation 659e9cc
-    - [ ] Subtask: Define annotation with `FilterType[]` attribute
-- [ ] Task: Conductor - User Manual Verification 'Core Definitions' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Core Definitions' (Protocol in workflow.md) a6261e8
 
 ## Phase 2: Specification Logic
 - [ ] Task: Implement `SearchCriteria` class
