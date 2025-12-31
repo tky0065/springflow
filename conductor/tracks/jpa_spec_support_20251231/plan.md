@@ -6,7 +6,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
 ## Phase 2: Repository Generation
-- [ ] Task: TDD - Update Dynamic Repository Generator to extend `JpaSpecificationExecutor` conditionally
+- [x] Task: TDD - Update Dynamic Repository Generator to extend `JpaSpecificationExecutor` conditionally da721b9
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Repository Generation' (Protocol in workflow.md)
 
 ## Phase 3: DTOs & Search Logic
