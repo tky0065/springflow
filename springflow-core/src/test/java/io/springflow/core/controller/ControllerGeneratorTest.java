@@ -164,6 +164,11 @@ class ControllerGeneratorTest {
             public String[] tags() {
                 return new String[0];
             }
+
+            @Override
+            public boolean supportSpecification() {
+                return false;
+            }
         };
     }
 

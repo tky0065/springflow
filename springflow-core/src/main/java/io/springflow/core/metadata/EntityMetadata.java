@@ -49,6 +49,10 @@ public record EntityMetadata(
         return auditableConfig != null;
     }
 
+    public boolean isSpecificationSupported() {
+        return autoApiConfig != null && autoApiConfig.supportSpecification();
+    }
+
     public boolean isVersioned() {
         return auditableConfig != null && auditableConfig.versioned();
     }
