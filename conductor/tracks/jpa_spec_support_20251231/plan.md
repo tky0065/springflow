@@ -2,7 +2,7 @@
 
 ## Phase 1: Foundation (Annotation & Metadata)
 - [x] Task: TDD - Add `supportSpecification` to `@AutoApi` annotation 4945c07
-- [ ] Task: TDD - Update metadata processing to extract specification support flag
+- [x] Task: TDD - Update metadata processing to extract specification support flag 67b442a
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
 ## Phase 2: Repository Generation
