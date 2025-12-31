@@ -21,6 +21,6 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Controller & API' (Protocol in workflow.md)
 
 ## Phase 5: Verification & Integration
-- [ ] Task: Update `springflow-demo` to demonstrate the new search functionality
-- [ ] Task: Final integration test pass for all generated layers
+- [x] Task: Update `springflow-demo` to demonstrate the new search functionality 1aa992c
+- [x] Task: Final integration test pass for all generated layers 1aa992c
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Verification & Integration' (Protocol in workflow.md)
