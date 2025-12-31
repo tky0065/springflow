@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [ ] Track: Implement Entity Filtering Support
+## [~] Track: Implement Entity Filtering Support
 *Link: [./conductor/tracks/entity_filtering_20251231/](./conductor/tracks/entity_filtering_20251231/)*
