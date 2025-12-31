@@ -8,7 +8,7 @@
 ## Phase 2: Specification Logic
 - [x] Task: Implement `SearchCriteria` class 9684dc7
     - [ ] Subtask: Define Pojo to hold key, operation, and value
-- [ ] Task: Implement `GenericSpecification`
+- [x] Task: Implement `GenericSpecification` 3c93b26
     - [ ] Subtask: Create class implementing `Specification<T>`
     - [ ] Subtask: Implement `toPredicate` logic for each `FilterType`
 - [ ] Task: Implement `SpecificationBuilder`
