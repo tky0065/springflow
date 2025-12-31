@@ -5,15 +5,15 @@
 - [x] Task: Create `@Filterable` Annotation 659e9cc
 - [x] Task: Conductor - User Manual Verification 'Core Definitions' (Protocol in workflow.md) a6261e8
 
-## Phase 2: Specification Logic
+## Phase 2: Specification Logic [checkpoint: 92f3edf]
 - [x] Task: Implement `SearchCriteria` class 9684dc7
-    - [ ] Subtask: Define Pojo to hold key, operation, and value
+    - [x] Subtask: Define Pojo to hold key, operation, and value
 - [x] Task: Implement `GenericSpecification` 3c93b26
-    - [ ] Subtask: Create class implementing `Specification<T>`
-    - [ ] Subtask: Implement `toPredicate` logic for each `FilterType`
+    - [x] Subtask: Create class implementing `Specification<T>`
+    - [x] Subtask: Implement `toPredicate` logic for each `FilterType`
 - [x] Task: Implement `SpecificationBuilder` 14b5d73
-    - [ ] Subtask: Logic to combine multiple specs
-- [ ] Task: Conductor - User Manual Verification 'Specification Logic' (Protocol in workflow.md)
+    - [x] Subtask: Logic to combine multiple specs
+- [x] Task: Conductor - User Manual Verification 'Specification Logic' (Protocol in workflow.md) 92f3edf
 
 ## Phase 3: Integration
 - [ ] Task: Update `GenericCrudController`
