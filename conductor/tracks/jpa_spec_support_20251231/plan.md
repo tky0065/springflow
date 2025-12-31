@@ -20,7 +20,7 @@
 - [x] Task: TDD - Ensure search endpoint is documented in OpenAPI/Swagger cfd9938
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Controller & API' (Protocol in workflow.md)
 
-## Phase 5: Verification & Integration
-- [x] Task: Update `springflow-demo` to demonstrate the new search functionality 1aa992c
-- [x] Task: Final integration test pass for all generated layers 1aa992c
-- [ ] Task: Conductor - User Manual Verification 'Phase 5: Verification & Integration' (Protocol in workflow.md)
+## Phase 5: Verification & Integration [checkpoint: b82b37a]
+- [x] Task: Update `springflow-demo` to demonstrate the new search functionality 1432a3d
+- [x] Task: Final integration test pass for all generated layers 1432a3d
+- [x] Task: Conductor - User Manual Verification 'Phase 5: Verification & Integration' (Protocol in workflow.md)
