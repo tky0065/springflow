@@ -263,6 +263,61 @@ public class OperationBuilder {
     }
 
     /**
+     * Build search operation (POST /search).
+     *
+     * @param metadata the entity metadata
+     * @param tags     the operation tags
+     * @return configured Operation
+     */
+    public Operation buildSearchOperation(EntityMetadata metadata, String[] tags) {
+        log.debug("Building search operation for {}", metadata.entityName());
+
+        Operation operation = new Operation();
+        operation.setSummary("Advanced search for " + metadata.entityName());
+        operation.setDescription("Perform an advanced search for " + metadata.entityName() + " entities using a structured list of filter criteria.");
+        operation.setTags(Arrays.asList(tags));
+        operation.setOperationId("search" + metadata.entityName());
+
+        // Add pagination parameters
+        operation.addParametersItem(createPageParameter());
+        operation.addParametersItem(createSizeParameter());
+        operation.addParametersItem(createSortParameter());
+
+        // Add request body
+        RequestBody requestBody = new RequestBody();
+        requestBody.setDescription("Search criteria");
+        requestBody.setRequired(true);
+        Content requestContent = new Content();
+        MediaType requestMediaType = new MediaType();
+        requestMediaType.setSchema(schemaGenerator.generateSearchSchema());
+        requestContent.addMediaType("application/json", requestMediaType);
+        requestBody.setContent(requestContent);
+        operation.setRequestBody(requestBody);
+
+        // Add responses
+        ApiResponses responses = new ApiResponses();
+
+        // 200 OK
+        ApiResponse response200 = new ApiResponse();
+        response200.setDescription("Successfully retrieved search results");
+        Content content200 = new Content();
+        MediaType mediaType200 = new MediaType();
+        mediaType200.setSchema(createPageSchema(metadata));
+        content200.addMediaType("application/json", mediaType200);
+        response200.setContent(content200);
+        responses.addApiResponse("200", response200);
+
+        // 400 Bad Request
+        ApiResponse response400 = new ApiResponse();
+        response400.setDescription("Invalid search criteria");
+        responses.addApiResponse("400", response400);
+
+        operation.setResponses(responses);
+
+        return operation;
+    }
+
+    /**
      * Create page query parameter.
      */
     private Parameter createPageParameter() {

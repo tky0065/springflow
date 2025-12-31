@@ -99,6 +99,11 @@ public class SpringFlowOpenApiCustomizer implements OpenApiCustomizer {
                 addUpdateOperation(openApi, fullBasePath, metadata, tags);
                 addDeleteOperation(openApi, fullBasePath, metadata, tags);
 
+                // Add search operation if enabled
+                if (metadata.isSpecificationSupported()) {
+                    addSearchOperation(openApi, fullBasePath, metadata, tags);
+                }
+
                 log.debug("Added OpenAPI operations for {} at {}",
                         metadata.entityName(), fullBasePath);
 
@@ -162,6 +167,16 @@ public class SpringFlowOpenApiCustomizer implements OpenApiCustomizer {
         Operation operation = operationBuilder.buildDeleteOperation(metadata, tags);
         String pathWithId = basePath + "/{id}";
         addOperation(openApi, pathWithId, PathItem.HttpMethod.DELETE, operation);
+    }
+
+    /**
+     * Add search operation (POST /search).
+     */
+    private void addSearchOperation(OpenAPI openApi, String basePath,
+                                     EntityMetadata metadata, String[] tags) {
+        Operation operation = operationBuilder.buildSearchOperation(metadata, tags);
+        String pathSearch = basePath + "/search";
+        addOperation(openApi, pathSearch, PathItem.HttpMethod.POST, operation);
     }
 
     /**

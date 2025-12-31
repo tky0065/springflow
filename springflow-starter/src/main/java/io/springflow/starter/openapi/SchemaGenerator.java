@@ -111,6 +111,35 @@ public class SchemaGenerator {
     }
 
     /**
+     * Generate a search schema (POST /search request bodies).
+     *
+     * @return OpenAPI schema for SearchRequest
+     */
+    public Schema<?> generateSearchSchema() {
+        log.debug("Generating search schema");
+
+        ObjectSchema criteriaSchema = new ObjectSchema();
+        criteriaSchema.addProperty("field", new StringSchema().description("Field name to filter on"));
+        criteriaSchema.addProperty("operator", new StringSchema()
+                ._enum(java.util.Arrays.stream(io.springflow.core.dto.FilterOperator.values())
+                        .map(Enum::name).toList())
+                .description("Filter operator"));
+        criteriaSchema.addProperty("value", new ObjectSchema().description("Filter value"));
+
+        ObjectSchema schema = new ObjectSchema();
+        schema.setType("object");
+        schema.setName("SearchRequest");
+        schema.addProperty("criteria", new ArraySchema().items(criteriaSchema).description("List of filter criteria"));
+        schema.addProperty("operator", new StringSchema()
+                ._enum(java.util.Arrays.stream(io.springflow.core.dto.SearchRequest.LogicalOperator.values())
+                        .map(Enum::name).toList())
+                .description("Logical operator (AND/OR) between criteria")
+                .defaultValue("AND"));
+
+        return schema;
+    }
+
+    /**
      * Map Java type to OpenAPI schema type.
      *
      * @param type the Java class type

@@ -381,6 +381,29 @@ class GenericCrudControllerTest {
         verify(repository).save(any(TestEntity.class));
     }
 
+    @Test
+    void search_shouldReturnFilteredEntities() {
+        // Given
+        Pageable pageable = PageRequest.of(0, 20);
+        List<TestEntity> entities = List.of(new TestEntity(1L, "Found Entity"));
+        Page<TestEntity> page = new PageImpl<>(entities, pageable, 1);
+        
+        io.springflow.core.dto.SearchRequest searchRequest = new io.springflow.core.dto.SearchRequest(
+            List.of(new io.springflow.core.dto.SearchRequest.FilterCriteria("name", io.springflow.core.dto.FilterOperator.EQUALS, "Found Entity")),
+            io.springflow.core.dto.SearchRequest.LogicalOperator.AND
+        );
+
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(Specification.class), eq(pageable))).thenReturn(page);
+
+        // When
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.search(searchRequest, pageable, new MockHttpServletRequest());
+
+        // Then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getContent()).hasSize(1);
+        assertThat(response.getBody().getContent().get(0).get("name")).isEqualTo("Found Entity");
+    }
+
     // Test entity class
     static class TestEntity {
         private Long id;

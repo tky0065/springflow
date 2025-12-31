@@ -127,6 +127,48 @@ public abstract class GenericCrudController<T, ID> {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * POST /search - Advanced search using JPA Specifications.
+     *
+     * @param searchRequest the search request containing criteria
+     * @param pageable      pagination parameters
+     * @return page of DTOs matching the criteria
+     */
+    @Operation(
+            summary = "Advanced search",
+            description = "Perform an advanced search using a structured list of filter criteria. Supports complex logical operations."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved search results",
+                    content = @Content(mediaType = "application/json")
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid search criteria",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    @PostMapping("/search")
+    public ResponseEntity<PageResponse<Map<String, Object>>> search(
+            @Parameter(description = "Search criteria", required = true)
+            @RequestBody io.springflow.core.dto.SearchRequest searchRequest,
+            @Parameter(description = "Pagination parameters (page, size, sort)")
+            @PageableDefault(size = 20) Pageable pageable,
+            jakarta.servlet.http.HttpServletRequest request) {
+        log.debug("POST request to search {} with request: {} and pagination: {}",
+                entityClass.getSimpleName(), searchRequest, pageable);
+
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        List<String> fields = extractFields(getFirstParam(parameterMap, "fields", null));
+
+        Page<T> page = service.search(searchRequest, pageable);
+        Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page, fields);
+        PageResponse<Map<String, Object>> response = new PageResponse<>(dtoPage);
+        return ResponseEntity.ok(response);
+    }
+
     private String getFirstParam(Map<String, String[]> parameterMap, String key, String defaultValue) {
         String[] values = parameterMap.get(key);
         return (values != null && values.length > 0) ? values[0] : defaultValue;
