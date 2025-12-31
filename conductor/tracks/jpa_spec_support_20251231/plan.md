@@ -24,3 +24,7 @@
 - [ ] Task: Update `springflow-demo` to demonstrate the new search functionality
 - [ ] Task: Final integration test pass for all generated layers
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Verification & Integration' (Protocol in workflow.md)
+
+## Phase 6 : update ALL docs
+- [ ] Task : update Readme
+- [ ] Task : update mkdocs 
