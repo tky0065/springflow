@@ -17,8 +17,9 @@ SpringFlow is a sophisticated Spring Boot library designed to eliminate the repe
 *   **Robustness & Security:** Provide enterprise-grade features like JSR-380 validation, dynamic JPA filtering, and integrated security out of the box.
 
 ## 4. Key Features
-*   **Annotation-Driven Generation:** Use `@AutoApi`, `@Hidden`, and `@ReadOnly` to control API behavior and data visibility at the entity level.
+*   **Annotation-Driven Generation:** Use `@AutoApi`, `@Hidden`, `@ReadOnly`, and `@Filterable` to control API behavior, data visibility, and filtering capabilities at the entity level.
 *   **Advanced CRUD Capabilities:** Integrated support for pagination, multi-field sorting, and complex dynamic filtering using JPA Specifications.
+*   **Dynamic Filtering:** Flexible query parameter support for various operations (EQUALS, LIKE, RANGE, etc.) with both standard and bracketed syntax (e.g., `field[op]=value`).
 *   **Intelligent Extensibility:** Automatic detection and integration of custom components, ensuring that manual overrides blend seamlessly with generated logic.
 *   **Polyglot Support:** First-class compatibility with both Java and Kotlin, including full support for modern Java versions (17-25+).
 *   **Extended Ecosystem:** Optional modules for GraphQL support (`springflow-graphql`) and comprehensive auditing/soft-delete capabilities.

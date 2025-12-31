@@ -4,5 +4,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [~] Track: Implement Entity Filtering Support
-*Link: [./conductor/tracks/entity_filtering_20251231/](./conductor/tracks/entity_filtering_20251231/)*
+## [~] Track: JpaSpecificationExecutor Support
+*Link: [./conductor/tracks/jpa_spec_support_20251231/](./conductor/tracks/jpa_spec_support_20251231/)*
+
