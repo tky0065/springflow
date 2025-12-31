@@ -6,7 +6,7 @@
 - [x] Task: Conductor - User Manual Verification 'Core Definitions' (Protocol in workflow.md) a6261e8
 
 ## Phase 2: Specification Logic
-- [ ] Task: Implement `SearchCriteria` class
+- [x] Task: Implement `SearchCriteria` class 9684dc7
     - [ ] Subtask: Define Pojo to hold key, operation, and value
 - [ ] Task: Implement `GenericSpecification`
     - [ ] Subtask: Create class implementing `Specification<T>`
