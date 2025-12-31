@@ -80,7 +80,7 @@ class SecurityIntegrationTest {
         assertThat(controller.getClass().getName()).contains("AutoController");
         
         Method findAllMethod = controller.getClass().getMethod("findAll", 
-                org.springframework.data.domain.Pageable.class, java.util.Map.class);
+                org.springframework.data.domain.Pageable.class, jakarta.servlet.http.HttpServletRequest.class);
         
         PreAuthorize preAuthorize = findAllMethod.getAnnotation(PreAuthorize.class);
         assertThat(preAuthorize).isNotNull();
@@ -108,7 +108,7 @@ class SecurityIntegrationTest {
         assertThat(controller).isNotNull();
         
         Method findAllMethod = controller.getClass().getMethod("findAll", 
-                org.springframework.data.domain.Pageable.class, java.util.Map.class);
+                org.springframework.data.domain.Pageable.class, jakarta.servlet.http.HttpServletRequest.class);
         
         PreAuthorize preAuthorize = findAllMethod.getAnnotation(PreAuthorize.class);
         if (preAuthorize != null) {
@@ -135,7 +135,7 @@ class SecurityIntegrationTest {
 
         // Then
         Method findAllMethod = controller.getClass().getMethod("findAll", 
-                org.springframework.data.domain.Pageable.class, java.util.Map.class);
+                org.springframework.data.domain.Pageable.class, jakarta.servlet.http.HttpServletRequest.class);
         
         PreAuthorize preAuthorize = findAllMethod.getAnnotation(PreAuthorize.class);
         assertThat(preAuthorize).isNotNull();
@@ -163,7 +163,7 @@ class SecurityIntegrationTest {
 
         // Then
         Method findAllMethod = controller.getClass().getMethod("findAll", 
-                org.springframework.data.domain.Pageable.class, java.util.Map.class);
+                org.springframework.data.domain.Pageable.class, jakarta.servlet.http.HttpServletRequest.class);
         PreAuthorize readPreAuth = findAllMethod.getAnnotation(PreAuthorize.class);
         assertThat(readPreAuth.value()).isEqualTo("permitAll()");
 

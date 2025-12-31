@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -81,7 +82,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -104,7 +105,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -122,7 +123,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -141,7 +142,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -165,7 +166,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -189,7 +190,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -212,7 +213,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -229,7 +230,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();
@@ -249,7 +250,7 @@ class PaginationAndSortingTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getBody()).isNotNull();

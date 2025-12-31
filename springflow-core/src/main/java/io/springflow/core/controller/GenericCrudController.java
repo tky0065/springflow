@@ -104,16 +104,16 @@ public abstract class GenericCrudController<T, ID> {
     public ResponseEntity<PageResponse<Map<String, Object>>> findAll(
             @Parameter(description = "Pagination parameters (page, size, sort)")
             @PageableDefault(size = 20) Pageable pageable,
-            @Parameter(description = "Filter parameters", hidden = true)
-            @RequestParam Map<String, String> params) {
-        log.debug("GET request to find all {} with pagination: {} and filters: {}",
-                entityClass.getSimpleName(), pageable, params);
+            jakarta.servlet.http.HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        log.debug("GET request to find all {} with pagination: {} and parameters: {}",
+                entityClass.getSimpleName(), pageable, parameterMap.keySet());
 
-        boolean includeDeleted = Boolean.parseBoolean(params.getOrDefault("includeDeleted", "false"));
-        boolean deletedOnly = Boolean.parseBoolean(params.getOrDefault("deletedOnly", "false"));
-        List<String> fields = extractFields(params.get("fields"));
+        boolean includeDeleted = Boolean.parseBoolean(getFirstParam(parameterMap, "includeDeleted", "false"));
+        boolean deletedOnly = Boolean.parseBoolean(getFirstParam(parameterMap, "deletedOnly", "false"));
+        List<String> fields = extractFields(getFirstParam(parameterMap, "fields", null));
 
-        Specification<T> spec = filterResolver.buildSpecification(params, metadata, fields);
+        Specification<T> spec = filterResolver.buildSpecification(parameterMap, metadata, fields);
         Page<T> page;
 
         if (deletedOnly) {
@@ -125,6 +125,11 @@ public abstract class GenericCrudController<T, ID> {
         Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page, fields);
         PageResponse<Map<String, Object>> response = new PageResponse<>(dtoPage);
         return ResponseEntity.ok(response);
+    }
+
+    private String getFirstParam(Map<String, String[]> parameterMap, String key, String defaultValue) {
+        String[] values = parameterMap.get(key);
+        return (values != null && values.length > 0) ? values[0] : defaultValue;
     }
 
     /**
@@ -154,12 +159,12 @@ public abstract class GenericCrudController<T, ID> {
     public ResponseEntity<Map<String, Object>> findById(
             @Parameter(description = "Entity ID", required = true)
             @PathVariable ID id,
-            @Parameter(description = "Query parameters", hidden = true)
-            @RequestParam Map<String, String> params) {
+            jakarta.servlet.http.HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
         log.debug("GET request to find {} with id: {}", entityClass.getSimpleName(), id);
-        List<String> fields = extractFields(params.get("fields"));
+        List<String> fields = extractFields(getFirstParam(parameterMap, "fields", null));
         
-        Specification<T> spec = filterResolver.buildSpecification(params, metadata, fields);
+        Specification<T> spec = filterResolver.buildSpecification(parameterMap, metadata, fields);
         T entity = service.findById(id, spec);
         Map<String, Object> dto = dtoMapper.toOutputDto(entity, fields);
         return ResponseEntity.ok(dto);

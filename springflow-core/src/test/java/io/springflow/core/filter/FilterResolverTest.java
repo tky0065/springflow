@@ -69,8 +69,8 @@ class FilterResolverTest {
                 Collections.singletonList(fieldMetadata)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("name", "John");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("name", new String[]{"John"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -104,8 +104,8 @@ class FilterResolverTest {
                 Collections.singletonList(fieldMetadata)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("name_like", "John");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("name_like", new String[]{"John"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -138,8 +138,8 @@ class FilterResolverTest {
                 Collections.singletonList(fieldMetadata)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("age_gt", "18");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("age_gt", new String[]{"18"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -171,8 +171,8 @@ class FilterResolverTest {
                 Collections.singletonList(fieldMetadata)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("name_null", "true");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("name_null", new String[]{"true"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -200,8 +200,8 @@ class FilterResolverTest {
                 Collections.singletonList(fieldMetadata)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("name_in", "John,Jane");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("name_in", new String[]{"John,Jane"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -234,8 +234,8 @@ class FilterResolverTest {
                 Collections.singletonList(fieldMetadata)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("age_between", "18,65");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("age_between", new String[]{"18,65"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -263,9 +263,9 @@ class FilterResolverTest {
                 Collections.singletonList(fieldMetadata)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("age_gte", "18");
-        params.put("age_lte", "65");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("age[gte]", new String[]{"18"});
+        params.put("age[lte]", new String[]{"65"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -302,9 +302,9 @@ class FilterResolverTest {
                 java.util.Arrays.asList(nameField, ageField)
         );
 
-        Map<String, String> params = new HashMap<>();
-        params.put("name", "John");
-        params.put("age_gt", "18");
+        Map<String, String[]> params = new HashMap<>();
+        params.put("name", new String[]{"John"});
+        params.put("age_gt", new String[]{"18"});
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);
@@ -330,7 +330,7 @@ class FilterResolverTest {
                 Collections.singletonList(relationField)
         );
 
-        Map<String, String> params = new HashMap<>();
+        Map<String, String[]> params = new HashMap<>();
         java.util.List<String> fetchFields = java.util.Collections.singletonList("category");
 
         // When
@@ -360,7 +360,7 @@ class FilterResolverTest {
                 Collections.singletonList(relationField)
         );
 
-        Map<String, String> params = new HashMap<>();
+        Map<String, String[]> params = new HashMap<>();
 
         // When
         Specification<TestEntity> spec = filterResolver.buildSpecification(params, metadata);

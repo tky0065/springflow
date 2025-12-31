@@ -118,7 +118,10 @@ public abstract class GenericGraphQLController<T, ID> {
         Page<T> entityPage;
         if (filters != null && !filters.isEmpty()) {
             Map<String, String> filterParams = filterConverter.convertSimpleFilter(filters);
-            Specification<T> spec = filterResolver.buildSpecification(filterParams, metadata, null);
+            Map<String, String[]> multiParams = new HashMap<>();
+            filterParams.forEach((k, v) -> multiParams.put(k, new String[]{v}));
+            
+            Specification<T> spec = filterResolver.buildSpecification(multiParams, metadata, null);
             entityPage = service.findAll(spec, pageRequest);
         } else {
             entityPage = service.findAll(pageRequest);

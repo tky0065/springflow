@@ -44,25 +44,25 @@ public class FilterResolver {
     /**
      * Builds a JPA Specification from query parameters and entity metadata.
      *
-     * @param params   the query parameters
+     * @param params   the query parameters map
      * @param metadata the entity metadata
      * @param <T>      the entity type
      * @return a Specification that can be used with JpaSpecificationExecutor
      */
-    public <T> Specification<T> buildSpecification(Map<String, String> params, EntityMetadata metadata) {
+    public <T> Specification<T> buildSpecification(Map<String, String[]> params, EntityMetadata metadata) {
         return buildSpecification(params, metadata, null);
     }
 
     /**
      * Builds a JPA Specification from query parameters and entity metadata, with support for fetch joins.
      *
-     * @param params      the query parameters
+     * @param params      the query parameters map
      * @param metadata    the entity metadata
      * @param fetchFields list of relation fields to fetch eagerly
      * @param <T>         the entity type
      * @return a Specification that can be used with JpaSpecificationExecutor
      */
-    public <T> Specification<T> buildSpecification(Map<String, String> params, EntityMetadata metadata, List<String> fetchFields) {
+    public <T> Specification<T> buildSpecification(Map<String, String[]> params, EntityMetadata metadata, List<String> fetchFields) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -94,7 +94,10 @@ public class FilterResolver {
 
             for (FieldMetadata fieldMetadata : metadata.fields()) {
                 if (fieldMetadata.filterConfig() != null) {
+                    log.trace("Field {} has filter config, processing predicates", fieldMetadata.name());
                     predicates.addAll(buildPredicatesForField(root, cb, fieldMetadata, params));
+                } else {
+                    log.trace("Field {} has NO filter config", fieldMetadata.name());
                 }
             }
 
@@ -102,80 +105,99 @@ public class FilterResolver {
         };
     }
 
-    private List<Predicate> buildPredicatesForField(Root<?> root, CriteriaBuilder cb, FieldMetadata fieldMetadata, Map<String, String> params) {
+    private List<Predicate> buildPredicatesForField(Root<?> root, CriteriaBuilder cb, FieldMetadata fieldMetadata, Map<String, String[]> params) {
         List<Predicate> predicates = new ArrayList<>();
         Filterable config = fieldMetadata.filterConfig();
         String baseParamName = StringUtils.hasText(config.paramName()) ? config.paramName() : fieldMetadata.name();
         List<FilterType> supportedTypes = Arrays.asList(config.types());
 
-        // EQUALS (?field=value)
-        if (supportedTypes.contains(FilterType.EQUALS) && params.containsKey(baseParamName)) {
-            String value = params.get(baseParamName);
-            predicates.add(buildEqualsPredicate(root, cb, fieldMetadata, value, config.caseSensitive()));
-        }
+        // Process all parameters to find matches for this field (e.g., field, field[eq], field_like)
+        for (Map.Entry<String, String[]> entry : params.entrySet()) {
+            String paramKey = entry.getKey();
+            String[] paramValues = entry.getValue();
+            if (paramValues == null || paramValues.length == 0) continue;
+            String firstValue = paramValues[0];
 
-        // LIKE (?field_like=value)
-        if (supportedTypes.contains(FilterType.LIKE) && params.containsKey(baseParamName + "_like")) {
-            String value = params.get(baseParamName + "_like");
-            predicates.add(buildLikePredicate(root, cb, fieldMetadata, value, config.caseSensitive()));
-        }
+            log.trace("Checking param {} against field {} (baseParamName: {})", paramKey, fieldMetadata.name(), baseParamName);
 
-        // GREATER_THAN (?field_gt=value)
-        if (supportedTypes.contains(FilterType.GREATER_THAN) && params.containsKey(baseParamName + "_gt")) {
-            String value = params.get(baseParamName + "_gt");
-            predicates.add(buildGreaterThanPredicate(root, cb, fieldMetadata, value));
-        }
-
-        // GREATER_THAN_OR_EQUAL (?field_gte=value)
-        if (supportedTypes.contains(FilterType.GREATER_THAN_OR_EQUAL) || supportedTypes.contains(FilterType.RANGE)) {
-             if (params.containsKey(baseParamName + "_gte")) {
-                 String value = params.get(baseParamName + "_gte");
-                 predicates.add(buildGreaterThanOrEqualPredicate(root, cb, fieldMetadata, value));
-             }
-        }
-
-        // LESS_THAN (?field_lt=value)
-        if (supportedTypes.contains(FilterType.LESS_THAN) && params.containsKey(baseParamName + "_lt")) {
-            String value = params.get(baseParamName + "_lt");
-            predicates.add(buildLessThanPredicate(root, cb, fieldMetadata, value));
-        }
-
-        // LESS_THAN_OR_EQUAL (?field_lte=value)
-        if (supportedTypes.contains(FilterType.LESS_THAN_OR_EQUAL) || supportedTypes.contains(FilterType.RANGE)) {
-            if (params.containsKey(baseParamName + "_lte")) {
-                String value = params.get(baseParamName + "_lte");
-                predicates.add(buildLessThanOrEqualPredicate(root, cb, fieldMetadata, value));
+            // 1. Exact match (EQUALS)
+            if (paramKey.equals(baseParamName)) {
+                if (supportedTypes.contains(FilterType.EQUALS)) {
+                    log.debug("Applying EQUALS filter for field {}: {}", fieldMetadata.name(), firstValue);
+                    predicates.add(buildEqualsPredicate(root, cb, fieldMetadata, firstValue, config.caseSensitive()));
+                }
+                continue;
             }
-        }
 
-        // IN (?field_in=v1,v2,v3)
-        if (supportedTypes.contains(FilterType.IN) && params.containsKey(baseParamName + "_in")) {
-            String value = params.get(baseParamName + "_in");
-            predicates.add(buildInPredicate(root, cb, fieldMetadata, value));
-        }
+            // 2. Bracketed format: field[op]=value
+            if (paramKey.startsWith(baseParamName + "[") && paramKey.endsWith("]")) {
+                String op = paramKey.substring(baseParamName.length() + 1, paramKey.length() - 1);
+                FilterType type = resolveOperator(op);
+                log.trace("Found bracketed op {} for field {}, resolved to FilterType {}", op, fieldMetadata.name(), type);
+                if (type != null && (supportedTypes.contains(type) || 
+                    (supportedTypes.contains(FilterType.RANGE) && (type == FilterType.GREATER_THAN || type == FilterType.GREATER_THAN_OR_EQUAL || 
+                                                                  type == FilterType.LESS_THAN || type == FilterType.LESS_THAN_OR_EQUAL)))) {
+                    log.debug("Applying {} filter for field {}: {}", type, fieldMetadata.name(), firstValue);
+                    predicates.add(buildPredicateByType(root, cb, fieldMetadata, type, firstValue, config.caseSensitive()));
+                }
+                continue;
+            }
 
-        // NOT_IN (?field_not_in=v1,v2,v3)
-        if (supportedTypes.contains(FilterType.NOT_IN) && params.containsKey(baseParamName + "_not_in")) {
-            String value = params.get(baseParamName + "_not_in");
-            predicates.add(cb.not(buildInPredicate(root, cb, fieldMetadata, value)));
-        }
-
-        // IS_NULL (?field_null=true/false)
-        if (supportedTypes.contains(FilterType.IS_NULL) && params.containsKey(baseParamName + "_null")) {
-            boolean isNull = Boolean.parseBoolean(params.get(baseParamName + "_null"));
-            predicates.add(isNull ? cb.isNull(root.get(fieldMetadata.name())) : cb.isNotNull(root.get(fieldMetadata.name())));
-        }
-
-        // BETWEEN (?field_between=min,max)
-        if (supportedTypes.contains(FilterType.BETWEEN) && params.containsKey(baseParamName + "_between")) {
-            String value = params.get(baseParamName + "_between");
-            String[] parts = value.split(",");
-            if (parts.length == 2) {
-                predicates.add(buildBetweenPredicate(root, cb, fieldMetadata, parts[0], parts[1]));
+            // 3. Underscore format: field_op=value (legacy)
+            if (paramKey.startsWith(baseParamName + "_")) {
+                String op = paramKey.substring(baseParamName.length() + 1);
+                FilterType type = resolveOperator(op);
+                if (type != null && (supportedTypes.contains(type) || 
+                    (supportedTypes.contains(FilterType.RANGE) && (type == FilterType.GREATER_THAN || type == FilterType.GREATER_THAN_OR_EQUAL || 
+                                                                  type == FilterType.LESS_THAN || type == FilterType.LESS_THAN_OR_EQUAL)))) {
+                    log.debug("Applying {} filter (underscore) for field {}: {}", type, fieldMetadata.name(), firstValue);
+                    predicates.add(buildPredicateByType(root, cb, fieldMetadata, type, firstValue, config.caseSensitive()));
+                }
             }
         }
 
         return predicates;
+    }
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FilterResolver.class);
+
+    private FilterType resolveOperator(String op) {
+        return switch (op.toLowerCase()) {
+            case "eq", "equals" -> FilterType.EQUALS;
+            case "like", "contains" -> FilterType.LIKE;
+            case "gt" -> FilterType.GREATER_THAN;
+            case "gte", "ge" -> FilterType.GREATER_THAN_OR_EQUAL;
+            case "lt" -> FilterType.LESS_THAN;
+            case "lte", "le" -> FilterType.LESS_THAN_OR_EQUAL;
+            case "in" -> FilterType.IN;
+            case "nin", "not_in" -> FilterType.NOT_IN;
+            case "null", "isnull" -> FilterType.IS_NULL;
+            case "between" -> FilterType.BETWEEN;
+            default -> null;
+        };
+    }
+
+    private Predicate buildPredicateByType(Root<?> root, CriteriaBuilder cb, FieldMetadata fieldMetadata, 
+                                          FilterType type, String value, boolean caseSensitive) {
+        return switch (type) {
+            case EQUALS -> buildEqualsPredicate(root, cb, fieldMetadata, value, caseSensitive);
+            case LIKE -> buildLikePredicate(root, cb, fieldMetadata, value, caseSensitive);
+            case GREATER_THAN -> buildGreaterThanPredicate(root, cb, fieldMetadata, value);
+            case GREATER_THAN_OR_EQUAL -> buildGreaterThanOrEqualPredicate(root, cb, fieldMetadata, value);
+            case LESS_THAN -> buildLessThanPredicate(root, cb, fieldMetadata, value);
+            case LESS_THAN_OR_EQUAL -> buildLessThanOrEqualPredicate(root, cb, fieldMetadata, value);
+            case IN -> buildInPredicate(root, cb, fieldMetadata, value);
+            case NOT_IN -> cb.not(buildInPredicate(root, cb, fieldMetadata, value));
+            case IS_NULL -> {
+                boolean isNull = Boolean.parseBoolean(value);
+                yield isNull ? cb.isNull(root.get(fieldMetadata.name())) : cb.isNotNull(root.get(fieldMetadata.name()));
+            }
+            case BETWEEN -> {
+                String[] parts = value.split(",");
+                yield (parts.length == 2) ? buildBetweenPredicate(root, cb, fieldMetadata, parts[0], parts[1]) : cb.conjunction();
+            }
+            default -> cb.conjunction();
+        };
     }
 
     private Predicate buildEqualsPredicate(Root<?> root, CriteriaBuilder cb, FieldMetadata fieldMetadata, String value, boolean caseSensitive) {

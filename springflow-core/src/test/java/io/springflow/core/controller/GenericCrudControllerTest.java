@@ -17,6 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -123,7 +124,7 @@ class GenericCrudControllerTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findAll(any(), eq(pageable))).thenReturn(page);
 
         // When
-        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new HashMap<>());
+        ResponseEntity<PageResponse<Map<String, Object>>> response = controller.findAll(pageable, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -141,7 +142,7 @@ class GenericCrudControllerTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(entity));
 
         // When
-        ResponseEntity<Map<String, Object>> response = controller.findById(1L, new HashMap<>());
+        ResponseEntity<Map<String, Object>> response = controller.findById(1L, new MockHttpServletRequest());
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -156,7 +157,7 @@ class GenericCrudControllerTest {
         when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.empty());
 
         // When/Then
-        assertThatThrownBy(() -> controller.findById(999L, new HashMap<>()))
+        assertThatThrownBy(() -> controller.findById(999L, new MockHttpServletRequest()))
                 .isInstanceOf(EntityNotFoundException.class);
         verify(((JpaSpecificationExecutor<TestEntity>) repository)).findOne(any(Specification.class));
     }
