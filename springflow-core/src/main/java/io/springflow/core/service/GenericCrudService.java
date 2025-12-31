@@ -138,6 +138,20 @@ public abstract class GenericCrudService<T, ID> {
     }
 
     /**
+     * Search entities based on a search request.
+     *
+     * @param request  the search request containing criteria
+     * @param pageable pagination information
+     * @return a page of entities matching the search criteria
+     */
+    @Transactional(readOnly = true)
+    public Page<T> search(io.springflow.core.dto.SearchRequest request, Pageable pageable) {
+        log.debug("Searching {} with request: {} and pagination: {}", entityClass.getSimpleName(), request, pageable);
+        Specification<T> spec = io.springflow.core.repository.SpecificationBuilder.build(request);
+        return findAll(spec, pageable, false);
+    }
+
+    /**
      * Find only soft-deleted entities with pagination support.
      *
      * @param pageable pagination information
