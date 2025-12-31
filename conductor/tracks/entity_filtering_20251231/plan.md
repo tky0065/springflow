@@ -11,7 +11,7 @@
 - [x] Task: Implement `GenericSpecification` 3c93b26
     - [ ] Subtask: Create class implementing `Specification<T>`
     - [ ] Subtask: Implement `toPredicate` logic for each `FilterType`
-- [ ] Task: Implement `SpecificationBuilder`
+- [x] Task: Implement `SpecificationBuilder` 14b5d73
     - [ ] Subtask: Logic to combine multiple specs
 - [ ] Task: Conductor - User Manual Verification 'Specification Logic' (Protocol in workflow.md)
 
