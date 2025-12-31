@@ -15,10 +15,10 @@
 - [x] Task: TDD - Update Service generator to include search methods using Specifications 6f95fdb
 - [x] Task: Conductor - User Manual Verification 'Phase 3: DTOs & Search Logic' (Protocol in workflow.md)
 
-## Phase 4: Controller & API
+## Phase 4: Controller & API [checkpoint: d49039c]
 - [x] Task: TDD - Update Controller generator to add `POST /search` endpoint cfd9938
 - [x] Task: TDD - Ensure search endpoint is documented in OpenAPI/Swagger cfd9938
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Controller & API' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Controller & API' (Protocol in workflow.md)
 
 ## Phase 5: Verification & Integration
 - [ ] Task: Update `springflow-demo` to demonstrate the new search functionality
