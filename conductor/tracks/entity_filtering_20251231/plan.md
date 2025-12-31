@@ -15,7 +15,7 @@
     - [x] Subtask: Logic to combine multiple specs
 - [x] Task: Conductor - User Manual Verification 'Specification Logic' (Protocol in workflow.md) 92f3edf
 
-## Phase 3: Integration
+## Phase 3: Integration [checkpoint: 9febc86]
 - [x] Task: Update `GenericCrudController` 0c205bb
     - [x] Subtask: Add argument resolver for filters
     - [x] Subtask: Pass specifications to service
@@ -23,4 +23,4 @@
     - [x] Subtask: Change `findAll` to accept `Specification`
 - [x] Task: Verify Integration Tests 0c205bb
     - [x] Subtask: Create tests for filtering scenarios
-- [x] Task: Conductor - User Manual Verification 'Integration' (Protocol in workflow.md) 0c205bb
+- [x] Task: Conductor - User Manual Verification 'Integration' (Protocol in workflow.md) 9febc86
