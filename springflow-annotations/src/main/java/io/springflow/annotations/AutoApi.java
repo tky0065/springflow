@@ -145,4 +145,17 @@ public @interface AutoApi {
      * @return the OpenAPI tags
      */
     String[] tags() default {};
+
+    /**
+     * Enable Spring Data JPA Specification support.
+     *
+     * <p>When enabled, the generated repository will extend {@code JpaSpecificationExecutor}
+     * and the controller will provide a {@code /search} endpoint.
+     *
+     * <p>Defaults to {@code false}.
+     *
+     * @return true if specification support is enabled
+     * @since 0.5.1
+     */
+    boolean supportSpecification() default false;
 }
