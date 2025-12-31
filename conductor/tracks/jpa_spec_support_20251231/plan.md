@@ -10,9 +10,9 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Repository Generation' (Protocol in workflow.md)
 
 ## Phase 3: DTOs & Search Logic
-- [ ] Task: TDD - Implement `FilterDTO` generation logic for entities
-- [ ] Task: TDD - Implement `SpecificationBuilder` utility to convert `FilterDTO` to `Specification`
-- [ ] Task: TDD - Update Service generator to include search methods using Specifications
+- [x] Task: TDD - Implement `FilterDTO` generation logic for entities
+- [x] Task: TDD - Implement `SpecificationBuilder` utility to convert `FilterDTO` to `Specification` 6f95fdb
+- [x] Task: TDD - Update Service generator to include search methods using Specifications 6f95fdb
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: DTOs & Search Logic' (Protocol in workflow.md)
 
 ## Phase 4: Controller & API
