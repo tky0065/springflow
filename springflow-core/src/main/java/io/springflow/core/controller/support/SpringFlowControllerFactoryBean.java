@@ -77,7 +77,10 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
     public GenericCrudController<T, ID> getObject() throws Exception {
         DtoMapper<T, ID> dtoMapper = dtoMapperFactory.getMapper(entityClass, metadata);
 
-        if (!SPRING_SECURITY_PRESENT || metadata.autoApiConfig().security() == null) {
+        boolean hasSecurity = metadata.securedApiConfig() != null || 
+                             (metadata.autoApiConfig().security() != null && metadata.autoApiConfig().security().enabled());
+
+        if (!SPRING_SECURITY_PRESENT || !hasSecurity) {
             return createAnonymousController(dtoMapper);
         }
 
@@ -114,7 +117,13 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
         for (String methodName : methodsToSecure) {
             Method method = findMethod(GenericCrudController.class, methodName);
             if (method != null) {
-                String securityExpression = securityExpressionBuilder.buildExpression(metadata.autoApiConfig().security(), methodName);
+                String securityExpression;
+                if (metadata.securedApiConfig() != null) {
+                    securityExpression = securityExpressionBuilder.buildExpression(metadata.securedApiConfig(), methodName);
+                } else {
+                    securityExpression = securityExpressionBuilder.buildExpression(metadata.autoApiConfig().security(), methodName);
+                }
+                
                 AnnotationDescription preAuthorizeAnnotation = AnnotationDescription.Builder
                         .ofType(preAuthorizeClass)
                         .define("value", securityExpression)

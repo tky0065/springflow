@@ -5,6 +5,7 @@ import io.springflow.annotations.Auditable;
 import io.springflow.annotations.Filterable;
 import io.springflow.annotations.Hidden;
 import io.springflow.annotations.ReadOnly;
+import io.springflow.annotations.SecuredApi;
 import io.springflow.annotations.SoftDelete;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -49,6 +50,7 @@ public class MetadataResolver {
         AutoApi autoApi = entityClass.getAnnotation(AutoApi.class);
         SoftDelete softDelete = entityClass.getAnnotation(SoftDelete.class);
         Auditable auditable = entityClass.getAnnotation(Auditable.class);
+        SecuredApi securedApi = entityClass.getAnnotation(SecuredApi.class);
         
         List<FieldMetadata> fields = resolveFields(entityClass);
         Class<?> idType = resolveIdType(fields);
@@ -61,6 +63,7 @@ public class MetadataResolver {
                 autoApi,
                 softDelete,
                 auditable,
+                securedApi,
                 fields
         );
     }

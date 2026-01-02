@@ -2,6 +2,7 @@ package io.springflow.core.metadata;
 
 import io.springflow.annotations.Auditable;
 import io.springflow.annotations.AutoApi;
+import io.springflow.annotations.SecuredApi;
 import io.springflow.annotations.SoftDelete;
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +18,22 @@ public record EntityMetadata(
     AutoApi autoApiConfig,
     SoftDelete softDeleteConfig,
     Auditable auditableConfig,
+    SecuredApi securedApiConfig,
     List<FieldMetadata> fields
 ) {
     public EntityMetadata(Class<?> entityClass, Class<?> idType, String entityName, String tableName, 
+                          AutoApi autoApiConfig, SoftDelete softDeleteConfig, Auditable auditableConfig, List<FieldMetadata> fields) {
+        this(entityClass, idType, entityName, tableName, autoApiConfig, softDeleteConfig, auditableConfig, null, fields);
+    }
+
+    public EntityMetadata(Class<?> entityClass, Class<?> idType, String entityName, String tableName, 
                           AutoApi autoApiConfig, SoftDelete softDeleteConfig, List<FieldMetadata> fields) {
-        this(entityClass, idType, entityName, tableName, autoApiConfig, softDeleteConfig, null, fields);
+        this(entityClass, idType, entityName, tableName, autoApiConfig, softDeleteConfig, null, null, fields);
     }
 
     public EntityMetadata(Class<?> entityClass, Class<?> idType, String entityName, String tableName, 
                           AutoApi autoApiConfig, List<FieldMetadata> fields) {
-        this(entityClass, idType, entityName, tableName, autoApiConfig, null, null, fields);
+        this(entityClass, idType, entityName, tableName, autoApiConfig, null, null, null, fields);
     }
 
     public Optional<FieldMetadata> getFieldByName(String name) {
