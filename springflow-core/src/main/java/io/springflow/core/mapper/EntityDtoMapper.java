@@ -29,13 +29,19 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
     private final EntityMetadata metadata;
     private final EntityManager entityManager;
     private final DtoMapperFactory mapperFactory;
+    private final int maxDepth;
     private static final int DEFAULT_MAX_DEPTH = 1;
 
     public EntityDtoMapper(Class<T> entityClass, EntityMetadata metadata, EntityManager entityManager, DtoMapperFactory mapperFactory) {
+        this(entityClass, metadata, entityManager, mapperFactory, DEFAULT_MAX_DEPTH);
+    }
+
+    public EntityDtoMapper(Class<T> entityClass, EntityMetadata metadata, EntityManager entityManager, DtoMapperFactory mapperFactory, int maxDepth) {
         this.entityClass = entityClass;
         this.metadata = metadata;
         this.entityManager = entityManager;
         this.mapperFactory = mapperFactory;
+        this.maxDepth = maxDepth;
     }
 
     @Override
@@ -154,23 +160,38 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
         }
     }
 
-    private Object resolveRelationValue(Object value, FieldMetadata fieldMeta) {
-        Class<?> targetEntity = fieldMeta.relation().targetEntity();
+    private Object resolveRelationValue(Object value, FieldMetadata fieldMetadata) {
+        Class<?> targetEntity = fieldMetadata.relation().targetEntity();
         if (value instanceof Collection<?> collection) {
             return collection.stream()
-                    .map(id -> id instanceof Map ? null : entityManager.getReference(targetEntity, id))
+                    .map(item -> resolveSingleRelationValue(item, targetEntity))
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
-        } else if (value instanceof Map) {
-            return null; // Nested DTO in input not supported for now
-        } else if (value != null) {
+        } else {
+            return resolveSingleRelationValue(value, targetEntity);
+        }
+    }
+
+    private Object resolveSingleRelationValue(Object value, Class<?> targetEntity) {
+        if (value == null) return null;
+
+        if (value instanceof Map<?, ?> map) {
+            // Nested DTO support
+            try {
+                DtoMapper mapper = mapperFactory.getMapper(targetEntity);
+                return mapper.toEntity((Map<String, Object>) map);
+            } catch (Exception e) {
+                log.warn("Failed to map nested DTO for {}: {}", targetEntity.getSimpleName(), e.getMessage());
+                return null;
+            }
+        } else {
+            // Assume ID
             return entityManager.getReference(targetEntity, value);
         }
-        return null;
     }
 
     private Object mapRelationValue(Object value, FieldMetadata fieldMetadata, int currentDepth, List<String> subFields) {
-        if (currentDepth >= DEFAULT_MAX_DEPTH && (subFields == null || subFields.isEmpty())) {
+        if (currentDepth >= maxDepth && (subFields == null || subFields.isEmpty())) {
             return mapToIdOnly(value);
         }
 
