@@ -1,6 +1,6 @@
 package io.springflow.core.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -38,16 +38,19 @@ import java.util.List;
  *
  * @param <T> the content type
  */
+@Schema(description = "Paginated response wrapper")
 public class PageResponse<T> {
 
     /**
      * The page content (list of items).
      */
+    @Schema(description = "List of items in the current page")
     private final List<T> content;
 
     /**
      * Pagination metadata.
      */
+    @Schema(description = "Pagination metadata")
     private final PageMetadata page;
 
     /**
@@ -81,41 +84,49 @@ public class PageResponse<T> {
     /**
      * Pagination metadata containing information about the current page.
      */
+    @Schema(description = "Metadata about the pagination state")
     public static class PageMetadata {
 
         /**
          * The size of the page (number of items per page).
          */
+        @Schema(description = "Number of items per page", example = "20")
         private final int size;
 
         /**
          * The current page number (0-indexed).
          */
+        @Schema(description = "Current page number (0-based)", example = "0")
         private final int number;
 
         /**
          * The total number of elements across all pages.
          */
+        @Schema(description = "Total number of items across all pages", example = "100")
         private final long totalElements;
 
         /**
          * The total number of pages.
          */
+        @Schema(description = "Total number of pages", example = "5")
         private final int totalPages;
 
         /**
          * Whether this is the first page.
          */
+        @Schema(description = "Is this the first page?", example = "true")
         private final boolean first;
 
         /**
          * Whether this is the last page.
          */
+        @Schema(description = "Is this the last page?", example = "false")
         private final boolean last;
 
         /**
          * Whether the page is empty (contains no items).
          */
+        @Schema(description = "Is the page empty?", example = "false")
         private final boolean empty;
 
         /**
