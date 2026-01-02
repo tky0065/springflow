@@ -59,54 +59,65 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
 
     @Override
     public Map<String, Object> toOutputDto(T entity) {
-        return toOutputDto(entity, null, new MappingContext());
+        return toOutputDto(entity, null);
     }
 
     @Override
     public Map<String, Object> toOutputDto(T entity, List<String> fields) {
-        return toOutputDto(entity, fields, new MappingContext());
+        log.debug("Mapping {} to OutputDTO", entityClass.getSimpleName());
+        Object result = toOutputDtoInternal(entity, fields, new MappingContext());
+        if (result instanceof Map) {
+            return (Map<String, Object>) result;
+        } else if (result != null) {
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("id", result);
+            return map;
+        }
+        if (entity != null) {
+            log.debug("Fallback to ID mapping for {}", entity.getClass().getSimpleName());
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("id", getEntityIdValue(entity));
+            return map;
+        }
+        return null;
     }
 
     /**
      * Internal method to convert entity to DTO with depth tracking and field filtering.
      */
     @SuppressWarnings("unchecked")
-    public Map<String, Object> toOutputDto(Object entity, List<String> fields, MappingContext context) {
+    public Object toOutputDtoInternal(Object entity, List<String> fields, MappingContext context) {
         if (entity == null) {
             return null;
         }
 
         // Circular reference detection
         if (context.isBeingMapped(entity)) {
-            return (Map<String, Object>) mapToIdOnly(entity);
+            log.debug("Cycle detected for {}, returning summary/ID", entity.getClass().getSimpleName());
+            return mapSingleToSummaryOrId(entity);
         }
 
-        if (context.getCurrentDepth() >= maxDepth && (fields == null || fields.isEmpty())) {
-            return (Map<String, Object>) mapToIdOnly(entity);
+        if (context.getCurrentDepth() > 0 && context.getCurrentDepth() >= maxDepth && (fields == null || fields.isEmpty())) {
+            log.debug("Max depth reached for {}, returning summary/ID", entity.getClass().getSimpleName());
+            return mapSingleToSummaryOrId(entity);
         }
 
         context.enterEntity(entity);
         context.incrementDepth();
 
         try {
-            Map<String, Object> outputDto = new LinkedHashMap<>();
-            
-            // Resolve metadata for the current entity type
             EntityMetadata entityMetadata = resolveMetadata(entity.getClass());
             
             if (entityMetadata != null) {
+                Map<String, Object> outputDto = new LinkedHashMap<>();
                 for (FieldMetadata fieldMeta : entityMetadata.fields()) {
                     if (fieldMeta.hidden() || fieldMeta.jsonIgnored()) continue;
                     String fieldName = fieldMeta.name();
 
-                    // Check if this field or any of its sub-fields are requested
                     if (fields != null && !fields.isEmpty()) {
                         boolean exactMatch = fields.contains(fieldName);
                         boolean subFieldMatch = fields.stream().anyMatch(f -> f.startsWith(fieldName + "."));
-                        
-                        if (!exactMatch && !subFieldMatch) {
-                            continue;
-                        }
+                        if (!exactMatch && !subFieldMatch) continue;
                     }
 
                     Object value = getFieldValue(entity, fieldMeta.field());
@@ -122,10 +133,11 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
                     }
                     outputDto.put(fieldName, value);
                 }
+                return outputDto;
             } else {
-                return (Map<String, Object>) mapToIdOnly(entity);
+                log.debug("No metadata for {}, returning summary/ID", entity.getClass().getSimpleName());
+                return mapSingleToSummaryOrId(entity);
             }
-            return outputDto;
         } finally {
             context.decrementDepth();
             context.exitEntity(entity);
@@ -225,35 +237,68 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
 
     private Object mapSingleRelationValue(Object item, FieldMetadata fieldMeta, List<String> subFields, MappingContext context) {
         if (item == null) return null;
+
+        // Force summary projection if the relationship field itself is marked with @Summary
+        // but only if no specific sub-fields are requested
+        if (fieldMeta.summary() && (subFields == null || subFields.isEmpty())) {
+            log.debug("Relationship field {} marked as summary, returning summary/ID", fieldMeta.name());
+            return mapSingleToSummaryOrId(item);
+        }
+
         Class<?> targetClass = fieldMeta.relation().targetEntity();
+        log.debug("Mapping relation field {} to type {}", fieldMeta.name(), targetClass.getSimpleName());
         
         try {
             DtoMapper mapper = mapperFactory.getMapper(targetClass);
             if (mapper instanceof EntityDtoMapper entityMapper) {
-                return entityMapper.toOutputDto(item, subFields, context);
+                log.debug("Using EntityDtoMapper for recursive mapping of {}", targetClass.getSimpleName());
+                return entityMapper.toOutputDtoInternal(item, subFields, context);
+            } else {
+                log.debug("No EntityDtoMapper found for {}, falling back to summary/ID", targetClass.getSimpleName());
             }
         } catch (Exception e) {
-            log.debug("Fallback to ID mapping for {}", targetClass.getSimpleName());
+            log.debug("Error getting mapper for {}: {}, falling back to summary/ID", targetClass.getSimpleName(), e.getMessage());
         }
         
-        return getEntityIdValue(item);
+        return mapSingleToSummaryOrId(item);
     }
 
     private Object mapToIdOnly(Object value) {
         if (value instanceof Collection<?> collection) {
             return collection.stream()
-                    .map(this::getEntityIdValue)
+                    .map(this::mapSingleToSummaryOrId)
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         } else {
-            Map<String, Object> idMap = new LinkedHashMap<>();
-            Object id = getEntityIdValue(value);
-            if (id != null) {
-                idMap.put("id", id);
-                return idMap;
-            }
-            return null;
+            return mapSingleToSummaryOrId(value);
         }
+    }
+
+    private Object mapSingleToSummaryOrId(Object value) {
+        if (value == null) return null;
+        
+        EntityMetadata entityMetadata = resolveMetadata(value.getClass());
+        if (entityMetadata == null) {
+            return getEntityIdValue(value);
+        }
+
+        List<FieldMetadata> summaryFields = entityMetadata.fields().stream()
+                .filter(FieldMetadata::summary)
+                .collect(Collectors.toList());
+
+        if (summaryFields.isEmpty()) {
+            return getEntityIdValue(value);
+        }
+
+        Map<String, Object> summaryDto = new LinkedHashMap<>();
+        summaryDto.put("id", getEntityIdValue(value));
+        
+        for (FieldMetadata fieldMeta : summaryFields) {
+            if (fieldMeta.isId()) continue;
+            summaryDto.put(fieldMeta.name(), getFieldValue(value, fieldMeta.field()));
+        }
+        
+        return summaryDto;
     }
 
     private Object getEntityIdValue(Object entity) {
@@ -316,7 +361,7 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
             field.setAccessible(true);
             return field.get(entity);
         } catch (IllegalAccessException e) {
-            log.warn("Failed to get field value: {}.{}", entity.getClass().getSimpleName(), field.getName());
+            log.warn("Failed to get field value: {}.{}", entityClass.getSimpleName(), field.getName());
             return null;
         }
     }
