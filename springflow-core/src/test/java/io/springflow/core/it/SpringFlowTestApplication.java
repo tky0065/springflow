@@ -22,13 +22,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
-@SpringBootApplication(scanBasePackages = "io.springflow.core.it")
+@SpringBootApplication(scanBasePackages = {"io.springflow.core.it", "io.springflow.core.repository.testentities"})
 @Import({
     AutoApiRepositoryRegistrar.class,
     RequestMappingRegistrar.class,
     GlobalExceptionHandler.class
 })
-@EntityScan(basePackages = "io.springflow.core.it.entity")
+@EntityScan(basePackages = {"io.springflow.core.it.entity", "io.springflow.core.repository.testentities"})
 @EnableWebSecurity
 public class SpringFlowTestApplication {
     public static void main(String[] args) {

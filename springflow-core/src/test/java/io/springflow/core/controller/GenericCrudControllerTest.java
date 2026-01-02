@@ -300,26 +300,14 @@ class GenericCrudControllerTest {
     @Test
     void patch_withHiddenField_shouldThrowException() {
         // Given
+        TestEntity existing = new TestEntity(1L, "Old Name");
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("password", "new-password"); // Trying to update hidden field
 
-        io.springflow.core.metadata.FieldMetadata hiddenField =
-            new io.springflow.core.metadata.FieldMetadata(
-                null,                           // field
-                "password",                     // name
-                String.class,                   // type
-                false,                          // nullable
-                true,                           // hidden
-                false,                          // readOnly
-                false,                          // isId
-                false,                          // isVersion
-                null,                           // generationType
-                List.of(),                      // validations
-                null,                           // filterConfig
-                null,                           // relation
-                false                           // jsonIgnored
-            );
-        when(metadata.fields()).thenReturn(List.of(hiddenField));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(existing));
+
+        doThrow(new IllegalArgumentException("Cannot update hidden field: password"))
+            .when(dtoMapper).validateUpdatableFields(inputDto);
 
         // When/Then
         assertThatThrownBy(() -> controller.patch(1L, inputDto))
@@ -331,26 +319,14 @@ class GenericCrudControllerTest {
     @Test
     void patch_withReadOnlyField_shouldThrowException() {
         // Given
+        TestEntity existing = new TestEntity(1L, "Old Name");
         Map<String, Object> inputDto = new HashMap<>();
         inputDto.put("createdAt", "2025-01-01"); // Trying to update read-only field
 
-        io.springflow.core.metadata.FieldMetadata readOnlyField =
-            new io.springflow.core.metadata.FieldMetadata(
-                null,                           // field
-                "createdAt",                    // name
-                String.class,                   // type
-                false,                          // nullable
-                false,                          // hidden
-                true,                           // readOnly
-                false,                          // isId
-                false,                          // isVersion
-                null,                           // generationType
-                List.of(),                      // validations
-                null,                           // filterConfig
-                null,                           // relation
-                false                           // jsonIgnored
-            );
-        when(metadata.fields()).thenReturn(List.of(readOnlyField));
+        when(((JpaSpecificationExecutor<TestEntity>) repository).findOne(any(Specification.class))).thenReturn(Optional.of(existing));
+
+        doThrow(new IllegalArgumentException("Cannot update read-only field: createdAt"))
+            .when(dtoMapper).validateUpdatableFields(inputDto);
 
         // When/Then
         assertThatThrownBy(() -> controller.patch(1L, inputDto))
