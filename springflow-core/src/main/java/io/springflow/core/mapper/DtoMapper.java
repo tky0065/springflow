@@ -56,6 +56,17 @@ public interface DtoMapper<T, ID> {
     Map<String, Object> toOutputDto(T entity, List<String> fields);
 
     /**
+     * Validates that the fields in the input DTO are allowed to be updated.
+     * <p>
+     * Throws an exception if the input DTO contains fields that are read-only or hidden.
+     * </p>
+     *
+     * @param inputDto the input data as a Map
+     * @throws IllegalArgumentException if the input contains invalid fields
+     */
+    void validateUpdatableFields(Map<String, Object> inputDto);
+
+    /**
      * Updates an existing entity with data from InputDTO.
      * <p>
      * Preserves ID and other immutable fields.

@@ -358,7 +358,7 @@ public abstract class GenericCrudController<T, ID> {
                 entityClass.getSimpleName(), id, inputDto);
 
         // Validate that provided fields are valid (not trying to update @Hidden or @ReadOnly fields)
-        validatePatchFields(inputDto);
+        dtoMapper.validateUpdatableFields(inputDto);
 
         T existing = service.findById(id);
         dtoMapper.updateEntity(existing, inputDto);
@@ -374,31 +374,7 @@ public abstract class GenericCrudController<T, ID> {
         return ResponseEntity.ok(outputDto);
     }
 
-    /**
-     * Validate that fields in PATCH request are valid for update.
-     * Throws exception if trying to update @Hidden or @ReadOnly fields.
-     *
-     * @param inputDto the partial data map
-     * @throws IllegalArgumentException if invalid fields are present
-     */
-    private void validatePatchFields(Map<String, Object> inputDto) {
-        for (String fieldName : inputDto.keySet()) {
-            // Check if field exists in entity
-            metadata.fields().stream()
-                    .filter(field -> field.name().equals(fieldName))
-                    .findFirst()
-                    .ifPresent(field -> {
-                        if (field.hidden()) {
-                            throw new IllegalArgumentException(
-                                    "Cannot update hidden field: " + fieldName);
-                        }
-                        if (field.readOnly()) {
-                            throw new IllegalArgumentException(
-                                    "Cannot update read-only field: " + fieldName);
-                        }
-                    });
-        }
-    }
+
 
     /**
      * DELETE /{id} - Delete an entity.

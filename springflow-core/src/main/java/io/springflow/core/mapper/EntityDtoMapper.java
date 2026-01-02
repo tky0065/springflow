@@ -112,6 +112,26 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
     }
 
     @Override
+    public void validateUpdatableFields(Map<String, Object> inputDto) {
+        for (String fieldName : inputDto.keySet()) {
+            // Check if field exists in entity metadata
+            metadata.fields().stream()
+                    .filter(field -> field.name().equals(fieldName))
+                    .findFirst()
+                    .ifPresent(field -> {
+                        if (field.hidden()) {
+                            throw new IllegalArgumentException(
+                                    "Cannot update hidden field: " + fieldName);
+                        }
+                        if (field.readOnly()) {
+                            throw new IllegalArgumentException(
+                                    "Cannot update read-only field: " + fieldName);
+                        }
+                    });
+        }
+    }
+
+    @Override
     public void updateEntity(T entity, Map<String, Object> inputDto) {
         applyDtoToEntity(entity, inputDto);
         log.debug("Updated entity from InputDTO: {}", entityClass.getSimpleName());
