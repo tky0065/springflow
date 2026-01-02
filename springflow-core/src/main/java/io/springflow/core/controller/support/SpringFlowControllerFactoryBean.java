@@ -112,11 +112,10 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
                 .subclass(GenericCrudController.class)
                 .name("io.springflow.generated.controller." + entityClass.getSimpleName() + "AutoController" + System.nanoTime());
 
-        // Override CRUD methods and add method-specific @PreAuthorize
-        String[] methodsToSecure = {"findAll", "findById", "create", "update", "delete"};
-        for (String methodName : methodsToSecure) {
-            Method method = findMethod(GenericCrudController.class, methodName);
-            if (method != null) {
+        // Override all mapped methods and add method-specific @PreAuthorize
+        for (Method method : GenericCrudController.class.getDeclaredMethods()) {
+            if (isMappedMethod(method)) {
+                String methodName = method.getName();
                 String securityExpression;
                 if (metadata.securedApiConfig() != null) {
                     securityExpression = securityExpressionBuilder.buildExpression(metadata.securedApiConfig(), methodName);
@@ -150,6 +149,15 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
         return loadedClass
                 .getConstructor(GenericCrudService.class, DtoMapper.class, FilterResolver.class, EntityMetadata.class, Class.class, EntityValidator.class)
                 .newInstance(service, dtoMapper, filterResolver, metadata, entityClass, entityValidator);
+    }
+
+    private boolean isMappedMethod(Method method) {
+        return method.isAnnotationPresent(org.springframework.web.bind.annotation.RequestMapping.class) ||
+               method.isAnnotationPresent(org.springframework.web.bind.annotation.GetMapping.class) ||
+               method.isAnnotationPresent(org.springframework.web.bind.annotation.PostMapping.class) ||
+               method.isAnnotationPresent(org.springframework.web.bind.annotation.PutMapping.class) ||
+               method.isAnnotationPresent(org.springframework.web.bind.annotation.DeleteMapping.class) ||
+               method.isAnnotationPresent(org.springframework.web.bind.annotation.PatchMapping.class);
     }
 
     private Method findMethod(Class<?> clazz, String name) {

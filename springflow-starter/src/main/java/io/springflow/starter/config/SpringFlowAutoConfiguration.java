@@ -19,6 +19,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 /**
  * Auto-configuration for SpringFlow framework.
@@ -46,6 +47,7 @@ import org.springframework.core.convert.ConversionService;
 @ConditionalOnClass(EntityManager.class)
 @ConditionalOnProperty(prefix = "springflow", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(SpringFlowProperties.class)
+@EnableMethodSecurity
 @Import({
     AutoApiRepositoryRegistrar.class,
     RequestMappingRegistrar.class,

@@ -5,6 +5,8 @@ import io.springflow.annotations.AutoApi;
 import io.springflow.annotations.FilterType;
 import io.springflow.annotations.Filterable;
 import io.springflow.annotations.ReadOnly;
+import io.springflow.annotations.SecuredApi;
+import io.springflow.annotations.SecurityLevel;
 import io.springflow.annotations.SoftDelete;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -32,6 +34,11 @@ import java.time.LocalDateTime;
         description = "Product management API",
         tags = {"Products"},
         supportSpecification = true
+)
+@SecuredApi(
+        readLevel = SecurityLevel.PUBLIC,
+        writeLevel = SecurityLevel.ROLE_BASED,
+        roles = {"ADMIN"}
 )
 @Auditable
 @SoftDelete

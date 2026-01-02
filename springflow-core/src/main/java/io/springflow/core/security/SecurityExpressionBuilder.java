@@ -88,6 +88,7 @@ public class SecurityExpressionBuilder {
 
             if (hasRoles) {
                 String rolesStr = Stream.of(roles)
+                        .map(role -> role.startsWith("ROLE_") ? role.substring(5) : role)
                         .map(role -> "'" + role + "'")
                         .collect(Collectors.joining(","));
                 sb.append("hasAnyRole(").append(rolesStr).append(")");
@@ -110,10 +111,12 @@ public class SecurityExpressionBuilder {
     }
 
     private boolean isReadMethod(String methodName) {
-        return methodName.equals("findAll") || methodName.equals("findById");
+        return methodName.equals("findAll") || methodName.equals("findById") || methodName.equals("search");
     }
 
     private boolean isWriteMethod(String methodName) {
-        return methodName.equals("create") || methodName.equals("update") || methodName.equals("delete");
+        return methodName.equals("create") || methodName.equals("update") || 
+               methodName.equals("patch") || methodName.equals("delete") || 
+               methodName.equals("restore") || methodName.equals("hardDelete");
     }
 }

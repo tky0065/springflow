@@ -61,6 +61,28 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handle AccessDeniedException - return HTTP 403 FORBIDDEN.
+     */
+    @ExceptionHandler({
+            org.springframework.security.access.AccessDeniedException.class,
+            org.springframework.security.authorization.AuthorizationDeniedException.class
+    })
+    public ResponseEntity<ErrorResponse> handleAccessDenied(
+            Exception ex,
+            HttpServletRequest request) {
+        log.warn("Access denied: {}", ex.getMessage());
+
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.FORBIDDEN.value(),
+                "Forbidden",
+                "Access is denied",
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    /**
      * Handle EntityNotFoundException - return HTTP 404 NOT FOUND.
      */
     @ExceptionHandler(EntityNotFoundException.class)
