@@ -62,7 +62,72 @@ GET /api/products?price_range=100,500
 GET /api/products?name_like=Phone&price_range=100,500&category=ELECTRONICS
 ```
 
+## Advanced Search (JPA Specification)
+
+Pour des scénarios de filtrage plus complexes nécessitant une structure stricte, vous pouvez activer le support **JPA Specification**.
+
+### Activation
+
+Ajoutez `supportSpecification = true` à l'annotation `@AutoApi` :
+
+```java
+@Entity
+@AutoApi(
+    path = "/products",
+    supportSpecification = true
+)
+public class Product { ... }
+```
+
+Cela génère automatiquement :
+1.  Un Repository étendant `JpaSpecificationExecutor<Product>`.
+2.  Un endpoint `POST /api/products/search`.
+
+### Endpoint de Recherche
+
+Utilisez l'endpoint `POST /search` avec un corps JSON structuré (`SearchRequest`).
+
+**Requête** : `POST /api/products/search`
+
+```json
+{
+  "operator": "AND",
+  "criteria": [
+    {
+      "field": "name",
+      "operator": "LIKE",
+      "value": "Laptop"
+    },
+    {
+      "field": "price",
+      "operator": "GREATER_THAN",
+      "value": 1000
+    },
+    {
+      "field": "active",
+      "operator": "EQUALS",
+      "value": true
+    }
+  ]
+}
+```
+
+### Opérateurs Disponibles
+
+| Opérateur | Description |
+|-----------|-------------|
+| `EQUALS` | Égalité exacte |
+| `NOT_EQUALS` | Différence |
+| `GREATER_THAN` | Strictement supérieur |
+| `GREATER_THAN_OR_EQUAL` | Supérieur ou égal |
+| `LESS_THAN` | Strictement inférieur |
+| `LESS_THAN_OR_EQUAL` | Inférieur ou égal |
+| `LIKE` | Contient le texte (case-sensitive selon DB) |
+| `IN` | Dans une liste de valeurs |
+| `IS_NULL` | Est null (value ignorée) |
+| `IS_NOT_NULL` | N'est pas null (value ignorée) |
+
 ## Voir Aussi
 
-- [Annotations Reference](annotations.md#filterable)
+- [Annotations Reference](../api/annotations.md#filterable)
 - [Performance](../advanced/performance.md)

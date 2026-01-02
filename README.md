@@ -27,6 +27,7 @@ SpringFlow est une bibliothèque Spring Boot qui automatise la création de repo
 ### Phase 2 - Advanced Features (v0.2.0) ✅
 
 - 🔍 **Filtres dynamiques** : Requêtes paramétrables avec JPA Specifications (EQUALS, LIKE, RANGE, IN, BETWEEN, etc.)
+- 🧩 **JPA Specifications** : Support avancé pour critères de recherche complexes via endpoint dédié `/search`
 - 🔐 **Sécurité intégrée** : Support Spring Security avec @PreAuthorize dynamique, contrôle par rôle et permission
 - 🗑️ **Soft Delete** : Suppression logique avec support de restauration via `@SoftDelete`
 - 📊 **Audit Trail** : Traçabilité complète avec `@Auditable` (createdAt, updatedAt, createdBy, updatedBy)

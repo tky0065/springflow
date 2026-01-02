@@ -21,6 +21,7 @@ Active la génération automatique d'une API REST complète pour une entité JPA
 | `security` | @Security | `@Security()` | Configuration de sécurité |
 | `pagination` | boolean | `true` | Active la pagination |
 | `sorting` | boolean | `true` | Active le tri |
+| `supportSpecification` | boolean | `false` | Active le support JPA Specification (Repository & Endpoint `/search`) |
 | `description` | String | `""` | Description pour OpenAPI |
 | `tags` | String[] | `{}` | Tags OpenAPI pour regroupement |
 
