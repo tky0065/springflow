@@ -90,6 +90,22 @@ public class GenericCrudControllerIntegrationTest extends AbstractSpringFlowInte
     }
 
     @Test
+    void shouldPatchEntity() throws Exception {
+        IntegrationTestEntity saved = repository.save(new IntegrationTestEntity(null, "Patch Me", "Original Desc"));
+        // Create partial update
+        IntegrationTestEntity patch = new IntegrationTestEntity();
+        patch.setName("Patched Name");
+        // Description is null, so it should not be updated
+
+        mockMvc.perform(patch("/api/integrationTestEntitys/{id}", saved.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\": \"Patched Name\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Patched Name")))
+                .andExpect(jsonPath("$.description", is("Original Desc")));
+    }
+
+    @Test
     void shouldDeleteEntity() throws Exception {
         IntegrationTestEntity saved = repository.save(new IntegrationTestEntity(null, "Delete Me", "Desc"));
 
