@@ -59,79 +59,104 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
 
     @Override
     public Map<String, Object> toOutputDto(T entity) {
-        return toOutputDto(entity, null, 0);
+        return toOutputDto(entity, null, new MappingContext());
     }
 
     @Override
     public Map<String, Object> toOutputDto(T entity, List<String> fields) {
-        return toOutputDto(entity, fields, 0);
+        return toOutputDto(entity, fields, new MappingContext());
     }
 
     /**
      * Internal method to convert entity to DTO with depth tracking and field filtering.
      */
     @SuppressWarnings("unchecked")
-    public Map<String, Object> toOutputDto(Object entity, List<String> fields, int currentDepth) {
+    public Map<String, Object> toOutputDto(Object entity, List<String> fields, MappingContext context) {
         if (entity == null) {
             return null;
         }
 
-        Map<String, Object> outputDto = new LinkedHashMap<>();
-        
-        // We need metadata for the specific entity being mapped
-        // If it's the same class as this mapper, we use its metadata
-        if (entity.getClass() == entityClass) {
-            for (FieldMetadata fieldMeta : metadata.fields()) {
-                if (fieldMeta.hidden() || fieldMeta.jsonIgnored()) continue;
-                String fieldName = fieldMeta.name();
-
-                // Check if this field or any of its sub-fields are requested
-                if (fields != null && !fields.isEmpty()) {
-                    boolean exactMatch = fields.contains(fieldName);
-                    boolean subFieldMatch = fields.stream().anyMatch(f -> f.startsWith(fieldName + "."));
-                    
-                    if (!exactMatch && !subFieldMatch) {
-                        continue;
-                    }
-                }
-
-                Object value = getFieldValue((T) entity, fieldMeta.field());
-                if (fieldMeta.isRelation() && value != null) {
-                    List<String> subFields = null;
-                    if (fields != null) {
-                        subFields = fields.stream()
-                                .filter(f -> f.startsWith(fieldName + "."))
-                                .map(f -> f.substring(fieldName.length() + 1))
-                                .collect(Collectors.toList());
-                    }
-                    value = mapRelationValue(value, fieldMeta, currentDepth, subFields);
-                }
-                outputDto.put(fieldName, value);
-            }
-        } else {
-            // For related entities, we should ideally use their own mappers
-            // For now, return ID only to avoid complexity unless specific fields requested
-            return Collections.singletonMap("id", getEntityIdValue(entity));
+        // Circular reference detection
+        if (context.isBeingMapped(entity)) {
+            return (Map<String, Object>) mapToIdOnly(entity);
         }
 
-        return outputDto;
+        if (context.getCurrentDepth() >= maxDepth && (fields == null || fields.isEmpty())) {
+            return (Map<String, Object>) mapToIdOnly(entity);
+        }
+
+        context.enterEntity(entity);
+        context.incrementDepth();
+
+        try {
+            Map<String, Object> outputDto = new LinkedHashMap<>();
+            
+            // Resolve metadata for the current entity type
+            EntityMetadata entityMetadata = resolveMetadata(entity.getClass());
+            
+            if (entityMetadata != null) {
+                for (FieldMetadata fieldMeta : entityMetadata.fields()) {
+                    if (fieldMeta.hidden() || fieldMeta.jsonIgnored()) continue;
+                    String fieldName = fieldMeta.name();
+
+                    // Check if this field or any of its sub-fields are requested
+                    if (fields != null && !fields.isEmpty()) {
+                        boolean exactMatch = fields.contains(fieldName);
+                        boolean subFieldMatch = fields.stream().anyMatch(f -> f.startsWith(fieldName + "."));
+                        
+                        if (!exactMatch && !subFieldMatch) {
+                            continue;
+                        }
+                    }
+
+                    Object value = getFieldValue(entity, fieldMeta.field());
+                    if (fieldMeta.isRelation() && value != null) {
+                        List<String> subFields = null;
+                        if (fields != null) {
+                            subFields = fields.stream()
+                                    .filter(f -> f.startsWith(fieldName + "."))
+                                    .map(f -> f.substring(fieldName.length() + 1))
+                                    .collect(Collectors.toList());
+                        }
+                        value = mapRelationValue(value, fieldMeta, subFields, context);
+                    }
+                    outputDto.put(fieldName, value);
+                }
+            } else {
+                return (Map<String, Object>) mapToIdOnly(entity);
+            }
+            return outputDto;
+        } finally {
+            context.decrementDepth();
+            context.exitEntity(entity);
+        }
+    }
+
+    private EntityMetadata resolveMetadata(Class<?> clazz) {
+        if (clazz == entityClass) return metadata;
+        try {
+            DtoMapper mapper = mapperFactory.getMapper(clazz);
+            if (mapper instanceof EntityDtoMapper entityMapper) {
+                return entityMapper.metadata;
+            }
+        } catch (Exception e) {
+            log.trace("Could not resolve specific metadata for {}", clazz.getSimpleName());
+        }
+        return null;
     }
 
     @Override
     public void validateUpdatableFields(Map<String, Object> inputDto) {
         for (String fieldName : inputDto.keySet()) {
-            // Check if field exists in entity metadata
             metadata.fields().stream()
                     .filter(field -> field.name().equals(fieldName))
                     .findFirst()
                     .ifPresent(field -> {
                         if (field.hidden()) {
-                            throw new IllegalArgumentException(
-                                    "Cannot update hidden field: " + fieldName);
+                            throw new IllegalArgumentException("Cannot update hidden field: " + fieldName);
                         }
                         if (field.readOnly()) {
-                            throw new IllegalArgumentException(
-                                    "Cannot update read-only field: " + fieldName);
+                            throw new IllegalArgumentException("Cannot update read-only field: " + fieldName);
                         }
                     });
         }
@@ -176,7 +201,6 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
         if (value == null) return null;
 
         if (value instanceof Map<?, ?> map) {
-            // Nested DTO support
             try {
                 DtoMapper mapper = mapperFactory.getMapper(targetEntity);
                 return mapper.toEntity((Map<String, Object>) map);
@@ -185,35 +209,28 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
                 return null;
             }
         } else {
-            // Assume ID
             return entityManager.getReference(targetEntity, value);
         }
     }
 
-    private Object mapRelationValue(Object value, FieldMetadata fieldMetadata, int currentDepth, List<String> subFields) {
-        if (currentDepth >= maxDepth && (subFields == null || subFields.isEmpty())) {
-            return mapToIdOnly(value);
-        }
-
+    private Object mapRelationValue(Object value, FieldMetadata fieldMetadata, List<String> subFields, MappingContext context) {
         if (value instanceof Collection<?> collection) {
             return collection.stream()
-                    .map(item -> mapSingleRelationValue(item, fieldMetadata, currentDepth, subFields))
+                    .map(item -> mapSingleRelationValue(item, fieldMetadata, subFields, context))
                     .collect(Collectors.toList());
         } else {
-            return mapSingleRelationValue(value, fieldMetadata, currentDepth, subFields);
+            return mapSingleRelationValue(value, fieldMetadata, subFields, context);
         }
     }
 
-    private Object mapSingleRelationValue(Object item, FieldMetadata fieldMeta, int currentDepth, List<String> subFields) {
+    private Object mapSingleRelationValue(Object item, FieldMetadata fieldMeta, List<String> subFields, MappingContext context) {
         if (item == null) return null;
         Class<?> targetClass = fieldMeta.relation().targetEntity();
         
         try {
-            if (targetClass.isAnnotationPresent(io.springflow.annotations.AutoApi.class)) {
-                DtoMapper mapper = mapperFactory.getMapper(targetClass);
-                if (mapper instanceof EntityDtoMapper entityMapper) {
-                    return entityMapper.toOutputDto(item, subFields, currentDepth + 1);
-                }
+            DtoMapper mapper = mapperFactory.getMapper(targetClass);
+            if (mapper instanceof EntityDtoMapper entityMapper) {
+                return entityMapper.toOutputDto(item, subFields, context);
             }
         } catch (Exception e) {
             log.debug("Fallback to ID mapping for {}", targetClass.getSimpleName());
@@ -229,7 +246,13 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         } else {
-            return getEntityIdValue(value);
+            Map<String, Object> idMap = new LinkedHashMap<>();
+            Object id = getEntityIdValue(value);
+            if (id != null) {
+                idMap.put("id", id);
+                return idMap;
+            }
+            return null;
         }
     }
 
@@ -288,12 +311,12 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
         return entityClass;
     }
 
-    private Object getFieldValue(T entity, Field field) {
+    private Object getFieldValue(Object entity, Field field) {
         try {
             field.setAccessible(true);
             return field.get(entity);
         } catch (IllegalAccessException e) {
-            log.warn("Failed to get field value: {}.{}", entityClass.getSimpleName(), field.getName());
+            log.warn("Failed to get field value: {}.{}", entity.getClass().getSimpleName(), field.getName());
             return null;
         }
     }
@@ -316,7 +339,6 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
     private Object convertValue(Object value, Class<?> targetType) {
         if (targetType.isInstance(value)) return value;
 
-        // String to target type conversions
         if (value instanceof String strValue) {
             if (targetType == Integer.class || targetType == int.class) return Integer.valueOf(strValue);
             if (targetType == Long.class || targetType == long.class) return Long.valueOf(strValue);
@@ -327,21 +349,17 @@ public class EntityDtoMapper<T, ID> implements DtoMapper<T, ID> {
             if (targetType == BigInteger.class) return new BigInteger(strValue);
         }
 
-        // Number to target type conversions
         if (value instanceof Number numValue) {
             if (targetType == Integer.class || targetType == int.class) return numValue.intValue();
             if (targetType == Long.class || targetType == long.class) return numValue.longValue();
             if (targetType == Double.class || targetType == double.class) return numValue.doubleValue();
             if (targetType == Float.class || targetType == float.class) return numValue.floatValue();
             if (targetType == BigDecimal.class) {
-                // Handle BigDecimal conversion from various number types
                 if (numValue instanceof BigDecimal) return numValue;
                 if (numValue instanceof BigInteger) return new BigDecimal((BigInteger) numValue);
                 if (numValue instanceof Double || numValue instanceof Float) {
-                    // Use string conversion to avoid precision loss
                     return new BigDecimal(numValue.toString());
                 }
-                // For Integer, Long, etc.
                 return BigDecimal.valueOf(numValue.longValue());
             }
             if (targetType == BigInteger.class) {

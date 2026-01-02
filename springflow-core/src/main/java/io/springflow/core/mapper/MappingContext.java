@@ -1,84 +1,86 @@
 package io.springflow.core.mapper;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 /**
- * Context for tracking mapping state during entity-to-DTO conversion.
+ * Context for DTO mapping to handle circular references and depth tracking.
  * <p>
- * Maintains a stack of entities being mapped to detect and prevent circular references
- * in bidirectional relationships.
+ * Uses IdentityHashMap to track visited objects by reference identity.
  * </p>
- * <p>
- * Example scenario:
- * </p>
- * <pre>{@code
- * Product {
- *     Category category;
- * }
- * Category {
- *     List<Product> products;  // Bidirectional - would cause infinite loop
- * }
- * }</pre>
- *
- * @since 0.4.0
  */
 public class MappingContext {
-
-    private final Set<Object> visitedEntities;
+    private final Map<Object, Boolean> visited = new IdentityHashMap<>();
     private final DtoMappingConfig config;
+    private int currentDepth = 0;
+
+    public MappingContext() {
+        this(DtoMappingConfig.DEFAULT);
+    }
 
     public MappingContext(DtoMappingConfig config) {
-        this.visitedEntities = new HashSet<>();
-        this.config = config;
+        this.config = config != null ? config : DtoMappingConfig.DEFAULT;
     }
 
     /**
-     * Check if an entity is currently being mapped (would cause a cycle).
-     *
-     * @param entity the entity to check
-     * @return true if entity is already in the mapping stack
-     */
-    public boolean isBeingMapped(Object entity) {
-        if (!config.isDetectCycles() || entity == null) {
-            return false;
-        }
-        // Use System.identityHashCode to detect exact same object instance
-        return visitedEntities.stream()
-                .anyMatch(visited -> System.identityHashCode(visited) == System.identityHashCode(entity));
-    }
-
-    /**
-     * Mark an entity as being mapped.
-     *
-     * @param entity the entity
+     * Mark an entity as being currently mapped.
+     * @param entity the entity to track
      */
     public void enterEntity(Object entity) {
-        if (config.isDetectCycles() && entity != null) {
-            visitedEntities.add(entity);
+        if (config.isDetectCycles()) {
+            visited.put(entity, Boolean.TRUE);
         }
     }
 
     /**
-     * Unmark an entity after mapping is complete.
-     *
-     * @param entity the entity
+     * Mark an entity as finished being mapped.
+     * @param entity the entity to remove from tracking
      */
     public void exitEntity(Object entity) {
-        if (config.isDetectCycles() && entity != null) {
-            visitedEntities.remove(entity);
-        }
+        visited.remove(entity);
+    }
+
+    /**
+     * Check if an entity is already being mapped in the current branch.
+     * @param entity the entity to check
+     * @return true if a cycle is detected
+     */
+    public boolean isBeingMapped(Object entity) {
+        return config.isDetectCycles() && visited.containsKey(entity);
+    }
+
+    // Alias for isBeingMapped to match new implementation needs
+    public boolean isVisited(Object entity) {
+        return isBeingMapped(entity);
+    }
+
+    // Alias for enterEntity to match new implementation needs
+    public void markVisited(Object entity) {
+        enterEntity(entity);
+    }
+
+    public int getCurrentDepth() {
+        return currentDepth;
+    }
+
+    public void incrementDepth() {
+        currentDepth++;
+    }
+
+    public void decrementDepth() {
+        currentDepth--;
     }
 
     public DtoMappingConfig getConfig() {
         return config;
     }
 
-    /**
-     * Create a new context with the same configuration.
-     * Used for nested mappings to avoid sharing visited set.
-     */
     public MappingContext fork() {
-        return new MappingContext(config);
+        MappingContext forked = new MappingContext(this.config);
+        forked.currentDepth = this.currentDepth;
+        // Note: fork usually means separate visited set for some mapping strategies, 
+        // but here we might want to preserve it depending on use case.
+        // For now, new context with same config as per original test.
+        return forked;
     }
 }
