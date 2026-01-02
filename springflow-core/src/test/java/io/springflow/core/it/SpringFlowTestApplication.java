@@ -61,4 +61,9 @@ public class SpringFlowTestApplication {
     public EntityValidator entityValidator(Validator validator) {
         return new EntityValidator(validator);
     }
+
+    @Bean
+    public com.fasterxml.jackson.databind.ObjectMapper objectMapper() {
+        return new com.fasterxml.jackson.databind.ObjectMapper();
+    }
 }
