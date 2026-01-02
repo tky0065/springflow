@@ -6,9 +6,9 @@
 - [x] Task: Integration tests for secured entities with different user roles 4e4bec8
 
 ## Phase 2: Enhanced Relationship Mapping
-- [ ] Task: Update `DtoMapper` to handle JPA relationship annotations
-- [ ] Task: Implement circular reference detection and recursion depth control
-- [ ] Task: Add support for relationship projection (e.g., summary DTOs for relations)
+- [x] Task: Update `DtoMapper` to handle JPA relationship annotations 1d1aa17
+- [x] Task: Implement circular reference detection and recursion depth control adc9ba4
+- [x] Task: Add support for relationship projection (e.g., summary DTOs for relations) 2e12a0f
 - [ ] Task: Integration tests for complex entity graphs (Circular, Many-to-Many)
 
 ## Phase 3: Custom Controller Integration
