@@ -45,6 +45,11 @@ class PaginationAndSortingTest {
         filterResolver = mock(FilterResolver.class);
         when(filterResolver.buildSpecification(any(), any(), any())).thenReturn(mock(Specification.class));
 
+        // Mock metadata fields for sort validation
+        when(metadata.getFieldByName("name")).thenReturn(java.util.Optional.of(mock(io.springflow.core.metadata.FieldMetadata.class)));
+        when(metadata.getFieldByName("category")).thenReturn(java.util.Optional.of(mock(io.springflow.core.metadata.FieldMetadata.class)));
+        when(metadata.getFieldByName("id")).thenReturn(java.util.Optional.of(mock(io.springflow.core.metadata.FieldMetadata.class)));
+
         // Setup DtoMapper mocks
         when(dtoMapper.toOutputDto(any(TestEntity.class))).thenAnswer(inv -> {
             TestEntity e = inv.getArgument(0);

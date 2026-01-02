@@ -105,6 +105,9 @@ public abstract class GenericCrudController<T, ID> {
             @Parameter(description = "Pagination parameters (page, size, sort)")
             @PageableDefault(size = 20) Pageable pageable,
             jakarta.servlet.http.HttpServletRequest request) {
+        // Validate sort parameters before processing
+        validateSort(pageable);
+
         Map<String, String[]> parameterMap = request.getParameterMap();
         log.debug("GET request to find all {} with pagination: {} and parameters: {}",
                 entityClass.getSimpleName(), pageable, parameterMap.keySet());
@@ -157,6 +160,9 @@ public abstract class GenericCrudController<T, ID> {
             @Parameter(description = "Pagination parameters (page, size, sort)")
             @PageableDefault(size = 20) Pageable pageable,
             jakarta.servlet.http.HttpServletRequest request) {
+        // Validate sort parameters before processing
+        validateSort(pageable);
+
         log.debug("POST request to search {} with request: {} and pagination: {}",
                 entityClass.getSimpleName(), searchRequest, pageable);
 
@@ -167,6 +173,18 @@ public abstract class GenericCrudController<T, ID> {
         Page<Map<String, Object>> dtoPage = dtoMapper.toOutputDtoPage(page, fields);
         PageResponse<Map<String, Object>> response = new PageResponse<>(dtoPage);
         return ResponseEntity.ok(response);
+    }
+
+    private void validateSort(Pageable pageable) {
+        if (pageable.getSort().isUnsorted()) {
+            return;
+        }
+        for (org.springframework.data.domain.Sort.Order order : pageable.getSort()) {
+            String property = order.getProperty();
+            if (metadata.getFieldByName(property).isEmpty()) {
+                throw new IllegalArgumentException("Invalid sort field: " + property);
+            }
+        }
     }
 
     private String getFirstParam(Map<String, String[]> parameterMap, String key, String defaultValue) {
