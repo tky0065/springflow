@@ -12,7 +12,7 @@
 - [x] Task: Integration tests for complex entity graphs (Circular, Many-to-Many) d1984f1
 
 ## Phase 3: Custom Controller Integration
-- [ ] Task: Refactor `RequestMappingRegistrar` for better custom method detection
+- [~] Task: Refactor `RequestMappingRegistrar` for better custom method detection
 - [ ] Task: Enable easy overriding of generated CRUD methods
 - [ ] Task: Documentation update for custom extensions and security
 

@@ -10,6 +10,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -54,12 +55,28 @@ public class RequestMappingRegistrar implements ApplicationListener<ContextRefre
             log.info("Registering {} SpringFlow controllers with Spring MVC at base path: {}", controllers.size(), globalBasePath);
 
             for (Map.Entry<String, GenericCrudController> entry : controllers.entrySet()) {
-                registerControllerMappings(entry.getValue(), entry.getKey(), handlerMapping, applicationContext, globalBasePath);
+                Object controller = entry.getValue();
+                String beanName = entry.getKey();
+
+                // Skip classes already annotated with @RestController or @Controller
+                // as Spring's standard RequestMappingHandlerMapping will handle them.
+                if (isStandardController(controller)) {
+                    log.debug("Skipping manual registration for {} as it is a standard Spring controller", beanName);
+                    continue;
+                }
+
+                registerControllerMappings(controller, beanName, handlerMapping, applicationContext, globalBasePath);
             }
 
         } catch (Exception e) {
             log.error("Failed to register controller mappings", e);
         }
+    }
+
+    private boolean isStandardController(Object controller) {
+        Class<?> clazz = controller.getClass();
+        return AnnotatedElementUtils.hasAnnotation(clazz, RestController.class) ||
+               AnnotatedElementUtils.hasAnnotation(clazz, Controller.class);
     }
 
     private String getGlobalBasePath(ApplicationContext applicationContext) {
@@ -162,6 +179,13 @@ public class RequestMappingRegistrar implements ApplicationListener<ContextRefre
                         .paths(fullPaths)
                         .methods(requestMethod)
                         .build();
+
+                // Check if mapping already exists to avoid conflicts with user-defined methods
+                if (handlerMapping.getHandlerMethods().containsKey(mappingInfo)) {
+                    log.debug("Mapping {} already exists, skipping manual registration for {}.{}",
+                            mappingInfo, controller.getClass().getSimpleName(), method.getName());
+                    return false;
+                }
 
                 handlerMapping.registerMapping(mappingInfo, controller, method);
 

@@ -282,22 +282,8 @@ public class ShipmentController extends GenericCrudController<Shipment, Long> {
 
     private static final Logger log = LoggerFactory.getLogger(ShipmentController.class);
 
-    public ShipmentController(
-            @Qualifier("shipmentService") GenericCrudService<Shipment, Long> service,
-            DtoMapperFactory dtoMapperFactory,
-            FilterResolver filterResolver
-    ) {
-        super(service,
-              dtoMapperFactory.getMapper(Shipment.class, new MetadataResolver().resolve(Shipment.class)),
-              filterResolver,
-              new MetadataResolver().resolve(Shipment.class),
-              Shipment.class);
-    }
-
-    @Override
-    protected Long getEntityId(Shipment entity) {
-        return entity.getId();
-    }
+    // Plus besoin de constructeur complexe! 
+    // Les dépendances sont injectées automatiquement par SpringFlow.
 
     // Endpoint personnalisé: Mettre à jour le statut
     @PutMapping("/{id}/update-status")
@@ -331,97 +317,15 @@ public class ShipmentController extends GenericCrudController<Shipment, Long> {
         Shipment updated = service.save(shipment);
         return ResponseEntity.ok(dtoMapper.toOutputDto(updated));
     }
-
-    // Endpoint personnalisé: Expédier
-    @PostMapping("/{id}/ship")
-    public ResponseEntity<Map<String, Object>> ship(
-            @PathVariable Long id,
-            @RequestParam(required = false) String carrier
-    ) {
-        log.debug("Shipping shipment {} with carrier {}", id, carrier);
-
-        Shipment shipment = service.findById(id);
-
-        if (!"PENDING".equals(shipment.getStatus())) {
-            throw new IllegalStateException("Only pending shipments can be shipped");
-        }
-
-        shipment.setStatus("IN_TRANSIT");
-        shipment.setShippedDate(LocalDateTime.now());
-
-        if (carrier != null) {
-            shipment.setCarrier(carrier);
-        }
-
-        Shipment updated = service.save(shipment);
-        return ResponseEntity.ok(dtoMapper.toOutputDto(updated));
-    }
-
-    // Endpoint personnalisé: Livrer
-    @PostMapping("/{id}/deliver")
-    public ResponseEntity<Map<String, Object>> deliver(@PathVariable Long id) {
-        log.debug("Delivering shipment {}", id);
-
-        Shipment shipment = service.findById(id);
-
-        if ("PENDING".equals(shipment.getStatus())) {
-            throw new IllegalStateException("Shipment must be shipped before being delivered");
-        }
-
-        if ("DELIVERED".equals(shipment.getStatus())) {
-            throw new IllegalStateException("Shipment is already delivered");
-        }
-
-        shipment.setStatus("DELIVERED");
-        shipment.setActualDeliveryDate(LocalDateTime.now());
-
-        Shipment updated = service.save(shipment);
-        return ResponseEntity.ok(dtoMapper.toOutputDto(updated));
-    }
-
-    // Endpoint personnalisé: Tracking
-    @GetMapping("/{id}/tracking")
-    public ResponseEntity<TrackingInfo> getTracking(@PathVariable Long id) {
-        log.debug("Getting tracking info for shipment {}", id);
-
-        Shipment shipment = service.findById(id);
-        TrackingInfo trackingInfo = new TrackingInfo(
-                shipment.getTrackingNumber(),
-                shipment.getStatus(),
-                shipment.getCarrier(),
-                shipment.getShippedDate(),
-                shipment.getEstimatedDeliveryDate(),
-                shipment.getActualDeliveryDate()
-        );
-        return ResponseEntity.ok(trackingInfo);
-    }
-
-    private void validateStatus(String status) {
-        String[] validStatuses = {"PENDING", "IN_TRANSIT", "OUT_FOR_DELIVERY", "DELIVERED", "RETURNED"};
-        for (String validStatus : validStatuses) {
-            if (validStatus.equals(status)) {
-                return;
-            }
-        }
-        throw new IllegalArgumentException("Invalid status: " + status +
-                ". Valid values are: " + String.join(", ", validStatuses));
-    }
-
-    public record TrackingInfo(
-            String trackingNumber,
-            String status,
-            String carrier,
-            LocalDateTime shippedDate,
-            LocalDateTime estimatedDeliveryDate,
-            LocalDateTime actualDeliveryDate
-    ) {}
-}
 ```
 
+!!! tip "Zéro Boilerplate"
+    Grâce à l'auto-injection des dépendances dans `GenericCrudController`, vous n'avez qu'à étendre la classe pour bénéficier de tous les services (service, dtoMapper, filterResolver, etc.).
+
 !!! important "Injection de Dépendances"
-    - Utilisez `@Qualifier("shipmentService")` pour le service
-    - Injectez `DtoMapperFactory` et créez le mapper dans le super()
-    - Créez `MetadataResolver` localement (ce n'est pas un bean Spring)
+    - `service`, `dtoMapperFactory`, `filterResolver` et `entityValidator` sont injectés via `@Autowired`.
+    - `entityClass`, `metadata` et `dtoMapper` sont initialisés automatiquement au démarrage.
+    - `getEntityId` a une implémentation par défaut basée sur la réflexion.
 
 #### Résultat
 

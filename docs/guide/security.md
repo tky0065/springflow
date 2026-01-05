@@ -45,13 +45,39 @@ Génère automatiquement :
 public ResponseEntity<...> findAll(...) { ... }
 ```
 
+### Fine-grained Security with @SecuredApi
+
+For more control over security at the method level, use the `@SecuredApi` annotation.
+
+```java
+@Entity
+@AutoApi(path = "products")
+@SecuredApi(
+    findAll = "hasRole('USER')",
+    create = "hasRole('ADMIN')",
+    update = "hasRole('ADMIN')",
+    delete = "hasRole('ADMIN')"
+)
+public class Product { ... }
+```
+
+| Paramètre | Description |
+|-----------|-------------|
+| `findAll` | Expression pour la liste |
+| `findById`| Expression pour le détail |
+| `create`  | Expression pour la création |
+| `update`  | Expression pour la mise à jour |
+| `patch`   | Expression pour PATCH |
+| `delete`  | Expression pour suppression |
+| `restore` | Expression pour restauration |
+| `hardDelete`| Expression pour suppression physique |
+
 ## Coming Soon
 
-Phase 2 apportera :
+Phase 3 apportera :
 - JWT support
 - OAuth2 integration
-- Custom security expressions
-- Endpoint-level security
+- Custom security expressions per endpoint via custom controllers
 
 ## Voir Aussi
 

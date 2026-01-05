@@ -2,8 +2,11 @@ package io.springflow.core.controller;
 
 import io.springflow.core.filter.FilterResolver;
 import io.springflow.core.mapper.DtoMapper;
+import io.springflow.core.mapper.DtoMapperFactory;
 import io.springflow.core.metadata.EntityMetadata;
+import io.springflow.core.metadata.MetadataResolver;
 import io.springflow.core.service.GenericCrudService;
+import io.springflow.core.utils.EntityUtils;
 import io.springflow.core.validation.EntityValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,18 +14,23 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.lang.reflect.ParameterizedType;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -46,12 +54,39 @@ public abstract class GenericCrudController<T, ID> {
 
     private static final Logger log = LoggerFactory.getLogger(GenericCrudController.class);
 
-    protected final GenericCrudService<T, ID> service;
-    protected final DtoMapper<T, ID> dtoMapper;
-    protected final FilterResolver filterResolver;
-    protected final EntityMetadata metadata;
-    protected final Class<T> entityClass;
-    protected final EntityValidator entityValidator;
+    @Autowired
+    protected ApplicationContext applicationContext;
+
+    protected GenericCrudService<T, ID> service;
+    
+    @Autowired
+    protected DtoMapperFactory dtoMapperFactory;
+    
+    @Autowired
+    protected FilterResolver filterResolver;
+    
+    @Autowired
+    protected EntityValidator entityValidator;
+
+    protected DtoMapper<T, ID> dtoMapper;
+    protected EntityMetadata metadata;
+    protected Class<T> entityClass;
+
+    /**
+     * Default constructor for subclasses.
+     * Dependencies will be injected via @Autowired and initialized in @PostConstruct.
+     */
+    @SuppressWarnings("unchecked")
+    protected GenericCrudController() {
+        try {
+            // Resolve entityClass from generic parameter T
+            this.entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
+                    .getActualTypeArguments()[0];
+        } catch (Exception e) {
+            log.debug("Could not automatically resolve entity class for {}, manual initialization required", 
+                    getClass().getSimpleName());
+        }
+    }
 
     protected GenericCrudController(GenericCrudService<T, ID> service,
                                     DtoMapper<T, ID> dtoMapper,
@@ -80,6 +115,31 @@ public abstract class GenericCrudController<T, ID> {
                                     EntityMetadata metadata,
                                     Class<T> entityClass) {
         this(service, dtoMapper, filterResolver, metadata, entityClass, null);
+    }
+
+    /**
+     * Initializes metadata and DtoMapper if not already provided via constructor.
+     */
+    @SuppressWarnings("unchecked")
+    @PostConstruct
+    protected void init() {
+        if (this.metadata == null && this.entityClass != null) {
+            this.metadata = new MetadataResolver().resolve(this.entityClass);
+        }
+
+        // Resolve service by name convention if not provided
+        if (this.service == null && this.entityClass != null && applicationContext != null) {
+            String serviceBeanName = StringUtils.uncapitalize(this.entityClass.getSimpleName()) + "Service";
+            if (applicationContext.containsBean(serviceBeanName)) {
+                this.service = (GenericCrudService<T, ID>) applicationContext.getBean(serviceBeanName);
+            } else {
+                log.debug("Service bean {} not found for {}", serviceBeanName, getClass().getSimpleName());
+            }
+        }
+
+        if (this.dtoMapper == null && this.dtoMapperFactory != null && this.entityClass != null && this.metadata != null) {
+            this.dtoMapper = dtoMapperFactory.getMapper(this.entityClass, this.metadata);
+        }
     }
 
     /**
@@ -493,5 +553,7 @@ public abstract class GenericCrudController<T, ID> {
      * @param entity the entity
      * @return the entity ID
      */
-    protected abstract ID getEntityId(T entity);
+    protected ID getEntityId(T entity) {
+        return EntityUtils.getEntityId(entity, this.metadata);
+    }
 }

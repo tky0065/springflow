@@ -8,6 +8,7 @@ import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.FieldMetadata;
 import io.springflow.core.security.SecurityExpressionBuilder;
 import io.springflow.core.service.GenericCrudService;
+import io.springflow.core.utils.EntityUtils;
 import io.springflow.core.validation.EntityValidator;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.description.annotation.AnnotationDescription;
@@ -97,7 +98,7 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
         return new GenericCrudController<T, ID>(service, dtoMapper, filterResolver, metadata, entityClass, entityValidator) {
             @Override
             protected ID getEntityId(T entity) {
-                return extractIdFromEntity(entity);
+                return EntityUtils.getEntityId(entity, metadata);
             }
         };
     }
@@ -137,9 +138,9 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
         // Override getEntityId
         Method getEntityIdMethod = findMethod(GenericCrudController.class, "getEntityId");
         builder = builder.method(ElementMatchers.is(getEntityIdMethod))
-                .intercept(MethodCall.invoke(getClass().getDeclaredMethod("extractIdFromEntity", Object.class))
-                        .on(this)
-                        .withAllArguments());
+                .intercept(MethodCall.invoke(EntityUtils.class.getDeclaredMethod("getEntityId", Object.class, EntityMetadata.class))
+                        .withArgument(0) // entity
+                        .with(metadata)); // metadata
 
         Class<? extends GenericCrudController<T, ID>> loadedClass = (Class<? extends GenericCrudController<T, ID>>) builder
                 .make()
@@ -177,36 +178,5 @@ public class SpringFlowControllerFactoryBean<T, ID> implements FactoryBean<Gener
     @Override
     public boolean isSingleton() {
         return true;
-    }
-
-    /**
-     * Extract the ID value from an entity using reflection.
-     *
-     * @param entity the entity
-     * @return the ID value
-     */
-    @SuppressWarnings("unchecked")
-    public ID extractIdFromEntity(Object entity) {
-        if (entity == null || metadata == null) {
-            return null;
-        }
-
-        // Find the ID field from metadata
-        FieldMetadata idField = metadata.fields().stream()
-                .filter(FieldMetadata::isId)
-                .findFirst()
-                .orElse(null);
-
-        if (idField == null) {
-            throw new IllegalStateException("No ID field found for entity: " + entityClass.getName());
-        }
-
-        try {
-            Field field = idField.field();
-            field.setAccessible(true);
-            return (ID) field.get(entity);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("Failed to extract ID from entity: " + entityClass.getName(), e);
-        }
     }
 }
