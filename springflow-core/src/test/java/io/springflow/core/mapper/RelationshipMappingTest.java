@@ -1,6 +1,7 @@
 package io.springflow.core.mapper;
 
 import io.springflow.annotations.AutoApi;
+import io.springflow.annotations.Summary;
 import io.springflow.core.metadata.EntityMetadata;
 import io.springflow.core.metadata.MetadataResolver;
 import jakarta.persistence.*;
@@ -83,11 +84,42 @@ class RelationshipMappingTest {
         assertThat(book.getAuthor().getName()).isEqualTo("J.K. Rowling");
     }
 
+    @Test
+    void toOutputDto_withSummary_shouldProjectSummaryFields() {
+        // Given
+        Author author = new Author();
+        author.setId(1L);
+        author.setName("J.K. Rowling");
+
+        Book book = new Book();
+        book.setId(101L);
+        book.setName("Harry Potter");
+        book.setAuthor(author);
+
+        EntityMetadata bookMetadata = metadataResolver.resolve(Book.class);
+        EntityMetadata authorMetadata = metadataResolver.resolve(Author.class);
+        
+        EntityDtoMapper<Author, Long> authorMapper = new EntityDtoMapper<>(Author.class, authorMetadata, entityManager, mapperFactory);
+        EntityDtoMapper<Book, Long> bookMapper = new EntityDtoMapper<>(Book.class, bookMetadata, entityManager, mapperFactory, 0); // depth 0 forces summary/id
+        
+        org.mockito.Mockito.lenient().when(mapperFactory.getMapper((Class) Author.class)).thenReturn(authorMapper);
+
+        // When
+        Map<String, Object> bookDto = bookMapper.toOutputDto(book);
+
+        // Then
+        assertThat(bookDto.get("author")).isInstanceOf(Map.class);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> authorSummary = (Map<String, Object>) bookDto.get("author");
+        assertThat(authorSummary.get("id")).isEqualTo(1L);
+        assertThat(authorSummary.get("name")).isEqualTo("J.K. Rowling");
+    }
+
     @Entity
     @AutoApi
     static class Author {
         @Id private Long id;
-        private String name;
+        @Summary private String name;
         public Long getId() { return id; }
         public void setId(Long id) { this.id = id; }
         public String getName() { return name; }

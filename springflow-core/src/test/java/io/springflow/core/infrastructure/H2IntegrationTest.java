@@ -1,9 +1,12 @@
 package io.springflow.core.infrastructure;
 
-import io.springflow.core.BaseIntegrationTest;
+import io.springflow.core.TestApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -12,7 +15,14 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class H2IntegrationTest extends BaseIntegrationTest {
+@SpringBootTest(classes = TestApplication.class)
+@ActiveProfiles("test")
+public abstract class H2IntegrationTest {
+
+    @TestConfiguration
+    @Import(TestApplication.class)
+    public static class TestConfig {
+    }
 
     @Autowired
     private DataSource dataSource;
@@ -23,7 +33,6 @@ class H2IntegrationTest extends BaseIntegrationTest {
             DatabaseMetaData metaData = connection.getMetaData();
             String url = metaData.getURL();
             
-            // Red phase expectation: specific DB name we haven't configured yet
             assertThat(url).contains("jdbc:h2:mem:springflow-integration-db");
             assertThat(metaData.getDatabaseProductName()).isEqualTo("H2");
         }

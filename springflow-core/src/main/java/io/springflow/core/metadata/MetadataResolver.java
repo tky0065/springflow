@@ -7,6 +7,7 @@ import io.springflow.annotations.Hidden;
 import io.springflow.annotations.ReadOnly;
 import io.springflow.annotations.SecuredApi;
 import io.springflow.annotations.SoftDelete;
+import io.springflow.annotations.Summary;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.lang.annotation.Annotation;
@@ -125,6 +126,7 @@ public class MetadataResolver {
         }
 
         boolean isJsonIgnored = field.isAnnotationPresent(com.fasterxml.jackson.annotation.JsonIgnore.class);
+        boolean isSummary = field.isAnnotationPresent(Summary.class);
 
         return new FieldMetadata(
                 field,
@@ -139,7 +141,8 @@ public class MetadataResolver {
                 validations,
                 filterConfig,
                 relation,
-                isJsonIgnored
+                isJsonIgnored,
+                isSummary
         );
     }
 
