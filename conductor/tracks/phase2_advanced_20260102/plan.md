@@ -11,10 +11,10 @@
 - [x] Task: Add support for relationship projection (e.g., summary DTOs for relations) 2e12a0f
 - [x] Task: Integration tests for complex entity graphs (Circular, Many-to-Many) d1984f1
 
-## Phase 3: Custom Controller Integration
-- [~] Task: Refactor `RequestMappingRegistrar` for better custom method detection
-- [ ] Task: Enable easy overriding of generated CRUD methods
-- [ ] Task: Documentation update for custom extensions and security
+## Phase 3: Custom Controller Integration [checkpoint: d54c82b]
+- [x] Task: Refactor `RequestMappingRegistrar` for better custom method detection d54c82b
+- [x] Task: Enable easy overriding of generated CRUD methods d54c82b
+- [x] Task: Documentation update for custom extensions and security d54c82b
 
 ## Phase 4: Finalization
 - [ ] Task: Full regression testing across all features
