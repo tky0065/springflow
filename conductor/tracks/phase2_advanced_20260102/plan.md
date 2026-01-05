@@ -5,7 +5,7 @@
 - [x] Task: Implement role-based security enforcement in `GenericCrudController` 08aa4ce
 - [x] Task: Integration tests for secured entities with different user roles 4e4bec8
 
-## Phase 2: Enhanced Relationship Mapping
+## Phase 2: Enhanced Relationship Mapping [checkpoint: 6f95e9a]
 - [x] Task: Update `DtoMapper` to handle JPA relationship annotations 1d1aa17
 - [x] Task: Implement circular reference detection and recursion depth control adc9ba4
 - [x] Task: Add support for relationship projection (e.g., summary DTOs for relations) 2e12a0f
