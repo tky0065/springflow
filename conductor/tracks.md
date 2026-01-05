@@ -4,7 +4,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [~] Track: JpaSpecificationExecutor Support
+## [x] Track: JpaSpecificationExecutor Support
 *Link: [./conductor/tracks/jpa_spec_support_20251231/](./conductor/tracks/jpa_spec_support_20251231/)*
 
 ---
@@ -14,5 +14,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [~] Track: Phase 2 - Advanced Security & JPA Relationships
+## [x] Track: Phase 2 - Advanced Security & JPA Relationships
 *Link: [./conductor/tracks/phase2_advanced_20260102/](./conductor/tracks/phase2_advanced_20260102/)*
