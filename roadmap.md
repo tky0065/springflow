@@ -33,18 +33,18 @@ Fournir les fonctionnalités de base pour générer automatiquement des APIs CRU
 
 ---
 
-## Phase 2 - Advanced Features (6-8 semaines)
+## Phase 2 - Advanced Features (6-8 semaines) ✅
 
 ### Objectif
 Ajouter des fonctionnalités avancées pour couvrir les cas d'usage complexes en production.
 
 ### Fonctionnalités clés
-- 🔄 Filtres dynamiques avec `@Filterable`
-- 🔐 Sécurité et gestion des rôles
-- 🗺️ Mapping avancé (relations JPA, lazy loading)
-- 🗑️ Soft Delete avec `@SoftDelete`
-- 🎯 Endpoints personnalisés (merge generated + custom)
-- 📊 Audit trail (createdAt, updatedAt, createdBy, updatedBy)
+- ✅ Filtres dynamiques avec `@Filterable`
+- ✅ Sécurité granulaire avec `@SecuredApi`
+- ✅ Mapping avancé (relations JPA, circular detection)
+- ✅ Soft Delete avec `@SoftDelete`
+- ✅ Endpoints personnalisés (simplified extension)
+- ✅ Audit trail (createdAt, updatedAt, createdBy, updatedBy)
 - 🔍 Recherche full-text (optionnel)
 
 ### Livrables

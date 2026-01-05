@@ -15,6 +15,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GraphQL relation field resolvers
 - GraphQL subscriptions
 
+## [0.5.1] - 2026-01-05
+
+### Added
+- `@SecuredApi` annotation pour un contrôle fin de la sécurité au niveau des méthodes
+- Support complet des relations JPA (ManyToOne, OneToMany, ManyToMany, OneToOne) dans le DtoMapper
+- Détection des références circulaires dans les graphes d'entités complexes
+- Contrôle de la profondeur de récursion pour le mapping des relations (défaut: 1)
+- `@Summary` annotation pour la projection simplifiée des relations
+- Nouveau constructeur sans argument dans `GenericCrudController` pour faciliter l'extension par les utilisateurs
+- Résolution automatique de la classe d'entité et des dépendances via réflexion et `@Autowired`
+- Implémentation par défaut de `getEntityId` basée sur la réflexion
+- Nouvelle classe utilitaire `EntityUtils`
+
+### Changed
+- Refonte de `RequestMappingRegistrar` pour mieux supporter les contrôleurs personnalisés
+- Détection automatique et saut de l'enregistrement manuel pour les classes annotées `@RestController`
+- Prévention des conflits de mapping avec les méthodes définies par l'utilisateur
+
+### Documentation
+- Mise à jour de la documentation sur la sécurité pour inclure `@SecuredApi`
+- Simplification du guide de création de contrôleurs personnalisés
+- Ajout d'exemples de relations complexes
+
 ## [0.5.0] - 2025-12-30
 
 ### Added
