@@ -1,11 +1,11 @@
 # Annotations Reference
 
-Guide utilisateur des annotations SpringFlow avec exemples pratiques.
+User guide for SpringFlow annotations with practical examples.
 
-!!! info "Documentation Complète"
-    Pour la référence API complète de toutes les annotations, consultez:
+!!! info "Complete API Reference"
+    For the full API reference of all annotations, see:
 
-    **[→ Référence API des Annotations](../api/annotations.md)**
+    **[→ Annotations API Reference](../api/annotations.md)**
 
 ## :material-bookmark: Annotations Essentielles
 
@@ -409,7 +409,7 @@ Pas de suppression physique.
 
 Génère GET, POST, PUT, PATCH mais **pas DELETE**.
 
-Parfait avec `@SoftDelete` (Phase 2).
+Works well combined with `@SoftDelete`.
 
 ---
 

@@ -393,33 +393,23 @@ public class ProductService extends GenericCrudService<Product, Long> {
 - :material-bug: Bug Reports: [GitHub Issues](https://github.com/springflow/springflow/issues)
 - :material-chat: Questions: Create a discussion on GitHub
 
-## Current Status (v0.1.0-SNAPSHOT)
+## What's Included
 
-**Phase 1 MVP - Implementation Complete**:
-- :material-check-circle:{ .success } Core annotations (@AutoApi, @Hidden, @ReadOnly, @Filterable)
-- :material-check-circle:{ .success } Entity scanning and metadata resolution
-- :material-check-circle:{ .success } Dynamic repository generation
-- :material-check-circle:{ .success } Service layer with transaction management
-- :material-check-circle:{ .success } Controller generation (beans registered)
-- :material-check-circle:{ .success } DTO mapping with reflection
-- :material-check-circle:{ .success } JSR-380 validation with detailed errors
-- :material-check-circle:{ .success } Pagination and sorting configuration
-- :material-check-circle:{ .success } OpenAPI/Swagger integration
-- :material-check-circle:{ .success } Spring Boot auto-configuration
-- :material-check-circle:{ .success } Kotlin support
-- :material-check-circle:{ .success } Lombok compatibility (Java 25)
-- :material-alert:{ .warning } Controller request mapping registration (in progress)
-
-**Known Limitations**:
-- Controller endpoints are created but HTTP mappings not fully registered yet
-- Requires Spring Boot 3.2.1+, Java 17+
-- Kotlin support requires Java 17 (incompatible with Java 25 due to compiler)
-
-**Coming in Phase 2**:
-- Dynamic filtering with `@Filterable`
-- Security and role-based authorization
-- Soft delete support
-- Audit trail (createdAt, updatedAt, createdBy, updatedBy)
+:material-check-circle:{ .success } Core annotations (`@AutoApi`, `@Hidden`, `@ReadOnly`, `@Filterable`)
+:material-check-circle:{ .success } Entity scanning and metadata resolution
+:material-check-circle:{ .success } Dynamic repository generation
+:material-check-circle:{ .success } Service layer with transaction management
+:material-check-circle:{ .success } Controller generation with request mapping
+:material-check-circle:{ .success } DTO mapping with reflection
+:material-check-circle:{ .success } JSR-380 validation with detailed errors
+:material-check-circle:{ .success } Pagination and sorting
+:material-check-circle:{ .success } OpenAPI/Swagger integration
+:material-check-circle:{ .success } Spring Boot auto-configuration
+:material-check-circle:{ .success } Kotlin support
+:material-check-circle:{ .success } Dynamic filtering with `@Filterable`
+:material-check-circle:{ .success } Security and role-based authorization
+:material-check-circle:{ .success } Soft delete support
+:material-check-circle:{ .success } GraphQL support
 
 ---
 

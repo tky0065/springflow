@@ -652,7 +652,7 @@ curl -X DELETE "http://localhost:8080/api/orders/123" \
 }
 ```
 
-**Note**: En Phase 2, avec `@SoftDelete`, la suppression sera logique (soft delete) au lieu de physique.
+**Note**: With `@SoftDelete`, deletion is logical (soft delete) rather than physical.
 
 ---
 
@@ -781,7 +781,7 @@ Pas de suppression physique:
 - ✅ `PATCH /api/customers/{id}` - Mise à jour partielle
 - ❌ DELETE
 
-**Use Case**: Combiné avec `@SoftDelete` (Phase 2) pour soft delete uniquement.
+**Use Case**: Combined with `@SoftDelete` for logical deletion only.
 
 ### Expose.CUSTOM
 
@@ -1279,7 +1279,7 @@ Par défaut, SpringFlow retourne le format `Page<T>` de Spring Data. Pour person
 
 ### Les endpoints supportent-ils HATEOAS?
 
-Phase 1: Non. Phase 3: Support prévu via Spring HATEOAS.
+Not currently supported. HATEOAS support via Spring HATEOAS is planned for a future release.
 
 ### Comment gérer les relations dans les DTOs?
 

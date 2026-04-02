@@ -1,8 +1,8 @@
 # User Guide
 
-Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnalités.
+Complete reference for SpringFlow features and how to use them.
 
-## :material-book-open-variant: Table des matières
+## :material-book-open-variant: Contents
 
 ### Core Features
 
@@ -12,19 +12,19 @@ Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnal
 
     ---
 
-    Référence complète des annotations SpringFlow
+    Complete reference for all SpringFlow annotations
 
 -   :material-cog: **[Configuration](configuration.md)**
 
     ---
 
-    Options de configuration via YAML et annotations
+    Configuration options via YAML and annotations
 
 -   :material-sync: **[DTO Mapping](dto-mapping.md)**
 
     ---
 
-    Mapping automatique entre entités et DTOs
+    Automatic entity-to-DTO mapping
 
 </div>
 
@@ -36,19 +36,19 @@ Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnal
 
     ---
 
-    Filtrage dynamique avec @Filterable
+    Dynamic query filtering with @Filterable
 
 -   :material-file-document: **[Pagination & Sorting](pagination.md)**
 
     ---
 
-    Pagination et tri des résultats
+    Paginate and sort results
 
 -   :material-check-circle: **[Validation](validation.md)**
 
     ---
 
-    Validation des données avec JSR-380
+    Data validation with JSR-380
 
 </div>
 
@@ -60,52 +60,52 @@ Guide complet d'utilisation de SpringFlow pour maîtriser toutes les fonctionnal
 
     ---
 
-    Intégration Spring Security et contrôle d'accès
+    Spring Security integration and access control
 
 -   :material-delete: **[Soft Delete](soft-delete.md)**
 
     ---
 
-    Suppression logique avec restauration
+    Logical deletion with restore support
 
 -   :material-clipboard-text: **[Auditing](auditing.md)**
 
     ---
 
-    Traçabilité automatique (createdAt, updatedAt, etc.)
+    Automatic audit trail (createdAt, updatedAt, etc.)
 
 -   :material-language-kotlin: **[Kotlin Support](kotlin.md)**
 
     ---
 
-    Utilisation avec Kotlin et data classes
+    Using SpringFlow with Kotlin and data classes
 
 </div>
 
-## :material-target: Par où commencer ?
+## :material-target: Where to start?
 
-Si vous débutez avec SpringFlow, nous recommandons de lire dans cet ordre :
+If you are new to SpringFlow, we recommend reading in this order:
 
-1. **[Annotations](annotations.md)** - Comprendre `@AutoApi` et les annotations de champs
-2. **[Configuration](configuration.md)** - Personnaliser le comportement
-3. **[DTO Mapping](dto-mapping.md)** - Comprendre le mapping automatique
-4. **[Pagination](pagination.md)** - Gérer les grandes collections
+1. **[Annotations](annotations.md)** — understand `@AutoApi` and field-level annotations
+2. **[Configuration](configuration.md)** — customize the behavior
+3. **[DTO Mapping](dto-mapping.md)** — understand automatic mapping
+4. **[Pagination](pagination.md)** — handle large collections
 
-Ensuite, explorez les fonctionnalités avancées selon vos besoins !
+Then explore the advanced features based on your needs.
 
-## :material-magnify: Recherche Rapide
+## :material-magnify: Quick Reference
 
-**Je veux...**
+**I want to...**
 
-- Créer une API simple → [Annotations](annotations.md)
-- Filtrer les résultats → [Filtering](filtering.md)
-- Paginer les résultats → [Pagination](pagination.md)
-- Valider les données → [Validation](validation.md)
-- Sécuriser mes endpoints → [Security](security.md)
-- Garder l'historique → [Auditing](auditing.md)
-- Permettre la restauration → [Soft Delete](soft-delete.md)
-- Utiliser Kotlin → [Kotlin Support](kotlin.md)
+- Create a simple API → [Annotations](annotations.md)
+- Filter results → [Filtering](filtering.md)
+- Paginate results → [Pagination](pagination.md)
+- Validate data → [Validation](validation.md)
+- Secure endpoints → [Security](security.md)
+- Track changes → [Auditing](auditing.md)
+- Support restore → [Soft Delete](soft-delete.md)
+- Use Kotlin → [Kotlin Support](kotlin.md)
 
 ---
 
-Besoin d'aide ? Consultez les [exemples avancés](../advanced/architecture.md) ou la [référence API](../api/annotations.md).
+Need help? Check the [advanced topics](../advanced/architecture.md) or the [API reference](../api/annotations.md).

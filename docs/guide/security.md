@@ -74,12 +74,11 @@ public class Product { ... }
 
 ## Coming Soon
 
-Phase 3 apportera :
 - JWT support
 - OAuth2 integration
 - Custom security expressions per endpoint via custom controllers
 
-## Voir Aussi
+## See Also
 
 - [Annotations](annotations.md#security)
 - [Configuration](configuration.md)

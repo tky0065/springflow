@@ -1,8 +1,8 @@
 # Development
 
-Guide pour contribuer au développement de SpringFlow.
+Guide for contributing to and building SpringFlow.
 
-## :material-book-open-variant: Dans cette section
+## :material-book-open-variant: In this section
 
 <div class="grid cards" markdown>
 
@@ -10,31 +10,31 @@ Guide pour contribuer au développement de SpringFlow.
 
     ---
 
-    Guide de contribution au projet
+    Contribution guide for the project
 
 -   :material-hammer-wrench: **[Building](building.md)**
 
     ---
 
-    Compilation et build du projet
+    Compiling and building the project
 
 -   :material-test-tube: **[Testing](testing.md)**
 
     ---
 
-    Stratégie et exécution des tests
+    Testing strategy and running the test suite
 
 -   :material-rocket-launch: **[Release Process](release.md)**
 
     ---
 
-    Processus de publication des versions
+    How versions are published
 
 </div>
 
-## :material-rocket-launch: Quick Start pour Développeurs
+## :material-rocket-launch: Developer Quick Start
 
-### 1. Cloner le Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/tky0065/springflow.git
@@ -47,60 +47,60 @@ cd springflow
 ./mvnw clean install
 ```
 
-### 3. Exécuter les Tests
+### 3. Run tests
 
 ```bash
 ./mvnw test
 ```
 
-### 4. Lancer la Demo
+### 4. Run the demo
 
 ```bash
 cd springflow-demo
 ../mvnw spring-boot:run
 ```
 
-## :material-office-building: Structure du Projet
+## :material-office-building: Project Structure
 
 ```
 springflow/
-├── springflow-annotations/   # Annotations (zéro dépendance)
-├── springflow-core/          # Implémentation
-├── springflow-starter/       # Auto-configuration Spring Boot
-└── springflow-demo/          # Application de démonstration
+├── springflow-annotations/   # Annotations (zero dependencies)
+├── springflow-core/          # Core implementation
+├── springflow-graphql/       # Optional GraphQL module
+├── springflow-starter/       # Spring Boot auto-configuration
+└── springflow-demo/          # Demo application
 ```
 
-## :material-handshake: Comment Contribuer ?
+## :material-handshake: How to Contribute
 
-1. **Fork** le repository
-2. Créer une **branche** (`git checkout -b feature/amazing-feature`)
-3. **Commiter** vos changements (`git commit -m 'feat: add amazing feature'`)
-4. **Pusher** vers la branche (`git push origin feature/amazing-feature`)
-5. Ouvrir une **Pull Request**
+1. **Fork** the repository
+2. Create a **branch** (`git checkout -b feature/my-feature`)
+3. **Commit** your changes (`git commit -m 'feat: add my feature'`)
+4. **Push** to your branch (`git push origin feature/my-feature`)
+5. Open a **Pull Request**
 
-Consultez [Contributing Guide](contributing.md) pour plus de détails.
+See the [Contributing Guide](contributing.md) for full details.
 
-## 📋 Checklist Avant PR
+## Pre-PR Checklist
 
-- [ ] Code compile sans erreurs
-- [ ] Tous les tests passent (`./mvnw test`)
-- [ ] Coverage > 80% pour le nouveau code
-- [ ] Javadoc ajoutée pour les APIs publiques
-- [ ] CHANGELOG.md mis à jour
-- [ ] Commit messages suivent la convention
+- [ ] Code compiles without errors
+- [ ] All tests pass (`./mvnw test`)
+- [ ] Coverage > 80% for new code
+- [ ] Javadoc added for public APIs
+- [ ] CHANGELOG.md updated
+- [ ] Commit messages follow conventional commits
 
-## :material-tools: Outils Recommandés
+## :material-tools: Recommended Tools
 
 - **IDE**: IntelliJ IDEA / Eclipse / VS Code
-- **Java**: JDK 17 ou supérieur
+- **Java**: JDK 17 or higher
 - **Build**: Maven 3.6+
-- **Git**: Dernière version
 
-## :material-book-open-variant: Documentation Développeur
+## Developer Documentation
 
-- [CONTRIBUTING.md](contributing.md) - Guide de contribution complet
-- [Architecture Decision Records](../advanced/architecture.md) - Décisions d'architecture
+- [CONTRIBUTING.md](contributing.md) — full contribution guide
+- [Architecture](../advanced/architecture.md) — architectural decisions
 
 ---
 
-Besoin d'aide ? Ouvrez une [discussion](https://github.com/tky0065/springflow/discussions) ou une [issue](https://github.com/tky0065/springflow/issues).
+Questions? Open a [discussion](https://github.com/tky0065/springflow/discussions) or an [issue](https://github.com/tky0065/springflow/issues).

@@ -5,56 +5,51 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0%2B-brightgreen)](https://spring.io/projects/spring-boot)
 [![Maven Central](https://img.shields.io/badge/Maven%20Central-0.5.1-blue)](https://search.maven.org/artifact/io.github.tky0065/springflow-starter)
 
-> **Générez automatiquement des REST APIs CRUD complètes pour vos entités JPA avec une seule annotation.**
+> **Automatically generate complete CRUD REST APIs for your JPA entities with a single annotation.**
 
-SpringFlow est une bibliothèque Spring Boot qui automatise la création de repositories, services, controllers REST, DTOs et documentation OpenAPI à partir de vos entités JPA. Écrivez moins de code boilerplate, concentrez-vous sur votre logique métier.
+SpringFlow is a Spring Boot library that automates the creation of repositories, services, REST controllers, DTOs, and OpenAPI documentation from your JPA entities. Write less boilerplate, focus on your business logic.
 
 ---
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-### Phase 1 - MVP (v0.1.x) ✅
+### Core Features ✅
 
-- 🎯 **Une annotation, API complète** : `@AutoApi` génère tout automatiquement
-- 🔄 **CRUD complet** : GET (list + by ID), POST, PUT, DELETE
-- 📄 **Pagination & Tri** : Intégrés nativement avec Spring Data
-- 🔒 **DTO automatiques** : Support @Hidden et @ReadOnly
-- 📚 **Documentation automatique** : Swagger/OpenAPI généré automatiquement
-- ✅ **Validation** : Support complet JSR-380 (NotNull, NotBlank, Size, Min, Max, Email, Pattern)
-- 🎨 **Support Java & Kotlin** : Compatible avec les deux langages
-- 🚀 **Zéro configuration** : Auto-configuration Spring Boot, aucune annotation requise
+- 🎯 **One annotation, full API**: `@AutoApi` generates everything automatically
+- 🔄 **Full CRUD**: GET (list + by ID), POST, PUT, PATCH, DELETE
+- 📄 **Pagination & Sorting**: Built-in via Spring Data
+- 🔒 **Automatic DTOs**: `@Hidden` and `@ReadOnly` support
+- 📚 **Automatic documentation**: Swagger/OpenAPI generated automatically
+- ✅ **Validation**: Full JSR-380 support (NotNull, NotBlank, Size, Min, Max, Email, Pattern)
+- 🎨 **Java & Kotlin support**: Compatible with both languages
+- 🚀 **Zero configuration**: Spring Boot auto-configuration, no extra setup required
 
-### Phase 2 - Advanced Security & JPA Relationships (v0.5.1) ✅
+### Advanced Features ✅
 
-- 🔐 **Sécurité Granulaire** : Contrôle fin au niveau des méthodes avec `@SecuredApi`.
-- 🔗 **Relations JPA** : Support complet ManyToOne, OneToMany, ManyToMany avec détection de cycles.
-- 📦 **Mapping Avancé** : Profondeur de récursion configurable et projection via `@Summary`.
-- 🔍 **Filtres dynamiques** : Requêtes paramétrables avec JPA Specifications.
-- 🗑️ **Soft Delete** : Suppression logique avec restauration via `@SoftDelete`.
-- 📊 **Audit Trail** : Traçabilité complète avec `@Auditable`.
-- 🎯 **Extension Facile** : `GenericCrudController` simplifié pour des contrôleurs custom sans boilerplate.
+- 🔐 **Granular Security**: Fine-grained method-level control with `@SecuredApi`
+- 🔗 **JPA Relations**: Full ManyToOne, OneToMany, ManyToMany support with cycle detection
+- 📦 **Advanced Mapping**: Configurable recursion depth and projection via `@Summary`
+- 🔍 **Dynamic Filters**: Query parameters with JPA Specifications
+- 🗑️ **Soft Delete**: Logical deletion with restore via `@SoftDelete`
+- 📊 **Audit Trail**: Automatic tracking with `@Auditable`
+- 🎯 **Easy Extension**: Simplified `GenericCrudController` for custom controllers without boilerplate
 
-### Phase 3 - Extended Ecosystem (v0.3.0+) 🚀
+### GraphQL Support ✅
 
-- ✅ **GraphQL Support** : API GraphQL auto-générée avec queries, mutations et pagination (opt-in)
+- ✅ **Auto-generated GraphQL API**: Queries, mutations, and pagination (opt-in)
+- ✅ **DataLoader**: N+1 prevention (50x query reduction)
+- ✅ **Full filter integration**: All 12 filter operations
 
-#### v0.3.2 - Critical Bugfixes 🐛
+### Recent Updates
 
-- 🔧 **EntityValidator Bean** : Configuration automatique du bean EntityValidator
-- 📊 **JaCoCo Upgrade** : Version 0.8.12 avec meilleure compatibilité Hibernate
-- 🔒 **Invoice Collision Fix** : Génération UUID pour numéros de facture uniques
+**v0.3.2** — Critical bugfixes: EntityValidator bean auto-configuration, JaCoCo 0.8.12 for Hibernate compatibility
 
-#### v0.3.1 - Phase 2 Enhancements ⚡
+**v0.3.1** — PATCH security (`@Hidden`/`@ReadOnly` protection), validation groups (Create/Update), advanced DTO mapping
 
-- 🛡️ **PATCH Security** : Protection @Hidden/@ReadOnly avec validation stricte des champs
-- 🔖 **Validation Groups** : Validation contextuelle (Create/Update) avec JSR-380
-- 🗺️ **Advanced DTO Mapping** : Configuration profondeur (SHALLOW/DEFAULT/DEEP), détection cycles
-
-### 🚧 Prochainement
-- 💻 Admin UI React/Vue
-- 🛠️ CLI tool pour génération de code
-- 🗄️ Support multi-DB (MongoDB, etc.)
-- 📈 Monitoring & Metrics avec Actuator
+### Coming Soon
+- 🛠️ CLI scaffolding tool
+- 🗄️ Multi-database support (MongoDB, etc.)
+- 📈 Monitoring & Metrics with Actuator
 
 ---
 
@@ -376,7 +371,7 @@ public class Product {
 }
 ```
 
-### `@Filterable` (Phase 2 - à venir)
+### `@Filterable`
 
 Active le filtrage dynamique sur un champ.
 
@@ -1535,38 +1530,25 @@ L'application démarre sur `http://localhost:8080`
 
 ## 📝 Changelog
 
-Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique des versions.
-
-**Version 0.1.1-SNAPSHOT (Phase 1 MVP)**:
-- ✅ CRUD complet (GET, POST, PUT, DELETE)
-- ✅ Pagination & Sorting
-- ✅ Validation JSR-380
-- ✅ DTO auto avec @Hidden/@ReadOnly
-- ✅ Swagger/OpenAPI
-- ✅ Support Java & Kotlin
-- ✅ Auto-configuration Spring Boot
+See [CHANGELOG.md](CHANGELOG.md) for the full version history.
 
 ---
 
 ## 📄 License
 
-SpringFlow est sous licence [Apache License 2.0](LICENSE).
+SpringFlow is licensed under the [Apache License 2.0](LICENSE).
 
 ---
 
 ## 🎯 Roadmap
 
-- ✅ **Phase 1 (v0.1.1 - MVP)** : CRUD, pagination, validation, DTOs, Swagger
-- ✅ **Phase 2 (v0.2.0)** : Filtres dynamiques, Security, Soft Delete, Audit
-- 🔄 **Phase 3 (v0.3.0)** : GraphQL (done), Admin UI, CLI, Multi-DB, Monitoring (future)
-
-Voir [roadmap.md](roadmap.md) pour plus de détails.
+See [docs/about/roadmap.md](docs/about/roadmap.md) for upcoming features and the full release history.
 
 ---
 
 ## ⭐ Support
 
-Si SpringFlow vous aide, n'oubliez pas de mettre une ⭐ sur GitHub !
+If SpringFlow is useful to you, consider starring the repository on GitHub!
 
 - 🐛 **Issues** : [GitHub Issues](https://github.com/tky0065/springflow/issues)
 - 💬 **Discussions** : [GitHub Discussions](https://github.com/tky0065/springflow/discussions)

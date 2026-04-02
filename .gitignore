@@ -65,8 +65,13 @@ jacoco.exec
 *.swp
 *~
 
-# Project management files (local only)
+# Internal/local project management files
 prompt.md
+plan.md
 tasks.md
+GEMINI.md
 QUICKSTART.md
-CLAUDE.md
+QUICK-DEPLOY.md
+roadmap.md
+RELEASE_NOTES_*.md
+conductor/

@@ -558,16 +558,14 @@ public class Document { }
 
 ---
 
-## :material-delete: Annotations Phase 2
-
-Ces annotations sont définies mais **pas encore implémentées** (Phase 2 du roadmap).
+## :material-delete: Additional Annotations
 
 ### @SoftDelete
 
-Active la suppression logique (soft delete) pour une entité.
+Enables logical (soft) deletion for an entity.
 
-**Status**: 🚧 Phase 2 - Non implémenté
-**Cible**: Type (Class)
+**Status**: ✅ Implemented
+**Target**: Type (Class)
 **Retention**: Runtime
 
 #### Paramètres
@@ -606,19 +604,19 @@ public class Product {
 
 Active le tracking automatique des modifications (audit trail).
 
-**Status**: 🚧 Phase 2 - Non implémenté
-**Cible**: Type (Class)
+**Status**: ⚠️ Partial — annotation and metadata extraction are complete; automatic field population is not yet implemented
+**Target**: Type (Class)
 **Retention**: Runtime
 
-#### Paramètres
+#### Parameters
 
-| Paramètre | Type | Défaut | Description |
-|-----------|------|--------|-------------|
-| `versioned` | boolean | `false` | Active l'optimistic locking avec @Version |
-| `createdAtField` | String | `"createdAt"` | Nom du champ timestamp création |
-| `updatedAtField` | String | `"updatedAt"` | Nom du champ timestamp mise à jour |
-| `createdByField` | String | `"createdBy"` | Nom du champ créateur |
-| `updatedByField` | String | `"updatedBy"` | Nom du champ dernier modificateur |
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `versioned` | boolean | `false` | Enable optimistic locking via `@Version` |
+| `createdAtField` | String | `"createdAt"` | Field name for creation timestamp |
+| `updatedAtField` | String | `"updatedAt"` | Field name for last update timestamp |
+| `createdByField` | String | `"createdBy"` | Field name for creator |
+| `updatedByField` | String | `"updatedBy"` | Field name for last modifier |
 
 #### Exemple
 
@@ -713,34 +711,29 @@ Expose création et modification, mais pas la suppression.
 
 #### CUSTOM
 
-Réservé pour Phase 2 - contrôle fin des opérations.
+Reserved for fine-grained per-operation control.
 
 ```java
 @AutoApi(path = "/advanced", expose = Expose.CUSTOM)
 ```
 
-**Status**: 🚧 Phase 2 - Configuration granulaire par opération
+**Status**: Not yet implemented
 
 ---
 
 ## :material-file-tree: Résumé des Annotations
 
-### Annotations Implémentées (Phase 1)
+### Available Annotations
 
-| Annotation | Niveau | Usage | Status |
-|------------|--------|-------|--------|
-| `@AutoApi` | Class | Active génération API complète | ✅ Implémenté |
-| `@Filterable` | Field | Active filtrage dynamique | ✅ Implémenté |
-| `@Hidden` | Field | Exclut du DTO (input + output) | ✅ Implémenté |
-| `@ReadOnly` | Field | Exclut du DTO input uniquement | ✅ Implémenté |
-| `@Security` | Annotation | Configure sécurité endpoints | ✅ Implémenté |
-
-### Annotations Phase 2 (À venir)
-
-| Annotation | Niveau | Usage | Status |
-|------------|--------|-------|--------|
-| `@SoftDelete` | Class | Suppression logique | 🚧 Phase 2 |
-| `@Auditable` | Class | Audit trail automatique | 🚧 Phase 2 |
+| Annotation | Level | Usage | Status |
+|------------|-------|-------|--------|
+| `@AutoApi` | Class | Enable full API generation | ✅ Implemented |
+| `@Filterable` | Field | Enable dynamic filtering | ✅ Implemented |
+| `@Hidden` | Field | Exclude from DTO (input + output) | ✅ Implemented |
+| `@ReadOnly` | Field | Exclude from input DTO only | ✅ Implemented |
+| `@Security` | Annotation | Configure endpoint security | ✅ Implemented |
+| `@SoftDelete` | Class | Logical deletion | ✅ Implemented |
+| `@Auditable` | Class | Automatic audit trail | ⚠️ Partial |
 
 ### Enums
 

@@ -1,8 +1,8 @@
 # Advanced Topics
 
-Maîtrisez les concepts avancés de SpringFlow pour optimiser vos applications.
+Deep-dive topics for optimizing and extending SpringFlow in your applications.
 
-## :material-book-open-variant: Dans cette section
+## :material-book-open-variant: In this section
 
 <div class="grid cards" markdown>
 
@@ -10,76 +10,76 @@ Maîtrisez les concepts avancés de SpringFlow pour optimiser vos applications.
 
     ---
 
-    Comprendre l'architecture interne de SpringFlow
+    Understand SpringFlow's internal architecture
 
 -   :material-cog-outline: **[Custom Components](custom-components.md)**
 
     ---
 
-    Repositories, Services et Controllers personnalisés - Guide complet avec 4 scénarios
+    Custom repositories, services, and controllers — 4 override scenarios
 
 -   :material-api: **[Custom Endpoints](custom-endpoints.md)**
 
     ---
 
-    Exemples rapides pour ajouter des endpoints personnalisés
+    Add your own endpoints alongside generated ones
 
 -   :material-speedometer: **[Performance](performance.md)**
 
     ---
 
-    Optimisation et tuning des performances
+    Performance optimization and production tuning
 
 -   :material-star-check: **[Best Practices](best-practices.md)**
 
     ---
 
-    Patterns et recommandations
+    Patterns and recommendations
 
 </div>
 
-## :material-target: Pour qui ?
+## :material-target: Who is this for?
 
-Cette section est destinée aux développeurs qui souhaitent :
+This section is for developers who want to:
 
-- **Comprendre** comment SpringFlow fonctionne sous le capot
-- **Personnaliser** repositories, services et controllers avec leurs propres implémentations
-- **Étendre** le comportement par défaut avec des endpoints custom
-- **Optimiser** les performances pour la production
-- **Appliquer** les meilleures pratiques
+- **Understand** how SpringFlow works under the hood
+- **Override** repositories, services, and controllers with custom implementations
+- **Extend** the default behavior with custom endpoints
+- **Optimize** performance for production workloads
+- **Apply** recommended patterns
 
-## :material-wrench: Concepts Clés
+## :material-wrench: Key Concepts
 
-### Architecture Runtime
+### Runtime Architecture
 
-SpringFlow génère les composants **au runtime** via :
+SpringFlow generates components **at runtime** via:
 
-- `BeanDefinitionRegistryPostProcessor` pour l'enregistrement des beans
-- Reflection API pour l'introspection des entités
-- Proxy dynamique pour les repositories générés
+- `BeanDefinitionRegistryPostProcessor` for bean registration
+- Reflection API for entity introspection
+- Dynamic proxies for generated repositories
 
-### Extensibilité
+### Extensibility
 
-SpringFlow est conçu pour être étendu avec vos composants personnalisés :
+SpringFlow is designed to be extended with your own components:
 
-- **Détection automatique** - SpringFlow détecte et respecte vos repositories, services et controllers custom
-- **4 scénarios** - Repository seul, Service seul, Controller seul, ou tous les trois custom
-- **Classes de base** - Étendez `GenericCrudService` et `GenericCrudController` pour hériter des fonctionnalités
-- **Hooks de lifecycle** - beforeCreate, afterCreate, beforeUpdate, afterUpdate, beforeDelete, afterDelete
-- **Specifications JPA** - Vos repositories peuvent ajouter des méthodes de requête personnalisées
-- **Intégration** - Compatible avec votre architecture Spring existante
+- **Auto-detection** — SpringFlow detects and respects your custom repositories, services, and controllers
+- **4 override scenarios** — repository only, service only, controller only, or all three
+- **Base classes** — extend `GenericCrudService` and `GenericCrudController` to inherit built-in behavior
+- **Lifecycle hooks** — `beforeCreate`, `afterCreate`, `beforeUpdate`, `afterUpdate`, `beforeDelete`, `afterDelete`
+- **JPA Specifications** — custom repositories can add their own query methods
+- **Non-invasive** — fully compatible with your existing Spring architecture
 
 ### Performance
 
-Points clés pour la performance :
+Key performance characteristics:
 
-- Fetch joins automatiques pour éviter N+1
-- Cache des métadonnées d'entités
-- Pagination efficace avec COUNT optimisé
-- DTOs légers pour les réponses
+- Automatic fetch joins to prevent N+1 queries
+- Entity metadata caching
+- Efficient pagination with optimized COUNT queries
+- Lightweight DTOs for responses
 
 ---
 
-**Prérequis :** Familiarité avec Spring Boot, JPA, et les concepts de base de SpringFlow.
+**Prerequisites:** Familiarity with Spring Boot, JPA, and SpringFlow basics.
 
-Commencez par [Architecture](architecture.md) pour comprendre les fondations.
+Start with [Architecture](architecture.md) to understand the foundations.

@@ -1,8 +1,8 @@
 # API Reference
 
-Documentation technique complète de l'API SpringFlow.
+Complete technical reference for the SpringFlow API.
 
-## :material-book-open-variant: Références
+## :material-book-open-variant: References
 
 <div class="grid cards" markdown>
 
@@ -10,34 +10,34 @@ Documentation technique complète de l'API SpringFlow.
 
     ---
 
-    Toutes les annotations avec paramètres détaillés
+    All annotations with detailed parameters
 
 -   :material-cog: **[Configuration Properties](configuration.md)**
 
     ---
 
-    Propriétés YAML springflow.*
+    `springflow.*` YAML properties
 
 -   :material-api: **[Generated Endpoints](endpoints.md)**
 
     ---
 
-    Endpoints REST générés automatiquement
+    Automatically generated REST endpoints
 
 </div>
 
-## :material-target: Vue d'ensemble
+## :material-target: Overview
 
-### Annotations Principales
+### Core Annotations
 
-| Annotation | Description | Cible |
-|------------|-------------|-------|
-| `@AutoApi` | Active la génération d'API | Entité |
-| `@Filterable` | Active le filtrage dynamique | Champ |
-| `@Hidden` | Exclut du DTO | Champ |
-| `@ReadOnly` | Lecture seule | Champ |
-| `@SoftDelete` | Suppression logique | Entité |
-| `@Auditable` | Traçabilité automatique | Entité |
+| Annotation | Description | Target |
+|------------|-------------|--------|
+| `@AutoApi` | Enables API generation | Entity |
+| `@Filterable` | Enables dynamic filtering | Field |
+| `@Hidden` | Excludes field from DTO | Field |
+| `@ReadOnly` | Output only, not accepted in input | Field |
+| `@SoftDelete` | Enables logical deletion | Entity |
+| `@Auditable` | Automatic audit trail | Entity |
 
 ### Configuration Properties
 
@@ -53,24 +53,25 @@ springflow:
     enabled: true
 ```
 
-### Endpoints Générés
+### Generated Endpoints
 
-Pour chaque entité avec `@AutoApi`, SpringFlow génère :
+For each entity annotated with `@AutoApi`, SpringFlow generates:
 
-| Méthode | Endpoint | Description |
-|---------|----------|-------------|
-| `GET` | `/api/{path}` | Liste avec pagination |
-| `GET` | `/api/{path}/{id}` | Détails d'une entité |
-| `POST` | `/api/{path}` | Création |
-| `PUT` | `/api/{path}/{id}` | Mise à jour complète |
-| `DELETE` | `/api/{path}/{id}` | Suppression |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/{path}` | Paginated list |
+| `GET` | `/api/{path}/{id}` | Single entity |
+| `POST` | `/api/{path}` | Create |
+| `PUT` | `/api/{path}/{id}` | Full update |
+| `PATCH` | `/api/{path}/{id}` | Partial update |
+| `DELETE` | `/api/{path}/{id}` | Delete |
 
-## :material-book-open-variant: Documentation Détaillée
+## :material-book-open-variant: Detailed Documentation
 
-- **[Annotations API](annotations.md)** - Paramètres, exemples, cas d'usage
-- **[Configuration Properties](configuration.md)** - Toutes les options de configuration
-- **[Generated Endpoints](endpoints.md)** - Format des requêtes et réponses
+- **[Annotations API](annotations.md)** — parameters, examples, use cases
+- **[Configuration Properties](configuration.md)** — all configuration options
+- **[Generated Endpoints](endpoints.md)** — request and response formats
 
 ---
 
-Pour des exemples pratiques, consultez le [User Guide](../guide/index.md).
+For practical examples, see the [User Guide](../guide/index.md).

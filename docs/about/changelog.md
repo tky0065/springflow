@@ -52,9 +52,9 @@ This release addresses critical test failures and missing bean configuration iss
 
 ## [0.3.1] - 2025-12-27
 
-### 🎯 Phase 2 Enhancements - Advanced Features
+### Enhancements — Advanced Features
 
-This release brings significant enhancements to Phase 2 features with improved validation, PATCH endpoint security, and advanced DTO mapping capabilities.
+This release brings significant enhancements including improved validation, PATCH endpoint security, and advanced DTO mapping capabilities.
 
 ### Added
 
@@ -237,7 +237,7 @@ DtoMappingConfig config = DtoMappingConfig.DEEP;
 
 ## [0.3.0] - 2025-12-26
 
-### 🎉 Phase 3 - Extended Ecosystem (GraphQL Support)
+### GraphQL Support
 
 Implementation of GraphQL API generation alongside REST APIs, providing a modern alternative for data fetching with automatic query/mutation generation.
 
@@ -326,7 +326,7 @@ To enable GraphQL (optional):
 
 ## [0.2.0] - 2025-12-26
 
-### 🎉 Phase 2 - Advanced Features
+### Advanced Features
 
 Complete implementation of advanced features including dynamic filtering, security integration, soft delete, and audit trail.
 
@@ -427,8 +427,8 @@ Complete implementation of advanced features including dynamic filtering, securi
 
 - DTO mapper for entities with complex nested relations needs refinement
 - JWT support not yet implemented (basic Spring Security only)
-- GraphQL support planned for Phase 3
-- Admin UI planned for Phase 3
+- GraphQL support (added in v0.3.0)
+- Admin UI not yet implemented
 
 ### Breaking Changes
 
@@ -436,9 +436,9 @@ None - Fully backward compatible with v0.1.x
 
 ### Migration from 0.1.x to 0.2.0
 
-No changes required! Simply update your dependency version. All Phase 1 features remain unchanged.
+No changes required! Simply update your dependency version. All existing features remain unchanged.
 
-To use new Phase 2 features:
+To use the new advanced features:
 1. Add `@Filterable` to enable dynamic filtering on fields
 2. Add `@SoftDelete` to enable soft delete
 3. Add `@Auditable` to enable audit trail
@@ -469,9 +469,9 @@ To use new Phase 2 features:
 
 ## [0.1.0] - 2025-12-22
 
-### 🎉 Phase 1 MVP - Initial Release
+### Initial Release
 
-First public release of SpringFlow - a Spring Boot library that automatically generates complete REST APIs from JPA entities with a single annotation.
+First public release of SpringFlow — a Spring Boot library that automatically generates complete REST APIs from JPA entities with a single annotation.
 
 ### Added
 
@@ -479,9 +479,9 @@ First public release of SpringFlow - a Spring Boot library that automatically ge
 - **@AutoApi annotation** - Main annotation to activate automatic API generation for JPA entities
 - **@Hidden annotation** - Exclude sensitive fields from DTOs (both input and output)
 - **@ReadOnly annotation** - Mark fields as read-only (visible in GET, ignored in POST/PUT)
-- **@Filterable annotation** - Prepare fields for dynamic filtering (implementation in Phase 2)
-- **@SoftDelete annotation** - Mark entities for soft delete support (implementation in Phase 2)
-- **@Auditable annotation** - Mark entities for audit trail (implementation in Phase 2)
+- **@Filterable annotation** - Prepare fields for dynamic filtering
+- **@SoftDelete annotation** - Mark entities for soft delete support
+- **@Auditable annotation** - Mark entities for audit trail
 
 #### Module 1: Project Setup & Architecture
 - Multi-module Maven project structure (annotations, core, starter, demo)
@@ -649,14 +649,14 @@ First public release of SpringFlow - a Spring Boot library that automatically ge
 - Validation prevents SQL injection via prepared statements
 - Secure defaults (authentication disabled by default, users must opt-in)
 
-### Known Limitations (Phase 1 MVP)
+### Known Limitations (v0.1.0)
 
-- Dynamic filtering not yet implemented (annotation exists, implementation in Phase 2)
-- Soft delete not yet implemented (annotation exists, implementation in Phase 2)
-- Audit trail not yet implemented (annotation exists, implementation in Phase 2)
-- Security integration basic (advanced features in Phase 2)
-- DTO generation uses Map-based approach (typed DTOs in Phase 2)
-- No GraphQL support yet (Phase 3)
+- Dynamic filtering not yet implemented (added in v0.2.0)
+- Soft delete not yet implemented (added in v0.2.0)
+- Audit trail not yet implemented (field population still pending)
+- Security integration basic
+- DTO generation uses Map-based approach
+- No GraphQL support (added in v0.3.0)
 
 ### Documentation
 
@@ -680,9 +680,12 @@ This is the first release, no migration needed.
 
 ## Version History
 
-- **0.1.0-SNAPSHOT** (2025-12-21) - Phase 1 MVP - Initial Release
-- **0.2.0** (Planned) - Phase 2 - Advanced Features
-- **1.0.0** (Planned) - Phase 3 - Production Ready
+- **0.1.0** (2025-12-22) - Initial release
+- **0.2.0** (2025-12-26) - Advanced features: filtering, security, soft delete
+- **0.3.0** (2025-12-26) - GraphQL support
+- **0.3.1** (2025-12-27) - PATCH security, validation groups, DTO mapping
+- **0.3.2** (2025-12-27) - Critical bugfixes
+- **0.5.1** - Current release
 
 ---
 

@@ -1,8 +1,8 @@
 # About SpringFlow
 
-Informations sur le projet SpringFlow.
+About the SpringFlow project.
 
-## :material-book-open-variant: Dans cette section
+## :material-book-open-variant: In this section
 
 <div class="grid cards" markdown>
 
@@ -10,27 +10,27 @@ Informations sur le projet SpringFlow.
 
     ---
 
-    Vision et feuille de route du projet
+    Project vision and upcoming features
 
 -   :material-file-document-edit: **[Changelog](changelog.md)**
 
     ---
 
-    Historique des versions et changements
+    Version history and release notes
 
 -   :material-scale-balance: **[License](license.md)**
 
     ---
 
-    Licence Apache 2.0
+    Apache License 2.0
 
 </div>
 
 ## :material-target: Vision
 
-SpringFlow vise à **réduire 70-90% du code boilerplate** dans les applications Spring Boot en générant automatiquement l'infrastructure REST à partir des entités JPA.
+SpringFlow aims to **eliminate 70–90% of boilerplate** in Spring Boot applications by automatically generating a complete REST infrastructure from JPA entities.
 
-## :material-star: Philosophie
+## :material-star: Philosophy
 
 ### Zero Configuration
 
@@ -40,7 +40,7 @@ SpringFlow vise à **réduire 70-90% du code boilerplate** dans les applications
 public class Product { ... }
 ```
 
-Une seule annotation suffit pour générer une API complète.
+A single annotation is all you need to generate a fully functional API.
 
 ### Production Ready
 
@@ -52,62 +52,64 @@ Une seule annotation suffit pour générer une API complète.
 
 ### Extensible & Flexible
 
-- Override du comportement généré
-- Endpoints custom
-- Intégration avec code existant
+- Override any generated component
+- Add custom endpoints
+- Integrate with existing code
 
-## :material-chart-bar: Statistiques
+## :material-chart-bar: Stats
 
-- **Version actuelle**: 0.5.1
-- **Tests**: 136+ tests unitaires et d'intégration
+- **Current version**: 0.5.1
+- **Tests**: 136+ unit and integration tests
 - **Coverage**: >80%
 - **Java**: 17+
 - **Spring Boot**: 3.2.1+
 
-## :material-map: Feuille de Route
+## :material-map: What's Available
 
-### :material-check-circle:{ .success } Phase 1 - MVP (Complete)
-- CRUD endpoints automatiques
+### :material-check-circle:{ .success } Core features (stable)
+- Automatic CRUD endpoints
 - Pagination & sorting
 - DTO mapping
-- Validation JSR-380
+- JSR-380 validation
 - OpenAPI/Swagger
 
-### :material-check-circle:{ .success } Phase 2 - Advanced (Complete)
+### :material-check-circle:{ .success } Advanced features (stable)
 - Dynamic filtering
 - Security integration
 - Soft delete
-- Audit trail
 - Advanced DTO mapping
 
-### :material-construction:{ .warning } Phase 3 - Extended (En cours)
+### :material-check-circle:{ .success } Extended features (stable)
 - GraphQL support
+
+### :material-progress-clock: Coming soon
+- Audit trail field population
 - Admin UI
 - CLI tools
 - Multi-database support
 - Monitoring & metrics
 
-Voir la [roadmap complète](roadmap.md) pour plus de détails.
+See the [full roadmap](roadmap.md) for details.
 
 ## :material-file-document: License
 
-SpringFlow est publié sous [Apache License 2.0](license.md).
+SpringFlow is released under the [Apache License 2.0](license.md).
 
-## :material-handshake: Communauté
+## :material-handshake: Community
 
 - **GitHub**: [tky0065/springflow](https://github.com/tky0065/springflow)
-- **Issues**: [Signaler un bug](https://github.com/tky0065/springflow/issues)
+- **Issues**: [Report a bug](https://github.com/tky0065/springflow/issues)
 - **Discussions**: [Forum](https://github.com/tky0065/springflow/discussions)
 - **Maven Central**: [Artifacts](https://central.sonatype.com/artifact/io.github.tky0065/springflow-starter)
 
 ## :material-chat: Contact
 
-Des questions ? Suggestions ?
+Questions? Suggestions?
 
-- Ouvrez une [issue](https://github.com/tky0065/springflow/issues)
-- Démarrez une [discussion](https://github.com/tky0065/springflow/discussions)
-- Consultez la [documentation](../index.md)
+- Open an [issue](https://github.com/tky0065/springflow/issues)
+- Start a [discussion](https://github.com/tky0065/springflow/discussions)
+- Browse the [documentation](../index.md)
 
 ---
 
-Merci d'utiliser SpringFlow ! :material-heart:
+Thank you for using SpringFlow!

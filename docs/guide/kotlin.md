@@ -105,13 +105,13 @@ java -version
 
 ## Limitations
 
-### Phase 1 MVP
+### Current Limitations
 - Kotlin support tested with Java 17
 - Some Java 21 users may need to use Java 17 for Kotlin compilation
-- Extension functions and DSL features deferred to Phase 2
-- Coroutines support deferred to Phase 2
+- Extension functions and DSL features are not yet available
+- Coroutines support is not yet available
 
-### Future Enhancements (Phase 2)
+### Planned Enhancements
 - Kotlin extension functions for repositories/services
 - Suspend function support
 - Coroutines for reactive operations
