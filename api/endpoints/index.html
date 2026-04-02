@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -3454,7 +3454,7 @@
 <a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/api/products/42&quot;</span>
 <a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Note</strong>: En Phase 2, avec <code>@SoftDelete</code>, la suppression sera logique (soft delete) au lieu de physique.</p>
+<p><strong>Note</strong>: With <code>@SoftDelete</code>, deletion is logical (soft delete) rather than physical.</p>
 <hr />
 <h2 id="filtrage-dynamique"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.99.99 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12z"/></svg></span> Filtrage Dynamique<a class="headerlink" href="#filtrage-dynamique" title="Permanent link">&para;</a></h2>
 <p>Si des champs sont annotés avec <code>@Filterable</code>, des paramètres de requête supplémentaires sont disponibles sur l'endpoint GET liste.</p>
@@ -3602,7 +3602,7 @@
 - ✅ <code>PUT /api/customers/{id}</code> - Mise à jour complète
 - ✅ <code>PATCH /api/customers/{id}</code> - Mise à jour partielle
 - ❌ DELETE</p>
-<p><strong>Use Case</strong>: Combiné avec <code>@SoftDelete</code> (Phase 2) pour soft delete uniquement.</p>
+<p><strong>Use Case</strong>: Combined with <code>@SoftDelete</code> for logical deletion only.</p>
 <h3 id="exposecustom">Expose.CUSTOM<a class="headerlink" href="#exposecustom" title="Permanent link">&para;</a></h3>
 <p>Aucun endpoint généré (implémentation custom complète):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/admin/settings&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">CUSTOM</span><span class="p">)</span>
@@ -4028,7 +4028,7 @@
 <h3 id="comment-personnaliser-le-format-des-reponses">Comment personnaliser le format des réponses?<a class="headerlink" href="#comment-personnaliser-le-format-des-reponses" title="Permanent link">&para;</a></h3>
 <p>Par défaut, SpringFlow retourne le format <code>Page&lt;T&gt;</code> de Spring Data. Pour personnaliser, implémentez votre propre controller en étendant <code>GenericCrudController</code>.</p>
 <h3 id="les-endpoints-supportent-ils-hateoas">Les endpoints supportent-ils HATEOAS?<a class="headerlink" href="#les-endpoints-supportent-ils-hateoas" title="Permanent link">&para;</a></h3>
-<p>Phase 1: Non. Phase 3: Support prévu via Spring HATEOAS.</p>
+<p>Not currently supported. HATEOAS support via Spring HATEOAS is planned for a future release.</p>
 <h3 id="comment-gerer-les-relations-dans-les-dtos">Comment gérer les relations dans les DTOs?<a class="headerlink" href="#comment-gerer-les-relations-dans-les-dtos" title="Permanent link">&para;</a></h3>
 <p>Les relations <code>@ManyToOne</code> sont incluses par défaut (ID de l'entité liée). Pour inclure l'objet complet, utilisez des projections custom ou étendez le controller.</p>
 <h3 id="peut-on-avoir-des-endpoints-custom-en-plus-des-crud">Peut-on avoir des endpoints custom en plus des CRUD?<a class="headerlink" href="#peut-on-avoir-des-endpoints-custom-en-plus-des-crud" title="Permanent link">&para;</a></h3>
@@ -4066,7 +4066,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 27, 2025 13:29:15 UTC">December 27, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2026 15:29:57 UTC">April 2, 2026</span>
   </span>
 
     

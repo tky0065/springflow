@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -2134,15 +2134,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#annotations-phase-2" class="md-nav__link">
+  <a href="#additional-annotations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Annotations Phase 2
+        Additional Annotations
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Annotations Phase 2">
+    <nav class="md-nav" aria-label="Additional Annotations">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2197,10 +2197,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#parametres_4" class="md-nav__link">
+  <a href="#parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Paramètres
+        Parameters
       
     </span>
   </a>
@@ -2319,21 +2319,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#annotations-implementees-phase-1" class="md-nav__link">
+  <a href="#available-annotations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Annotations Implémentées (Phase 1)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#annotations-phase-2-a-venir" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Annotations Phase 2 (À venir)
+        Available Annotations
       
     </span>
   </a>
@@ -3019,6 +3008,12 @@
 <td>Active le tri</td>
 </tr>
 <tr>
+<td><code>supportSpecification</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Active le support JPA Specification (Repository &amp; Endpoint <code>/search</code>)</td>
+</tr>
+<tr>
 <td><code>description</code></td>
 <td>String</td>
 <td><code>""</code></td>
@@ -3633,12 +3628,11 @@
 </tbody>
 </table>
 <hr />
-<h2 id="annotations-phase-2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"/></svg></span> Annotations Phase 2<a class="headerlink" href="#annotations-phase-2" title="Permanent link">&para;</a></h2>
-<p>Ces annotations sont définies mais <strong>pas encore implémentées</strong> (Phase 2 du roadmap).</p>
+<h2 id="additional-annotations"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"/></svg></span> Additional Annotations<a class="headerlink" href="#additional-annotations" title="Permanent link">&para;</a></h2>
 <h3 id="softdelete">@SoftDelete<a class="headerlink" href="#softdelete" title="Permanent link">&para;</a></h3>
-<p>Active la suppression logique (soft delete) pour une entité.</p>
-<p><strong>Status</strong>: 🚧 Phase 2 - Non implémenté
-<strong>Cible</strong>: Type (Class)
+<p>Enables logical (soft) deletion for an entity.</p>
+<p><strong>Status</strong>: ✅ Implemented
+<strong>Target</strong>: Type (Class)
 <strong>Retention</strong>: Runtime</p>
 <h4 id="parametres_3">Paramètres<a class="headerlink" href="#parametres_3" title="Permanent link">&para;</a></h4>
 <table>
@@ -3687,16 +3681,16 @@
 <hr />
 <h3 id="auditable">@Auditable<a class="headerlink" href="#auditable" title="Permanent link">&para;</a></h3>
 <p>Active le tracking automatique des modifications (audit trail).</p>
-<p><strong>Status</strong>: 🚧 Phase 2 - Non implémenté
-<strong>Cible</strong>: Type (Class)
+<p><strong>Status</strong>: ⚠️ Partial — annotation and metadata extraction are complete; automatic field population is not yet implemented
+<strong>Target</strong>: Type (Class)
 <strong>Retention</strong>: Runtime</p>
-<h4 id="parametres_4">Paramètres<a class="headerlink" href="#parametres_4" title="Permanent link">&para;</a></h4>
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
-<th>Paramètre</th>
+<th>Parameter</th>
 <th>Type</th>
-<th>Défaut</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -3705,31 +3699,31 @@
 <td><code>versioned</code></td>
 <td>boolean</td>
 <td><code>false</code></td>
-<td>Active l'optimistic locking avec @Version</td>
+<td>Enable optimistic locking via <code>@Version</code></td>
 </tr>
 <tr>
 <td><code>createdAtField</code></td>
 <td>String</td>
 <td><code>"createdAt"</code></td>
-<td>Nom du champ timestamp création</td>
+<td>Field name for creation timestamp</td>
 </tr>
 <tr>
 <td><code>updatedAtField</code></td>
 <td>String</td>
 <td><code>"updatedAt"</code></td>
-<td>Nom du champ timestamp mise à jour</td>
+<td>Field name for last update timestamp</td>
 </tr>
 <tr>
 <td><code>createdByField</code></td>
 <td>String</td>
 <td><code>"createdBy"</code></td>
-<td>Nom du champ créateur</td>
+<td>Field name for creator</td>
 </tr>
 <tr>
 <td><code>updatedByField</code></td>
 <td>String</td>
 <td><code>"updatedBy"</code></td>
-<td>Nom du champ dernier modificateur</td>
+<td>Field name for last modifier</td>
 </tr>
 </tbody>
 </table>
@@ -3800,18 +3794,18 @@
 - Combiné avec <code>@SoftDelete</code> pour suppression logique
 - Données réglementaires (conservation obligatoire)</p>
 <h4 id="custom">CUSTOM<a class="headerlink" href="#custom" title="Permanent link">&para;</a></h4>
-<p>Réservé pour Phase 2 - contrôle fin des opérations.</p>
+<p>Reserved for fine-grained per-operation control.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nd">@AutoApi</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/advanced&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">expose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Expose</span><span class="p">.</span><span class="na">CUSTOM</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>Status</strong>: 🚧 Phase 2 - Configuration granulaire par opération</p>
+<p><strong>Status</strong>: Not yet implemented</p>
 <hr />
 <h2 id="resume-des-annotations"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h6v4H3zm12 7h6v4h-6zm0 7h6v4h-6zm-2-4H7v5h6v2H5V9h2v2h6z"/></svg></span> Résumé des Annotations<a class="headerlink" href="#resume-des-annotations" title="Permanent link">&para;</a></h2>
-<h3 id="annotations-implementees-phase-1">Annotations Implémentées (Phase 1)<a class="headerlink" href="#annotations-implementees-phase-1" title="Permanent link">&para;</a></h3>
+<h3 id="available-annotations">Available Annotations<a class="headerlink" href="#available-annotations" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Annotation</th>
-<th>Niveau</th>
+<th>Level</th>
 <th>Usage</th>
 <th>Status</th>
 </tr>
@@ -3820,57 +3814,44 @@
 <tr>
 <td><code>@AutoApi</code></td>
 <td>Class</td>
-<td>Active génération API complète</td>
-<td>✅ Implémenté</td>
+<td>Enable full API generation</td>
+<td>✅ Implemented</td>
 </tr>
 <tr>
 <td><code>@Filterable</code></td>
 <td>Field</td>
-<td>Active filtrage dynamique</td>
-<td>✅ Implémenté</td>
+<td>Enable dynamic filtering</td>
+<td>✅ Implemented</td>
 </tr>
 <tr>
 <td><code>@Hidden</code></td>
 <td>Field</td>
-<td>Exclut du DTO (input + output)</td>
-<td>✅ Implémenté</td>
+<td>Exclude from DTO (input + output)</td>
+<td>✅ Implemented</td>
 </tr>
 <tr>
 <td><code>@ReadOnly</code></td>
 <td>Field</td>
-<td>Exclut du DTO input uniquement</td>
-<td>✅ Implémenté</td>
+<td>Exclude from input DTO only</td>
+<td>✅ Implemented</td>
 </tr>
 <tr>
 <td><code>@Security</code></td>
 <td>Annotation</td>
-<td>Configure sécurité endpoints</td>
-<td>✅ Implémenté</td>
+<td>Configure endpoint security</td>
+<td>✅ Implemented</td>
 </tr>
-</tbody>
-</table>
-<h3 id="annotations-phase-2-a-venir">Annotations Phase 2 (À venir)<a class="headerlink" href="#annotations-phase-2-a-venir" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Annotation</th>
-<th>Niveau</th>
-<th>Usage</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td><code>@SoftDelete</code></td>
 <td>Class</td>
-<td>Suppression logique</td>
-<td>🚧 Phase 2</td>
+<td>Logical deletion</td>
+<td>✅ Implemented</td>
 </tr>
 <tr>
 <td><code>@Auditable</code></td>
 <td>Class</td>
-<td>Audit trail automatique</td>
-<td>🚧 Phase 2</td>
+<td>Automatic audit trail</td>
+<td>⚠️ Partial</td>
 </tr>
 </tbody>
 </table>
@@ -4078,7 +4059,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 26, 2025 15:51:15 UTC">December 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2026 15:29:57 UTC">April 2, 2026</span>
   </span>
 
     
